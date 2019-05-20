@@ -1,0 +1,921 @@
+// "Texvc input(chars).tdl"
+
+// Copyright (c) 2007-2011 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Texvc input (chars).tdl 34    9/12/12 6:05a Eduardot $
+
+// bold greek first (to override normal greek below)
+	symbol?(type=="Alpha" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x0391;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Alpha
+	symbol?(type=="Beta" && find_attribute(this,"style","")=="vector")       => char{mtcode=0x0392;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Beta
+	symbol?(type=="Gamma" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x0393;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Gamma
+	symbol?(type=="Delta" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x0394;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Delta
+	symbol?(type=="Epsilon" && find_attribute(this,"style","")=="vector")    => char{mtcode=0x0395;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Epsilon
+	symbol?(type=="Zeta" && find_attribute(this,"style","")=="vector")       => char{mtcode=0x0396;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Zeta
+	symbol?(type=="Eta" && find_attribute(this,"style","")=="vector")        => char{mtcode=0x0397;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Eta
+	symbol?(type=="Theta" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x0398;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Theta
+	symbol?(type=="Iota" && find_attribute(this,"style","")=="vector")       => char{mtcode=0x0399;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Iota
+	symbol?(type=="Kappa" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x039A;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Kappa
+	symbol?(type=="Lambda" && find_attribute(this,"style","")=="vector")     => char{mtcode=0x039B;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Lambda
+	symbol?(type=="Mu" && find_attribute(this,"style","")=="vector")         => char{mtcode=0x039C;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Mu
+	symbol?(type=="Nu" && find_attribute(this,"style","")=="vector")         => char{mtcode=0x039D;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Nu
+	symbol?(type=="Xi" && find_attribute(this,"style","")=="vector")         => char{mtcode=0x039E;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Xi
+	symbol?(type=="Pi" && find_attribute(this,"style","")=="vector")         => char{mtcode=0x03A0;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Pi
+	symbol?(type=="Rho" && find_attribute(this,"style","")=="vector")        => char{mtcode=0x03A1;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Rho
+	symbol?(type=="Sigma" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x03A3;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Sigma
+	symbol?(type=="Tau" && find_attribute(this,"style","")=="vector")        => char{mtcode=0x03A4;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Tau
+	symbol?(type=="Upsilon" && find_attribute(this,"style","")=="vector")    => char{mtcode=0x03A5;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Upsilon
+	symbol?(type=="Phi" && find_attribute(this,"style","")=="vector")        => char{mtcode=0x03A6;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Phi
+	symbol?(type=="Chi" && find_attribute(this,"style","")=="vector")        => char{mtcode=0x03A7;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Chi
+	symbol?(type=="Psi" && find_attribute(this,"style","")=="vector")        => char{mtcode=0x03A8;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Psi
+	symbol?(type=="Omega" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x03A9;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Omega
+	symbol?(type=="alpha" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x03B1;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter alpha
+	symbol?(type=="beta" && find_attribute(this,"style","")=="vector")       => char{mtcode=0x03B2;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter beta
+	symbol?((type=="gamma" || type=="EulerConstant") && find_attribute(this,"style","")=="vector")      => char{mtcode=0x03B3;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter gamma
+	symbol?(type=="delta" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x03B4;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter delta
+	symbol?(type=="varepsilon" && find_attribute(this,"style","")=="vector") => char{mtcode=0x03B5;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter epsilon (curvy)
+	symbol?(type=="zeta" && find_attribute(this,"style","")=="vector")       => char{mtcode=0x03B6;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter zeta
+	symbol?(type=="eta" && find_attribute(this,"style","")=="vector")        => char{mtcode=0x03B7;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter eta
+	symbol?(type=="theta" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x03B8;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter theta
+	symbol?(type=="iota" && find_attribute(this,"style","")=="vector")       => char{mtcode=0x03B9;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter iota
+	symbol?(type=="kappa" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x03BA;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter kappa
+	symbol?(type=="lambda" && find_attribute(this,"style","")=="vector")     => char{mtcode=0x03BB;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter lamda
+	symbol?(type=="mu" && find_attribute(this,"style","")=="vector")         => char{mtcode=0x03BC;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter mu
+	symbol?(type=="nu" && find_attribute(this,"style","")=="vector")         => char{mtcode=0x03BD;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter nu
+	symbol?(type=="xi" && find_attribute(this,"style","")=="vector")         => char{mtcode=0x03BE;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter xi
+	symbol?(type=="pi" && find_attribute(this,"style","")=="vector")         => char{mtcode=0x03C0;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter pi
+	symbol?(type=="rho" && find_attribute(this,"style","")=="vector")        => char{mtcode=0x03C1;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter rho
+	symbol?(type=="varsigma" && find_attribute(this,"style","")=="vector")   => char{mtcode=0x03C2;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter final sigma
+	symbol?(type=="sigma" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x03C3;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter sigma
+	symbol?(type=="tau" && find_attribute(this,"style","")=="vector")        => char{mtcode=0x03C4;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter tau
+	symbol?(type=="upsilon" && find_attribute(this,"style","")=="vector")    => char{mtcode=0x03C5;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter upsilon
+	symbol?(type=="phi" && find_attribute(this,"style","")=="vector")        => char{mtcode=0x03D5;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter phi
+	symbol?(type=="chi" && find_attribute(this,"style","")=="vector")        => char{mtcode=0x03C7;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter chi
+	symbol?(type=="psi" && find_attribute(this,"style","")=="vector")        => char{mtcode=0x03C8;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter psi
+	symbol?(type=="omega" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x03C9;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter omega
+	symbol?(type=="vartheta" && find_attribute(this,"style","")=="vector")   => char{mtcode=0x03D1;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek theta symbol
+	symbol?(type=="thetasym" && find_attribute(this,"style","")=="vector")   => char{mtcode=0x03D1;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek theta symbol
+	symbol?(type=="Upsilon" && find_attribute(this,"style","")=="vector")    => char{mtcode=0x03D2;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek upsilon with hook symbol
+	symbol?(type=="varphi" && find_attribute(this,"style","")=="vector")     => char{mtcode=0x03C6;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek phi symbol
+	symbol?(type=="varpi" && find_attribute(this,"style","")=="vector")      => char{mtcode=0x03D6;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek pi symbol
+	symbol?(type=="varsigma" && find_attribute(this,"style","")=="vector")   => char{mtcode=0x03DB;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter stigma
+	symbol?(type=="digamma" && find_attribute(this,"style","")=="vector")    => char{mtcode=0x03DC;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek letter Digamma
+	symbol?(type=="varkappa" && find_attribute(this,"style","")=="vector")   => char{mtcode=0x03F0;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek kappa symbol
+	symbol?(type=="varrho" && find_attribute(this,"style","")=="vector")     => char{mtcode=0x03F1;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek rho symbol
+	symbol?(type=="epsilon" && find_attribute(this,"style","")=="vector")    => char{mtcode=0x03F5;style="vector";text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek lunate epsilon symbol
+// greek
+	symbol?(type=="Alpha")              => char{mtcode=0x0391;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Alpha
+	symbol?(type=="Beta")               => char{mtcode=0x0392;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Beta
+	symbol?(type=="Gamma")              => char{mtcode=0x0393;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Gamma
+	symbol?(type=="Delta")              => char{mtcode=0x0394;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Delta
+	symbol?(type=="Epsilon")            => char{mtcode=0x0395;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Epsilon
+	symbol?(type=="Zeta")               => char{mtcode=0x0396;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Zeta
+	symbol?(type=="Eta")                => char{mtcode=0x0397;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Eta
+	symbol?(type=="Theta")              => char{mtcode=0x0398;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Theta
+	symbol?(type=="Iota")               => char{mtcode=0x0399;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Iota
+	symbol?(type=="Kappa")              => char{mtcode=0x039A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Kappa
+	symbol?(type=="Lambda")             => char{mtcode=0x039B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Lambda
+	symbol?(type=="Mu")                 => char{mtcode=0x039C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Mu
+	symbol?(type=="Nu")                 => char{mtcode=0x039D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Nu
+	symbol?(type=="Xi")                 => char{mtcode=0x039E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Xi
+	symbol?(type=="Pi")                 => char{mtcode=0x03A0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Pi
+	symbol?(type=="Rho")                => char{mtcode=0x03A1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Rho
+	symbol?(type=="Sigma")              => char{mtcode=0x03A3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Sigma
+	symbol?(type=="Tau")                => char{mtcode=0x03A4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Tau
+	symbol?(type=="Upsilon")            => char{mtcode=0x03A5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Upsilon
+	symbol?(type=="Phi")                => char{mtcode=0x03A6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Phi
+	symbol?(type=="Chi")                => char{mtcode=0x03A7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Chi
+	symbol?(type=="Psi")                => char{mtcode=0x03A8;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Psi
+	symbol?(type=="Omega")              => char{mtcode=0x03A9;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek capital letter Omega
+	symbol?(type=="alpha")              => char{mtcode=0x03B1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter alpha
+	symbol?(type=="beta")               => char{mtcode=0x03B2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter beta
+	symbol?(type=="gamma" || type=="EulerConstant") => char{mtcode=0x03B3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter gamma
+	symbol?(type=="delta")              => char{mtcode=0x03B4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter delta
+	symbol?(type=="varepsilon")         => char{mtcode=0x03B5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter epsilon (curvy)
+	symbol?(type=="zeta")               => char{mtcode=0x03B6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter zeta
+	symbol?(type=="eta")                => char{mtcode=0x03B7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter eta
+	symbol?(type=="theta")              => char{mtcode=0x03B8;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter theta
+	symbol?(type=="iota")               => char{mtcode=0x03B9;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter iota
+	symbol?(type=="kappa")              => char{mtcode=0x03BA;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter kappa
+	symbol?(type=="lambda")             => char{mtcode=0x03BB;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter lamda
+	symbol?(type=="mu")                 => char{mtcode=0x03BC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter mu
+	symbol?(type=="nu")                 => char{mtcode=0x03BD;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter nu
+	symbol?(type=="xi")                 => char{mtcode=0x03BE;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter xi
+	symbol?(type=="pi")                 => char{mtcode=0x03C0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter pi
+	symbol?(type=="rho")                => char{mtcode=0x03C1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter rho
+	symbol?(type=="varsigma")           => char{mtcode=0x03C2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter final sigma
+	symbol?(type=="sigma")              => char{mtcode=0x03C3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter sigma
+	symbol?(type=="tau")                => char{mtcode=0x03C4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter tau
+	symbol?(type=="upsilon")            => char{mtcode=0x03C5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter upsilon
+	symbol?(type=="phi")                => char{mtcode=0x03D5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter phi
+	symbol?(type=="chi")                => char{mtcode=0x03C7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter chi
+	symbol?(type=="psi")                => char{mtcode=0x03C8;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter psi
+	symbol?(type=="omega")              => char{mtcode=0x03C9;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter omega
+	symbol?(type=="vartheta")           => char{mtcode=0x03D1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek theta symbol
+	symbol?(type=="thetasym")           => char{mtcode=0x03D1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek theta symbol
+	symbol?(type=="Upsilon")            => char{mtcode=0x03D2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek upsilon with hook symbol
+	symbol?(type=="varphi")             => char{mtcode=0x03C6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek phi symbol
+	symbol?(type=="varpi")              => char{mtcode=0x03D6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek pi symbol
+	symbol?(type=="varsigma")           => char{mtcode=0x03DB;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek small letter stigma
+	symbol?(type=="digamma")            => char{mtcode=0x03DC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek letter Digamma
+	symbol?(type=="varkappa")           => char{mtcode=0x03F0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek kappa symbol
+	symbol?(type=="varrho")             => char{mtcode=0x03F1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek rho symbol
+	symbol?(type=="epsilon")            => char{mtcode=0x03F5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greek lunate epsilon symbol
+// punctuation
+	symbol?(type=="!")                  => char{mtcode=0x0021;text_color=find_attribute(match,"color","LaTeX: Black");};    // Exclamation mark
+	symbol?(type=="\\#")                => char{mtcode=0x0023;text_color=find_attribute(match,"color","LaTeX: Black");};    // Number sign
+	symbol?(type=="$")                  => char{mtcode=0x0024;text_color=find_attribute(match,"color","LaTeX: Black");};    // Dollar sign
+	symbol?(type=="\\$")                => char{mtcode=0x0024;text_color=find_attribute(match,"color","LaTeX: Black");};    // Dollar sign
+	symbol?(type=="%")                  => char{mtcode=0x0025;text_color=find_attribute(match,"color","LaTeX: Black");};    // Percent sign
+	symbol?(type=="\\%")                => char{mtcode=0x0025;text_color=find_attribute(match,"color","LaTeX: Black");};    // Percent sign
+	symbol?(type=="&")                  => char{mtcode=0x0026;text_color=find_attribute(match,"color","LaTeX: Black");};    // Ampersand
+	symbol?(type==".")                  => char{mtcode=0x002E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Full stop (period)
+	symbol?(type==",")                  => char{mtcode=0x002C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Comma
+	symbol?(type=="colon")              => char{mtcode=0x003A;text_color=find_attribute(match,"color","LaTeX: Black");};    // colon
+	symbol?(type==":")                  => char{mtcode=0x003A;text_color=find_attribute(match,"color","LaTeX: Black");};    // colon
+	symbol?(type==";")                  => char{mtcode=0x003B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Semicolon
+	symbol?(type=="<")                  => char{mtcode=0x003C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than sign
+	symbol?(type==">")                  => char{mtcode=0x003E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than sign
+	symbol?(type=="?")                  => char{mtcode=0x003F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Question mark
+	symbol?(type=="@")                  => char{mtcode=0x0040;text_color=find_attribute(match,"color","LaTeX: Black");};    // Commercial at
+	symbol?(type=="\\_")                => char{mtcode=0x005F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Low line
+	symbol?(type=="~")                  => char{mtcode=0x00A0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Non-breaking space
+	symbol?(type=="S")                  => char{mtcode=0x00A7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Section sign
+	symbol?(type=="sect")               => char{mtcode=0x00A7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Section sign
+	symbol?(type=="P")                  => char{mtcode=0x00B6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Paragraph sign (pilcrow)
+	symbol?(type=="cdot")               => char{mtcode=0x22C5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Middle dot
+	symbol?(type=="sdot")               => char{mtcode=0x00B7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Middle dot
+	symbol?(type=="dagger")             => char{mtcode=0x2020;text_color=find_attribute(match,"color","LaTeX: Black");};    // Dagger
+	symbol?(type=="Dagger")             => char{mtcode=0x2021;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double dagger
+	symbol?(type=="ddagger")            => char{mtcode=0x2021;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double dagger
+	symbol?(type=="bull")               => char{mtcode=0x2022;text_color=find_attribute(match,"color","LaTeX: Black");};    // Bullet
+	symbol?(type=="bullet")             => char{mtcode=0x2022;text_color=find_attribute(match,"color","LaTeX: Black");};    // Bullet
+	symbol?(type=="ldots")              => char{mtcode=0x2026;text_color=find_attribute(match,"color","LaTeX: Black");};    // Horizontal ellipsis
+	symbol?(type=="dots")               => char{mtcode=0x2026;text_color=find_attribute(match,"color","LaTeX: Black");};    // Horizontal ellipsis
+	symbol?(type=="prime")              => char{mtcode=0x2032;text_color=find_attribute(match,"color","LaTeX: Black");};    // Prime
+	symbol?(type=="backprime")          => char{mtcode=0x2035;text_color=find_attribute(match,"color","LaTeX: Black");};    // Reversed prime
+	symbol?(type=="vdots")              => char{mtcode=0x22EE;text_color=find_attribute(match,"color","LaTeX: Black");};    // Vertical ellipsis
+	symbol?(type=="dotsb")              => char{mtcode=0x22EF;text_color=find_attribute(match,"color","LaTeX: Black");};    // Math-axis ellipsis
+	symbol?(type=="cdots")              => char{mtcode=0x22EF;text_color=find_attribute(match,"color","LaTeX: Black");};    // Math-axis ellipsis
+	symbol?(type=="ddots")              => char{mtcode=0x22F1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Down right diagonal ellipsis
+	symbol?(type=="frown")              => char{mtcode=0x2322;text_color=find_attribute(match,"color","LaTeX: Black");};    // Frown
+	symbol?(type=="smile")              => char{mtcode=0x2323;text_color=find_attribute(match,"color","LaTeX: Black");};    // Smile
+	symbol?(type=="textvisiblespace")   => char{mtcode=0x2423;text_color=find_attribute(match,"color","LaTeX: Black");};    // Space indicator
+	symbol?(type=="centerdot")          => char{mtcode=0xE98F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Medium dot operator (free radical)
+	symbol?(type=="smallfrown")         => char{mtcode=0x2322;text_color=find_attribute(match,"color","LaTeX: Black");};    // Frown (small)
+	symbol?(type=="smallsmile")         => char{mtcode=0x2323;text_color=find_attribute(match,"color","LaTeX: Black");};    // Smile (small)
+	symbol?(type=="\\," || type=="thinspace")	=> space{width = "0.16em";};   // Thin space (1/6 EM)
+	symbol?(type=="\\:" || type=="medspace")	=> space{width = "0.22em";};   // Medium space (4/18 EM)
+	symbol?(type=="\\;" || type=="thickspace")	=> space{width = "0.33em";};   // Large space (5/18 EM) (should be 0.27 but MT does not have that small step)
+	symbol?(type=="\\ ")                => space{width = "0.33em";};   // Thick space (1/3 EM)
+	symbol?(type=="quad")               => space{width = "1em";};       // EM space
+	symbol?(type=="qquad")              => space{width = "2em";};       // 2-EM space
+	symbol?(type=="\\!" || type=="negthinspace")	=> space{width = "-0.167em";};  // Negative thin space (-1/6 EM)
+	symbol?(type=="negmedspace")			=> space{width = "-0.22em";};  // Negative thin space (-4/18 EM)
+	symbol?(type=="negthickspace")			=> space{width = "-0.33em";};  // Negative thick space (-1/3 EM)
+	// currency symbols
+	symbol?(type=="cent")				=> char{mtcode=0x00A2;text_color=find_attribute(match,"color","LaTeX: Black");};    // cent
+	symbol?(type=="pounds")				=> char{mtcode=0x00A3;text_color=find_attribute(match,"color","LaTeX: Black");};    // pound
+	symbol?(type=="pound")				=> char{mtcode=0x00A3;text_color=find_attribute(match,"color","LaTeX: Black");};    // pound
+	symbol?(type=="currency")			=> char{mtcode=0x00A4;text_color=find_attribute(match,"color","LaTeX: Black");};    // currency
+	symbol?(type=="yen")				=> char{mtcode=0x00A5;text_color=find_attribute(match,"color","LaTeX: Black");};    // yen
+	symbol?(type=="Colon")				=> char{mtcode=0x20A1;text_color=find_attribute(match,"color","LaTeX: Black");};    // colon (Costa Rica)
+	symbol?(type=="cruzeiro")			=> char{mtcode=0x20A2;text_color=find_attribute(match,"color","LaTeX: Black");};    // cruzeiro
+	symbol?(type=="franc")				=> char{mtcode=0x20A3;text_color=find_attribute(match,"color","LaTeX: Black");};    // French franc
+	symbol?(type=="lira")				=> char{mtcode=0x00A3;text_color=find_attribute(match,"color","LaTeX: Black");};    // lira
+	symbol?(type=="mill")				=> char{mtcode=0x20A5;text_color=find_attribute(match,"color","LaTeX: Black");};    // mill (1/10 cent)
+	symbol?(type=="naira")				=> char{mtcode=0x20A6;text_color=find_attribute(match,"color","LaTeX: Black");};    // naira (Nigeria)
+	symbol?(type=="peseta")				=> char{mtcode=0x20A7;text_color=find_attribute(match,"color","LaTeX: Black");};    // peseta
+	symbol?(type=="rupee")				=> char{mtcode=0x20A8;text_color=find_attribute(match,"color","LaTeX: Black");};    // rupee
+	symbol?(type=="won")				=> char{mtcode=0x20A9;text_color=find_attribute(match,"color","LaTeX: Black");};    // Won (Korea)
+	symbol?(type=="newsheqel")			=> char{mtcode=0x20AA;text_color=find_attribute(match,"color","LaTeX: Black");};    // Israel
+	symbol?(type=="dong")				=> char{mtcode=0x20AB;text_color=find_attribute(match,"color","LaTeX: Black");};    // Vietnam
+	symbol?(type=="euro")				=> char{mtcode=0x20AC;text_color=find_attribute(match,"color","LaTeX: Black");};    // euro
+	symbol?(type=="kip")				=> char{mtcode=0x20AD;text_color=find_attribute(match,"color","LaTeX: Black");};    // Kip (Laos)
+	symbol?(type=="tugrik")				=> char{mtcode=0x20AE;text_color=find_attribute(match,"color","LaTeX: Black");};    // tugrik
+	symbol?(type=="drachma")			=> char{mtcode=0x20AF;text_color=find_attribute(match,"color","LaTeX: Black");};    // drachma (Greece)
+	symbol?(type=="germanpenny")		=> char{mtcode=0x20B0;text_color=find_attribute(match,"color","LaTeX: Black");};    // German Penny
+	symbol?(type=="peso")				=> char{mtcode=0x20B1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Phillipine's peso
+	symbol?(type=="guarani")			=> char{mtcode=0x20B2;text_color=find_attribute(match,"color","LaTeX: Black");};    // guarani
+	symbol?(type=="austral")			=> char{mtcode=0x20B3;text_color=find_attribute(match,"color","LaTeX: Black");};    // austral
+	symbol?(type=="hryvnia")			=> char{mtcode=0x20B4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Ukraine
+	symbol?(type=="cedi") 				=> char{mtcode=0x20B5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Ghana
+	// letterlike
+	symbol?(type=="AA")                 => char{mtcode=0x00C5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Latin capital letter A with ring above
+	symbol?(type=="eth")                => char{mtcode=0x00F0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Latin small letter eth
+	symbol?(type=="eth")                => char{mtcode=0x00F0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Latin small letter eth
+	symbol?(type=="imath")              => char{mtcode=0x0131;text_color=find_attribute(match,"color","LaTeX: Black");};    // Latin small letter dotless i
+	symbol?(type=="Complex")            => char{mtcode=0x2102;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital C
+	symbol?(type=="hbar")               => char{mtcode=0x210F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Planck constant over two pi
+	symbol?(type=="hslash")             => char{mtcode=0x210F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Planck constant over two pi
+	symbol?(type=="image")              => char{mtcode=0x2111;text_color=find_attribute(match,"color","LaTeX: Black");};    // Fraktur capital I
+	symbol?(type=="Im")                 => char{mtcode=0x2111;text_color=find_attribute(match,"color","LaTeX: Black");};    // Fraktur capital I
+	symbol?(type=="imagpart")           => char{mtcode=0x2111;text_color=find_attribute(match,"color","LaTeX: Black");};    // Fraktur capital I
+	symbol?(type=="ell")                => char{mtcode=0x2113;text_color=find_attribute(match,"color","LaTeX: Black");};    // Script small l
+	symbol?(type=="NatNumber")          => char{mtcode=0x2115;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital N
+	symbol?(type=="wp")                 => char{mtcode=0x2118;text_color=find_attribute(match,"color","LaTeX: Black");};    // Weierstrass elliptic symbol
+	symbol?(type=="weierp")             => char{mtcode=0x2118;text_color=find_attribute(match,"color","LaTeX: Black");};    // Weierstrass elliptic symbol
+	symbol?(type=="Rational")           => char{mtcode=0x211A;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital Q
+	symbol?(type=="real")               => char{mtcode=0x211C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Fraktur capital R
+	symbol?(type=="Re")                 => char{mtcode=0x211C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Fraktur capital R
+	symbol?(type=="realpart")           => char{mtcode=0x211C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Fraktur capital R
+	symbol?(type=="Real")               => char{mtcode=0x211D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Blackboard-bold capital R
+	symbol?(type=="Integer")            => char{mtcode=0x2124;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital Z
+	symbol?(type=="mho")                => char{mtcode=0x2127;text_color=find_attribute(match,"color","LaTeX: Black");};    // Inverted ohm sign
+	symbol?(type=="Finv")               => char{mtcode=0x2132;text_color=find_attribute(match,"color","LaTeX: Black");};    // Turned capital F
+	symbol?(type=="alef")               => char{mtcode=0x2135;text_color=find_attribute(match,"color","LaTeX: Black");};    // Alef symbol
+	symbol?(type=="alefsym")            => char{mtcode=0x2135;text_color=find_attribute(match,"color","LaTeX: Black");};    // Alef symbol
+	symbol?(type=="aleph")              => char{mtcode=0x2135;text_color=find_attribute(match,"color","LaTeX: Black");};    // Alef symbol
+	symbol?(type=="beth")               => char{mtcode=0x2136;text_color=find_attribute(match,"color","LaTeX: Black");};    // Beth symbol
+	symbol?(type=="gimel")              => char{mtcode=0x2137;text_color=find_attribute(match,"color","LaTeX: Black");};    // Gimel symbol
+	symbol?(type=="daleth")             => char{mtcode=0x2138;text_color=find_attribute(match,"color","LaTeX: Black");};    // Daleth symbol
+	symbol?(type=="infty")              => char{mtcode=0x221E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Infinity
+	symbol?(type=="infin")              => char{mtcode=0x221E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Infinity
+	symbol?(type=="circledS")           => char{mtcode=0x24C8;text_color=find_attribute(match,"color","LaTeX: Black");};    // Circled latin capital letter S
+	symbol?(type=="Game")               => char{mtcode=0xED01;text_color=find_attribute(match,"color","LaTeX: Black");};    // Mirror G
+	symbol?(type=="jmath")              => char{mtcode=0xED02;text_color=find_attribute(match,"color","LaTeX: Black");};    // Latin small letter dotless j
+	symbol?(type=="Bbbk")               => char{mtcode=0xF0A4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Blackboard-bold small k
+// arrows
+	symbol?(type=="gets")               => char{mtcode=0x2190;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards arrow
+	symbol?(type=="larr")               => char{mtcode=0x2190;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards arrow
+	symbol?(type=="leftarrow")          => char{mtcode=0x2190;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards arrow
+	symbol?(type=="rarr")               => char{mtcode=0x2192;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards arrow
+	symbol?(type=="rightarrow")         => char{mtcode=0x2192;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards arrow
+	symbol?(type=="to")                 => char{mtcode=0x2192;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards arrow
+	symbol?(type=="harr")               => char{mtcode=0x2194;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left right arrow
+	symbol?(type=="leftrightarrow")     => char{mtcode=0x2194;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left right arrow
+	symbol?(type=="lrarr")              => char{mtcode=0x2194;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left right arrow
+	symbol?(type=="nwarrow")            => char{mtcode=0x2196;text_color=find_attribute(match,"color","LaTeX: Black");};    // North west arrow
+	symbol?(type=="nearrow")            => char{mtcode=0x2197;text_color=find_attribute(match,"color","LaTeX: Black");};    // North east arrow
+	symbol?(type=="searrow")            => char{mtcode=0x2198;text_color=find_attribute(match,"color","LaTeX: Black");};    // South east arrow
+	symbol?(type=="swarrow")            => char{mtcode=0x2199;text_color=find_attribute(match,"color","LaTeX: Black");};    // South west arrow
+	symbol?(type=="nleftarrow")         => char{mtcode=0x219A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards arrow with stroke
+	symbol?(type=="nrightarrow")        => char{mtcode=0x219B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards arrow with stroke
+	symbol?(type=="leftarrowtail")      => char{mtcode=0x21A2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards arrow with tail
+	symbol?(type=="rightarrowtail")     => char{mtcode=0x21A3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards arrow with tail
+	symbol?(type=="mapsto")             => char{mtcode=0x21A6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards arrow from bar
+	symbol?(type=="hookleftarrow")      => char{mtcode=0x21A9;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards arrow with hook
+	symbol?(type=="hookrightarrow")     => char{mtcode=0x21AA;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards arrow with hook
+	symbol?(type=="looparrowleft")      => char{mtcode=0x21AB;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards arrow with loop
+	symbol?(type=="looparrowright")     => char{mtcode=0x21AC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards arrow with loop
+	symbol?(type=="leftrightsquigarrow")=> char{mtcode=0x21AD;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left right wave arrow
+	symbol?(type=="nleftrightarrow")    => char{mtcode=0x21AE;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left right arrow with stroke
+	symbol?(type=="Lsh")                => char{mtcode=0x21B0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards arrow with tip leftwards
+	symbol?(type=="Rsh")                => char{mtcode=0x21B1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards arrow with tip rightwards
+	symbol?(type=="curvearrowleft")     => char{mtcode=0x21B6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Anticlockwise top semicircle arrow
+	symbol?(type=="curvearrowright")    => char{mtcode=0x21B7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Clockwise top semicircle arrow
+	symbol?(type=="circlearrowleft")    => char{mtcode=0x21BA;text_color=find_attribute(match,"color","LaTeX: Black");};    // Anticlockwise open circle arrow
+	symbol?(type=="circlearrowright")   => char{mtcode=0x21BB;text_color=find_attribute(match,"color","LaTeX: Black");};    // Clockwise open circle arrow
+	symbol?(type=="leftharpoonup")      => char{mtcode=0x21BC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left harpoon (barb up)
+	symbol?(type=="leftharpoondown")    => char{mtcode=0x21BD;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left harpoon (barb down)
+	symbol?(type=="restriction")        => char{mtcode=0x21BE;text_color=find_attribute(match,"color","LaTeX: Black");};    // Up harpoon (barb right)
+	symbol?(type=="upharpoonright")     => char{mtcode=0x21BE;text_color=find_attribute(match,"color","LaTeX: Black");};    // Up harpoon (barb right)
+	symbol?(type=="upharpoonleft")      => char{mtcode=0x21BF;text_color=find_attribute(match,"color","LaTeX: Black");};    // Up harpoon (barb left)
+	symbol?(type=="rightharpoonup")     => char{mtcode=0x21C0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right harpoon (barb up)
+	symbol?(type=="rightharpoondown")   => char{mtcode=0x21C1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right harpoon (barb down)
+	symbol?(type=="downharpoonright")   => char{mtcode=0x21C2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Down harpoon (barb right)
+	symbol?(type=="downharpoonleft")    => char{mtcode=0x21C3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Down harpoon (barb left)
+	symbol?(type=="rightleftarrows")    => char{mtcode=0x21C4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards arrow over leftwards arrow
+	symbol?(type=="leftrightarrows")    => char{mtcode=0x21C6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards arrow over rightwards arrow
+	symbol?(type=="leftleftarrows")     => char{mtcode=0x21C7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards paired arrows
+	symbol?(type=="upuparrows")         => char{mtcode=0x21C8;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards paired arrows
+	symbol?(type=="rightrightarrows")   => char{mtcode=0x21C9;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards paired arrows
+	symbol?(type=="downdownarrows")     => char{mtcode=0x21CA;text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards paired arrows
+	symbol?(type=="leftrightharpoons")  => char{mtcode=0x21CB;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left harpoon over right harpoon
+	symbol?(type=="rightleftharpoons")  => char{mtcode=0x21CC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right harpoon over left harpoon
+	symbol?(type=="nLeftarrow")         => char{mtcode=0x21CD;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards double arrow with stroke
+	symbol?(type=="nLeftrightarrow")    => char{mtcode=0x21CE;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left right double arrow with stroke
+	symbol?(type=="nRightarrow")        => char{mtcode=0x21CF;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards double arrow with stroke
+	symbol?(type=="Larr")               => char{mtcode=0x21D0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards double arrow
+	symbol?(type=="Leftarrow")          => char{mtcode=0x21D0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards double arrow
+	symbol?(type=="lArr")               => char{mtcode=0x21D0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards double arrow
+	symbol?(type=="Rarr")               => char{mtcode=0x21D2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards double arrow
+	symbol?(type=="Rightarrow")         => char{mtcode=0x21D2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards double arrow
+	symbol?(type=="implies")            => char{mtcode=0x21D2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards double arrow
+	symbol?(type=="rArr")               => char{mtcode=0x21D2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards double arrow
+	symbol?(type=="Harr")               => char{mtcode=0x21D4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left right double arrow
+	symbol?(type=="Leftrightarrow")     => char{mtcode=0x21D4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left right double arrow
+	symbol?(type=="Lrarr")              => char{mtcode=0x21D4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left right double arrow
+	symbol?(type=="hAar")               => char{mtcode=0x21D4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left right double arrow
+	symbol?(type=="lrArr")              => char{mtcode=0x21D4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left right double arrow
+	symbol?(type=="Lleftarrow")         => char{mtcode=0x21DA;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards triple arrow
+	symbol?(type=="Rrightarrow")        => char{mtcode=0x21DB;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards triple arrow
+	symbol?(type=="rightsquigarrow")    => char{mtcode=0x21DD;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards squiggle arrow
+	symbol?(type=="multimap")           => char{mtcode=0x22B8;text_color=find_attribute(match,"color","LaTeX: Black");};    // Multimap
+	symbol?(type=="longleftarrow")      => char{mtcode=0x27F5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Long leftwards arrow
+	symbol?(type=="longrightarrow")     => char{mtcode=0x27F6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Long rightwards arrow
+	symbol?(type=="longleftrightarrow") => char{mtcode=0x27F7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Long left right arrow
+	symbol?(type=="Longleftarrow")      => char{mtcode=0x27F8;text_color=find_attribute(match,"color","LaTeX: Black");};    // Long leftwards double arrow
+	symbol?(type=="Longrightarrow")     => char{mtcode=0x27F9;text_color=find_attribute(match,"color","LaTeX: Black");};    // Long rightwards double arrow
+	symbol?(type=="Longleftrightarrow") => char{mtcode=0x27FA;text_color=find_attribute(match,"color","LaTeX: Black");};    // Long left right double arrow
+	symbol?(type=="iff")                => char{mtcode=0x27FA;text_color=find_attribute(match,"color","LaTeX: Black");};    // Long left right double arrow
+	symbol?(type=="longmapsto")         => char{mtcode=0x27FC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Long rightwards arrow from bar
+// equals
+	symbol?(type=="sim")                => char{mtcode=0x007E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Tilde operator
+	symbol?(type=="propto")             => char{mtcode=0x221D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Proportional to
+	symbol?(type=="varpropto")          => char{mtcode=0x221D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Proportional to
+	symbol?(type=="thicksim")           => char{mtcode=0x223C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Tilde operator
+	symbol?(type=="backsim")            => char{mtcode=0x223D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Reverse tilde
+	symbol?(type=="nsim")               => char{mtcode=0x2241;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not tilde
+	symbol?(type=="eqsim")              => char{mtcode=0x2242;text_color=find_attribute(match,"color","LaTeX: Black");};    // Minus tilde
+	symbol?(type=="simeq")              => char{mtcode=0x2243;text_color=find_attribute(match,"color","LaTeX: Black");};    // Asymptotically equal to
+	symbol?(type=="cong")               => char{mtcode=0x2245;text_color=find_attribute(match,"color","LaTeX: Black");};    // Approximately equal to
+	symbol?(type=="ncong")              => char{mtcode=0x2247;text_color=find_attribute(match,"color","LaTeX: Black");};    // Neither approximately nor actually equal to
+	symbol?(type=="approx")             => char{mtcode=0x2248;text_color=find_attribute(match,"color","LaTeX: Black");};    // Almost equal to
+	symbol?(type=="thickapprox")        => char{mtcode=0x2248;text_color=find_attribute(match,"color","LaTeX: Black");};    // Almost equal to
+	symbol?(type=="approxeq")           => char{mtcode=0x224A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Almost equal or equal to
+	symbol?(type=="asymp")              => char{mtcode=0x224D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Equivalent to
+	symbol?(type=="Bumpeq")             => char{mtcode=0x224E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Geometrically equivalent to
+	symbol?(type=="bumpeq")             => char{mtcode=0x224F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Difference between
+	symbol?(type=="doteq")              => char{mtcode=0x2250;text_color=find_attribute(match,"color","LaTeX: Black");};    // Approaches the limit
+	symbol?(type=="Doteq")              => char{mtcode=0x2251;text_color=find_attribute(match,"color","LaTeX: Black");};    // Geometrically equal to
+	symbol?(type=="doteqdot")           => char{mtcode=0x2251;text_color=find_attribute(match,"color","LaTeX: Black");};    // Geometrically equal to
+	symbol?(type=="fallingdotseq")      => char{mtcode=0x2252;text_color=find_attribute(match,"color","LaTeX: Black");};    // Approximately equal to or the image of
+	symbol?(type=="risingdotseq")       => char{mtcode=0x2253;text_color=find_attribute(match,"color","LaTeX: Black");};    // Image of or approximately equal to
+	symbol?(type=="eqcirc")             => char{mtcode=0x2256;text_color=find_attribute(match,"color","LaTeX: Black");};    // Ring in equal to
+	symbol?(type=="circeq")             => char{mtcode=0x2257;text_color=find_attribute(match,"color","LaTeX: Black");};    // Ring equal to
+	symbol?(type=="triangleq")          => char{mtcode=0x225C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Delta equal to
+	symbol?(type=="ne")                 => char{mtcode=0x2260;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not equal to
+	symbol?(type=="neq")                => char{mtcode=0x2260;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not equal to
+	symbol?(type=="equiv")              => char{mtcode=0x2261;text_color=find_attribute(match,"color","LaTeX: Black");};    // Identical to
+	symbol?(type=="backsimeq")          => char{mtcode=0x22CD;text_color=find_attribute(match,"color","LaTeX: Black");};    // Reverse tilde equals
+// order
+	symbol?(type=="le")                 => char{mtcode=0x2264;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than or equal to
+	symbol?(type=="leq")                => char{mtcode=0x2264;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than or equal to
+	symbol?(type=="ge")                 => char{mtcode=0x2265;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than or equal to
+	symbol?(type=="geq")                => char{mtcode=0x2265;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than or equal to
+	symbol?(type=="leqq")               => char{mtcode=0x2266;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than over equal to
+	symbol?(type=="geqq")               => char{mtcode=0x2267;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than over equal to
+	symbol?(type=="ll")                 => char{mtcode=0x226A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Much less-than
+	symbol?(type=="gg")                 => char{mtcode=0x226B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Much greater-than
+	symbol?(type=="lesssim")            => char{mtcode=0x2272;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than or equivalent to
+	symbol?(type=="gtrsim")             => char{mtcode=0x2273;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than or equivalent to
+	symbol?(type=="lessgtr")            => char{mtcode=0x2276;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than or greater-than
+	symbol?(type=="gtrless")            => char{mtcode=0x2277;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than or less-than
+	symbol?(type=="prec")               => char{mtcode=0x227A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Precedes
+	symbol?(type=="succ")               => char{mtcode=0x227B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Succeeds
+	symbol?(type=="preccurlyeq")        => char{mtcode=0x227C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Precedes or equal to
+	symbol?(type=="succcurlyeq")        => char{mtcode=0x227D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Succeeds or equal to
+	symbol?(type=="precsim")            => char{mtcode=0x227E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Precedes or equivalent to
+	symbol?(type=="succsim")            => char{mtcode=0x227F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Succeeds or equivalent to
+	symbol?(type=="lessdot")            => char{mtcode=0x22D6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than with dot
+	symbol?(type=="gtrdot")             => char{mtcode=0x22D7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than with dot
+	symbol?(type=="lll")                => char{mtcode=0x22D8;text_color=find_attribute(match,"color","LaTeX: Black");};    // Very much less-than
+	symbol?(type=="ggg")                => char{mtcode=0x22D9;text_color=find_attribute(match,"color","LaTeX: Black");};    // Very much greater-than
+	symbol?(type=="gggtr")              => char{mtcode=0x22D9;text_color=find_attribute(match,"color","LaTeX: Black");};    // Very much greater-than
+	symbol?(type=="lesseqgtr")          => char{mtcode=0x22DA;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than equal to or greater-than
+	symbol?(type=="gtreqless")          => char{mtcode=0x22DB;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than equal to or less-than
+	symbol?(type=="eqslantless")        => char{mtcode=0x22DC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Equal to or less-than
+	symbol?(type=="eqslantgtr")         => char{mtcode=0x22DD;text_color=find_attribute(match,"color","LaTeX: Black");};    // Equal to or greater-than
+	symbol?(type=="curlyeqprec")        => char{mtcode=0x22DE;text_color=find_attribute(match,"color","LaTeX: Black");};    // Equal to or precedes
+	symbol?(type=="curlyeqsucc")        => char{mtcode=0x22DF;text_color=find_attribute(match,"color","LaTeX: Black");};    // Equal to or succeeds
+	symbol?(type=="preceq")             => char{mtcode=0x2AAF;text_color=find_attribute(match,"color","LaTeX: Black");};    // Precedes above single-line equals sign
+	symbol?(type=="succeq")             => char{mtcode=0x227D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Succedes above single-line equals sign
+	symbol?(type=="lesseqqgtr")         => char{mtcode=0xE922;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than equal to or greater-than
+	symbol?(type=="gtreqqless")         => char{mtcode=0xE92D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than equal to or less-than
+	symbol?(type=="leqslant")           => char{mtcode=0x2A7D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less than or equal to
+	symbol?(type=="geqslant")           => char{mtcode=0x2A7E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater than or equal to
+	symbol?(type=="lessapprox")         => char{mtcode=0xE932;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than or approximately equal to
+	symbol?(type=="gtrapprox")          => char{mtcode=0xE933;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than or approximately equal to
+	symbol?(type=="precapprox")         => char{mtcode=0xE93A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Precedes or equivalent to
+	symbol?(type=="succapprox")         => char{mtcode=0xE93B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Succeeds or equivalent to
+// norder
+	symbol?(type=="lneqq")              => char{mtcode=0x2268;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than but not equal to (could be \lvertneqq ***)
+	symbol?(type=="lvertneqq")          => char{mtcode=0x2268;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than but not equal to (could be \lneqq ***)
+	symbol?(type=="gneqq")              => char{mtcode=0x2269;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than but not equal to (could be \gvertneqq ***)
+	symbol?(type=="gvertneqq")          => char{mtcode=0x2269;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than but not equal to (could be \gneqq ***)
+	symbol?(type=="nless")              => char{mtcode=0x226E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not less-than
+	symbol?(type=="ngtr")               => char{mtcode=0x226F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not greater-than
+	symbol?(type=="nleq")               => char{mtcode=0x2270;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not less-than or equal to
+	symbol?(type=="ngeq")               => char{mtcode=0x2271;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not greater-than or equal to
+	symbol?(type=="nprec")              => char{mtcode=0x2280;text_color=find_attribute(match,"color","LaTeX: Black");};    // Does not precede
+	symbol?(type=="nsucc")              => char{mtcode=0x2281;text_color=find_attribute(match,"color","LaTeX: Black");};    // Does not succeed
+	symbol?(type=="npreceq")            => char{mtcode=0x22E0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Does not precede or equal
+	symbol?(type=="nsucceq")            => char{mtcode=0x22E1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Does not succeed or equal
+	symbol?(type=="lnsim")              => char{mtcode=0x22E6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than but not equivalent to
+	symbol?(type=="gnsim")              => char{mtcode=0x22E7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than but not equivalent to
+	symbol?(type=="precnsim")           => char{mtcode=0x22E8;text_color=find_attribute(match,"color","LaTeX: Black");};    // Precedes but not equivalent to
+	symbol?(type=="succnsim")           => char{mtcode=0x22E9;text_color=find_attribute(match,"color","LaTeX: Black");};    // Succeeds but not equivalent to
+	symbol?(type=="nleqq")              => char{mtcode=0xEA06;text_color=find_attribute(match,"color","LaTeX: Black");};    // Neither less-than nor equal to
+	symbol?(type=="nleqslant")          => char{mtcode=0xEA06;text_color=find_attribute(match,"color","LaTeX: Black");};    // Neither less-than nor equal to (slanted)
+	symbol?(type=="ngeqq")              => char{mtcode=0xEA07;text_color=find_attribute(match,"color","LaTeX: Black");};    // Neither greater-than nor equal to
+	symbol?(type=="ngeqslant")          => char{mtcode=0xEA07;text_color=find_attribute(match,"color","LaTeX: Black");};    // Neither greater-than nor equal to (slanted)
+	symbol?(type=="lnapprox")           => char{mtcode=0xEA32;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than but not approximately equal to
+	symbol?(type=="gnapprox")           => char{mtcode=0xEA33;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than but not approximately equal to
+	symbol?(type=="lneq")               => char{mtcode=0xEA34;text_color=find_attribute(match,"color","LaTeX: Black");};    // Less-than or not equal to
+	symbol?(type=="gneq")               => char{mtcode=0xEA35;text_color=find_attribute(match,"color","LaTeX: Black");};    // Greater-than or not equal to
+	symbol?(type=="precnapprox")        => char{mtcode=0xEA3A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Precedes but not equivalent to
+	symbol?(type=="succnapprox")        => char{mtcode=0xEA3B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Succeeds but not equivalent to
+	symbol?(type=="precneqq")           => char{mtcode=0xEA40;text_color=find_attribute(match,"color","LaTeX: Black");};    // Precedes but not equal to
+	symbol?(type=="succneqq")           => char{mtcode=0xEA41;text_color=find_attribute(match,"color","LaTeX: Black");};    // Succeeds but not equal to
+// set
+	symbol?(type=="C")                  => char{mtcode=0x2102;text_color=find_attribute(match,"color","LaTeX: Black");};    // Blackboard-bold capital C
+	symbol?(type=="Complex")            => char{mtcode=0x2102;text_color=find_attribute(match,"color","LaTeX: Black");};    // Blackboard-bold capital C
+	symbol?(type=="cnums")              => char{mtcode=0x2102;text_color=find_attribute(match,"color","LaTeX: Black");};    // Blackboard-bold capital C
+	symbol?(type=="N")                  => char{mtcode=0x2115;text_color=find_attribute(match,"color","LaTeX: Black");};    // Blackboard-bold capital N
+	symbol?(type=="natnums")            => char{mtcode=0x2115;text_color=find_attribute(match,"color","LaTeX: Black");};    // Blackboard-bold capital N
+	symbol?(type=="R")                  => char{mtcode=0x211D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Blackboard-bold capital R
+	symbol?(type=="Reals")              => char{mtcode=0x211D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Blackboard-bold capital R
+	symbol?(type=="reals")              => char{mtcode=0x211D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Blackboard-bold capital R
+	symbol?(type=="Q")                  => char{mtcode=0x211A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Blackboard-bold capital Q
+	symbol?(type=="Z")                  => char{mtcode=0x2124;text_color=find_attribute(match,"color","LaTeX: Black");};    // Blackboard-bold capital Z
+	symbol?(type=="complement")         => char{mtcode=0x2201;text_color=find_attribute(match,"color","LaTeX: Black");};    // Complement
+	symbol?(type=="O")                  => char{mtcode=0x2205;text_color=find_attribute(match,"color","LaTeX: Black");};    // Empty set
+	symbol?(type=="empty")              => char{mtcode=0x2205;text_color=find_attribute(match,"color","LaTeX: Black");};    // Empty set
+	symbol?(type=="emptyset")           => char{mtcode=0x2205;text_color=find_attribute(match,"color","LaTeX: Black");};    // Empty set
+	symbol?(type=="varnothing")         => char{mtcode=0x2205;text_color=find_attribute(match,"color","LaTeX: Black");};    // Empty set
+	symbol?(type=="in")                 => char{mtcode=0x2208;text_color=find_attribute(match,"color","LaTeX: Black");};    // Element of
+	symbol?(type=="isin")               => char{mtcode=0x2208;text_color=find_attribute(match,"color","LaTeX: Black");};    // Element of
+	symbol?(type=="notin")              => char{mtcode=0x2209;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not an element of
+	symbol?(type=="ni")                 => char{mtcode=0x220B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Contains as member
+	symbol?(type=="backepsilon")        => char{mtcode=0x220D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Small contains as member
+	symbol?(type=="setminus")           => char{mtcode=0x2216;text_color=find_attribute(match,"color","LaTeX: Black");};    // Set minus
+	symbol?(type=="smallsetminus")      => char{mtcode=0x2216;text_color=find_attribute(match,"color","LaTeX: Black");};    // Set minus
+	symbol?(type=="cap")                => char{mtcode=0x2229;text_color=find_attribute(match,"color","LaTeX: Black");};    // Intersection
+	symbol?(type=="cup")                => char{mtcode=0x222A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Union
+	symbol?(type=="sub")                => char{mtcode=0x2282;text_color=find_attribute(match,"color","LaTeX: Black");};    // Subset of
+	symbol?(type=="subset")             => char{mtcode=0x2282;text_color=find_attribute(match,"color","LaTeX: Black");};    // Subset of
+	symbol?(type=="supset")             => char{mtcode=0x2283;text_color=find_attribute(match,"color","LaTeX: Black");};    // Superset of
+	symbol?(type=="sube")               => char{mtcode=0x2286;text_color=find_attribute(match,"color","LaTeX: Black");};    // Subset of or equal to
+	symbol?(type=="subseteq")           => char{mtcode=0x2286;text_color=find_attribute(match,"color","LaTeX: Black");};    // Subset of or equal to
+	symbol?(type=="supe")               => char{mtcode=0x2287;text_color=find_attribute(match,"color","LaTeX: Black");};    // Superset of or equal to
+	symbol?(type=="supseteq")           => char{mtcode=0x2287;text_color=find_attribute(match,"color","LaTeX: Black");};    // Superset of or equal to
+	symbol?(type=="nsubseteq")          => char{mtcode=0x2288;text_color=find_attribute(match,"color","LaTeX: Black");};    // Neither a subset of nor equal to
+	symbol?(type=="nsupseteq")          => char{mtcode=0x2289;text_color=find_attribute(match,"color","LaTeX: Black");};    // Neither a superset of nor equal to
+	symbol?(type=="subsetneq")          => char{mtcode=0x228A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Subset of with not equal to
+	symbol?(type=="supsetneq")          => char{mtcode=0x228B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Superset of with not equal to
+	symbol?(type=="uplus")              => char{mtcode=0x228E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Multiset union
+	symbol?(type=="sqsubset")           => char{mtcode=0x228F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Square image of
+	symbol?(type=="sqsupset")           => char{mtcode=0x2290;text_color=find_attribute(match,"color","LaTeX: Black");};    // Square original of
+	symbol?(type=="sqsubseteq")         => char{mtcode=0x2291;text_color=find_attribute(match,"color","LaTeX: Black");};    // Square image of or equal to
+	symbol?(type=="sqsupseteq")         => char{mtcode=0x2292;text_color=find_attribute(match,"color","LaTeX: Black");};    // Square original of or equal to
+	symbol?(type=="sqcap")              => char{mtcode=0x2293;text_color=find_attribute(match,"color","LaTeX: Black");};    // Square cap
+	symbol?(type=="sqcup")              => char{mtcode=0x2294;text_color=find_attribute(match,"color","LaTeX: Black");};    // Square cup
+	symbol?(type=="Subset")             => char{mtcode=0x22D0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double subset
+	symbol?(type=="Supset")             => char{mtcode=0x22D1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double superset
+	symbol?(type=="Cap")                => char{mtcode=0x22D2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double intersection
+	symbol?(type=="doublecap")          => char{mtcode=0x22D2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double intersection
+	symbol?(type=="Cup")                => char{mtcode=0x22D3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double union
+	symbol?(type=="doublecup")          => char{mtcode=0x22D3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double union
+	symbol?(type=="supseteqq")          => char{mtcode=0xE90B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Superset of or equal to
+	symbol?(type=="subseteqq")          => char{mtcode=0xE90C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Subset of or equal to
+	symbol?(type=="nsupseteqq")         => char{mtcode=0xEA0B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Neither superset of nor equal to
+	symbol?(type=="nsubseteqq")         => char{mtcode=0xEA0C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Neither subset of nor equal to
+	symbol?(type=="varsubsetneq")       => char{mtcode=0xEA42;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not subset of nor equal to
+	symbol?(type=="varsupsetneq")       => char{mtcode=0xEA43;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not superset of nor equal to
+	symbol?(type=="subsetneqq")         => char{mtcode=0xEA44;text_color=find_attribute(match,"color","LaTeX: Black");};    // Subset of or not equal to
+	symbol?(type=="supsetneqq")         => char{mtcode=0xEA45;text_color=find_attribute(match,"color","LaTeX: Black");};    // Superset of or not equal to
+	symbol?(type=="varsubsetneqq")      => char{mtcode=0xEA46;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not subset of nor equal to
+	symbol?(type=="varsupsetneqq")      => char{mtcode=0xEA47;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not superset of nor equal to
+// logic
+	symbol?(type=="And")                => char{mtcode=0x0026;text_color=find_attribute(match,"color","LaTeX: Black");};    // &
+	symbol?(type=="lnot")               => char{mtcode=0x00AC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not sign
+	symbol?(type=="neg")                => char{mtcode=0x00AC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not sign
+	symbol?(type=="forall")             => char{mtcode=0x2200;text_color=find_attribute(match,"color","LaTeX: Black");};    // For all
+	symbol?(type=="exist")              => char{mtcode=0x2203;text_color=find_attribute(match,"color","LaTeX: Black");};    // There exists
+	symbol?(type=="exists")             => char{mtcode=0x2203;text_color=find_attribute(match,"color","LaTeX: Black");};    // There exists
+	symbol?(type=="nexists")            => char{mtcode=0x2204;text_color=find_attribute(match,"color","LaTeX: Black");};    // There does not exist
+	symbol?(type=="and")                => char{mtcode=0x2227;text_color=find_attribute(match,"color","LaTeX: Black");};    // Logical and
+	symbol?(type=="land")               => char{mtcode=0x2227;text_color=find_attribute(match,"color","LaTeX: Black");};    // Logical and
+	symbol?(type=="wedge")              => char{mtcode=0x2227;text_color=find_attribute(match,"color","LaTeX: Black");};    // Logical and
+	symbol?(type=="lor")                => char{mtcode=0x2228;text_color=find_attribute(match,"color","LaTeX: Black");};    // Logical or
+	symbol?(type=="or")                 => char{mtcode=0x2228;text_color=find_attribute(match,"color","LaTeX: Black");};    // Logical or
+	symbol?(type=="vee")                => char{mtcode=0x2228;text_color=find_attribute(match,"color","LaTeX: Black");};    // Logical or
+	symbol?(type=="therefore")          => char{mtcode=0x2234;text_color=find_attribute(match,"color","LaTeX: Black");};    // Therefore
+	symbol?(type=="because")            => char{mtcode=0x2235;text_color=find_attribute(match,"color","LaTeX: Black");};    // Because or since
+	symbol?(type=="veebar")             => char{mtcode=0x22BB;text_color=find_attribute(match,"color","LaTeX: Black");};    // Xor
+	symbol?(type=="barwedge")           => char{mtcode=0x22BC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Nand
+	symbol?(type=="curlyvee")           => char{mtcode=0x22CE;text_color=find_attribute(match,"color","LaTeX: Black");};    // Curly logical or
+	symbol?(type=="curlywedge")         => char{mtcode=0x22CF;text_color=find_attribute(match,"color","LaTeX: Black");};    // Curly logical and
+	symbol?(type=="doublebarwedge")     => char{mtcode=0x2306;text_color=find_attribute(match,"color","LaTeX: Black");};    // Perspective
+// bigop
+	symbol?(type=="bigwedge")           => char{mtcode=0x22C0;text_color=find_attribute(match,"color","LaTeX: Black");};    // N-ary logical and
+	symbol?(type=="bigvee")             => char{mtcode=0x22C1;text_color=find_attribute(match,"color","LaTeX: Black");};    // N-ary logical or
+	symbol?(type=="bigodot")            => char{mtcode=0x2299;text_color=find_attribute(match,"color","LaTeX: Black");};    // n-ary circled dot operator
+	symbol?(type=="bigoplus")           => char{mtcode=0x2295;text_color=find_attribute(match,"color","LaTeX: Black");};    // n-ary circled plus operator
+	symbol?(type=="bigotimes")          => char{mtcode=0x2297;text_color=find_attribute(match,"color","LaTeX: Black");};    // n-ary circled times operator
+	symbol?(type=="biguplus")           => char{mtcode=0x228E;text_color=find_attribute(match,"color","LaTeX: Black");};    // n-ary union operator with plus
+	symbol?(type=="bigsqcup")           => char{mtcode=0x2294;text_color=find_attribute(match,"color","LaTeX: Black");};    // n-ary square union operator
+//	symbol?(type=="iiiint")             => char{mtcode=0x2A0C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Quadruple integral operator
+	// substitute with 4 integral signs (since 0x2A0C is an uncommon char)
+	symbol?(type=="iiiint")             => slot(char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");});
+// op
+	symbol?(type=="circ")               => char{mtcode=0x00B0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Degree sign
+	symbol?(type=="plusmn")             => char{mtcode=0x00B1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Plus-minus sign
+	symbol?(type=="pm")                 => char{mtcode=0x00B1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Plus-minus sign
+	symbol?(type=="div")                => char{mtcode=0x00F7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Division sign
+	symbol?(type=="mp")                 => char{mtcode=0x2213;text_color=find_attribute(match,"color","LaTeX: Black");};    // Minus-or-plus sign
+	symbol?(type=="dotplus")            => char{mtcode=0x2214;text_color=find_attribute(match,"color","LaTeX: Black");};    // Dot plus
+	symbol?(type=="ast")                => char{mtcode=0x2217;text_color=find_attribute(match,"color","LaTeX: Black");};    // Star operator
+	symbol?(type=="mid")                => char{mtcode=0x2223;text_color=find_attribute(match,"color","LaTeX: Black");};    // Divides
+	symbol?(type=="nmid")               => char{mtcode=0x2224;text_color=find_attribute(match,"color","LaTeX: Black");};    // Does not divide
+	symbol?(type=="wr")                 => char{mtcode=0x2240;text_color=find_attribute(match,"color","LaTeX: Black");};    // Wreath product
+	symbol?(type=="oplus")              => char{mtcode=0x2295;text_color=find_attribute(match,"color","LaTeX: Black");};    // Circled plus
+	symbol?(type=="ominus")             => char{mtcode=0x2296;text_color=find_attribute(match,"color","LaTeX: Black");};    // Circled minus
+	symbol?(type=="otimes")             => char{mtcode=0x2297;text_color=find_attribute(match,"color","LaTeX: Black");};    // Circled times
+	symbol?(type=="oslash")             => char{mtcode=0x2298;text_color=find_attribute(match,"color","LaTeX: Black");};    // Circled division slash
+	symbol?(type=="odot")               => char{mtcode=0x2299;text_color=find_attribute(match,"color","LaTeX: Black");};    // Circled dot operator
+	symbol?(type=="circledcirc")        => char{mtcode=0x229A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Circled ring operator
+	symbol?(type=="circledast")         => char{mtcode=0x229B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Circled asterisk operator
+	symbol?(type=="circleddash")        => char{mtcode=0x2296;text_color=find_attribute(match,"color","LaTeX: Black");};    // Circled dash (should maybe be 0x229D)
+	symbol?(type=="boxplus")            => char{mtcode=0x229E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Squared plus
+	symbol?(type=="boxminus")           => char{mtcode=0x229F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Squared minus
+	symbol?(type=="boxtimes")           => char{mtcode=0x22A0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Squared times
+	symbol?(type=="boxdot")             => char{mtcode=0x22A1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Squared dot operator
+	symbol?(type=="vdash")              => char{mtcode=0x22A2;font="Euclid Math One";text_color=find_attribute(match,"color","LaTeX: Black");};    // Assertion
+	symbol?(type=="dashv")              => char{mtcode=0x22A3;font="Euclid Math One";text_color=find_attribute(match,"color","LaTeX: Black");};    // Left tack
+	symbol?(type=="top")                => char{mtcode=0x22A4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Down tack
+	symbol?(type=="bot")                => char{mtcode=0x22A5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Perpendicular
+	// models should be 0x22A7 according to Unicode, but symbol looks more like 0x22A8 in LaTeX (plus, 0x22A7 is not in many fonts)
+	symbol?(type=="models")             => char{mtcode=0x22A8;font="Euclid Math One";text_color=find_attribute(match,"color","LaTeX: Black");};    // Models
+	symbol?(type=="vDash")              => char{mtcode=0x22A8;font="Euclid Math One";text_color=find_attribute(match,"color","LaTeX: Black");};    // True
+	symbol?(type=="Vdash")              => char{mtcode=0x22A9;font="Euclid Math One";text_color=find_attribute(match,"color","LaTeX: Black");};    // Forces
+	symbol?(type=="Vvdash")             => char{mtcode=0x22AA;font="Euclid Math One";text_color=find_attribute(match,"color","LaTeX: Black");};    // Triple vertical bar right turnstile
+	symbol?(type=="nvdash")             => char{mtcode=0x22AC;font="Euclid Math One";text_color=find_attribute(match,"color","LaTeX: Black");};    // Does not prove
+	symbol?(type=="nvDash")             => char{mtcode=0x22AD;font="Euclid Math One";text_color=find_attribute(match,"color","LaTeX: Black");};    // Not true
+	symbol?(type=="nVdash")             => char{mtcode=0x22AE;font="Euclid Math One";text_color=find_attribute(match,"color","LaTeX: Black");};    // Does not force
+	symbol?(type=="nVDash")             => char{mtcode=0x22AF;font="Euclid Math One";text_color=find_attribute(match,"color","LaTeX: Black");};    // Negated double vertical bar double right turnstile
+	symbol?(type=="triangleleft")       => char{mtcode=0x22B2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Normal subgroup of
+	symbol?(type=="vartriangleleft")    => char{mtcode=0x22B2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Normal subgroup of
+	symbol?(type=="triangleright")      => char{mtcode=0x22B3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Contains as normal subgroup
+	symbol?(type=="vartriangleright")   => char{mtcode=0x22B3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Contains as normal subgroup
+	symbol?(type=="trianglelefteq")     => char{mtcode=0x22B4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Normal subgroup of or equal to
+	symbol?(type=="trianglerighteq")    => char{mtcode=0x22B5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Contains as normal subgroup or equal to
+	symbol?(type=="intercal")           => char{mtcode=0x22BA;text_color=find_attribute(match,"color","LaTeX: Black");};    // Intercalate
+	symbol?(type=="star")               => char{mtcode=0x22C6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Star operator
+	symbol?(type=="divideontimes")      => char{mtcode=0x22C7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Division times
+	symbol?(type=="bowtie")             => char{mtcode=0x22C8;text_color=find_attribute(match,"color","LaTeX: Black");};    // Bowtie
+	symbol?(type=="ltimes")             => char{mtcode=0x22C9;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left normal factor semidirect product
+	symbol?(type=="rtimes")             => char{mtcode=0x22CA;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right normal factor semidirect product
+	symbol?(type=="leftthreetimes")     => char{mtcode=0x22CB;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left semidirect product
+	symbol?(type=="rightthreetimes")    => char{mtcode=0x22CC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right semidirect product
+	symbol?(type=="ntriangleleft")      => char{mtcode=0x22EA;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not normal subgroup of
+	symbol?(type=="ntriangleright")     => char{mtcode=0x22EB;text_color=find_attribute(match,"color","LaTeX: Black");};    // Does not contain as normal subgroup
+	symbol?(type=="ntrianglelefteq")    => char{mtcode=0x22EC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not normal subgroup of or equal to
+	symbol?(type=="ntrianglerighteq")   => char{mtcode=0x22ED;text_color=find_attribute(match,"color","LaTeX: Black");};    // Does not contain as normal subgroup or equal
+	symbol?(type=="bigcirc")            => char{mtcode=0x25EF;text_color=find_attribute(match,"color","LaTeX: Black");};    // White circle
+	symbol?(type=="triangle")           => char{mtcode=0x25B3;text_color=find_attribute(match,"color","LaTeX: Black");};    // White up-pointing triangle
+	symbol?(type=="blacktriangleright") => char{mtcode=0x25B6;text_color=find_attribute(match,"color","LaTeX: Black");};    // Black right-pointing triangle
+	symbol?(type=="blacktriangleleft")  => char{mtcode=0x25C0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Black left-pointing triangle
+	symbol?(type=="flat")               => char{mtcode=0x266D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Music flat sign
+	symbol?(type=="natural")            => char{mtcode=0x266E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Music natural sign
+	symbol?(type=="sharp")              => char{mtcode=0x266F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Music sharp sign
+	symbol?(type=="times")              => char{mtcode=0x00D7;text_color=find_attribute(match,"color","LaTeX: Black");};    // Multiplication x (or 0x2715, but no font)
+	symbol?(type=="amalg")              => char{mtcode=0x2210;text_color=find_attribute(match,"color","LaTeX: Black");};    // N-ary coproduct (or 0x2A3F, Amalgamation or coproduct)
+	symbol?(type=="shortmid")           => char{mtcode=0xE92E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Bar operator
+	symbol?(type=="nshortmid")          => char{mtcode=0xEA2E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not bar operator
+// templop
+// geometric
+	symbol?(type=="perp")               => char{mtcode=0x22A5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Perpendicular
+	symbol?(type=="ang")                => char{mtcode=0x2220;text_color=find_attribute(match,"color","LaTeX: Black");};    // Angle
+	symbol?(type=="angle")              => char{mtcode=0x2220;text_color=find_attribute(match,"color","LaTeX: Black");};    // Angle
+	symbol?(type=="measuredangle")      => char{mtcode=0x2221;text_color=find_attribute(match,"color","LaTeX: Black");};    // Measured angle
+	symbol?(type=="sphericalangle")     => char{mtcode=0x2222;text_color=find_attribute(match,"color","LaTeX: Black");};    // Spherical angle
+	symbol?(type=="parallel")           => char{mtcode=0x2225;text_color=find_attribute(match,"color","LaTeX: Black");};    // Parallel to
+	symbol?(type=="nparallel")          => char{mtcode=0x2226;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not parallel to
+	symbol?(type=="between")            => char{mtcode=0x226C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Between
+	symbol?(type=="pitchfork")          => char{mtcode=0x22D4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Pitchfork
+	symbol?(type=="diagup")             => char{mtcode=0x2571;text_color=find_attribute(match,"color","LaTeX: Black");};    // Box drawings light diagonal upper right to lower left
+	symbol?(type=="diagdown")           => char{mtcode=0x2572;text_color=find_attribute(match,"color","LaTeX: Black");};    // Box drawings light diagonal upper left to lower right
+	symbol?(type=="shortparallel")      => char{mtcode=0xE92F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double bar operator
+	symbol?(type=="nshortparallel")     => char{mtcode=0xEA2F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Not double bar operator
+// delimiter
+	// template ones
+	symbol?(type=="(")                  => char{mtcode=0x0028;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left parenthesis
+	`(`                                 => char{mtcode=0x0028;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left parenthesis
+	symbol?(type==")")                  => char{mtcode=0x0029;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right parenthesis
+	`)`                                 => char{mtcode=0x0029;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right parenthesis
+	symbol?(type=="[")                  => char{mtcode=0x005B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left square bracket
+	symbol?(type=="lbrack")             => char{mtcode=0x005B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left square bracket
+	lbrack                              => char{mtcode=0x005B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left square bracket
+	symbol?(type=="]")                  => char{mtcode=0x005D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right square bracket
+	symbol?(type=="rbrack")             => char{mtcode=0x005D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right square bracket
+	rbrack                              => char{mtcode=0x005D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right square bracket
+	symbol?(type=="\\{")                => char{mtcode=0x007B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left curly bracket
+	`\\{`                               => char{mtcode=0x007B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left curly bracket
+	symbol?(type=="lbrace")             => char{mtcode=0x007B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left curly bracket
+	lbrace                              => char{mtcode=0x007B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left curly bracket
+	symbol?(type=="|")                  => char{mtcode=0x007C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Vertical line
+	`|`                                 => char{mtcode=0x007C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Vertical line
+	symbol?(type=="divides")            => char{mtcode=0x007C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Vertical line
+	symbol?(type=="vert")               => char{mtcode=0x007C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Vertical line
+	vert                                => char{mtcode=0x007C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Vertical line
+	symbol?(type=="\\}")                => char{mtcode=0x007D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right curly bracket
+	`\\}`                               => char{mtcode=0x007D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right curly bracket
+	symbol?(type=="rbrace")             => char{mtcode=0x007D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right curly bracket
+	rbrace                              => char{mtcode=0x007D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right curly bracket
+	symbol?(type=="\\|")                => char{mtcode=0x2016;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double vertical line
+	`\\|`                               => char{mtcode=0x2016;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double vertical line
+	symbol?(type=="Vert")               => char{mtcode=0x2016;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double vertical bar
+	Vert                                => char{mtcode=0x2016;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double vertical bar
+	symbol?(type=="lVert")              => char{mtcode=0x2016;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double vertical bar
+	lVert                               => char{mtcode=0x2016;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double vertical bar
+	symbol?(type=="rVert")              => char{mtcode=0x2016;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double vertical bar
+	rVert                               => char{mtcode=0x2016;text_color=find_attribute(match,"color","LaTeX: Black");};    // Double vertical bar
+	symbol?(type=="lceil")              => char{mtcode=0x2308;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left ceiling
+	lceil                               => char{mtcode=0x2308;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left ceiling
+	symbol?(type=="rceil")              => char{mtcode=0x2309;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right ceiling
+	rceil                               => char{mtcode=0x2309;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right ceiling
+	symbol?(type=="lfloor")             => char{mtcode=0x230A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left floor
+	lfloor                              => char{mtcode=0x230A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left floor
+	symbol?(type=="rfloor")             => char{mtcode=0x230B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right floor
+	rfloor                              => char{mtcode=0x230B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right floor
+	symbol?(type=="lang")               => char{mtcode=0x2329;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left-pointing angle bracket
+	lang                                => char{mtcode=0x2329;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left-pointing angle bracket
+	symbol?(type=="langle")             => char{mtcode=0x2329;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left-pointing angle bracket
+	langle                              => char{mtcode=0x2329;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left-pointing angle bracket
+	symbol?(type=="rang")               => char{mtcode=0x232A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right-pointing angle bracket
+	rang                                => char{mtcode=0x232A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right-pointing angle bracket
+	symbol?(type=="rangle")             => char{mtcode=0x232A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right-pointing angle bracket
+	rangle                              => char{mtcode=0x232A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right-pointing angle bracket
+	// non-template ones
+	symbol?(type=="backslash")          => char{mtcode=0x005C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Backward slash (reverse solidus)
+	backslash                           => char{mtcode=0x005C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Backward slash (reverse solidus)
+	symbol?(type=="uarr")               => char{mtcode=0x2191;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards arrow
+	uarr                                => char{mtcode=0x2191;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards arrow
+	symbol?(type=="uparrow")            => char{mtcode=0x2191;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards arrow
+	uparrow                             => char{mtcode=0x2191;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards arrow
+	symbol?(type=="darr")               => char{mtcode=0x2193;text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards arrow
+	darr                                => char{mtcode=0x2193;text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards arrow
+	symbol?(type=="downarrow")          => char{mtcode=0x2193;text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards arrow
+	downarrow                           => char{mtcode=0x2193;text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards arrow
+	symbol?(type=="updownarrow")        => char{mtcode=0x2195;text_color=find_attribute(match,"color","LaTeX: Black");};    // Up down arrow
+	updownarrow                         => char{mtcode=0x2195;text_color=find_attribute(match,"color","LaTeX: Black");};    // Up down arrow
+	symbol?(type=="twoheadleftarrow")   => char{mtcode=0x219E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards two headed arrow
+	twoheadleftarrow                    => char{mtcode=0x219E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards two headed arrow
+	symbol?(type=="twoheadrightarrow")  => char{mtcode=0x21A0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards two headed arrow
+	twoheadrightarrow                   => char{mtcode=0x21A0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards two headed arrow
+	symbol?(type=="Uarr")               => char{mtcode=0x21D1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards double arrow
+	Uarr                                => char{mtcode=0x21D1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards double arrow
+	symbol?(type=="Uparrow")            => char{mtcode=0x21D1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards arrow
+	Uparrow                             => char{mtcode=0x21D1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards arrow
+	symbol?(type=="uArr")               => char{mtcode=0x21D1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards double arrow
+	uArr                                => char{mtcode=0x21D1;text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards double arrow
+	symbol?(type=="Darr")               => char{mtcode=0x21D3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards double arrow
+	Darr                                => char{mtcode=0x21D3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards double arrow
+	symbol?(type=="Downarrow")          => char{mtcode=0x21D3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards double arrow
+	Downarrow                           => char{mtcode=0x21D3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards double arrow
+	symbol?(type=="dArr")               => char{mtcode=0x21D3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards double arrow
+	dArr                                => char{mtcode=0x21D3;text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards double arrow
+	symbol?(type=="Updownarrow")        => char{mtcode=0x21D5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Up down double arrow
+	Updownarrow                         => char{mtcode=0x21D5;text_color=find_attribute(match,"color","LaTeX: Black");};    // Up down double arrow
+	symbol?(type=="ulcorner")           => char{mtcode=0x231C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Top left corner
+	ulcorner                            => char{mtcode=0x231C;text_color=find_attribute(match,"color","LaTeX: Black");};    // Top left corner
+	symbol?(type=="urcorner")           => char{mtcode=0x231D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Top right corner
+	urcorner                            => char{mtcode=0x231D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Top right corner
+	symbol?(type=="llcorner")           => char{mtcode=0x231E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Bottom left corner
+	llcorner                            => char{mtcode=0x231E;text_color=find_attribute(match,"color","LaTeX: Black");};    // Bottom left corner
+	symbol?(type=="lrcorner")           => char{mtcode=0x231F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Bottom right corner
+	lrcorner                            => char{mtcode=0x231F;text_color=find_attribute(match,"color","LaTeX: Black");};    // Bottom right corner
+// same delimiters as above, but preceded by big, Big, bigg or Bigg
+// oversized delimiters
+	// template ones
+	char_node?(type=="(")                  => char{mtcode=0x0028; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Left parenthesis
+	char_node?(type==")")                  => char{mtcode=0x0029; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Right parenthesis
+	char_node?(type=="[")                  => char{mtcode=0x005B; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Left square bracket
+	char_node?(type=="lbrack")             => char{mtcode=0x005B; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Left square bracket
+	char_node?(type=="]")                  => char{mtcode=0x005D; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Right square bracket
+	char_node?(type=="rbrack")             => char{mtcode=0x005D; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Right square bracket
+	char_node?(type=="\\{")                => char{mtcode=0x007B; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Left curly bracket
+	char_node?(type=="lbrace")             => char{mtcode=0x007B; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Left curly bracket
+	char_node?(type=="|")                  => char{mtcode=0x007C; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Vertical line
+	char_node?(type=="vert")               => char{mtcode=0x007C; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Vertical line
+	char_node?(type=="\\}")                => char{mtcode=0x007D; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Right curly bracket
+	char_node?(type=="rbrace")             => char{mtcode=0x007D; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Right curly bracket
+	char_node?(type=="\\|")                => char{mtcode=0x2016; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Double vertical line
+	char_node?(type=="Vert")               => char{mtcode=0x2016; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Double vertical bar
+	char_node?(type=="lVert")              => char{mtcode=0x2016; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Double vertical bar
+	char_node?(type=="rVert")              => char{mtcode=0x2016; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Double vertical bar
+	char_node?(type=="lceil")              => char{mtcode=0x2308; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Left ceiling
+	char_node?(type=="rceil")              => char{mtcode=0x2309; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Right ceiling
+	char_node?(type=="lfloor")             => char{mtcode=0x230A; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Left floor
+	char_node?(type=="rfloor")             => char{mtcode=0x230B; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Right floor
+	char_node?(type=="lang")               => char{mtcode=0x2329; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Left-pointing angle bracket
+	char_node?(type=="langle")             => char{mtcode=0x2329; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Left-pointing angle bracket
+	char_node?(type=="rang")               => char{mtcode=0x232A; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Right-pointing angle bracket
+	char_node?(type=="rangle")             => char{mtcode=0x232A; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Right-pointing angle bracket
+	// non-template ones
+	char_node?(type=="backslash")          => char{mtcode=0x005C; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Backward slash (reverse solidus)
+	char_node?(type=="/")                  => char{mtcode=0x002F; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Backward slash (reverse solidus)
+	char_node?(type=="uarr")               => char{mtcode=0x2191; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards arrow
+	char_node?(type=="uparrow")            => char{mtcode=0x2191; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards arrow
+	char_node?(type=="darr")               => char{mtcode=0x2193; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards arrow
+	char_node?(type=="downarrow")          => char{mtcode=0x2193; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards arrow
+	char_node?(type=="updownarrow")        => char{mtcode=0x2195; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Up down arrow
+	char_node?(type=="twoheadleftarrow")   => char{mtcode=0x219E; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Leftwards two headed arrow
+	char_node?(type=="twoheadrightarrow")  => char{mtcode=0x21A0; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Rightwards two headed arrow
+	char_node?(type=="Uarr")               => char{mtcode=0x21D1; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards double arrow
+	char_node?(type=="Uparrow")            => char{mtcode=0x21D1; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards arrow
+	char_node?(type=="uArr")               => char{mtcode=0x21D1; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Upwards double arrow
+	char_node?(type=="Darr")               => char{mtcode=0x21D3; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards double arrow
+	char_node?(type=="Downarrow")          => char{mtcode=0x21D3; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards double arrow
+	char_node?(type=="dArr")               => char{mtcode=0x21D3; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Downwards double arrow
+	char_node?(type=="Updownarrow")        => char{mtcode=0x21D5; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Up down double arrow
+	char_node?(type=="ulcorner")           => char{mtcode=0x231C; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Top left corner
+	char_node?(type=="urcorner")           => char{mtcode=0x231D; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Top right corner
+	char_node?(type=="llcorner")           => char{mtcode=0x231E; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Bottom left corner
+	char_node?(type=="lrcorner")           => char{mtcode=0x231F; size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};    // Bottom right corner
+// misc
+	symbol?(type=="part")               => char{mtcode=0x2202;text_color=find_attribute(match,"color","LaTeX: Black");};    // Partial differential
+	symbol?(type=="partial")            => char{mtcode=0x2202;text_color=find_attribute(match,"color","LaTeX: Black");};    // Partial differential
+	symbol?(type=="nabla")              => char{mtcode=0x2207;text_color=find_attribute(match,"color","LaTeX: Black");};    // Gradient (nabla)
+	symbol?(type=="surd")               => char{mtcode=0x221A;text_color=find_attribute(match,"color","LaTeX: Black");};    // Radical sign
+	symbol?(type=="diamond")            => char{mtcode=0x22C4;text_color=find_attribute(match,"color","LaTeX: Black");};    // Diamond operator
+	symbol?(type=="blacksquare")        => char{mtcode=0x25A0;text_color=find_attribute(match,"color","LaTeX: Black");};    // Black square
+	symbol?(type=="Box")                => char{mtcode=0x25A1;text_color=find_attribute(match,"color","LaTeX: Black");};    // White square
+	symbol?(type=="square")             => char{mtcode=0x25A1;text_color=find_attribute(match,"color","LaTeX: Black");};    // White square
+	symbol?(type=="blacktriangle")      => char{mtcode=0x25B2;text_color=find_attribute(match,"color","LaTeX: Black");};    // Black up-pointing triangle
+	symbol?(type=="bigtriangleup")      => char{mtcode=0x25B3;text_color=find_attribute(match,"color","LaTeX: Black");};    // White up-pointing triangle
+	symbol?(type=="vartriangle")        => char{mtcode=0x25B5;text_color=find_attribute(match,"color","LaTeX: Black");};    // White up-pointing small triangle
+	symbol?(type=="blacktriangledown")  => char{mtcode=0x25BC;text_color=find_attribute(match,"color","LaTeX: Black");};    // Black down-pointing triangle
+	symbol?(type=="bigtriangledown")    => char{mtcode=0x25BD;text_color=find_attribute(match,"color","LaTeX: Black");};    // White down-pointing triangle
+	symbol?(type=="triangledown")       => char{mtcode=0x25BD;text_color=find_attribute(match,"color","LaTeX: Black");};    // White down-pointing small triangle
+	symbol?(type=="lozenge")            => char{mtcode=0x2662;text_color=find_attribute(match,"color","LaTeX: Black");};    // Lozenge (should be 0x25CA, not in any fonts)
+	symbol?(type=="Diamond")            => char{mtcode=0x2662;text_color=find_attribute(match,"color","LaTeX: Black");};    // Lozenge (should be 0x25CA, not in any fonts)
+	symbol?(type=="bigstar")            => char{mtcode=0x2605;text_color=find_attribute(match,"color","LaTeX: Black");};    // Black star
+	symbol?(type=="spades")             => char{mtcode=0x2660;text_color=find_attribute(match,"color","LaTeX: Black");};    // Black spade suit
+	symbol?(type=="spadesuit")          => char{mtcode=0x2660;text_color=find_attribute(match,"color","LaTeX: Black");};    // Black spade suit
+	symbol?(type=="hearts")             => char{mtcode=0x2661;text_color=find_attribute(match,"color","LaTeX: Black");};    // White heart suit
+	symbol?(type=="heartsuit")          => char{mtcode=0x2661;text_color=find_attribute(match,"color","LaTeX: Black");};    // White heart suit
+	symbol?(type=="diamonds")           => char{mtcode=0x2662;text_color=find_attribute(match,"color","LaTeX: Black");};    // White diamond suit
+	symbol?(type=="diamondsuit")        => char{mtcode=0x2662;text_color=find_attribute(match,"color","LaTeX: Black");};    // White diamond suit
+	symbol?(type=="clubs")              => char{mtcode=0x2663;text_color=find_attribute(match,"color","LaTeX: Black");};    // Black club suit
+	symbol?(type=="clubsuit")           => char{mtcode=0x2663;text_color=find_attribute(match,"color","LaTeX: Black");};    // Black club suit
+	symbol?(type=="blacklozenge")       => char{mtcode=0x2666;text_color=find_attribute(match,"color","LaTeX: Black");};    // Black diamond suit
+	symbol?(type=="checkmark")          => char{mtcode=0x2713;text_color=find_attribute(match,"color","LaTeX: Black");};    // Check mark
+	// character nodes replacements (for text styles)
+		// fraktur
+	MI?(this.char=='A' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF000;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital A
+	MI?(this.char=='B' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF001;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital B
+	MI?(this.char=='C' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0x212D;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital C
+	MI?(this.char=='D' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF003;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital D
+	MI?(this.char=='E' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF004;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital E
+	MI?(this.char=='F' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF005;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital F
+	MI?(this.char=='G' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF006;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital G
+	MI?(this.char=='H' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0x210C;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital H
+	MI?(this.char=='I' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0x2111;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital I
+	MI?(this.char=='J' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF009;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital J
+	MI?(this.char=='K' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF00A;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital K
+	MI?(this.char=='L' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF00B;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital L
+	MI?(this.char=='M' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF00C;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital M
+	MI?(this.char=='N' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF00D;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital N
+	MI?(this.char=='O' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF00E;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital O
+	MI?(this.char=='P' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF00F;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital P
+	MI?(this.char=='Q' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF010;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital Q
+	MI?(this.char=='R' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0x211C;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital R
+	MI?(this.char=='S' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF012;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital S
+	MI?(this.char=='T' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF013;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital T
+	MI?(this.char=='U' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF014;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital U
+	MI?(this.char=='V' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF015;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital V
+	MI?(this.char=='W' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF016;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital W
+	MI?(this.char=='X' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF017;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital X
+	MI?(this.char=='Y' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF018;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital Y
+	MI?(this.char=='Z' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0x2128;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur capital Z
+	MI?(this.char=='a' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF01A;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small a
+	MI?(this.char=='b' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF01B;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small b
+	MI?(this.char=='c' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF01C;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small c
+	MI?(this.char=='d' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF01D;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small d
+	MI?(this.char=='e' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF01E;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small e
+	MI?(this.char=='f' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF01F;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small f
+	MI?(this.char=='g' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF020;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small g
+	MI?(this.char=='h' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF021;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small h
+	MI?(this.char=='i' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF022;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small i
+	MI?(this.char=='j' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF023;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small j
+	MI?(this.char=='k' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF024;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small k
+	MI?(this.char=='l' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF025;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small l
+	MI?(this.char=='m' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF026;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small m
+	MI?(this.char=='n' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF027;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small n
+	MI?(this.char=='o' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF028;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small o
+	MI?(this.char=='p' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF029;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small p
+	MI?(this.char=='q' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF02A;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small q
+	MI?(this.char=='r' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF02B;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small r
+	MI?(this.char=='s' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF02C;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small s
+	MI?(this.char=='t' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF02D;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small t
+	MI?(this.char=='u' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF02E;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small u
+	MI?(this.char=='v' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF02F;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small v
+	MI?(this.char=='w' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF030;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small w
+	MI?(this.char=='x' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF031;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small x
+	MI?(this.char=='y' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF032;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small y
+	MI?(this.char=='z' && find_attribute(this,"style","")=="mathfrak") => char{mtcode=0xF033;text_color=find_attribute(match,"color","LaTeX: Black");};// Fraktur small z
+		// blackboard bold
+	MI?(this.char=='A' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF080;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital A
+	MI?(this.char=='B' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF081;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital B
+	MI?(this.char=='C' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0x2102;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital C
+	MI?(this.char=='D' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF083;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital D
+	MI?(this.char=='E' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF084;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital E
+	MI?(this.char=='F' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF085;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital F
+	MI?(this.char=='G' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF086;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital G
+	MI?(this.char=='H' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0x210D;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital H
+	MI?(this.char=='I' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF088;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital I
+	MI?(this.char=='J' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF089;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital J
+	MI?(this.char=='K' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF08A;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital K
+	MI?(this.char=='L' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF08B;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital L
+	MI?(this.char=='M' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF08C;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital M
+	MI?(this.char=='N' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0x2115;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital N
+	MI?(this.char=='O' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF08E;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital O
+	MI?(this.char=='P' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0x2119;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital P
+	MI?(this.char=='Q' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0x211A;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital Q
+	MI?(this.char=='R' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0x211D;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital R
+	MI?(this.char=='S' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF092;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital S
+	MI?(this.char=='T' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF093;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital T
+	MI?(this.char=='U' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF094;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital U
+	MI?(this.char=='V' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF095;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital V
+	MI?(this.char=='W' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF096;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital W
+	MI?(this.char=='X' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF097;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital X
+	MI?(this.char=='Y' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF098;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital Y
+	MI?(this.char=='Z' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0x2124;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold capital Z
+	MI?(this.char=='a' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF09A;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small a
+	MI?(this.char=='b' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF09B;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small b
+	MI?(this.char=='c' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF09C;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small c
+	MI?(this.char=='d' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF09D;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small d
+	MI?(this.char=='e' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF09E;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small e
+	MI?(this.char=='f' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF09F;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small f
+	MI?(this.char=='g' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0A0;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small g
+	MI?(this.char=='h' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0A1;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small h
+	MI?(this.char=='i' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0A2;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small i
+	MI?(this.char=='j' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0A3;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small j
+	MI?(this.char=='k' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0A4;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small k
+	MI?(this.char=='l' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0A5;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small l
+	MI?(this.char=='m' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0A6;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small m
+	MI?(this.char=='n' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0A7;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small n
+	MI?(this.char=='o' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0A8;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small o
+	MI?(this.char=='p' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0A9;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small p
+	MI?(this.char=='q' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0AA;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small q
+	MI?(this.char=='r' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0AB;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small r
+	MI?(this.char=='s' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0AC;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small s
+	MI?(this.char=='t' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0AD;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small t
+	MI?(this.char=='u' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0AE;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small u
+	MI?(this.char=='v' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0AF;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small v
+	MI?(this.char=='w' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0B0;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small w
+	MI?(this.char=='x' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0B1;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small x
+	MI?(this.char=='y' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0B2;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small y
+	MI?(this.char=='z' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0B3;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold small z
+	MN?(this.char=='0' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0C0;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold digit zero
+	MN?(this.char=='1' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0C1;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold digit one
+	MN?(this.char=='2' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0C2;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold digit two
+	MN?(this.char=='3' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0C3;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold digit three
+	MN?(this.char=='4' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0C4;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold digit four
+	MN?(this.char=='5' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0C5;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold digit five
+	MN?(this.char=='6' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0C6;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold digit six
+	MN?(this.char=='7' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0C7;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold digit seven
+	MN?(this.char=='8' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0C8;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold digit eight
+	MN?(this.char=='9' && find_attribute(this,"style","")=="mathbb") => char{mtcode=0xF0C9;text_color=find_attribute(match,"color","LaTeX: Black");};  // Blackboard-bold digit nine
+		// calligraphic
+	MI?(this.char=='A' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF100;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital A
+	MI?(this.char=='B' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0x212C;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital B
+	MI?(this.char=='C' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF102;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital C
+	MI?(this.char=='D' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF103;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital D
+	MI?(this.char=='E' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0x2130;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital E
+	MI?(this.char=='F' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0x2131;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital F
+	MI?(this.char=='G' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF106;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital G
+	MI?(this.char=='H' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0x210B;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital H
+	MI?(this.char=='I' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0x2110;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital I
+	MI?(this.char=='J' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF109;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital J
+	MI?(this.char=='K' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF10A;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital K
+	MI?(this.char=='L' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0x2112;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital L
+	MI?(this.char=='M' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0x2133;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital M
+	MI?(this.char=='N' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF10D;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital N
+	MI?(this.char=='O' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF10E;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital O
+	MI?(this.char=='P' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF10F;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital P
+	MI?(this.char=='Q' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF110;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital Q
+	MI?(this.char=='R' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0x211B;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital R
+	MI?(this.char=='S' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF112;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital S
+	MI?(this.char=='T' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF113;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital T
+	MI?(this.char=='U' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF114;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital U
+	MI?(this.char=='V' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF115;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital V
+	MI?(this.char=='W' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF116;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital W
+	MI?(this.char=='X' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF117;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital X
+	MI?(this.char=='Y' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF118;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital Y
+	MI?(this.char=='Z' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF119;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script capital Z
+	MI?(this.char=='a' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF11A;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small a
+	MI?(this.char=='b' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF11B;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small b
+	MI?(this.char=='c' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF11C;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small c
+	MI?(this.char=='d' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF11D;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small d
+	MI?(this.char=='e' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0x212F;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small e
+	MI?(this.char=='f' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF11F;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small f
+	MI?(this.char=='g' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0x210A;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small g
+	MI?(this.char=='h' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF121;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small h
+	MI?(this.char=='i' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF122;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small i
+	MI?(this.char=='j' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF123;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small j
+	MI?(this.char=='k' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF124;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small k
+	MI?(this.char=='l' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0x2113;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small l
+	MI?(this.char=='m' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF126;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small m
+	MI?(this.char=='n' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF127;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small n
+	MI?(this.char=='o' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0x2134;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small o
+	MI?(this.char=='p' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF129;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small p
+	MI?(this.char=='q' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF12A;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small q
+	MI?(this.char=='r' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF12B;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small r
+	MI?(this.char=='s' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF12C;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small s
+	MI?(this.char=='t' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF12D;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small t
+	MI?(this.char=='u' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF12E;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small u
+	MI?(this.char=='v' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF12F;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small v
+	MI?(this.char=='w' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF130;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small w
+	MI?(this.char=='x' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF131;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small x
+	MI?(this.char=='y' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF132;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small y
+	MI?(this.char=='z' && find_attribute(this,"style","")=="mathcal") => char{mtcode=0xF133;text_color=find_attribute(match,"color","LaTeX: Black");}; // Script small z

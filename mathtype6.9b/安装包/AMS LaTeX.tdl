@@ -1,0 +1,16 @@
+MathType Output Translator 1.0: "AMSLaTeX", "AMSLaTeX translator v1.00 by Design Science, Inc.", language
+
+// Copyright (c) 1998-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/AMS LaTeX.tdl 23    6/18/10 3:16p Eduardot $
+
+include "AMS LaTeX (base vars).tdl";
+// redefinitions of base variables
+var/"TranslatorName" = "AMS LaTeX";
+var/"TranslatorFileName" = "AMS LaTeX.tdl";
+
+include "AMS LaTeX (base rules).tdl";

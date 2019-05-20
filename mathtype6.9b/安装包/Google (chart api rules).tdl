@@ -1,0 +1,133 @@
+// Google (chart api rules).tdl
+
+// Copyright (c) 1998-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Google (chart api rules).tdl 1     6/20/10 4:48a Eduardot $
+
+// base for all translators that use the Google chart api
+
+include "LaTeX (base rules).tdl";
+// redefinition of base rules
+
+// =====================================================
+// Variables for top level Translation Strings
+// =====================================================
+// build the img tag by wrapping 
+wrapper = "<img class=@"ee_img tr_noresize@" alt=@"<EqnXMLEncoded>@" src=@"http://chart.apis.google.com/chart?cht=tx&amp;chs=1x0&amp;chf=bg,s,FFFFFF00&amp;chco=000000&amp;chl=<EqnPercentEncoded>@" eeimg=@"1@" style=@"vertical-align: middle; @" longdesc=@"<MTEFXMLEncoded>@">";
+
+
+// =====================================================
+// Double-struck (Blackboard bold) characters
+// =====================================================
+char/0x2102     = "\mathbb{C}";             // Blackboard-bold capital C
+char/0x210D     = "\mathbb{H}";             // Blackboard-bold capital H
+char/0x2115     = "\mathbb{N}";             // Blackboard-bold capital N
+char/0x2119     = "\mathbb{P}";             // Blackboard-bold capital P
+char/0x211A     = "\mathbb{Q}";             // Blackboard-bold capital Q
+char/0x211D     = "\mathbb{R}";             // Blackboard-bold capital R
+char/0x2124     = "\mathbb{Z}";             // Blackboard-bold capital Z
+
+char/0xF080     = "\mathbb{A}";             // Blackboard-bold capital A
+char/0xF081     = "\mathbb{B}";             // Blackboard-bold capital B
+char/0xF082     = "\mathbb{C}";             // Blackboard-bold capital C
+char/0xF083     = "\mathbb{D}";             // Blackboard-bold capital D
+char/0xF084     = "\mathbb{E}";             // Blackboard-bold capital E
+char/0xF085     = "\mathbb{F}";             // Blackboard-bold capital F
+char/0xF086     = "\mathbb{G}";             // Blackboard-bold capital G
+char/0xF087     = "\mathbb{H}";             // Blackboard-bold capital H
+char/0xF088     = "\mathbb{I}";             // Blackboard-bold capital I
+char/0xF089     = "\mathbb{J}";             // Blackboard-bold capital J
+char/0xF08A     = "\mathbb{K}";             // Blackboard-bold capital K
+char/0xF08B     = "\mathbb{L}";             // Blackboard-bold capital L
+char/0xF08C     = "\mathbb{M}";             // Blackboard-bold capital M
+char/0xF08D     = "\mathbb{N}";             // Blackboard-bold capital N
+char/0xF08E     = "\mathbb{O}";             // Blackboard-bold capital O
+char/0xF08F     = "\mathbb{P}";             // Blackboard-bold capital P
+char/0xF090     = "\mathbb{Q}";             // Blackboard-bold capital Q
+char/0xF091     = "\mathbb{R}";             // Blackboard-bold capital R
+char/0xF092     = "\mathbb{S}";             // Blackboard-bold capital S
+char/0xF093     = "\mathbb{T}";             // Blackboard-bold capital T
+char/0xF094     = "\mathbb{U}";             // Blackboard-bold capital U
+char/0xF095     = "\mathbb{V}";             // Blackboard-bold capital V
+char/0xF096     = "\mathbb{W}";             // Blackboard-bold capital W
+char/0xF097     = "\mathbb{X}";             // Blackboard-bold capital X
+char/0xF098     = "\mathbb{Y}";             // Blackboard-bold capital Y
+char/0xF099     = "\mathbb{Z}";             // Blackboard-bold capital Z
+char/0xF09A     = "\mathbb{a}";             // Blackboard-bold capital a
+char/0xF09B     = "\mathbb{b}";             // Blackboard-bold capital b
+char/0xF09C     = "\mathbb{c}";             // Blackboard-bold capital c
+char/0xF09D     = "\mathbb{d}";             // Blackboard-bold capital d
+char/0xF09E     = "\mathbb{e}";             // Blackboard-bold capital e
+char/0xF09F     = "\mathbb{f}";             // Blackboard-bold capital f
+char/0xF0A0     = "\mathbb{g}";             // Blackboard-bold capital g
+char/0xF0A1     = "\mathbb{h}";             // Blackboard-bold capital h
+char/0xF0A2     = "\mathbb{i}";             // Blackboard-bold capital i
+char/0xF0A3     = "\mathbb{j}";             // Blackboard-bold capital j
+char/0xF0A4     = "\mathbb{k}";             // Blackboard-bold capital k
+char/0xF0A5     = "\mathbb{l}";             // Blackboard-bold capital l
+char/0xF0A6     = "\mathbb{m}";             // Blackboard-bold capital m
+char/0xF0A7     = "\mathbb{n}";             // Blackboard-bold capital n
+char/0xF0A8     = "\mathbb{o}";             // Blackboard-bold capital o
+char/0xF0A9     = "\mathbb{p}";             // Blackboard-bold capital p
+char/0xF0AA     = "\mathbb{q}";             // Blackboard-bold capital q
+char/0xF0AB     = "\mathbb{r}";             // Blackboard-bold capital r
+char/0xF0AC     = "\mathbb{s}";             // Blackboard-bold capital s
+char/0xF0AD     = "\mathbb{t}";             // Blackboard-bold capital t
+char/0xF0AE     = "\mathbb{u}";             // Blackboard-bold capital u
+char/0xF0AF     = "\mathbb{v}";             // Blackboard-bold capital v
+char/0xF0B0     = "\mathbb{w}";             // Blackboard-bold capital w
+char/0xF0B1     = "\mathbb{x}";             // Blackboard-bold capital x
+char/0xF0B2     = "\mathbb{y}";             // Blackboard-bold capital y
+char/0xF0B3     = "\mathbb{z}";             // Blackboard-bold capital z
+char/0xF0C0     = "\mathbb{0}";             // Blackboard-bold digit 0
+char/0xF0C1     = "\mathbb{1}";             // Blackboard-bold digit 1
+char/0xF0C2     = "\mathbb{2}";             // Blackboard-bold digit 2
+char/0xF0C3     = "\mathbb{3}";             // Blackboard-bold digit 3
+char/0xF0C4     = "\mathbb{4}";             // Blackboard-bold digit 4
+char/0xF0C5     = "\mathbb{5}";             // Blackboard-bold digit 5
+char/0xF0C6     = "\mathbb{6}";             // Blackboard-bold digit 6
+char/0xF0C7     = "\mathbb{7}";             // Blackboard-bold digit 7
+char/0xF0C8     = "\mathbb{8}";             // Blackboard-bold digit 8
+char/0xF0C9     = "\mathbb{9}";             // Blackboard-bold digit 9
+// note that not all below are supported by Google chart API
+char/0xF0CA     = error "@n<TransName> does not support <FullDesc>."; // Blackboard-bold nabla
+char/0xF0CB     = error "@n<TransName> does not support <FullDesc>."; // Blackboard-bold euler constant
+char/0xF201     = "\mathbb{\Delta}";        // Blackboard-bold greek capital letter Delta
+char/0xF202     = "\mathbb{\Xi}";           // Blackboard-bold greek capital letter Xi
+char/0xF203     = "\mathbb{\Lambda}";       // Blackboard-bold greek capital letter Lambda
+char/0xF204     = "\mathbb{\Pi}";           // Blackboard-bold greek capital letter Pi
+char/0xF205     = "\mathbb{\Sigma}";        // Blackboard-bold greek capital letter Sigma
+char/0xF206     = "\mathbb{\Theta}";        // Blackboard-bold greek capital letter Theta
+char/0xF207     = "\mathbb{\Gamma}";        // Blackboard-bold greek capital letter Gamma
+char/0xF208     = "\mathbb{\Omega}";        // Blackboard-bold greek capital letter Omega
+char/0xF209     = "\mathbb{\Upsilon}";      // Blackboard-bold greek capital letter Upsilon
+char/0xF220     = "\mathbb{\alpha}";        // Blackboard-bold greek small letter alpha
+char/0xF221     = "\mathbb{\beta}";         // Blackboard-bold greek small letter beta
+char/0xF222     = "\mathbb{\phi}";          // Blackboard-bold greek small letter phi
+char/0xF223     = "\mathbb{\zeta}";         // Blackboard-bold greek small letter zeta
+char/0xF224     = "\mathbb{\psi}";          // Blackboard-bold greek small letter psi
+char/0xF225     = "\mathbb{\delta}";        // Blackboard-bold greek small letter delta
+char/0xF226     = "\mathbb{\epsilon}";      // Blackboard-bold greek small letter non-curly epsilon
+char/0xF227     = "\mathbb{\gamma}";        // Blackboard-bold greek small letter gamma
+char/0xF228     = "\mathbb{\eta}";          // Blackboard-bold greek small letter eta
+char/0xF229     = "\mathbb{\iota}";         // Blackboard-bold greek small letter iota
+char/0xF22A     = "\mathbb{\xi}";           // Blackboard-bold greek small letter xi
+char/0xF22B     = "\mathbb{\kappa}";        // Blackboard-bold greek small letter kappa
+char/0xF22C     = "\mathbb{\lambda}";       // Blackboard-bold greek small letter lambda
+char/0xF22D     = "\mathbb{\mu}";           // Blackboard-bold greek small letter mu
+char/0xF22E     = "\mathbb{\nu}";           // Blackboard-bold greek small letter nu
+char/0xF22F     = error "@n<TransName> does not support <FullDesc>."; // Blackboard-bold greek small letter epsilon
+char/0xF230     = "\mathbb{\pi}";           // Blackboard-bold greek small letter pi
+char/0xF231     = error "@n<TransName> does not support <FullDesc>."; // Blackboard-bold greek theta symbol
+char/0xF232     = "\mathbb{\rho}";          // Blackboard-bold greek small letter rho
+char/0xF233     = "\mathbb{\sigma}";        // Blackboard-bold greek small letter sigma
+char/0xF234     = "\mathbb{\tau}";          // Blackboard-bold greek small letter tau
+char/0xF235     = "\mathbb{\theta}";        // Blackboard-bold greek small letter theta
+char/0xF236     = "\mathbb{\omega}";        // Blackboard-bold greek small letter omega
+char/0xF237     = error "@n<TransName> does not support <FullDesc>."; // Blackboard-bold greek small letter final sigma
+char/0xF250     = error "@n<TransName> does not support <FullDesc>."; // Blackboard-bold greek rho symbol
+char/0xF251     = error "@n<TransName> does not support <FullDesc>."; // Blackboard-bold greek phi symbol

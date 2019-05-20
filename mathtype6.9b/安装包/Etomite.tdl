@@ -1,0 +1,59 @@
+MathType Output Translator 1.0: "Etomite", "Etomite translator v1.00 by Design Science, Inc.", website, html
+
+// Copyright (c) 1998-2011 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the file name, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Etomite.tdl 1     12/04/13 11:46a Jimm $
+
+include "AMS LaTeX (base vars).tdl";
+// redefinitions of base variables
+
+var/"TranslatorName" = "Etomite";
+var/"TranslatorFileName" = "Etomite.tdl";
+
+var/"BeginMathDisplay" = "\displaystyle ";
+var/"BeginMathInline" = "";
+var/"EndMathDisplay" = "";
+var/"EndMathInline" = "";
+
+var/"EqnDataCmt"= "";
+var/"StdStartCmt"= "";
+var/"StdEndCmt"= "";
+
+include "AMS LaTeX (base rules).tdl";
+
+// build the img tag by wrapping 
+// evidently nothing we can do to add usable alt text to the equation
+//   alt=@"<EqnXMLEncoded>@"
+// does indeed put valid alt text in the img tag, but Etomite strips out the \ characters when page is previewed or published.
+wrapper = "<img src=@"http://latex.codecogs.com/gif.latex?<EqnPercentEncoded>@" style=@"vertical-align: middle;@">";
+
+arc			= "\overarc{#1}";						// Arc
+arrow/b		= "\xrightarrow[#2]{ }";				// right arrow, box on bottom 
+arrow/l/b	= "\xleftarrow[#2]{ }";					// left arrow, box on bottom 
+ubar        = "\underline{#1}";						// under-bar 
+ubar/2      = "\underline{\underline{#1}}";			// double under-bar 
+evec		= "\overset{\lower0.5em\hbox{\smash{<scriptscriptstyle>\rightarrow}}}{#} ";				// Right arrow above
+evec/l		= "\overset{\lower0.5em\hbox{\smash{<scriptscriptstyle>\leftarrow}}}{#} ";				// Left arrow above
+evec/lr		= "\overset{\lower0.5em\hbox{\smash{<scriptscriptstyle>\leftrightarrow}}}{#} ";			// Left-right arrow above
+evec/h		= "\overset{\lower0.5em\hbox{\smash{<scriptscriptstyle>\rightharpoonup}}} {#} ";		// Right harpoon above
+evec/h/l	= "\overset{\lower0.5em\hbox{\smash{<scriptscriptstyle>\leftharpoonup}}} {#} ";			// Left harpoon above
+evec/u		= "\underset{\raise0.3em\hbox{\smash{<scriptscriptstyle>\rightarrow}}}{#} ";			// Right arrow below
+evec/u/l	= "\underset{\raise0.3em\hbox{\smash{<scriptscriptstyle>\leftarrow}}}{#} ";				// Left arrow below
+evec/u/lr	= "\underset{\raise0.3em\hbox{\smash{<scriptscriptstyle>\leftrightarrow}}} {#} ";		// Left-right arrow below
+evec/u/h	= "\underset{\raise0.3em\hbox{\smash{<scriptscriptstyle>\rightharpoondown}}} {#} ";		// Right harpoon below
+evec/u/h/l	= "\underset{\raise0.3em\hbox{\smash{<scriptscriptstyle>\leftharpoondown}}} {#} ";		// Left harpoon below
+earc		= "\overset{\lower0.5em\hbox{\smash{<scriptscriptstyle>\frown}}}{#} ";					// Frown above
+earc/s		= "\overset{\lower0.5em\hbox{\smash{<scriptscriptstyle>\smile}}}{#} ";					// Smile above
+earc/u		= "\underset{\raise0.3em\hbox{\smash{<scriptscriptstyle>\frown}}}{#} ";					// Frown below
+earc/u/s	= "\underset{\raise0.3em\hbox{\smash{<scriptscriptstyle>\smile}}}{#} ";					// Smile below
+eubar		= "\underset{\raise0.3em\hbox{\smash{<scriptscriptstyle>-}}}{#} ";						// Under bar
+etilde/u	= "\underset{\raise0.3em\hbox{\smash{<scriptscriptstyle>\thicksim}}}{#} ";				// tilde under
+char/0x21B5	= "{\hbox{\ \hbox{$\mid$}\kern -1em@n\lower .5em \hbox{\leftarrow$}}} ";				// Downwards arrow with corner leftwards
+sup/pre     = "{^#2}" ;                   // superscript (leading)
+sub/pre     = "{_#1}" ;                   // subscript (leading)
+subsup/pre  = "{_#1^#2}";                 // both super- and subscripts (leading)
+eprime/b       = "{^\backprime}#";            // backprime

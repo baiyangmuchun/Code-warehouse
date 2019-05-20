@@ -1,0 +1,21 @@
+MathType Output Translator 1.0: "LAMS", "LAMS (documents) translator v1.00 by Design Science, Inc.", website, html, public
+
+// Copyright (c) 1998-2012 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/LAMS.tdl 1     9/28/12 8:34a Eduardot $
+
+include "Google (chart api vars).tdl";
+// redefinitions of base variables
+
+var/"TranslatorName" = "LAMS";
+var/"TranslatorFileName" = "LAMS.tdl";
+
+include "Google (chart api rules).tdl";
+// redefinitions of base rules
+
+// build the img tag by wrapping 
+wrapper = "<img class=@"ee_img tr_noresize@" alt=@"<EqnXMLEncoded>@" src=@"http://latex.codecogs.com/gif.latex?<EqnPercentEncoded>@" align=@"absMiddle@" longdesc=@"<MTEFXMLEncoded>@">";

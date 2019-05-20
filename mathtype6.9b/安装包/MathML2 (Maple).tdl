@@ -1,0 +1,58 @@
+MathType Output Translator 1.0: "Maple", "Maple translator v1.00 by Design Science, Inc.", application
+
+// Copyright (c) 2001-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/MathML2 (Maple).tdl 12    3/28/12 2:19p Eduardot $
+
+// The MathML definitions are contained in the file MathML2base.tdl, included below.
+// This file contains numeric entity references only. Although named entities are
+// more human-readable, many software programs do not yet understand named entities.
+// As a result, our default translator only generates numeric entities. If, for some
+// reason, you need to generate named entities, please contact our support dept. at
+// support@dessci.com and they will be able to help. 
+
+include "MathML2 (base vars).tdl";
+// redefinitions of base variables
+var/"TranslatorName" = "Maple";
+var/"TranslatorFileName" = "MathML2 (Maple).tdl";
+
+// we disable output of comments with the translator name
+var/"StdStartCmt" = "";
+var/"StdEndCmt" = "";
+var/"TransAndData" = "#"; // we change it here so MTEF never shows up
+
+include "MathML2 (base rules).tdl";
+// redefinitions of base rules
+char/0x2212/mathmode = "<(ns)mo>&minus;</(ns)mo>";                    // minus
+// these next use named references to display correctly in Maple
+char/0xED10/mathmode = "<(ns)mo>&DifferentialD;</(ns)mo>";              // DifferentialD
+char/0xED10/textmode = "&DifferentialD;";		                // DifferentialD
+char/0xED11/mathmode = "<(ns)mo>&ExponentialE;</(ns)mo>";               // ExponentialE
+char/0xED11/textmode = "&ExponentialE;";				// ExponentialE
+char/0xED12/mathmode = "<(ns)mo>&ImaginaryI;</(ns)mo>";                 // ImaginaryI
+char/0xED12/textmode = "&ImaginaryI;";					// ImaginaryI
+char/0xED13/mathmode = "<(ns)mo>&ImaginaryJ;</(ns)mo>";                 // ImaginaryJ
+char/0xED13/textmode = "&ImaginaryJ;";					// ImaginaryJ
+char/0xED16/mathmode = "<(ns)mo>&CapitalDifferentialD;</(ns)mo>";       // CapitalDifferentialD
+char/0xED16/textmode = "&CapitalDifferentialD;";			// CapitalDifferentialD
+
+char/0xEF01/mathmode = "<(ns)mtext>&ZeroWidthSpace;</(ns)mtext>";	// MT ZERO SPACE
+char/0xEF01/textmode = "&ZeroWidthSpace;";				// MT ZERO SPACE
+char/0xEF02/mathmode = "<(ns)mtext>&thinsp;</(ns)mtext>";	        // MT THIN SPACE
+char/0xEF02/textmode = "&thinsp;";				        // MT THIN SPACE
+char/0xEF03/mathmode = "<(ns)mtext>&MediumSpace;</(ns)mtext>";	        // MT MEDIUM SPACE
+char/0xEF03/textmode = "&MediumSpace;";				        // MT MEDIUM SPACE
+char/0xEF04/mathmode = "<(ns)mtext>&MediumSpace;</(ns)mtext>";	        // MT THICK SPACE
+char/0xEF04/textmode = "&MediumSpace;";				        // MT THICK SPACE
+char/0xEF05/mathmode = "<(ns)mtext>&MediumSpace;</(ns)mtext>";	        // MT EM SPACE
+char/0xEF05/textmode = "&MediumSpace;";				        // MT EM SPACE
+char/0xEF06/mathmode = "<(ns)mtext>&MediumSpace;&MediumSpace;</(ns)mtext>"; // MT 2 EM SPACE
+char/0xEF06/textmode = "&MediumSpace;&MediumSpace;";			// MT 2 EM SPACE
+char/0xEF07/mathmode = error "Character not currently supported: (FullDesc)";   // range: Private Use Area
+char/0xEF07/textmode = error "Character not currently supported: (FullDesc)";   // range: Private Use Area
+char/0xEF08/mathmode = "<(ns)mtext>&VeryThinSpace;</(ns)mtext>";	// MT 1 POINT SPACE
+char/0xEF08/textmode = "&VeryThinSpace;";				// MT 1 POINT SPACE

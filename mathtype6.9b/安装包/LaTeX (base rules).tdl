@@ -1,0 +1,335 @@
+// LaTeX (base rules).tdl
+
+// Copyright (c) 1999-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/LaTeX (base rules).tdl 5     12/17/12 12:20p Jimm $
+
+include "TeX (base rules).tdl";
+include "TeX (chars).tdl";
+
+// =====================================================
+// Default Translation Strings
+// =====================================================
+ 
+deffunc     = "{<mathop>{\rm #}\nolimits} ";	//  default function translation 
+defchar     = error "@nNo translation available for <FullDesc>. @nPlease add a translation for  @"<Cmd>@"  in the file <TranslatorFileName>, or try using AMS-LaTeX.";    //  default character translation 
+deftmpl     = error "@nNo translation available for <Desc>. @nPlease add a translation for  @"<Cmd>@"  in the file <TranslatorFileName>, or try using AMS-LaTeX.";        //  default template translation 
+defemb      = error "@nNo translation available for <Desc>. @nPlease add a translation for  @"<Cmd>@"  in the file <TranslatorFileName>, or try using AMS-LaTeX.";        //  default embellishment translation 
+run/text         = "{\rm{#}}";        // run of Text style characters 
+run/vector       = "{\bf{#}}";        // run of Vector style characters 
+
+
+// =====================================================
+// Piles
+// =====================================================
+
+// Pile translation (default, embedded)
+pile        = "\begin{<MatrixEnv>}{c}<newline>#<NextRow><newline>#<newline>\end{<MatrixEnv>}";      // default
+pile/l	    = "\begin{<MatrixEnv>}{l}<newline>#<NextRow><newline>#<newline>\end{<MatrixEnv>}";      // left justified
+pile/c	    = "\begin{<MatrixEnv>}{c}<newline>#<NextRow><newline>#<newline>\end{<MatrixEnv>}";      // centered
+pile/r	    = "\begin{<MatrixEnv>}{r}<newline>#<NextRow><newline>#<newline>\end{<MatrixEnv>}";      // right justified 
+// The following rule only works for piles with up to 5 alignment marks per slot
+pile/al   = "\begin{<MatrixEnv>}{ccccc}<newline>#<NextRow><newline>#<newline>\end{<MatrixEnv>}";    // aligned at alignment mark
+
+// Top level pile translation
+pile/t      = "\begin{<MatrixEnv>}{c}<newline>#<NextRow><newline>#<newline>\end{<MatrixEnv>}";      // default
+pile/t/l    = "\begin{<MatrixEnv>}{l}<newline>#<NextRow><newline>#<newline>\end{<MatrixEnv>}";      // left justified
+pile/t/c    = "\begin{<MatrixEnv>}{c}<newline>#<NextRow><newline>#<newline>\end{<MatrixEnv>}";      // centered
+pile/t/r    = "\begin{<MatrixEnv>}{r}<newline>#<NextRow><newline>#<newline>\end{<MatrixEnv>}";      // right justified
+// The following rule only works for piles with up to 5 alignment marks per slot
+pile/t/al   = "\begin{<MatrixEnv>}{ccccc}<newline>#<NextRow><newline>#<newline>\end{<MatrixEnv>}"; // aligned at alignment mark
+
+// 2-line limit pile translation (as in limit of summation)
+pile/lim/2        = "{<scriptstyle>#1\atop<newline><scriptstyle>#2}";                   // default 
+pile/lim/2/l      = "{<scriptstyle>#1<hfill>\atop<newline><scriptstyle>#2<hfill>}";     // left justified
+pile/lim/2/c      = "{<scriptstyle>#1\atop<newline><scriptstyle>#2}";                   // centered    
+pile/lim/2/r      = "{<scriptstyle><hfill>#1\atop<newline><scriptstyle><hfill>#2}";     // right justified
+
+// 3-line limit pile translation (as in limit of summation)
+pile/lim/3        = "{<scriptstyle>#1\atop<newline>{<scriptstyle>#2\atop<newline><scriptstyle>#3}}";                         // default 
+pile/lim/3/l      = "{<scriptstyle>#1<hfill>\atop<newline>{<scriptstyle>#2<hfill>\atop<newline><scriptstyle>#3<hfill>}}";    // left justified
+pile/lim/3/c      = "{<scriptstyle>#1\atop<newline>{<scriptstyle>#2\atop<newline><scriptstyle>#3}}";                         // centered
+pile/lim/3/r      = "{<scriptstyle><hfill>#1\atop<newline>{<scriptstyle><hfill>#2\atop<newline><scriptstyle><hfill>#3}}";    // right justified
+
+// =====================================================
+// Matrices and Matrix Elements
+// =====================================================
+
+// Matrix translation ("array" allows for partition lines, but worse spacing than "matrix")
+matrix      = "\begin{<MatrixEnv>}<MatrixAlignGroup><newline>#\end{<MatrixEnv>}";      
+matrix/c    = "\begin{<MatrixEnv>}<MatrixCenterAlignGroup><newline>#\end{<MatrixEnv>}";      
+matrix/l    = "\begin{<MatrixEnv>}<MatrixLeftAlignGroup><newline>#\end{<MatrixEnv>}";      
+matrix/r    = "\begin{<MatrixEnv>}<MatrixRightAlignGroup><newline>#\end{<MatrixEnv>}";      
+ 
+// Matrix row translation
+matrow   = "#<NextRow><newline>";
+matrow/last   = "#<newline>";
+
+// Matrix element translation (except for last element in row) 
+matelem/c   = "#&";           // Center justified 
+matelem/l   = "#&";           // Left justified
+matelem/r   = "#&";           // Right justified 
+
+// Matrix element translation (last element in row only) 
+matelem/last/l   = "#";       // Left justified
+matelem/last/c   = "#";       // Center justified 
+matelem/last/r   = "#";       // Right justified 
+
+// =====================================================
+// Partition Lines for Matrices & Tables
+// =====================================================
+
+//  Horizontal matrix partition lines (solid, dashed, dotted)
+//  Only solid lines are supported in TeX
+hline       = "\hline<newline>";           // Solid
+hline/dash  = error "@n<TranslatorName> only supports solid lines";           // Dashed 
+hline/dot   = error "@n<TranslatorName> only supports solid lines";           // Dotted
+
+//  Vertical matrix partition lines (solid, dashed, dotted)
+//  Only solid lines are supported in TeX
+vline       = "\vline& ";          // Solid
+vline/dash  = error "@n<TranslatorName> only supports solid lines";          // Dashed
+vline/dot   = error "@n<TranslatorName> only supports solid lines";          // Dotted
+
+
+// =====================================================
+// Roots and Long Division
+// =====================================================
+
+root/nth   = "\sqrt[#2]{#1}";       // higher root 
+
+
+// =====================================================
+// Fractions
+// =====================================================
+
+frac         = "\frac{#1}{#2}";       // fraction 
+frac/sm      = "{\textstyle{#1 \over #2}}";      // piece fraction 
+
+// =====================================================
+// Function Translations
+// =====================================================
+
+func/"Re"       = "{<mathop>{\rm Re}\nolimits} ";
+func/"Im"       = "{<mathop>{\rm Im}\nolimits} ";
+func/"cov"      = "{<mathop>{\rm cov}} ";
+func/"glb"      = "{<mathop>{\rm glb}} ";
+func/"int"      = "{<mathop>{\rm int}} ";
+func/"lub"      = "{<mathop>{\rm lub}} ";
+func/"sgn"      = "{<mathop>{\rm sgn}} ";
+func/"var"      = "{<mathop>{\rm var}} ";
+
+// =====================================================
+// Embellishment Translations
+// =====================================================
+
+edot/3         = error "@n<TranslatorName> does not support <Desc>. @nPlease use AMSTeX.";       // three dot over
+edot/4         = error "@n<TranslatorName> does not support <Desc>. @nPlease use AMSTeX.";       // four dots over
+
+evec/l       = "\mathord{\buildrel{\lower3pt\hbox{$<scriptscriptstyle>\leftarrow$}} <newline>\over #} ";         // Left arrow above
+evec/lr      = "\mathord{\buildrel{\lower3pt\hbox{$<scriptscriptstyle>\leftrightarrow$}} <newline>\over #} ";    // Left-right arrow above
+evec/h       = "\mathord{\buildrel{\lower3pt\hbox{$<scriptscriptstyle>\rightharpoonup$}} <newline>\over #} ";    // Right harpoon above
+evec/h/l     = "\mathord{\buildrel{\lower3pt\hbox{$<scriptscriptstyle>\leftharpoonup$}} <newline>\over #} ";     // Left harpoon above
+
+earc       = "\mathord{\buildrel{\lower3pt\hbox{$<scriptscriptstyle>\frown$}} <newline>\over #} ";        // Frown above
+earc/s     = "\mathord{\buildrel{\lower3pt\hbox{$<scriptscriptstyle>\smile$}} <newline>\over #} ";        // Smile above
+
+// =====================================================
+// Script, Fraktur, Blackboard Bold, etc.
+// =====================================================
+
+// the blackboard bold chars here are handled by the default char translation
+char/0x210B     = "{\cal H}";              // Script capital H
+char/0x210C     = error "@n<TranslatorName> does not support Fraktur characters. @nPlease use AMS-LaTeX.";                     // Fraktur capital H
+char/0x2110     = "{\cal I}";              // Script capital I
+char/0x2112     = "{\cal L}";              // Script capital L
+char/0x211B     = "{\cal R}";              // Script capital R
+char/0x2128     = error "@n<TranslatorName> does not support Fraktur characters. @nPlease use AMS-LaTeX.";                     // Fraktur capital Z
+char/0x212C     = "{\cal B}";              // Script capital B
+char/0x212D     = error "@n<TranslatorName> does not support Fraktur characters. @nPlease use AMS-LaTeX.";                     // Fraktur capital C
+char/0x2130     = "{\cal E}";              // Script capital E
+char/0x2131     = "{\cal F}";              // Script capital F
+char/0x2133     = "{\cal M}";              // Script capital M
+
+// =====================================================
+// Arrows
+// =====================================================
+
+char/0x219A           = " \mathrel{\setbox0=\hbox{$\leftarrow$}<newline> \rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                 // Leftwards arrow with stroke
+char/0x219B           = " \mathrel{\setbox0=\hbox{$\rightarrow$}<newline> \rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                // Rightwards arrow with stroke
+char/0x21C4           = " \mathbin{\lower.3ex\hbox{$\buildrel\textstyle\rightarrow\over<newline>{\smash{\leftarrow}\vphantom{_{\vbox to.5ex{\vss}}}}$}} ";            // Rightwards arrow over leftwards arrow
+char/0x21C6           = " \mathbin{\lower.3ex\hbox{$\buildrel\textstyle\leftarrow\over<newline>{\smash{\rightarrow}\vphantom{_{\vbox to.5ex{\vss}}}}$}} ";            // Leftwards arrow over rightwards arrow
+char/0x21C7           = " \mathbin{\lower.3ex\hbox{$\buildrel\textstyle\leftarrow\over<newline>{\smash{\leftarrow}\vphantom{_{\vbox to.5ex{\vss}}}}$}} ";             // Leftwards paired arrows
+char/0x21C8           = " \mathrel{\uparrow\joinrel\uparrow} ";                 // Upwards paired arrows
+char/0x21C9           = " \mathbin{\lower.3ex\hbox{$\buildrel\textstyle\rightarrow\over<newline>{\smash{\rightarrow}\vphantom{_{\vbox to.5ex{\vss}}}}$}} ";           // Rightwards paired arrows
+char/0x21CA           = " \mathrel{\downarrow\joinrel\downarrow} ";             // Downwards paired arrows
+char/0x21CB           = " \mathbin{\lower.3ex\hbox{$\buildrel\textstyle\leftharpoonup\over<newline>{\smash{\rightharpoondown}}$}} ";          // Left harpoon over right harpoon
+char/0x21CD           = " \mathrel{\setbox0=\hbox{$\Leftarrow$}<newline>\rlap{\hbox to\wd0{\hss$\,/$\hss}}\box0} ";                 // Leftwards double arrow with stroke
+char/0x21CE           = " \mathrel{\setbox0=\hbox{$\Leftrightarrow$}<newline>\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";            // Left right double arrow with stroke
+char/0x21CF           = " \mathrel{\setbox0=\hbox{$\Rightarrow$}<newline>\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                // Rightwards double arrow with stroke
+
+// =====================================================
+// Other More Exotic Character Translations
+// =====================================================
+
+char/0x2204     = "\mathord{\setbox0=\hbox{$\exists$}<newline>\rlap{\raise.2ex\hbox to\wd0{\hss/\hss}}\box0} ";                   // There does not exist
+char/0x2214     = " \buildrel\textstyle.\over+ ";   // Dot plus
+char/0x221B     = "\root 3 \of {\mathstrut} ";   // Cube root
+char/0x221C     = "\root 4 \of {\mathstrut} ";   // Fourth root
+char/0x2224     = "\mathrel{\setbox0=\hbox{$\mid$}<newline>\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                      // Does not divide
+char/0x2226     = "\mathrel{\setbox0=\hbox{$\parallel$}<newline>\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                 // Not parallel to
+char/0x222C     = "\int\!\!\!\int ";             // Double integral
+char/0x222D     = "\int\!\!\!\int\!\!\!\int ";   // Triple integral
+char/0x2234		= "\therefore ";				 // Therefore
+
+char/0x2241     = " \not\sim ";                  // Not tilde
+char/0x2247     = " \not\cong ";                 // Neither approximately nor actually equal to
+char/0x224A     = " \mathbin{\lower.3ex\hbox{$\buildrel\approx\over<newline>{\smash{<scriptstyle>\relbar}\vphantom{_{\vbox to.5ex{\vss}}}}$}} ";                 // Almost equal or equal to
+char/0x2250     = " \buildrel\textstyle.\over= ";     // Approaches the limit
+char/0x2251     = " \mathbin{\lower.3ex\hbox{$\buildrel{\mathbin{\buildrel<scriptstyle>.\over<newline>{\smash{<scriptstyle>=}\vphantom{_{<scriptstyle> x}}}}}\over<newline>{\smash{<scriptstyle>\cdot}}$}} ";                 // Geometrically equal to
+char/0x2252     = " \mathbin{\lower.3ex\hbox{$\buildrel{\mathbin{\buildrel<scriptstyle>.<hfill>\over<newline>{\smash{<scriptstyle>=}\vphantom{_{<scriptstyle> x}}}}}\over<newline>{<hfill>\smash{<scriptstyle>\cdot}}$}} ";            // Approximately equal to or the image of
+char/0x2253     = " \mathbin{\lower.3ex\hbox{$\buildrel{\mathbin{\buildrel<hfill><scriptstyle>.\over<newline>{\smash{<scriptstyle>=}\vphantom{_{<scriptstyle> x}}}}}\over<newline>{\smash{<scriptstyle>\cdot}<hfill>}$}} ";             // Image of or approximately equal to
+char/0x2257     = " \buildrel\circ \over = ";         // Ring equal to
+char/0x2258     = " \buildrel{\lower1em\hbox{$<scriptstyle>\frown$}}<newline> \over = ";    // Corresponds to
+char/0x2259     = " \buildrel \wedge \over = ";       // Estimates
+char/0x225A     = " \buildrel \vee \over = ";         // Equiangular to
+char/0x225B     = " \buildrel{\lower1em\hbox{$<scriptstyle>\star$}}<newline> \over = ";     // Star equals
+char/0x225C     = " \buildrel \Delta \over = ";       // Delta equal to
+char/0x225D     = " \buildrel {\rm def} \over = ";    // Equal to by definition
+char/0x225E     = " \buildrel \wedge \over = ";       // Measured by
+char/0x225F     = " \buildrel ? \over = ";            // Questioned equal to
+char/0x2264     = " \le ";                       // Less-than or equal to
+char/0x2265     = " \ge ";                       // Greater-than or equal to
+char/0x2266     = " \mathbin{\lower.3ex\hbox{$\buildrel<\over<newline>{\smash{<scriptstyle>=}\vphantom{_x}}$}} ";                     // Less-than over equal to
+char/0x2267     = " \mathbin{\lower.3ex\hbox{$\buildrel>\over<newline>{\smash{<scriptstyle>=}\vphantom{_x}}$}} ";                     // Greater-than over equal to
+char/0x226C     = " \mathrel{(\llap)} ";              // Between
+char/0x226E     = " \not < ";                    // Not less-than
+char/0x226F     = " \not > ";                    // Not greater-than
+char/0x2272     = " \mathbin{\lower.3ex\hbox{$\buildrel<\over<newline>{\smash{<scriptstyle>\sim}\vphantom{_x}}$}} ";                  // Less-than or equivalent to
+char/0x2273     = " \mathbin{\lower.3ex\hbox{$\buildrel>\over<newline>{\smash{<scriptstyle>\sim}\vphantom{_x}}$}} ";                   // Greater-than or equivalent to
+char/0x2274     = " \mathrel{\setbox0=\hbox{$\mathbin{\lower.3ex\hbox{$\buildrel<\over<newline>{\smash{<scriptstyle>\sim}\vphantom{_x}}$}}$}<newline>\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";              // Neither less-than nor equivalent to
+char/0x2275     = " \mathrel{\setbox0=\hbox{$\mathbin{\lower.3ex\hbox{$\buildrel>\over<newline>{\smash{<scriptstyle>\sim}\vphantom{_x}}$}}$}<newline>\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";               // Neither greater-than nor equivalent to
+char/0x2276     = " \mathbin{\lower.3ex\hbox{$\buildrel<\over<newline>{\smash{<scriptstyle>>}\vphantom{_x}}$}} ";                  // Less-than or greater-than
+char/0x2277     = " \mathbin{\lower.3ex\hbox{$\buildrel>\over<newline>{\smash{<scriptstyle><}\vphantom{_x}}$}} ";                  // Greater-than or less-than
+char/0x2278     = " \mathrel{\setbox0=\hbox{$\mathbin{\lower.3ex\hbox{$\buildrel<\over<newline>{\smash{<scriptstyle>>}\vphantom{_x}}$}}$}\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";              // Neither less-than nor greater-than
+char/0x2279     = " \mathrel{\setbox0=\hbox{$\mathbin{\lower.3ex\hbox{$\buildrel>\over<newline>{\smash{<scriptstyle><}\vphantom{_x}}$}}$}\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";              // Neither greater-than nor less-than
+char/0x227E     = " \mathbin{\lower.3ex\hbox{$\buildrel\prec\over<newline>{\smash{<scriptstyle>\sim}\vphantom{_x}}$}} ";                  // Precedes or equivalent to
+char/0x227F     = " \mathbin{\lower.3ex\hbox{$\buildrel\succ\over<newline>{\smash{<scriptstyle>\sim}\vphantom{_x}}$}} ";                  // Succeeds or equivalent to
+char/0x2280     = " \not\prec ";                 // Does not precede
+char/0x2281     = " \not\succ ";                 // Does not succeed
+char/0x2288     = " \not\subseteq ";             // Neither a subset of nor equal to
+char/0x2289     = " \not\supseteq ";             // Neither a superset of nor equal to
+char/0x22A7     = " \models ";                    // Models
+char/0x22A8     = " \models ";                    // True
+char/0x22A9     = " \mathrel|\,\joinrel\mathrel|\joinrel\relbar ";       // Forces
+char/0x22AA     = " \mathrel|\,\joinrel\mathrel|\mathrel|\joinrel= ";    // Triple vertical bar right turnstile
+char/0x22AC     = " \mathrel{\setbox0=\hbox{$\vdash$}<newline> \rlap{\raise.2ex\hbox to\wd0{\hss/\hss}}\box0} ";                   // Does not prove
+char/0x22AD     = " \mathrel{\setbox0=\hbox{$\models$}<newline> \rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                   // Not true
+char/0x22AE     = " \mathrel{\setbox0=\hbox{$\mathrel|\,\joinrel\mathrel|\joinrel\relbar$}<newline>\rlap{\hbox to\wd0{\hss$\;$/\hss}}\box0} ";                   // Does not force
+char/0x22AF     = " \mathrel{\setbox0=\hbox{$\mathrel|\,\joinrel\mathrel|\joinrel\Relbar$}<newline>\rlap{\hbox to\wd0{\hss$\;$/\hss}}\box0} ";                   // Negated double vertical bar double right turnstile
+char/0x22B4     = " \mathbin{\lower.3ex\hbox{$\buildrel{\textstyle\triangleleft}\over<newline>{\smash{<scriptstyle>\relbar}\vphantom{_x}}$}} ";           // Normal subgroup of or equal to
+char/0x22B5     = " \mathbin{\lower.3ex\hbox{$\buildrel{\textstyle\triangleright}\over<newline>{\smash{<scriptstyle>\relbar}\vphantom{_x}}$}} ";          // Contains as normal subgroup or equal to
+char/0x22B8     = " \relbar\joinrel\mathrel\circ ";                 // Multimap
+char/0x22BB     = " \mathbin{\lower.3ex\hbox{$\buildrel\vee\over<newline>{\smash{<scriptstyle>\relbar}\vphantom{_x}}$}} ";                   // Xor
+char/0x22BC     = " \mathbin{\buildrel\relbar\over<newline>{\smash{<scriptstyle>\wedge}\vphantom{_x}}} ";                 // Nand
+char/0x22BD     = " \mathbin{\lower.3ex\hbox{$\buildrel\vee\over<newline>{\smash{<scriptstyle>\relbar}\vphantom{_x}}$}} ";                   // Nor
+char/0x22C7     = " \mathrel{\setbox0=\hbox{$\times$}<newline>\rlap{\hbox to\wd0{\hss$\div$\hss}}\box0} ";            // Division times
+char/0x22D6     = " \mathrel{<\!\!\!\cdot} ";                  // Less-than with dot
+char/0x22D7     = " \mathrel{\cdot\!\!\!>} ";                   // Greater-than with dot
+char/0x22D8     = " \mathrel{<\!\!\!<\!\!\!<} ";                      // Very much less-than
+char/0x22D9     = " \mathrel{>\!\!\!>\!\!\!>} ";                      // Very much greater-than
+char/0x22DA     = " \mathbin{\lower.4ex\hbox{$\buildrel{\mathbin{\buildrel<scriptstyle><\over<newline>{\smash{<scriptstyle>\relbar}\vphantom{_{<scriptstyle> x}}}}}\over<newline>{\smash{<scriptstyle>>}\vphantom{_x}}$}} ";                // Less-than equal to or greater-than
+char/0x22DB     = " \mathbin{\lower.4ex\hbox{$\buildrel{\mathbin{\buildrel<scriptstyle>>\over<newline>{\smash{<scriptstyle>\relbar}\vphantom{_{<scriptstyle> x}}}}}\over<newline>{\smash{<scriptstyle><}\vphantom{_x}}$}} ";                // Greater-than equal to or less-than
+char/0x22E6     = " \mathbin{\lower.3ex\hbox{$\buildrel<\over<newline>{\smash{<scriptstyle>\not\sim}\vphantom{_2}}$}} ";                    // Less-than but not equivalent to
+char/0x22E7     = " \mathbin{\lower.3ex\hbox{$\buildrel>\over<newline>{\smash{<scriptstyle>\not\sim}\vphantom{_2}}$}} ";                    // Greater-than but not equivalent to
+char/0x22E8     = " \mathbin{\lower.3ex\hbox{$\buildrel\prec\over<newline>{\smash{<scriptstyle>\not\sim}\vphantom{_2}}$}} ";                 // Precedes but not equivalent to
+char/0x22E9     = " \mathbin{\lower.3ex\hbox{$\buildrel\succ\over<newline>{\smash{<scriptstyle>\not\sim}\vphantom{_2}}$}} ";                 // Succeeds but not equivalent to
+char/0x22EA     = " \mathrel{\setbox0=\hbox{$\triangleleft$}<newline>\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";            // Not normal subgroup of
+char/0x22EB     = " \mathrel{\setbox0=\hbox{$\triangleright$}<newline>\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";           // Does not contain as normal subgroup
+char/0x22EC     = " \mathrel{\setbox0=\hbox{$\mathbin{\lower.3ex\hbox{$\buildrel{\textstyle\triangleleft}<newline>\over{\smash{<scriptstyle>\relbar}\vphantom{_x}}$}}$}<newline>\rlap{\raise.3ex\hbox to\wd0{\hss/\hss}}\box0} ";          // Not normal subgroup of or equal to
+char/0x22ED     = " \mathrel{\setbox0=\hbox{$\mathbin{\lower.3ex\hbox{$\buildrel{\textstyle\triangleright}<newline>\over{\smash{<scriptstyle>\relbar}\vphantom{_x}}$}}$}<newline>\rlap{\raise.3ex\hbox to\wd0{\hss/\hss}}\box0} ";         // Does not contain as normal subgroup or equal
+char/0x2306     = " \mathrel{\bar{\bar{\wedge}}} ";           // Perspective
+char/0xE922     = " \mathbin{\lower.4ex\hbox{$\buildrel{\mathbin{\buildrel<scriptstyle><\over<newline>{\smash{<scriptstyle>=}\vphantom{_{<scriptstyle> x}}}}}\over<newline>{\smash{<scriptstyle>>}\vphantom{_x}}$}} ";               // Less-than equal to or greater-than
+char/0xE92D     = " \mathbin{\lower.4ex\hbox{$\buildrel{\mathbin{\buildrel<scriptstyle>>\over<newline>{\smash{<scriptstyle>=}\vphantom{_{<scriptstyle> x}}}}}\over<newline>{\smash{<scriptstyle><}\vphantom{_x}}$}} ";               // Greater-than equal to or less-than
+char/0xE932     = " \mathbin{\lower.3ex\hbox{$\buildrel<\over<newline>{\smash{<scriptstyle>\approx}\vphantom{_2}}$}} ";               // Less-than or approximately equal to
+char/0xE933     = " \mathbin{\lower.3ex\hbox{$\buildrel>\over<newline>{\smash{<scriptstyle>\approx}\vphantom{_2}}$}} ";                // Greater-than or approximately equal to
+char/0xE93A     = " \mathbin{\lower.3ex\hbox{$\buildrel\prec\over<newline>{\smash{<scriptstyle>\approx}\vphantom{_2}}$}} ";               // Precedes or equivalent to
+char/0xE93B     = " \mathbin{\lower.3ex\hbox{$\buildrel\succ\over<newline>{\smash{<scriptstyle>\approx}\vphantom{_2}}$}} ";               // Succeeds or equivalent to
+char/0xEA06     = " \not\leq ";                  // Not less-than or equal to
+char/0xEA07     = " \not\geq ";                  // Not greater-than or equal to
+char/0xEA11     = " \not\sim ";                  // Small not tilde operator
+char/0xEA2E     = " \mathrel{\setbox0=\hbox{$\mid$}<newline>\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                  // Not bar operator
+char/0xEA2F     = " \mathrel{\setbox0=\hbox{$\parallel$}<newline>\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";             // Not double bar operator
+char/0xEA32     = " \mathbin{\lower.3ex\hbox{$\buildrel<\over<newline>{\smash{<scriptstyle>\not\approx}\vphantom{_2}}$}} ";                 // Less-than but not approximately equal to
+char/0xEA33     = " \mathbin{\lower.3ex\hbox{$\buildrel>\over<newline>{\smash{<scriptstyle>\not\approx}\vphantom{_2}}$}} ";                 // Greater-than but not approximately equal to
+char/0xEA38     = " \not\preceq ";               // Not much less-than
+char/0xEA39     = " \not\succeq ";               // Not much greater-than
+char/0xEA3A     = " \mathbin{\lower.3ex\hbox{$\buildrel\prec\over<newline>{\smash{<scriptstyle>\not\approx}\vphantom{_2}}$}} ";              // Precedes but not equivalent to
+char/0xEA3B     = " \mathbin{\lower.3ex\hbox{$\buildrel\succ\over<newline>{\smash{<scriptstyle>\not\approx}\vphantom{_2}}$}} ";              // Succeeds but not equivalent to
+char/0xEA40     = " \mathbin{\lower.3ex\hbox{$\buildrel\prec\over<newline>{\smash{<scriptstyle>\ne}\vphantom{_2}}$}} ";                 // Precedes but not equal to
+char/0xEA41     = " \mathbin{\lower.3ex\hbox{$\buildrel\succ\over<newline>{\smash{<scriptstyle>\ne}\vphantom{_2}}$}} ";                 // Succeeds but not equal to
+
+// =====================================================
+// Spaces, etc.
+// =====================================================
+
+char/0xEF02/mathmode     = "\,";                     // Thin space (1/6 EM)
+char/0x2009/mathmode     = "\,";		     // Thin space (Unicode 5)
+char/0xEF02/textmode     = "\thinspace ";            // Thin space (1/6 EM)
+char/0x2009/textmode     = "\thinspace ";	     // Thin space (Unicode 5)
+char/0xEF03/mathmode     = "\:";                     // Medium space
+char/0x205F/mathmode     = "\:";                     // Medium space (Unicode 5)
+char/0xEF04/mathmode     = "\;";                     // Thick space (1/3 EM)
+char/0x2004/mathmode     = "\;";			     // Three-per-em space (Unicode 5)
+
+// =====================================================
+// Fraktur (black) letters
+// =====================================================
+
+char/0xF000/0xF033     = error "@n<TranslatorName> does not support Fraktur characters. @nPlease use AMS-LaTeX.";                     // Fraktur capital letters
+
+// =====================================================
+// Double-struck (Blackboard bold) characters
+// =====================================================
+
+// we'll let the default char translations catch this, as we would like 
+// to allow translations (in their specific translation files) for the 
+// versions that do handle double-struck
+//  
+// char/0xF080/0xF099     = error "@n<TranslatorName> does not support black-board bold characters. @nPlease use AMS-LaTeX.";             // Blackboard-bold capital letters
+// char/0xF0A4            = error "@n<TranslatorName> does not support black-board bold characters. @nPlease use AMS-LaTeX.";             // Blackboard-bold small k
+
+// =====================================================
+// Script (calligraphic) characters
+// =====================================================
+
+char/0xF100     = "{\cal A}";            // Script capital A
+char/0xF101     = "{\cal B}";            // Script capital B
+char/0xF102     = "{\cal C}";            // Script capital C
+char/0xF103     = "{\cal D}";            // Script capital D
+char/0xF104     = "{\cal E}";            // Script capital E
+char/0xF105     = "{\cal F}";            // Script capital F
+char/0xF106     = "{\cal G}";            // Script capital G
+char/0xF107     = "{\cal H}";            // Script capital H
+char/0xF108     = "{\cal I}";            // Script capital I
+char/0xF109     = "{\cal J}";            // Script capital J
+char/0xF10A     = "{\cal K}";            // Script capital K
+char/0xF10B     = "{\cal L}";            // Script capital L
+char/0xF10C     = "{\cal M}";            // Script capital M
+char/0xF10D     = "{\cal N}";            // Script capital N
+char/0xF10E     = "{\cal O}";            // Script capital O
+char/0xF10F     = "{\cal P}";            // Script capital P
+char/0xF110     = "{\cal Q}";            // Script capital Q
+char/0xF111     = "{\cal R}";            // Script capital R
+char/0xF112     = "{\cal S}";            // Script capital S
+char/0xF113     = "{\cal T}";            // Script capital T
+char/0xF114     = "{\cal U}";            // Script capital U
+char/0xF115     = "{\cal V}";            // Script capital V
+char/0xF116     = "{\cal W}";            // Script capital W
+char/0xF117     = "{\cal X}";            // Script capital X
+char/0xF118     = "{\cal Y}";            // Script capital Y
+char/0xF119     = "{\cal Z}";            // Script capital Z

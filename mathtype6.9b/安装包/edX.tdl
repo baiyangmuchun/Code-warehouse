@@ -1,0 +1,116 @@
+MathType Output Translator 1.0: "edX", "edX translator v1.00 by Design Science, Inc.", application
+
+// Copyright (c) 1998-2013 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/edX.tdl 1     12/04/13 11:46a Jimm $
+
+include "MathJax-LaTeX (base vars).tdl";
+// redefinitions of base variables
+var/"TranslatorName" = "edX";
+var/"TranslatorFileName" = "edX.tdl";
+
+// need to double escape many characters
+var/"BeginMathDisplay" = "\\[";
+var/"BeginMathInline" = "\\(";
+var/"EndMathDisplay" = "\\]";
+var/"EndMathInline" = "\\)";
+var/"NextRow" = "\\\\";
+
+var/"MatrixAlignGroup" = "{{20}{c}}";
+var/"MatrixCenterAlignGroup" = "{{20}{c}}";
+var/"MatrixLeftAlignGroup" = "{{20}{l}}";
+var/"MatrixRightAlignGroup" = "{{20}{r}}";
+
+include "MathJax-LaTeX (base rules).tdl";
+// redefinition of base rules
+eqn         = "<BeginMathDisplay>#@n<EqnDataCmt><EndMathDisplay>";     //  $$ <eqn> MTEF $$  -- display equation translation
+eqn/inline  = "<BeginMathInline>#@n<EqnDataCmt><EndMathInline>";       //   $ <eqn> MTEF $   -- in-line equation translation
+
+// many escaped characters need double backslashes in edX
+
+// from TeX (base rules)
+brace         = "\left\\{ #1 \right\\}";              // braces (both)
+brace/l       = "\left\\{ #1 \right.";               // braces (left)
+brace/r       = "\left. #1 \right\\}";               // braces (right)
+ldiv/nq    = "\left){\vphantom{1#1}}\right.@n\\!\\!\\!\\!\overline{\\,\\,\\,\vphantom 1{#1}}";      // long division (without upper slot)
+ldiv       = "<mathop>{\left){\vphantom{1#1}}\right.@n\\!\\!\\!\\!\overline{\\,\\,\\,\vphantom 1{#1}}}@n\limits^{\displaystyle<hfill>\\,\\,\\, #2}";      // long division (with upper slot)
+int/2/c/nol   = "<mathop>{{\int\\!\\!\\!\\!\\!\int}\mkern-21mu \bigcirc} @n #1 ";                               // area integral, no limits 
+int/2/c/sum   = "<mathop>{{\int\\!\\!\\!\\!\\!\int}\mkern-21mu \bigcirc}\limits_#2 @n #1 ";                     // area summation-style integral, lower limit 
+int/2/c       = "<mathop>{{\int\\!\\!\\!\\!\\!\int}\mkern-21mu \bigcirc}\nolimits_#2 @n #1 ";                   // area integral, lower limit 
+int/3/c/nol   = "<mathop>{{\int\\!\\!\\!\\!\\!\int\\!\\!\\!\\!\\!\int}\mkern-31.2mu \bigodot} @n #1 ";               // volume integral, no limits 
+int/3/c/sum   = "<mathop>{{\int\\!\\!\\!\\!\\!\int\\!\\!\\!\\!\\!\int}\mkern-31.2mu \bigodot}\limits_#2 @n #1 ";     // volume summation-style integral, lower limit 
+int/3/c       = "<mathop>{{\int\\!\\!\\!\\!\\!\int\\!\\!\\!\\!\\!\int}\mkern-31.2mu \bigodot}\nolimits_#2 @n #1 ";   // volume integral, lower limit 
+box/tl   =   "\left| \\!{\overline {\\, @n #1 \\,}} \right. ";       // Box (top & left sides)
+box/tr   =   "\left. {\overline {\\, @n #1 \\,}}\\! \right| ";       // Box (top & right sides)
+box/bl   =   "\left| \\!{\nderline {\\,@n  #1 \\,}} \right. ";      // Box (bottom & left sides)
+box/br   =   "\left. {\underline {\\, @n #1 \\,}}\\! \right| ";      // Box (bottom & right sides)
+char/0x222F     = "<mathop>{{\int\\!\\!\\!\\!\\!\int}\mkern-21mu @n \bigcirc} ";                      // Surface integral
+char/0x2230     = "<mathop>{{\int\\!\\!\\!\\!\\!\int\\!\\!\\!\\!\\!\int}\mkern-31.2mu @n \bigodot} ";      // Volume integral
+
+// from TeX (chars)
+char/0x005F       = "\\_";                   // Low line
+char/0x007B       = "\\{ ";                  // Left curly bracket
+char/0x007D       = "\\} ";                  // Right curly bracket
+
+char/0x00C0       = "\grave A";                  // Latin capital letter A with grave
+char/0x00C1       = "\acute A";                  // Latin capital letter A with acute
+char/0x00C2       = "\hat A";                  // Latin capital letter A with circumflex
+char/0x00C3       = "\tilde A";                  // Latin capital letter A with tilde
+char/0x00C4       = "\ddot A";                 // Latin capital letter A with diaeresis
+char/0x00C8       = "\grave E ";                 // Latin capital letter E with grave
+char/0x00C9       = "\acute E ";                 // Latin capital letter E with acute
+char/0x00CA       = "\hat E ";                 // Latin capital letter E with circumflex
+char/0x00CB       = "\ddot E";                 // Latin capital letter E with diaeresis
+char/0x00CC       = "\grave I ";                 // Latin capital letter I with grave
+char/0x00CD       = "\acute I ";                 // Latin capital letter I with acute
+char/0x00CE       = "\hat I ";                 // Latin capital letter I with circumflex
+char/0x00CF       = "\ddot I ";                // Latin capital letter I with diaeresis
+char/0x00D1       = "\tilde N ";                 // Latin capital letter N with tilde
+char/0x00D2       = "\grave O ";                 // Latin capital letter O with grave
+char/0x00D3       = "\acute O ";                 // Latin capital letter O with acute
+char/0x00D4       = "\hat O ";                 // Latin capital letter O with circumflex
+char/0x00D5       = "\tilde O ";                 // Latin capital letter O with tilde
+char/0x00D6       = "\ddot O ";                // Latin capital letter O with diaeresis
+char/0x00D9       = "\grave U ";                 // Latin capital letter U with grave
+char/0x00DA       = "\acute U ";                 // Latin capital letter U with acute
+char/0x00DB       = "\hat U ";                 // Latin capital letter U with circumflex
+char/0x00DC       = "\ddot U ";                // Latin capital letter U with diaeresis
+char/0x00DD       = "\acute Y ";                 // Latin capital letter Y with acute
+char/0x00E0       = "\grave a ";                 // Latin small letter a with grave
+char/0x00E1       = "\acute a ";                 // Latin small letter a with acute
+char/0x00E2       = "\hat a ";                 // Latin small letter a with circumflex
+char/0x00E3       = "\tilde a ";                 // Latin small letter a with tilde
+char/0x00E4       = "\ddot a ";                // Latin small letter a with diaeresis
+char/0x00E8       = "\grave e ";                 // Latin small letter e with grave
+char/0x00E9       = "\acute e ";                 // Latin small letter e with acute
+char/0x00EA       = "\hat e ";                 // Latin small letter e with circumflex
+char/0x00EB       = "\ddot e ";                // Latin small letter e with diaeresis
+char/0x00EC       = "\grave i ";                 // Latin small letter i with grave
+char/0x00ED       = "\acute i ";                 // Latin small letter i with acute
+char/0x00EE       = "\hat i ";                 // Latin small letter i with circumflex
+char/0x00EF       = "\ddot i ";                // Latin small letter i with diaeresis
+char/0x00F1       = "\tilde n ";                 // Latin small letter n with tilde
+char/0x00F2       = "\grave o ";                 // Latin small letter o with grave
+char/0x00F3       = "\acute o ";                 // Latin small letter o with acute
+char/0x00F4       = "\hat o ";                 // Latin small letter o with circumflex
+char/0x00F5       = "\tilde o ";                 // Latin small letter o with tilde
+char/0x00F6       = "\ddot o ";                // Latin small letter o with diaeresis
+char/0x00F9       = "\grave u ";                 // Latin small letter u with grave
+char/0x00FA       = "\acute u ";                 // Latin small letter u with acute
+char/0x00FB       = "\hat u ";                 // Latin small letter u with circumflex
+char/0x00FC       = "\ddot u ";                // Latin small letter u with diaeresis
+char/0x00FD       = "\acute y ";                 // Latin small letter y with acute
+char/0x00FF       = "\ddot y ";                // Latin small letter y with diaeresis
+char/0x0178       = "\ddot Y ";                // Latin capital letter Y with diaeresis
+   
+// from LaTeX (base rules)
+char/0x222C     = "\int\\!\\!\\!\int ";             // Double integral
+char/0x222D     = "\int\\!\\!\\!\int\\!\\!\\!\int ";   // Triple integral
+char/0x22D6     = " \mathrel{<\\!\\!\\!\cdot} ";                  // Less-than with dot
+char/0x22D7     = " \mathrel{\cdot\\!\\!\\!>} ";                   // Greater-than with dot
+char/0x22D8     = " \mathrel{<\\!\\!\\!<\\!\\!\\!<} ";                      // Very much less-than
+char/0x22D9     = " \mathrel{>\\!\\!\\!>\\!\\!\\!>} ";                      // Very much greater-than

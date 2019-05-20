@@ -1,0 +1,38 @@
+MathType Output Translator 1.0: "Desire2Learn:MathML", "Desire2Learn MathML translator v1.00 by Design Science, Inc.", application
+
+// Copyright (c) 2001-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Desire2Learn-MathML.tdl 1     10/02/12 8:57a Eduardot $
+
+// The MathML definitions are contained in the file MathML2base.tdl, included below.
+// This file contains numeric entity references only. Although named entities are
+// more human-readable, many software programs do not yet understand named entities.
+// As a result, our default translator only generates numeric entities. If, for some
+// reason, you need to generate named entities, please contact our support dept. at
+// support@dessci.com and they will be able to help. 
+
+include "MathML2 (base vars).tdl";
+// redefinitions of base variables
+var/"TranslatorName" = "Desire2Learn:MathML";
+var/"TranslatorFileName" = "Desire2Learn-MathML.tdl";
+// we disable output of comments with the translator name
+var/"StdStartCmt" = "";
+var/"StdEndCmt" = "";
+
+// empty elements should be an open-close pair instead of self-closing
+var/"mspaceclose" =        "></(ns)mspace>";
+var/"mprescriptsclose" =   "></(ns)mprescripts>";
+var/"noneclose" =          "></(ns)none>";
+var/"maligngroupclose" =   "></(ns)maligngroup>";
+var/"malignmarkclose" =    "></(ns)malignmark>";
+var/"mglyphclose" =        "></(ns)mglyph>";
+
+include "MathML2 (base rules).tdl";
+// redefinitions of base rules
+
+// align groups in tables are not supported, but since they are just ignored,
+// we can keep them (see base rules for pile/dec and pile/al)

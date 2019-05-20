@@ -1,0 +1,496 @@
+// "TeX (base rules).tdl"
+
+// Copyright (c) 1999-2013 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/TeX (base rules).tdl 3     11/15/13 1:47p Jimm $
+
+// include file for translations common to main dialects of TeX
+
+// =====================================================
+// Basic Translation Strings
+// =====================================================
+
+// escchar     = "@";                   // Use @ as escape, since default $ is common in TeX
+comment     = "% #@n";               //  % <comment>  -- comment
+
+eqn  = "<StdStartCmt><EqnDataCmt><BeginMathDisplay>#<EndMathDisplay><StdEndCmt>"; //  $<eqn>$      -- in-line equation translation
+eqn/inline  = "<StdStartCmt><EqnDataCmt><BeginMathInline>#<EndMathInline><StdEndCmt>"; //  $<eqn>$      -- in-line equation translation
+
+// =====================================================
+// Default Translation Strings
+// =====================================================
+ 
+styletype/user1   = mathmode;       // User1 style is treated as math or text 
+styletype/user2   = textmode;       // User2 style is treated as math or text 
+
+run/user1style   = "\user1{#}";      // run of User1 style characters 
+run/user2style   = "\user2{#}";      // run of User2 style characters 
+
+// =====================================================
+// Slots
+// =====================================================
+
+// Default slot translation
+slot       = "{#}";              // default
+slot/0     = "{}";               // empty (zero characters)
+slot/1     = "#";                // one character
+slot/1/e   = "{#}";              // one character with embellishment
+
+// Top-most slot translation
+slot/t      = "#";               // default
+
+// Pile slot translation
+slot/p       = "#";              // default
+slot/p/1     = "#";              // one character
+slot/p/1/e   = "{#}";            // one character with embellishment
+
+// Limit slot translation
+slot/lim       = "#";              // default
+slot/lim/1     = "#";              // one character
+slot/lim/1/e   = "{#}";            // one character with embellishment
+
+// =====================================================
+// Matrices and Matrix Elements
+// =====================================================
+
+// Matrix element translation (except for last element in row) 
+matelem/l   = " # <hfill> &";           // Left justified
+matelem/c   = " # &";                  // Center justified 
+matelem/r   = " <hfill> # &";           // Right justified 
+
+// Matrix element translation (last element in row only) 
+matelem/last/l   = " # <hfill> ";       // Left justified
+matelem/last/c   = " # ";              // Center justified 
+matelem/last/r   = " <hfill> #";        // Right justified 
+
+// =====================================================
+// Fences, Intervals, etc.
+// =====================================================
+
+paren         = "\left( #1 \right)";                // parentheses (both)
+brack         = "\left[ #1 \right]";                // brackets (both)
+brace         = "\left\{ #1 \right\}";              // braces (both)
+abrack        = "\left\langle #1 \right\rangle ";   // angle brackets (both)
+bar           = "\left| #1 \right|";                // bars (both)
+dbar          = "\left\| #1 \right\|";              // double bars (both)
+floor         = "\left\lfloor #1 \right\rfloor ";   // floor 
+ceil          = "\left\lceil #1 \right\rceil ";     // ceiling 
+intval/lblb   = "\left[ #1 \right[";                // left bracket, left bracket interval 
+intval/rbrb   = "\left] #1 \right]";                // right bracket, right bracket interval 
+intval/rblb   = "\left] #1 \right[";                // right bracket, left bracket interval 
+intval/lbrp   = "\left[ #1 \right)";                // left bracket, right paren interval 
+intval/lprb   = "\left( #1 \right]";                // left paren, right bracket interval 
+hbrace        = "\underbrace #1_#2";                // horizontal brace (lower)
+hbrace/t      = "\overbrace #1^#2";                 // horizontal brace (top)
+paren/l       = "\left( #1 \right.";                // parentheses (left)
+paren/r       = "\left. #1 \right)";                // parentheses (right)
+brack/l       = "\left[ #1 \right.";                // brackets (left)
+brack/r       = "\left. #1 \right]";                // brackets (right)
+brace/l       = "\left\{ #1 \right.";               // braces (left)
+brace/r       = "\left. #1 \right\}";               // braces (right)
+abrack/l      = "\left\langle #1 \right.";          // angle brackets (left)
+abrack/r      = "\left. #1 \right\rangle ";         // angle brackets (right)
+bar/l         = "\left| #1 \right.";                // bars (left)
+bar/r         = "\left. #1 \right|";                // bars (right)
+dbar/l        = "\left\| #1 \right.";               // double bars (left)
+dbar/r        = "\left. #1 \right\|";               // double bars (right)
+braket/r      = "\left| #2 \right\rangle ";         // dirac (right)
+braket/l      = "\left\langle #1 \right|";          // dirac (left)
+braket        = "\left\langle {#1}@n \mathrel{\left | {\vphantom {#1 #2}}@n \right. \kern-\nulldelimiterspace}@n {#2} \right\rangle ";
+
+obrack     =   "\left[\kern-0.15em\left[ #1 @n \right]\kern-0.15em\right]";      // Open brackets (both)
+obrack/l   =   "\left[\kern-0.15em\left[ #1 @n \right.";                         // Left open bracket 
+obrack/r   =   "\left. #1 @n \right]\kern-0.15em\right]";                        // Right open bracket 
+
+// =====================================================
+// Fractions
+// =====================================================
+
+frac/sl      = "{\raise0.7ex\hbox{$#1$} \!\mathord{\left/@n {\vphantom {#1 #2}}\right.\kern-\nulldelimiterspace}@n\!\lower0.7ex\hbox{$#2$}}";      // diagonal fraction (normal)
+frac/sl/sm   = "{\raise0.5ex\hbox{$<scriptstyle> #1$}@n\kern-0.1em/\kern-0.15em@n\lower0.25ex\hbox{$<scriptstyle> #2$}}";      // diagonal fraction (subscript-size)
+frac/sl/base = "{#1 \mathord{\left/@n {\vphantom {#1 #2}} \right.@n \kern-\nulldelimiterspace} #2}";      // diagonal fraction (baseline)
+
+// =====================================================
+// Roots and Long Division
+// =====================================================
+
+root       = "\sqrt #1 ";            // square root 
+ldiv/nq    = "\left){\vphantom{1#1}}\right.@n\!\!\!\!\overline{\,\,\,\vphantom 1{#1}}";      // long division (without upper slot)
+ldiv       = "<mathop>{\left){\vphantom{1#1}}\right.@n\!\!\!\!\overline{\,\,\,\vphantom 1{#1}}}@n\limits^{\displaystyle<hfill>\,\,\, #2}";      // long division (with upper slot)
+
+// =====================================================
+// Subscripts, Superscripts, Limit-Like Structures
+// =====================================================
+
+sup         = "^#2";                      // superscript (normal, trailing)
+sub         = "_#1";                      // subscript (normal, trailing)
+sup/scan    = "{#1^#3}";                  // superscript (scan)
+sub/scan    = "{#1_#2}";                  // subscript (scan)
+subsup      = "_#1^#2";                   // both super- and subscripts (normal, trailing)
+sup/pre     = "{}^#2" ;                   // superscript (leading)
+sub/pre     = "{}_#1" ;                   // subscript (leading)
+subsup/pre  = "{}_#1^#2";                 // both super- and subscripts (leading)
+lim/t       = "<mathop> #1\limits^#3 ";    // small slot over large slot 
+lim         = "<mathop> #1\limits_#2 ";    // small slot under large slot 
+lim/tb      = "<mathop> #1\limits_#2^#3 "; // small slots over/under large slot 
+
+// =====================================================
+// General Large Operators (like Integrals and Summations)
+// =====================================================
+
+intop/t   = "<mathop> #4\nolimits^#3 ";             // big integral-style operator (upper limit)
+intop/b   = "<mathop> #4\nolimits_#2 ";             // big integral-style operator (lower limit)
+intop     = "<mathop> #4\nolimits_#2^#3 ";          // big integral-style operator (both limits)
+sumop/t   = "<mathop> #4\limits^#3 ";               // big summation-style operator (upper limit)
+sumop/b   = "<mathop> #4\limits_#2 ";               // big summation-style operator (lower limit)
+sumop     = "<mathop> #4\limits_#2^#3 ";            // big summation-style operator (both limits)
+
+// =====================================================
+// Summations
+// =====================================================
+
+sum/nol     = "\sum #1 ";                   // sum, no limits 
+sum/b       = "\sum\limits_#2 #1 ";         // sum, lower limit only 
+sum         = "\sum\limits_#2^#3 #1 ";      // sum, both limits 
+sum/int/b   = "\sum\nolimits_#2 #1 ";       // sum, lower limit only (integral-style)
+sum/int     = "\sum\nolimits_#2^#3 #1 ";    // sum, both limits (integral-style)
+
+// =====================================================
+// Products and Coproducts
+// =====================================================
+
+prod/nol       = "\prod #1 ";                     // product, no limits 
+prod/b         = "\prod\limits_#2 #1 ";           // product, lower limit only 
+prod           = "\prod\limits_#2^#3 #1 ";        // product, both limits 
+prod/int/b     = "\prod\nolimits_#2 #1 ";         // product (integral-style), lower limit only 
+prod/int       = "\prod\nolimits_#2^#3 #1 ";      // product (integral-style), both limits 
+coprod/nol     = "\coprod #1 ";                   // coproduct, no limits 
+coprod/b       = "\coprod\limits_#2 #1 ";         // coproduct, lower limit only 
+coprod         = "\coprod\limits_#2^#3 #1 ";      // coproduct, both limits 
+coprod/int/b   = "\coprod\nolimits_#2 #1 ";       // coproduct (integral-style), lower limit only 
+coprod/int     = "\coprod\nolimits_#2^#3 #1 ";    // coproduct (integral-style), both limits
+
+// =====================================================
+// Unions and Intersections
+// =====================================================
+
+inter/nol    = "\bigcap #1 ";                   // intersection, no limits 
+inter/b      = "\bigcap\limits_#2 #1 ";         // intersection, lower limit only 
+inter        = "\bigcap\limits_#2^#3 #1 ";      // intersection, both limits 
+inter/int/b  = "\bigcap\nolimits_#2 #1 ";       // intersection (integral-style), lower limit only 
+inter/int    = "\bigcap\nolimits_#2^#3 #1 ";    // intersection (integral-style), both limits 
+union/nol    = "\bigcup #1 ";                   // union, no limits 
+union/b      = "\bigcup\limits_#2 #1 ";         // union, lower limit only 
+union        = "\bigcup\limits_#2^#3 #1 ";      // union, both limits 
+union/int/b  = "\bigcup\nolimits_#2 #1 ";       // union (integral-style), lower limit only 
+union/int    = "\bigcup\nolimits_#2^#3 #1 ";    // union (integral-style), both limits 
+
+// =====================================================
+// Integrals 
+// =====================================================
+
+int/nol       = "\int #1 ";                 // single integral, no limits 
+int/sum       = "\int\limits_#2^#3 #1 ";    // single summation-style integral, both limits 
+int           = "\int_#2^#3 #1 ";           // single integral, both limits 
+int/sum/b     = "\int\limits_#2 #1 ";       // single summation-style integral, lower limit 
+int/b         = "\int_#2 #1 ";              // single integral, lower limit 
+
+// =====================================================
+// Contour, Area and Volume Integrals
+// =====================================================
+
+int/c/nol     = "\oint #1 ";                // contour integral, no limits 
+int/c/sum     = "\oint\limits_#2 #1 ";      // contour summation-style integral, lower limit 
+int/c         = "\oint_#2 #1 ";             // contour integral, lower limit 
+int/2/c/nol   = "<mathop>{{\int\!\!\!\!\!\int}\mkern-21mu \bigcirc} @n #1 ";                               // area integral, no limits 
+int/2/c/sum   = "<mathop>{{\int\!\!\!\!\!\int}\mkern-21mu \bigcirc}\limits_#2 @n #1 ";                     // area summation-style integral, lower limit 
+int/2/c       = "<mathop>{{\int\!\!\!\!\!\int}\mkern-21mu \bigcirc}\nolimits_#2 @n #1 ";                   // area integral, lower limit 
+int/3/c/nol   = "<mathop>{{\int\!\!\!\!\!\int\!\!\!\!\!\int}\mkern-31.2mu \bigodot} @n #1 ";               // volume integral, no limits 
+int/3/c/sum   = "<mathop>{{\int\!\!\!\!\!\int\!\!\!\!\!\int}\mkern-31.2mu \bigodot}\limits_#2 @n #1 ";     // volume summation-style integral, lower limit 
+int/3/c       = "<mathop>{{\int\!\!\!\!\!\int\!\!\!\!\!\int}\mkern-31.2mu \bigodot}\nolimits_#2 @n #1 ";   // volume integral, lower limit 
+
+// =====================================================
+// Horizontal Braces
+// =====================================================
+
+// hbrack      = "\underbrace #1^#2 ";       // horizontal bracket (lower)
+// hbrack/t    = "\overbrace #1_#2 ";      // horizontal bracket (upper)
+
+// =====================================================
+// Bars Under and Over Multiple Characters
+// =====================================================
+
+obar        = "\overline #1 ";                               // over-bar 
+obar/2      = "\overline{\overline #1} ";                    // double over-bar 
+ubar        = "\underline #1 ";                              // under-bar 
+ubar/2      = "\underline{\underline #1} ";                  // double under-bar 
+
+// =====================================================
+// Arrows Under and Over Several Characters
+// =====================================================
+
+vec/l      = "\overleftarrow #1 ";          // Left arrow over-bar 
+vec        = "\overrightarrow #1 ";         // Right arrow over-bar 
+
+// =====================================================
+// Boxes
+// =====================================================
+
+box/tl   =   "\left| \!{\overline {\, @n #1 \,}} \right. ";       // Box (top & left sides)
+box/tr   =   "\left. {\overline {\, @n #1 \,}}\! \right| ";       // Box (top & right sides)
+box/bl   =   "\left| \!{\nderline {\,@n  #1 \,}} \right. ";      // Box (bottom & left sides)
+box/br   =   "\left. {\underline {\, @n #1 \,}}\! \right| ";      // Box (bottom & right sides)
+
+// =====================================================
+// Hats, Tildes, Smiles & Frowns (wide ones, over several characters)
+// =====================================================
+
+tilde = "\widetilde #1";      // Tilde 
+hat = "\widehat #1";          // Hat 
+
+// =====================================================
+// Function Translations
+// =====================================================
+
+func/"Pr"       = "\Pr ";
+func/"arg"      = "\arg ";
+func/"arcsin"   = "\arcsin ";
+func/"arccos"   = "\arccos ";
+func/"arctan"   = "\arctan ";
+func/"cosh"     = "\cosh ";
+func/"cos"      = "\cos ";
+func/"coth"     = "\coth ";
+func/"cot"      = "\cot ";
+func/"csc"      = "\csc ";
+func/"deg"      = "\deg ";
+func/"det"      = "\det ";
+func/"dim"      = "\dim ";
+func/"exp"      = "\exp ";
+func/"gcd"      = "\gcd ";
+func/"hom"      = "\hom ";
+func/"inf"      = "\inf ";
+func/"ker"      = "\ker ";
+func/"ln"       = "\ln ";
+func/"lg"       = "\lg ";
+func/"lim"      = "\lim ";
+func/"liminf"   = "\liminf";
+func/"limsup"   = "\limsup ";
+func/"log"      = "\log ";
+func/"max"      = "\max ";
+func/"min"      = "\min ";
+func/"mod"      = "\bmod ";
+func/"sec"      = "\sec ";
+func/"sinh"     = "\sinh ";
+func/"sin"      = "\sin ";
+func/"sup"      = "\sup ";
+func/"tanh"     = "\tanh ";
+func/"tan"      = "\tan ";
+
+// =====================================================
+// Script, Fraktur, Blackboard Bold, etc.
+// =====================================================
+
+char/0x2107     = "\gamma ";               // Euler constant
+char/0x210A     = "g";                     // Script small g
+char/0x210E     = "h";                     // Planck constant
+char/0x210F     = "\hbar ";                // Planck constant over two pi
+char/0x2111     = "\Im ";                  // Fraktur capital I
+char/0x2113     = "\ell ";                 // Script small l
+char/0x2118     = "\wp ";                  // Weierstrass elliptic symbol
+char/0x211C     = "\Re ";                  // Fraktur capital R
+char/0x2126     = "\Omega ";               // Ohm sign
+char/0x2135     = "\aleph ";               // Alef symbol
+
+// =====================================================
+// Arrows
+// =====================================================
+
+char/0x2190           = " \leftarrow ";                  // Leftwards arrow
+char/0x2191           = " \uparrow ";                    // Upwards arrow
+char/0x2192           = " \to ";                         // Rightwards arrow
+char/0x2193           = " \downarrow ";                  // Downwards arrow
+char/0x2194           = " \leftrightarrow ";             // Left right arrow
+char/0x2195           = " \updownarrow ";                // Up down arrow
+char/0x2196           = " \nwarrow ";                    // North west arrow
+char/0x2197           = " \nearrow ";                    // North east arrow
+char/0x2198           = " \searrow ";                    // South east arrow
+char/0x2199           = " \swarrow ";                    // South west arrow
+char/0x21A6           = " \mapsto ";                     // Rightwards arrow from bar
+char/0x21A9           = " \hookleftarrow ";              // Leftwards arrow with hook
+char/0x21AA           = " \hookrightarrow ";             // Rightwards arrow with hook
+char/0x21B5           = "{\hbox{\ \hbox{$\mid$}\kern -1em@n\lower .5em \hbox{$\leftarrow$}}} ";    // Downwards arrow with corner leftwards
+char/0x21BC           = " \leftharpoonup ";              // Left harpoon (barb up)
+char/0x21BD           = " \leftharpoondown ";            // Left harpoon (barb down)
+char/0x21C0           = " \rightharpoonup ";             // Right harpoon (barb up)
+char/0x21C1           = " \rightharpoondown ";           // Right harpoon (barb down)
+char/0x21C5           = " \uparrow\!\downarrow ";        // Upwards arrow leftwards of downwards arrow
+char/0x21D0           = " \Leftarrow ";                  // Leftwards double arrow
+char/0x21D1           = " \Uparrow ";                    // Upwards double arrow
+char/0x21D2           = " \Rightarrow ";                 // Rightwards double arrow
+char/0x21D3           = " \Downarrow ";                  // Downwards double arrow
+char/0x21D4           = " \Leftrightarrow ";             // Left right double arrow
+char/0x21D5           = " \Updownarrow ";                // Up down double arrow
+
+// =====================================================
+// Embellishment Translations
+// =====================================================
+
+edot           = "\dot #";         // one dot over
+edot/2         = "\ddot #";        // two dots over
+eprime       = "#'";            // one prime
+eprime/2     = "#''";           // two primes
+eprime/3     = "#'''";          // three primes
+etilde       = "\tilde #";      // tilde over
+ehat         = "\hat #";        // hat over
+enot         = "\not #";        // not (diagonal strikethrough)
+estrike/m    = "\rlap{--} #";
+evec         = "\vec #";
+eobar      = "\bar #";
+
+// =====================================================
+// Other More Exotic Character Translations
+// =====================================================
+
+char/0x2200     = "\forall ";                    // For all
+char/0x2202     = "\partial ";                   // Partial differential
+char/0x2203     = "\exists ";                    // There exists
+char/0x2205     = "\emptyset ";                  // Empty set
+char/0x2206     = "\Delta ";                     // Increment
+char/0x2207     = "\nabla ";                     // Gradient (nabla)
+char/0x2208     = " \in ";                       // Element of
+char/0x2209     = " \notin ";                    // Not an element of
+char/0x220A     = " \mathrel\epsilon ";          // Small element of
+char/0x220B     = " \ni " ;                      // Contains as member
+char/0x220C     = " \not\ni ";                   // Does not contain as member
+char/0x220F     = "\prod ";                      // N-ary product
+char/0x2210     = "\coprod ";                    // N-ary coproduct
+char/0x2211     = "\sum ";                       // N-ary summation
+char/0x2212     = " - ";                         // Minus sign
+char/0x2213     = " \mp ";                       // Minus-or-plus sign
+char/0x2215     = " / ";                         // Division slash
+char/0x2216     = " \setminus ";                 // Set minus
+char/0x2217     = " * ";                         // Asterisk operator
+char/0x2218     = " \circ ";                     // Composition
+char/0x2219     = " \bullet ";                   // Bullet operator
+char/0x221A     = "\surd ";                      // Radical sign
+char/0x221D     = " \propto ";                   // Proportional to
+char/0x221E     = "\infty ";                     // Infinity
+char/0x221F     = "\perp ";                      // Right angle
+char/0x2220     = "\angle ";                     // Angle
+char/0x2223     = "\mid ";                       // Divides
+char/0x2225     = "\parallel ";                  // Parallel to
+char/0x2227     = " \wedge ";                    // Logical and
+char/0x2228     = " \vee ";                      // Logical or
+char/0x2229     = " \cap ";                      // Intersection
+char/0x222A     = " \cup ";                      // Union
+
+char/0x222B     = "\smallint ";                  // Integral
+char/0x222E     = "\oint ";                      // Contour integral
+char/0x222F     = "<mathop>{{\int\!\!\!\!\!\int}\mkern-21mu @n \bigcirc} ";                      // Surface integral
+char/0x2230     = "<mathop>{{\int\!\!\!\!\!\int\!\!\!\!\!\int}\mkern-31.2mu @n \bigodot} ";      // Volume integral
+char/0x2236     = " \sim ";                          // Ratio
+char/0x2238     = "{\mathbin{\buildrel{\hbox{\rm.}}\over@n {\smash{-}\vphantom{_2}}}} ";                          // Dot minus
+char/0x223C     = " \sim ";                      // Tilde operator
+char/0x2240     = "\wr ";                        // Wreath product
+char/0x2243     = " \simeq ";                    // Asymptotically equal to
+char/0x2245     = " \cong ";                     // Approximately equal to
+char/0x2248     = " \approx ";                   // Almost equal to
+char/0x2249     = " \not\approx ";               // Not almost equal to
+char/0x224D     = " \asymp ";                    // Equivalent to
+char/0x2254     = " := ";                        // Colon equals
+char/0x2255     = " =: ";                        // Equals colon
+char/0x2260     = " \ne ";                       // Not equal to
+char/0x2261     = " \equiv ";                    // Identical to
+char/0x2262     = " \not\equiv ";                // Not identical to
+char/0x226A     = " \ll ";                       // Much less-than
+char/0x226B     = " \gg ";                       // Much greater-than
+char/0x226D     = " \not\asymp ";                // Not equivalent to
+char/0x227A     = " \prec ";                     // Precedes
+char/0x227B     = " \succ ";                     // Succeeds
+char/0x2282     = " \subset ";                   // Subset of
+char/0x2283     = " \supset ";                   // Superset of
+char/0x2284     = " \not\subset ";               // Not a subset of
+char/0x2285     = " \not\supset ";               // Not a superset of
+char/0x2286     = " \subseteq ";                 // Subset of or equal to
+char/0x2287     = " \supseteq ";                 // Superset of or equal to
+char/0x228E     = " \uplus ";                    // Multiset union
+char/0x2291     = " \sqsubseteq ";               // Square image of or equal to
+char/0x2292     = " \sqsupseteq ";               // Square original of or equal to
+char/0x2293     = " \sqcap ";                    // Square cap
+char/0x2294     = " \sqcup ";                    // Square cup
+char/0x2295     = " \oplus ";                    // Circled plus
+char/0x2296     = " \ominus ";                   // Circled minus
+char/0x2297     = " \otimes ";                   // Circled times
+char/0x2298     = " \oslash ";                   // Circled division slash
+char/0x2299     = " \odot ";                     // Circled dot operator
+char/0x22A2     = " \vdash ";                    // Right tack
+char/0x22A3     = " \dashv ";                    // Left tack
+char/0x22A4     = " \top ";                      // Down tack
+char/0x22A5     = " \bot ";                      // Perpendicular
+char/0x22A6     = " \vdash ";                    // Assertion
+char/0x22B2     = " \triangleleft ";             // Normal subgroup of
+char/0x22B3     = " \triangleright ";            // Contains as normal subgroup
+char/0x22C0     = "\bigwedge ";                  // N-ary logical and
+char/0x22C1     = "\bigvee ";                    // N-ary logical or
+char/0x22C2     = "\bigcap ";                    // N-ary intersection
+char/0x22C3     = "\bigcup ";                    // N-ary union
+char/0x22C4     = "\diamondsuit ";               // Diamond operator
+char/0x22C5     = " \cdot ";                     // Dot operator
+char/0x22C6     = " \star ";                     // Star operator
+char/0x22C8     = " \bowtie ";                   // Bowtie
+char/0x22EE     = " \vdots ";                    // Vertical ellipsis
+char/0x22EF     = " \cdots ";                    // Math-axis ellipsis
+char/0x22F0     = " {\mathinner{\mkern2mu\raise1pt\hbox{.}\mkern2mu@n \raise4pt\hbox{.}\mkern2mu\raise7pt\hbox{.}\mkern1mu}} ";                    // Up right diagonal ellipsis
+char/0x22F1     = " \ddots ";                    // Down right diagonal ellipsis
+char/0x2308     = " \lceil ";                    // Left ceiling
+char/0x2309     = " \rceil ";                    // Right ceiling
+char/0x230A     = " \lfloor ";                   // Left floor
+char/0x230B     = " \rfloor ";                   // Right floor
+char/0x2322     = "\frown ";                     // Frown
+char/0x2323     = "\smile ";                     // Smile
+char/0x2329     = "\langle ";                    // Left-pointing angle bracket
+char/0x232A     = "\rangle ";                    // Right-pointing angle bracket
+char/0x25CA     = "\diamondsuit ";               // Lozenge
+char/0x25CB     = "\bigcirc ";                   // White circle
+char/0x2605     = " \star ";                     // Black star
+char/0x2660     = "\spadesuit ";                 // Black spade suit
+char/0x2663     = "\clubsuit ";                  // Black club suit
+char/0x2665     = "\heartsuit ";                 // Black heart suit
+char/0x2666     = "\diamondsuit ";               // Black diamond suit
+char/0x266D     = "\flat ";                      // Music flat sign
+char/0x266E     = "\natural ";                   // Music natural sign
+char/0x266F     = "\sharp ";                     // Music sharp sign
+char/0x301A	= " [\kern-0.15em[ ";		// left open bracket
+char/0x301B	= " ]\kern-0.15em] ";   	// Right open bracket 
+char/0xE938     = " \preceq ";
+char/0xE939     = " \succeq ";
+char/0xED02     = "\jmath ";                    // Latin small letter dotless j
+char/0xED10     = " d ";			// DifferentialD
+char/0xED11     = " e ";			// ExponentialE
+char/0xED12     = " i ";			// ImaginaryI
+char/0xED13     = " j ";			// ImaginaryJ
+char/0xED16     = " D ";			// CapitalDifferentialD
+
+// =====================================================
+// Spaces, etc.
+// =====================================================
+
+char/0xEF00     = " & ";                    // Alignment mark
+char/0xEF01     = "";                       // Zero space
+char/0x200B     = "";  			    // Zero width space (Unicode 5) 
+char/0xEF02     = "\,";                     // Thin space (1/6 EM)
+char/0x2009     = "\,";			    // Thin space (Unicode 5)
+char/0xEF03     = "\:";                     // Medium space
+char/0x205F     = "\:";                     // Medium space (Unicode 5)
+char/0xEF04     = "\;";                     // Thick space (1/3 EM)
+char/0x2004     = "\;";			    // Three-per-em space (Unicode 5)
+char/0xEF05     = "\quad ";                 // EM space
+char/0x2003     = "\quad ";                 // EM space (Unicode 5)
+char/0xEF06     = "\qquad ";                // 2-EM space
+char/0xEF07     = "{\mkern 1mu} ";            // Inner space
+char/0xEF08     = "{\kern 1pt} ";             // 1-point space
+char/0x00A0		= "\;";						// non-break space (doesn't translate into a non-break space)

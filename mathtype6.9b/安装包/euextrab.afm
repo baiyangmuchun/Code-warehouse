@@ -1,0 +1,172 @@
+StartFontMetrics 2.0
+Comment UniqueID 5111501
+Comment Panose 2 5 8 2 0 5 5 2 3 3
+FullName Euclid Extra Bold
+FontName EuclidExtra-Bold
+FamilyName Euclid Extra
+Weight Bold
+Notice Copyright (c) Design Science, Inc, 1999. (v2.0)
+Version 002.000
+IsFixedPitch false
+ItalicAngle 0.00
+FontBBox -61 -278 1522 907
+Ascender 907
+Descender -200
+XHeight 500
+CapHeight 700
+UnderlinePosition -100
+UnderlineThickness 50
+StdHW 44
+StdVW 36
+EncodingScheme AdobeStandardEncoding
+StartCharMetrics 148
+C 35 ; WX 500 ; N gravenosp ; B 119 511 344 706 ;
+C 36 ; WX 611 ; N circumflexnosp ; B 113 506 496 677 ;
+C 37 ; WX 500 ; N tildenosp ; B 83 475 415 707 ;
+C 38 ; WX 278 ; N dotnosp ; B 60 530 216 686 ;
+C 40 ; WX 454 ; N slurbelow ; B -2 0 470 124 ;
+C 41 ; WX 456 ; N slurabove ; B -2 -11 470 123 ;
+C 49 ; WX 376 ; N dncurlybracketleft ; B 0 -57 376 184 ;
+C 50 ; WX 736 ; N dncurlybracketmid ; B 0 -184 734 57 ;
+C 51 ; WX 376 ; N dncurlybracketright ; B 0 -57 376 184 ;
+C 52 ; WX 488 ; N horizcurlybracketext ; B 0 -57 488 57 ;
+C 53 ; WX 720 ; N dnsquarebracketextension ; B 0 -30 720 30 ;
+C 54 ; WX 376 ; N upcurlybracketleft ; B 0 -184 376 57 ;
+C 55 ; WX 736 ; N upcurlybracketmid ; B 0 -57 736 184 ;
+C 56 ; WX 376 ; N upcurlybracketright ; B 0 -184 376 57 ;
+C 58 ; WX 894 ; N similar ; B 64 109 829 391 ;
+C 59 ; WX 853 ; N asymptequal ; B 44 59 809 552 ;
+C 60 ; WX 778 ; N triangleright ; B 86 -40 699 540 ;
+C 61 ; WX 1150 ; N lessmuch ; B 68 -122 1095 622 ;
+C 62 ; WX 778 ; N triangleleft ; B 83 -40 693 540 ;
+C 63 ; WX 1150 ; N greatermuch ; B 63 -122 1090 622 ;
+C 64 ; WX 778 ; N deltaequal ; B 55 109 720 890 ;
+C 65 ; WX 778 ; N estimates ; B 55 109 720 870 ;
+C 66 ; WX 778 ; N approachlimit ; B 55 109 720 675 ;
+C 67 ; WX 807 ; N coproduct ; B 38 -112 764 759 ;
+C 68 ; WX 671 ; N lambdabar ; B 45 -53 685 698 ;
+C 69 ; WX 760 ; N dnsquarebracketleft ; B 0 -30 760 121 ;
+C 70 ; WX 760 ; N dnsquarebracketright ; B 0 -30 760 121 ;
+C 71 ; WX 760 ; N upsquarebracketleft ; B 0 -121 760 30 ;
+C 72 ; WX 760 ; N upsquarebracketright ; B 0 -121 760 30 ;
+C 73 ; WX 660 ; N intersection ; B 24 -99 636 751 ;
+C 74 ; WX 722 ; N mho ; B 44 -36 676 661 ;
+C 75 ; WX 1000 ; N ellipsis ; B 111 0 877 126 ;
+C 76 ; WX 1000 ; N midhorizellipsis ; B 102 187 886 313 ;
+C 77 ; WX 333 ; N vertellipsis ; B 114 -8 240 756 ;
+C 78 ; WX 1000 ; N upslopeellipsis ; B 112 -15 896 749 ;
+C 79 ; WX 1000 ; N downslopeellipsis ; B 102 -15 886 749 ;
+C 80 ; WX 575 ; N parallelto ; B 145 -250 428 750 ;
+C 81 ; WX 667 ; N because ; B 28 -75 636 472 ;
+C 82 ; WX 722 ; N measuredangle ; B 55 -20 683 734 ;
+C 83 ; WX 722 ; N sphericalangle ; B 58 -55 687 565 ;
+C 85 ; WX 660 ; N union ; B 24 -106 636 745 ;
+C 86 ; WX 722 ; N triangle ; B 83 -20 637 578 ;
+C 87 ; WX 778 ; N box ; B 55 0 720 687 ;
+C 88 ; WX 879 ; N rectangle ; B 55 0 820 487 ;
+C 89 ; WX 871 ; N parallelogram ; B 61 0 818 537 ;
+C 90 ; WX 1150 ; N arrownortheast ; B 63 -213 1104 726 ;
+C 91 ; WX 1150 ; N arrowsouthwest ; B 67 -226 1110 713 ;
+C 92 ; WX 1150 ; N arrownesw ; B 67 -226 1091 726 ;
+C 93 ; WX 1150 ; N arrowsoutheast ; B 63 -226 1106 713 ;
+C 94 ; WX 1150 ; N arrownorthwest ; B 63 -213 1104 726 ;
+C 95 ; WX 1150 ; N arrownwse ; B 66 -226 1090 726 ;
+C 96 ; WX 277 ; N primerev ; B 41 395 283 791 ;
+C 97 ; WX 1150 ; N arrowbarright ; B 30 -18 1084 518 ;
+C 98 ; WX 575 ; N arrowlongbothv ; B 14 -267 559 767 ;
+C 99 ; WX 703 ; N arrowdbllongbothv ; B 30 -267 671 767 ;
+C 100 ; WX 894 ; N circle ; B 64 -133 829 633 ;
+C 101 ; WX 894 ; N circledot ; B 64 -133 829 633 ;
+C 102 ; WX 894 ; N follows ; B 95 -88 798 587 ;
+C 104 ; WX 668 ; N planckover2pi ; B 84 -8 640 694 ;
+C 105 ; WX 400 ; N ccwcontourintcircle ; B 0 136 510 588 ;
+C 106 ; WX 400 ; N cwcontourintcircle ; B -61 136 449 588 ;
+C 107 ; WX 273 ; N n ; B 0 0 0 0 ;
+C 108 ; WX 476 ; N lscript ; B 16 -12 472 704 ;
+C 109 ; WX 894 ; N minusplus ; B 64 -216 829 551 ;
+C 110 ; WX 758 ; N replacement ; B 24 -22 734 688 ;
+C 111 ; WX 575 ; N ringoperator ; B 64 26 509 474 ;
+C 112 ; WX 894 ; N precedes ; B 96 -88 799 588 ;
+C 113 ; WX 407 ; N harpoonleftnospbelow ; B -13 -111 441 27 ;
+C 114 ; WX 410 ; N arrowrightnosp ; B -19 -117 435 116 ;
+C 115 ; WX 407 ; N arrowleftnosp ; B -13 -104 441 116 ;
+C 116 ; WX 410 ; N arrowrtltnosp ; B -13 -117 438 116 ;
+C 117 ; WX 410 ; N combarrowextender ; B -19 -28 451 27 ;
+C 118 ; WX 410 ; N harpoonrightnosp ; B -19 -28 435 110 ;
+C 119 ; WX 407 ; N harpoonleftnosp ; B -13 -28 441 110 ;
+C 120 ; WX 410 ; N harpoonrightnospbelow ; B -19 -111 435 27 ;
+C 123 ; WX 900 ; N verticalbraceright ; B 0 -184 900 184 ;
+C 124 ; WX 920 ; N verticalbracketright ; B 0 -30 920 121 ;
+C 125 ; WX 900 ; N verticalbraceleft ; B 0 -184 900 184 ;
+C 126 ; WX 920 ; N verticalbracketleft ; B 0 -121 920 30 ;
+C 128 ; WX 1000 ; N arrowpairrightleft ; B 42 -84 956 584 ;
+C 129 ; WX 1000 ; N arrowrtoversmallarrowlt ; B 55 -84 965 584 ;
+C 130 ; WX 1000 ; N smallarrowltoverarrowrt ; B 42 -84 952 584 ;
+C 131 ; WX 1000 ; N harpoonrightleft ; B 55 -14 961 514 ;
+C 132 ; WX 1000 ; N harpoonrtoversmallharpoonlt ; B 55 -14 952 514 ;
+C 133 ; WX 1000 ; N smallharpoonrtoverharpoonlt ; B 55 -14 952 514 ;
+C 134 ; WX 1000 ; N arrowrighttophalf ; B 55 220 951 423 ;
+C 135 ; WX 1000 ; N arrowleftbothalf ; B 56 77 952 280 ;
+C 136 ; WX 740 ; N horizontalharpoonextender ; B -31 220 792 280 ;
+C 160 ; WX 310 ; N nbspace ; B 0 0 0 0 ;
+C 161 ; WX 722 ; N Rbb ; B 16 0 704 685 ;
+C 162 ; WX 667 ; N Zbb ; B 28 0 637 685 ;
+C 163 ; WX 722 ; N Cbb ; B 37 -19 701 704 ;
+C 164 ; WX 778 ; N Qbb ; B 33 -179 744 704 ;
+C 165 ; WX 722 ; N Nbb ; B 24 -19 702 685 ;
+C 167 ; WX 400 ; N leftwhitesqbracket ; B 106 -250 377 750 ;
+C 168 ; WX 400 ; N rightwhitesqbracket ; B 20 -250 292 750 ;
+C 169 ; WX 400 ; N leftwhitesqbrackettop ; B 106 40 377 750 ;
+C 170 ; WX 400 ; N leftwhitesqbracketextender ; B 106 -50 286 550 ;
+C 171 ; WX 400 ; N leftwhitesqbracketbottom ; B 106 -250 377 460 ;
+C 172 ; WX 400 ; N rightwhitesqbrackettop ; B 20 40 292 750 ;
+C 173 ; WX 400 ; N rightwhitesqbracketextender ; B 112 -50 292 550 ;
+C 174 ; WX 400 ; N rightwhitesqbracketbottom ; B 20 -250 292 460 ;
+C 176 ; WX 554 ; N tildenosp2char ; B -4 528 558 649 ;
+C 177 ; WX 1000 ; N tildenosp3char ; B -4 529 1002 661 ;
+C 178 ; WX 1444 ; N tildenosp4char ; B -3 530 1445 662 ;
+C 181 ; WX 556 ; N circumflexnosp2char ; B -10 504 562 690 ;
+C 182 ; WX 1000 ; N circumflexnosp3char ; B -7 505 1005 705 ;
+C 183 ; WX 1444 ; N circumflexnosp4char ; B -5 505 1447 705 ;
+C 186 ; WX 882 ; N slurabove2char ; B -2 481 901 745 ;
+C 187 ; WX 1146 ; N slurabove3char ; B -3 479 1171 770 ;
+C 188 ; WX 1490 ; N slurabove4char ; B -4 479 1522 796 ;
+C 192 ; WX 780 ; N jointstatus ; B -10 507 790 697 ;
+C 193 ; WX 390 ; N jointstatusleft ; B -10 507 390 697 ;
+C 194 ; WX 390 ; N jointstatusright ; B 0 507 400 697 ;
+C 195 ; WX 368 ; N jointstatusextension ; B 0 629 368 697 ;
+C 209 ; WX 400 ; N integralloop ; B 0 175 400 575 ;
+C 210 ; WX 820 ; N doubleintegralloop ; B 0 140 820 610 ;
+C 211 ; WX 1242 ; N trippleintegralloop ; B 0 123 1242 627 ;
+C 213 ; WX 882 ; N exdoubleintegralloop ; B 0 140 882 610 ;
+C 214 ; WX 1370 ; N extrippleintegralloop ; B 0 123 1370 627 ;
+C 231 ; WX 790 ; N apple ; B 57 -15 731 779 ;
+C 232 ; WX 555 ; N Scaron ; B 55 -11 498 861 ;
+C 233 ; WX 755 ; N Yacute ; B 16 0 738 907 ;
+C 234 ; WX 628 ; N Thorn ; B 33 0 570 686 ;
+C 235 ; WX 766 ; N Eth ; B 33 0 709 686 ;
+C 236 ; WX 394 ; N scaron ; B 33 -6 359 619 ;
+C 237 ; WX 528 ; N yacute ; B 19 -200 504 665 ;
+C 238 ; WX 555 ; N thorn ; B -3 -212 520 694 ;
+C 239 ; WX 500 ; N eth ; B 28 -6 470 694 ;
+C 240 ; WX 555 ; N fi ; B 15 0 538 700 ;
+C 241 ; WX 555 ; N fl ; B 15 0 538 700 ;
+C 242 ; WX 278 ; N dotlessi ; B 24 0 265 450 ;
+C 243 ; WX 311 ; N onesuperior ; B 35 325 269 686 ;
+C 244 ; WX 264 ; N twosuperior ; B -2 325 257 686 ;
+C 245 ; WX 276 ; N Uacute ; B 2 319 271 686 ;
+C 246 ; WX 750 ; N onehalf ; B 35 -29 721 686 ;
+C 247 ; WX 750 ; N onequarter ; B 35 -29 710 686 ;
+C 248 ; WX 750 ; N threequarters ; B 47 -29 710 691 ;
+C 249 ; WX 705 ; N fraction ; B 105 -29 643 676 ;
+C 250 ; WX 276 ; N brokenbar ; B 108 -235 168 715 ;
+C 251 ; WX 500 ; N dieresis ; B 117 517 453 712 ;
+C 252 ; WX 500 ; N breve ; B 93 508 405 694 ;
+C 253 ; WX 500 ; N caron ; B 113 518 385 652 ;
+C 254 ; WX 755 ; N ring ; B 270 536 483 703 ;
+C 255 ; WX 278 ; N ogonek ; B -15 -278 256 28 ;
+C -1 ; WX 280 ; N Icircumflex ; B 0 0 0 0 ;
+C 32 ; WX 310 ; N space ; B 0 0 0 0 ;
+C 103 ; WX 379 ; N i ; B 42 102 336 398 ;
+EndCharMetrics
+EndFontMetrics

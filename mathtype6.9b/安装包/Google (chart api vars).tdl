@@ -1,0 +1,33 @@
+// Google (chart api vars).tdl
+
+// Copyright (c) 1998-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Google (chart api vars).tdl 2     7/12/10 12:35p Eduardot $
+
+// base for all translators that use the Google chart api
+
+include "LaTeX (base vars).tdl";
+// redefinition of base vars
+
+var/"TranslatorName" = "Google (chart api vars)";
+var/"TranslatorFileName" = "Google (chart api vars).tdl";
+
+var/"BeginMathDisplay" = "";
+var/"BeginMathInline" = "";
+var/"EndMathDisplay" = "";
+var/"EndMathInline" = "";
+
+var/"EqnDataCmt"= "";
+var/"StdStartCmt"= "";
+var/"StdEndCmt"= "";
+
+var/"mathop"= "";
+var/"MatrixAlignGroup" = "{c}";
+var/"MatrixCenterAlignGroup" = "{ccccccccccccccc}";
+var/"MatrixLeftAlignGroup" =   "{lllllllllllllll}";
+var/"MatrixRightAlignGroup" =  "{rrrrrrrrrrrrrrr}";
+

@@ -1,0 +1,28 @@
+// Texvc (base vars).tdl
+
+// Copyright (c) 1999-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Texvc (base vars).tdl 2     6/30/10 3:49p Eduardot $
+
+// =====================================================
+// Default values for variables
+// (can be redefined in files using this base one)
+// =====================================================
+
+escchar     = "@";      // Use @ as escape, since default $ is common in TeX
+
+var/"TranslatorName" = "Texvc (base vars)";                   // names to use in error messages
+var/"TranslatorFileName" = "Texvc (base vars).tdl";
+
+var/"BeginMathDisplay" = "\["; 
+var/"BeginMathInline" = "$";
+var/"EndMathDisplay" = "\]";
+var/"EndMathInline" = "$";
+
+// for use with chars that do not work under textmode
+var/"ct"  	= " }\!\!";				// safe closing of text mode
+var/"ot"  	= "\!\!\text{ ";		// safe opening of text mode

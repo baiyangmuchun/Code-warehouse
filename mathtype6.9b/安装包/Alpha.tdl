@@ -1,0 +1,241 @@
+MathType Output Translator 1.0: "Wolfram|Alpha", "Wolfram Alpha translator v1.00 by Design Science, Inc.", website
+
+// Copyright (c) 2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Alpha.tdl 9     6/26/10 1:10p Eduardot $
+
+// =====================================================
+// Basic Translation Strings
+// =====================================================
+eqn = "#";     //  equation translation
+// default errors
+deftmpl = error "The template <Cmd> (<Desc>) cannot be translated to Wolfram|Alpha";
+defemb  = error "The embellishment <Cmd> (<Desc>) cannot be translated to Wolfram|Alpha";
+// Alpha can recognize characters given their decimal code, so we try that as default
+defchar = "&$#<CharDec>;";
+
+// =====================================================
+// Slots
+// =====================================================
+
+// =====================================================
+// Matrices and Matrix Elements
+// =====================================================
+// a determinant: | <square matrix> |
+determinant   = "Det[#1]";
+
+// Matrix translation
+matrix        = "{#}";      
+ 
+// Matrix row translation
+matrow        = "{#},";
+// we need to translate the last row differently
+matrow/last   = "{#}";
+
+// Matrix element translation (except for last element in row) 
+matelem       = "#,";
+// Matrix element translation (last element in row only) 
+matelem/last  = "#";
+
+// =====================================================
+// Fences, Intervals, etc.
+// =====================================================
+paren         = "(#1)";          // parentheses (both)
+brack         = "[#1]";          // brackets (both)
+brace         = "{#1}";          // braces (both)
+abrack        = "<#1>";          // angle brackets (both)
+bar           = "|#1|";          // bars (both)
+dbar          = "||#1||";        // double bars (both)
+floor         = "Floor[#1]";     // floor 
+ceil          = "Ceiling[#1]";   // ceiling 
+
+// =====================================================
+// Fractions
+// =====================================================
+frac         = "(#1)/(#2)";       // fraction 
+frac/sm      = "(#1)/(#2)";       // fraction (subscript size)
+frac/sl      = "(#1)/(#2)";       // diagonal fraction (normal) 
+frac/sl/sm   = "(#1)/(#2)";       // diagonal fraction (subscript size)
+frac/sl/base = "(#1)/(#2)";       // diagonal fraction (baseline)
+
+// =====================================================
+// Roots and Long Division
+// =====================================================
+root       = "Sqrt[#1]";            // square root 
+root/nth   = "(#1)^(1/(#2))";       // higher root 
+ldiv/nq    = "/(#1)";               // long division (without upper slot)
+ldiv       = "/(#1)=(#2)";          // long division (with upper slot)
+
+// =====================================================
+// Subscripts, Superscripts, Limit-Like Structures
+// =====================================================
+sup         = "^(#2)";                      // superscript (normal, trailing)
+// note: _(#1) does not work
+sub         = "_#1";                        // subscript (normal, trailing)
+subsup      = "_#1^(#2)";                   // both super- and subscripts (normal, trailing)
+lim         = "#1_{#2}";                    // small slot under large slot 
+lim/tb      = "Underoverscript[#1,#2,#3]";  // small slots over/under large slot 
+
+// =====================================================
+// Summations
+// =====================================================
+sum/nol     = "Sum[#1]";                   // sum, no limits 
+sum         = "Sum[#1,#2,#3]";             // sum, both limits 
+sum/int     = "Sum[#1,#2,#3]";             // sum, both limits (integral-style)
+// one could put in infinity as default upper limit
+//sum/b       = "Sum[#1,#2,infinity]";       // sum, lower limit only 
+//sum/int/b   = "Sum[#1,#2,infinity]";       // sum, lower limit only (integral-style)
+
+// =====================================================
+// Products and Coproducts
+// =====================================================
+prod/nol       = "Product[#1]";                // product, no limits 
+prod           = "Product[#1,#2,#3]";          // product, both limits 
+prod/int       = "Product[#1,#2,#3]";          // product (integral-style), both limits 
+// one could put in infinity as default upper limit
+//prod/b         = "Product[#1,#2,infinity]";  // product, lower limit only 
+//prod/int/b     = "Product[#1,#2,infinity]";  // product (integral-style), lower limit only 
+
+// =====================================================
+// Integrals 
+// =====================================================
+int/nol       = "Integrate[#1]";             // single integral, no limits 
+int/sum       = "Integrate[#1,#2,#3]";  	   // single summation-style integral, both limits 
+int           = "Integrate[#1,#2,#3]";       // single integral, both limits 
+// don't really work as we need
+//int/sum/b     = "Integrate[#1,#2]";          // single summation-style integral, lower limit 
+//int/b         = "Integrate[#1,#2]";          // single integral, lower limit 
+
+// =====================================================
+// Contour, Area and Volume Integrals
+// =====================================================
+int/2/nol   = "Integrate[Integrate[#1]]";       // double integral, no limits 
+int/3/c/nol   = "Integral[Integral[Integral[#1]]]"; // volume integral, no limits 
+
+// =====================================================
+// Templates Over Multiple Characters
+// =====================================================
+// we try to guess menaning for some of them
+obar        = "conjugate[#1]";             // over-bar 
+
+// =====================================================
+// Embellishment Translations
+// =====================================================
+// we try to guess menaning for some of them
+edot				= "#'";		// Single dot (derivative)
+edot/2			= "#''";		// Double dot
+edot/3         = "#'''";   // Triple dot
+edot/4         = "#''''";  // Quad dot
+eprime		   = "#'";		// Single prime (derivative)
+eprime/2			= "#''";		// Double prime
+eprime/3       = "#'''";   // Triple prime
+eobar				= "conjugate[#]";  // over-bar
+
+// =====================================================
+// Function Translations
+// =====================================================
+func/"cot"      = " cotan ";
+func/"csc"      = " cosec ";
+func/"det"      = " determinant ";
+func/"inf"      = " infimum ";
+func/"lim"      = " limit ";
+func/"max"      = " maximum ";
+func/"min"      = " minimum ";
+func/"sec"      = " secant ";
+func/"sup"      = " supremum ";
+deffunc = " # ";
+
+// =====================================================
+// Character translations
+// =====================================================
+// all characters can be translated like this
+// defchar         = "&$#<CharDec>;";
+// but we keep things simple for the most common ones
+// and give errors for the rest
+
+// regular keyboard characters
+char/0x0020/0x007E = "<Char>";
+// =====================================================
+// Greek Characters
+// =====================================================
+char/0x0391 = " capitalalpha ";        // Greek capital letter Alpha
+char/0x0392 = " capitalbeta ";         // Greek capital letter Beta
+char/0x0393 = " capitalgamma ";        // Greek capital letter Gamma
+char/0x0394 = " capitaldelta ";        // Greek capital letter Delta
+char/0x0395 = " capitalepsilon ";      // Greek capital letter Epsilon
+char/0x0396 = " capitalzeta ";         // Greek capital letter Zeta
+char/0x0397 = " capitaleta ";          // Greek capital letter Eta
+char/0x0398 = " capitaltheta ";        // Greek capital letter Theta
+char/0x0399 = " capitaliota ";         // Greek capital letter Iota
+char/0x039A = " capitalkappa ";        // Greek capital letter Kappa
+char/0x039B = " capitallambda ";       // Greek capital letter Lambda
+char/0x039C = " capitalmu ";           // Greek capital letter Mu
+char/0x039D = " capitalnu ";           // Greek capital letter Nu
+char/0x039E = " capitalxi ";           // Greek capital letter Xi
+char/0x039F = " capitalomicron ";      // Greek capital letter Omicron
+char/0x03A0 = " capitalpi ";           // Greek capital letter Pi
+char/0x03A1 = " capitalrho ";          // Greek capital letter Rho
+char/0x03A3 = " capitalsigma ";        // Greek capital letter Sigma
+char/0x03A4 = " capitaltau ";          // Greek capital letter Tau
+char/0x03A5 = " capitalupsilon ";      // Greek capital letter Upsilon
+char/0x03A6 = " capitalphi ";          // Greek capital letter Phi
+char/0x03A7 = " capitalchi ";          // Greek capital letter Chi
+char/0x03A8 = " capitalpsi ";          // Greek capital letter Psi
+char/0x03A9 = " capitalomega ";        // Greek capital letter Omega
+
+char/0x03B1 = " alpha ";               // Greek small letter alpha
+char/0x03B2 = " beta ";                // Greek small letter beta
+char/0x03B3 = " gamma ";               // Greek small letter gamma
+char/0x03B4 = " delta ";               // Greek small letter delta
+char/0x03B5 = " curlyepsilon ";        // Greek small letter epsilon
+char/0x03B6 = " zeta ";                // Greek small letter zeta
+char/0x03B7 = " eta ";                 // Greek small letter eta
+char/0x03B8 = " theta ";               // Greek small letter theta
+char/0x03B9 = " iota ";                // Greek small letter iota
+char/0x03BA = " kappa ";               // Greek small letter kappa
+char/0x03BB = " lambda ";              // Greek small letter lamda
+char/0x03BC = " mu ";                  // Greek small letter mu
+char/0x03BD = " nu ";                  // Greek small letter nu
+char/0x03BE = " xi ";                  // Greek small letter xi
+char/0x03BF = " omicron ";             // Greek small letter omicron
+char/0x03C0 = " pi ";                  // Greek small letter pi
+char/0x03C1 = " rho ";                 // Greek small letter rho
+char/0x03C2 = " finalsigma ";          // Greek small letter final sigma
+char/0x03C3 = " sigma ";               // Greek small letter sigma
+char/0x03C4 = " tau ";                 // Greek small letter tau
+char/0x03C5 = " upsilon ";             // Greek small letter upsilon
+char/0x03C6 = " curlyphi ";            // Greek small letter phi
+char/0x03C7 = " chi ";                 // Greek small letter chi
+char/0x03C8 = " psi ";                 // Greek small letter psi
+char/0x03C9 = " omega ";               // Greek small letter omega
+char/0x03D1 = " curlytheta ";          // Greek theta symbol
+char/0x03D2 = " curlycapitalupsilon "; // Greek upsilon with hook symbol
+char/0x03D5 = " phi ";                 // Greek phi symbol
+char/0x03D6 = " curlypi ";             // Greek pi symbol
+char/0x03DA = " capitalstigma ";       // Greek letter stigma
+char/0x03DB = " stigma ";              // Greek small letter stigma
+char/0x03F0 = " curlykappa ";          // Greek kappa symbol
+char/0x03F1 = " curlyrho ";            // Greek rho symbol
+// =====================================================
+// Special Characters
+// =====================================================
+char/0x00AC = " not ";                // not
+char/0x00B1 = "+-";                   // plus or minus
+char/0x00D7 = "*";                    // times
+char/0x00F7 = "/";                    // division sign
+char/0x2192 = "->";                   // rightwards arrow
+char/0x2207 = " nabla ";              // nabla
+char/0x2212	= "-";                    // minus symbol
+char/0x2217	= "*";                    // asterisc operator
+char/0x221E = " infinity ";           // infinity
+char/0x2227 = " and ";                // logical and
+char/0x2228 = " or ";                 // logical or
+char/0x2229 = " intersection ";		  // intersection
+char/0x222A = " union ";				  // union
+char/0x2260 = " != ";                 // not equal to
+char/0x2264 = " <= ";                 // less-than or equal to
+char/0x2265 = " >= ";                 // greater-than or equal to

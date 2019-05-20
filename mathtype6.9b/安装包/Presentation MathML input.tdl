@@ -1,0 +1,938 @@
+MathType Input Translator 1.0: "Presentation MathML", "Presentation MathML input translator v1.00 by Design Science, Inc."
+
+// "Presentation MathML input.tdl"
+
+// Copyright (c) 2007-2011 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Presentation MathML input.tdl 47    7/11/14 4:05p Johns $
+
+input="MathML";
+
+// Uncomment the following 2 lines to increase the timeout time to 30 seconds
+//debug
+//{ max_run_time = 30000; } // 30 seconds
+
+patterns {
+   CDATA = (`_unknown_char_entity` | char | `mglyph/` | any_node)+;
+   // sum, coprod, prod, int, cap, cup, xcap, xcup, iint, iiint, oint...
+   bigop_char	=	char?(char==0x2211) | char?(char==0x2210) | char?(char==0x220f) | char?(char==0x222b) | char?(char==0x2229) | char?(char==0x222a) | char?(char==0x22c2) | char?(char==0x22c3) | char?(char==0x222c) | char?(char==0x222d) | char?(char==0x222e);
+   token_node = mi_node | mo_node | mn_node | mtext_node | mspace_node | ms_node | stretchy_mo_node;
+   layout_node = mrow_node | mfrac_node | msqrt_node | mroot_node | mstyle_node | merror_node |
+                        mpadded_node | mphantom_node | mfenced_node | menclose_node;
+   script_node = msub_node | msup_node | msubsup_node | munder_node | mover_node | munderover_node |
+                        mmultiscripts_node;
+   // table_node = mtable_node | mtr_node | mlabeledtr_node | mtd_node;
+   ignorable_node = maction_node | csymbol_node | ignored_node;
+   //
+   mapping_node = semantics_node | annotation_node | annotation_xml_node;
+   all_nodes = token_node | layout_node | script_node | mtable_node | alignment_node | ignorable_node | mapping_node | mspace_node | `none/` | func_node | error_node;
+}
+
+
+rules {
+   all_nodes => any_node{copy_attributes($0,this, "",false);};
+
+   // we'll ignore DOCTYPES, PIs and comments in output, but need to wrap them in any_node to further process the MathML
+   PI => any_node;
+   comment => any_node;
+	DOCTYPE => any_node;
+   // same for actions
+   maction any_node* `/maction` => maction_node;
+   // ignore csymbols, too (content MathML, but sometimes appears mixed with Presentation)
+   csymbol any_node* `/csymbol` => csymbol_node;
+   // and annotations, for now
+   annotation any?(name(this)!="/annotation")* `/annotation` => annotation_node;
+   `annotation/` => annotation_node;
+   annotation_xml any?(name(this)!="/annotation_xml")* `/annotation_xml` => annotation_xml_node;
+   `annotation_xml/` => annotation_xml_node;
+
+   // Fix empty pairs (mathplayer etal put in pair of nodes for empty ones (when copy/paste))
+   // MathML empty elements SHOULD have self-closing tags, but empty pairs is still valid xml
+   none `/none` => `none/`{copy_attributes($0,this, "",false);};
+   mprescripts `/mprescripts` => `mprescripts/`{copy_attributes($0,this, "",false);};
+   malignmark `/malignmark` => `malignmark/`{copy_attributes($0,this, "",false);};
+   maligngroup `/maligngroup` => `maligngroup/`{copy_attributes($0,this, "",false);};
+   mglyph `/mglyph` => `mglyph/`{copy_attributes($0,this, "",false);};
+   mspace `/mspace` => `mspace/`{copy_attributes($0,this, "",false);};
+   // we handle nonempty pairs, but they are an error
+   none CDATA `/none` => `none/`{copy_attributes($0,this, "",false);error("contents on non-empty 'none' element will be ignored");};
+   mprescripts CDATA `/mprescripts` => `mprescripts/`{copy_attributes($0,this, "",false);error("contents on non-empty 'mprescript' element will be ignored");};
+   malignmark CDATA `/malignmark` => `malignmark/`{copy_attributes($0,this, "",false);error("contents on non-empty 'malignmark' element will be ignored");};
+   maligngroup CDATA `/maligngroup` => `maligngroup/`{copy_attributes($0,this, "",false);error("contents on non-empty 'maligngroup' element will be ignored");};
+   mglyph CDATA `/mglyph` => `mglyph/`{copy_attributes($0,this, "",false);error("contents on non-empty 'mglyph' element will be ignored");};
+   mspace CDATA `/mspace` => `mspace/`{copy_attributes($0,this, "",false);error("contents on non-empty 'mspace' element will be ignored");};
+
+   // not sure if we need to do these next
+   bigop => any_node{type="bigop"; copy_attributes($0,this, "",false);};
+   bigop_tmplt => any_node;
+
+   // include UTF-16 encodede Plane-1 mathematical characters (mostly for OneNote import)
+   #include "Presentation MathML input (chars).tdl"
+
+   // named functions first
+   mi char?(char=='P') char?(char=='r') `/mi` => func_node{text="Pr"; copy_attributes($0,this, "",false);};
+   mo char?(char=='P') char?(char=='r') `/mo` => func_node{text="Pr"; copy_attributes($0,this, "",false);};
+   mi char?(char=='R') char?(char=='e') `/mi` => func_node{text="Re"; copy_attributes($0,this, "",false);};
+   mo char?(char=='R') char?(char=='e') `/mo` => func_node{text="Re"; copy_attributes($0,this, "",false);};
+   mi char?(char=='a' || char=='A') char?(char=='r') char?(char=='c') char?(char=='c' || char=='C') char?(char=='o') char?(char=='s') `/mi` => func_node{text="arccos"; copy_attributes($0,this, "",false);};
+   mo char?(char=='a' || char=='A') char?(char=='r') char?(char=='c') char?(char=='c' || char=='C') char?(char=='o') char?(char=='s') `/mo` => func_node{text="arccos"; copy_attributes($0,this, "",false);};
+   mi char?(char=='a' || char=='A') char?(char=='r') char?(char=='c') char?(char=='s' || char=='S') char?(char=='i') char?(char=='n') `/mi` => func_node{text="arcsin"; copy_attributes($0,this, "",false);};
+   mo char?(char=='a' || char=='A') char?(char=='r') char?(char=='c') char?(char=='s' || char=='S') char?(char=='i') char?(char=='n') `/mo` => func_node{text="arcsin"; copy_attributes($0,this, "",false);};
+   mi char?(char=='a' || char=='A') char?(char=='r') char?(char=='c') char?(char=='t' || char=='T') char?(char=='a') char?(char=='n') `/mi` => func_node{text="arctan"; copy_attributes($0,this, "",false);};
+   mo char?(char=='a' || char=='A') char?(char=='r') char?(char=='c') char?(char=='t' || char=='T') char?(char=='a') char?(char=='n') `/mo` => func_node{text="arctan"; copy_attributes($0,this, "",false);};
+   mi char?(char=='a' || char=='A') char?(char=='r') char?(char=='g') `/mi` => func_node{text="arg"; copy_attributes($0,this, "",false);};
+   mo char?(char=='a' || char=='A') char?(char=='r') char?(char=='g') `/mo` => func_node{text="arg"; copy_attributes($0,this, "",false);};
+   mi char?(char=='c' || char=='C') char?(char=='o') char?(char=='s') `/mi` => func_node{text="cos"; copy_attributes($0,this, "",false);};
+   mo char?(char=='c' || char=='C') char?(char=='o') char?(char=='s') `/mo` => func_node{text="cos"; copy_attributes($0,this, "",false);};
+   mi char?(char=='c' || char=='C') char?(char=='o') char?(char=='s') char?(char=='h') `/mi` => func_node{text="cosh"; copy_attributes($0,this, "",false);};
+   mo char?(char=='c' || char=='C') char?(char=='o') char?(char=='s') char?(char=='h') `/mo` => func_node{text="cosh"; copy_attributes($0,this, "",false);};
+   mi char?(char=='c' || char=='C') char?(char=='o') char?(char=='t') `/mi` => func_node{text="cot"; copy_attributes($0,this, "",false);};
+   mo char?(char=='c' || char=='C') char?(char=='o') char?(char=='t') `/mo` => func_node{text="cot"; copy_attributes($0,this, "",false);};
+   mi char?(char=='c' || char=='C') char?(char=='o') char?(char=='t') char?(char=='h') `/mi` => func_node{text="coth"; copy_attributes($0,this, "",false);};
+   mo char?(char=='c' || char=='C') char?(char=='o') char?(char=='t') char?(char=='h') `/mo` => func_node{text="coth"; copy_attributes($0,this, "",false);};
+   mi char?(char=='c' || char=='C') char?(char=='o') char?(char=='v') `/mi` => func_node{text="cov"; copy_attributes($0,this, "",false);};
+   mo char?(char=='c' || char=='C') char?(char=='o') char?(char=='v') `/mo` => func_node{text="cov"; copy_attributes($0,this, "",false);};
+   mi char?(char=='c' || char=='C') char?(char=='s') char?(char=='c') `/mi` => func_node{text="csc"; copy_attributes($0,this, "",false);};
+   mo char?(char=='c' || char=='C') char?(char=='s') char?(char=='c') `/mo` => func_node{text="csc"; copy_attributes($0,this, "",false);};
+   mi char?(char=='d' || char=='D') char?(char=='e') char?(char=='g') `/mi` => func_node{text="deg"; copy_attributes($0,this, "",false);};
+   mo char?(char=='d' || char=='D') char?(char=='e') char?(char=='g') `/mo` => func_node{text="deg"; copy_attributes($0,this, "",false);};
+   mi char?(char=='d' || char=='D') char?(char=='e') char?(char=='t') `/mi` => func_node{text="det"; copy_attributes($0,this, "",false);};
+   mo char?(char=='d' || char=='D') char?(char=='e') char?(char=='t') `/mo` => func_node{text="det"; copy_attributes($0,this, "",false);};
+   mi char?(char=='d' || char=='D') char?(char=='i') char?(char=='m') `/mi` => func_node{text="dim"; copy_attributes($0,this, "",false);};
+   mo char?(char=='d' || char=='D') char?(char=='i') char?(char=='m') `/mo` => func_node{text="dim"; copy_attributes($0,this, "",false);};
+   mi char?(char=='e' || char=='E') char?(char=='x') char?(char=='p') `/mi` => func_node{text="exp"; copy_attributes($0,this, "",false);};
+   mo char?(char=='e' || char=='E') char?(char=='x') char?(char=='p') `/mo` => func_node{text="exp"; copy_attributes($0,this, "",false);};
+   mi char?(char=='g') char?(char=='c') char?(char=='d') `/mi` => func_node{text="gcd"; copy_attributes($0,this, "",false);};
+   mo char?(char=='g') char?(char=='c') char?(char=='d') `/mo` => func_node{text="gcd"; copy_attributes($0,this, "",false);};
+   mi char?(char=='G') char?(char=='C') char?(char=='D') `/mi` => func_node{text="gcd"; copy_attributes($0,this, "",false);};
+   mo char?(char=='G') char?(char=='C') char?(char=='D') `/mo` => func_node{text="gcd"; copy_attributes($0,this, "",false);};
+   mi char?(char=='g') char?(char=='l') char?(char=='b') `/mi` => func_node{text="glb"; copy_attributes($0,this, "",false);};
+   mo char?(char=='g') char?(char=='l') char?(char=='b') `/mo` => func_node{text="glb"; copy_attributes($0,this, "",false);};
+   mi char?(char=='h') char?(char=='o') char?(char=='m') `/mi` => func_node{text="hom"; copy_attributes($0,this, "",false);};
+   mo char?(char=='h') char?(char=='o') char?(char=='m') `/mo` => func_node{text="hom"; copy_attributes($0,this, "",false);};
+   mi char?(char=='i') char?(char=='n') char?(char=='f') `/mi` => func_node{text="inf"; copy_attributes($0,this, "",false);};
+   mo char?(char=='i') char?(char=='n') char?(char=='f') `/mo` => func_node{text="inf"; copy_attributes($0,this, "",false);};
+   mi char?(char=='i') char?(char=='n') char?(char=='t') `/mi` => func_node{text="int"; copy_attributes($0,this, "",false);};
+   mo char?(char=='i') char?(char=='n') char?(char=='t') `/mo` => func_node{text="int"; copy_attributes($0,this, "",false);};
+   mi char?(char=='k') char?(char=='e') char?(char=='r') `/mi` => func_node{text="ker"; copy_attributes($0,this, "",false);};
+   mo char?(char=='k') char?(char=='e') char?(char=='r') `/mo` => func_node{text="ker"; copy_attributes($0,this, "",false);};
+   mi char?(char=='l') char?(char=='g') `/mi` => func_node{text="lg"; copy_attributes($0,this, "",false);};
+   mo char?(char=='l') char?(char=='g') `/mo` => func_node{text="lg"; copy_attributes($0,this, "",false);};
+   mi char?(char=='l') char?(char=='i') char?(char=='m') `/mi` => func_node{text="lim"; copy_attributes($0,this, "",false);};
+   mo char?(char=='l') char?(char=='i') char?(char=='m') `/mo` => func_node{text="lim"; copy_attributes($0,this, "",false);};
+   mi char?(char=='L') char?(char=='i') char?(char=='m')  char?(char=='i') char?(char=='t') `/mi` => func_node{text="lim"; copy_attributes($0,this, "",false);};
+   mo char?(char=='L') char?(char=='i') char?(char=='m')  char?(char=='i') char?(char=='t') `/mo` => func_node{text="lim"; copy_attributes($0,this, "",false);};
+   mi char?(char=='l') char?(char=='m') `/mi` => func_node{text="lm"; copy_attributes($0,this, "",false);};
+   mo char?(char=='l') char?(char=='m') `/mo` => func_node{text="lm"; copy_attributes($0,this, "",false);};
+   mi char?(char=='l') char?(char=='n') `/mi` => func_node{text="ln"; copy_attributes($0,this, "",false);};
+   mo char?(char=='l') char?(char=='n') `/mo` => func_node{text="ln"; copy_attributes($0,this, "",false);};
+   mi char?(char=='l' || char=='L') char?(char=='o') char?(char=='g') `/mi` => func_node{text="log"; copy_attributes($0,this, "",false);};
+   mo char?(char=='l' || char=='L') char?(char=='o') char?(char=='g') `/mo` => func_node{text="log"; copy_attributes($0,this, "",false);};
+   mi char?(char=='l') char?(char=='u') char?(char=='b') `/mi` => func_node{text="lub"; copy_attributes($0,this, "",false);};
+   mo char?(char=='l') char?(char=='u') char?(char=='b') `/mo` => func_node{text="lub"; copy_attributes($0,this, "",false);};
+   mi char?(char=='m' || char=='M') char?(char=='a') char?(char=='x') `/mi` => func_node{text="max"; copy_attributes($0,this, "",false);};
+   mo char?(char=='m' || char=='M') char?(char=='a') char?(char=='x') `/mo` => func_node{text="max"; copy_attributes($0,this, "",false);};
+   mi char?(char=='m' || char=='M') char?(char=='i') char?(char=='n') `/mi` => func_node{text="min"; copy_attributes($0,this, "",false);};
+   mo char?(char=='m' || char=='M') char?(char=='i') char?(char=='n') `/mo` => func_node{text="min"; copy_attributes($0,this, "",false);};
+   mi char?(char=='m' || char=='M') char?(char=='o') char?(char=='d') `/mi` => func_node{text="mod"; copy_attributes($0,this, "",false);};
+   mo char?(char=='m' || char=='M') char?(char=='o') char?(char=='d') `/mo` => func_node{text="mod"; copy_attributes($0,this, "",false);};
+   mi char?(char=='s' || char=='S') char?(char=='e') char?(char=='c') `/mi` => func_node{text="sec"; copy_attributes($0,this, "",false);};
+   mo char?(char=='s' || char=='S') char?(char=='e') char?(char=='c') `/mo` => func_node{text="sec"; copy_attributes($0,this, "",false);};
+   mi char?(char=='s') char?(char=='g') char?(char=='n') `/mi` => func_node{text="sgn"; copy_attributes($0,this, "",false);};
+   mo char?(char=='s') char?(char=='g') char?(char=='n') `/mo` => func_node{text="sgn"; copy_attributes($0,this, "",false);};
+   mi char?(char=='S') char?(char=='i') char?(char=='g') char?(char=='n') `/mi` => func_node{text="sgn"; copy_attributes($0,this, "",false);};
+   mo char?(char=='S') char?(char=='i') char?(char=='g') char?(char=='n') `/mo` => func_node{text="sgn"; copy_attributes($0,this, "",false);};
+   mi char?(char=='s' || char=='S') char?(char=='i') char?(char=='n') `/mi` => func_node{text="sin"; copy_attributes($0,this, "",false);};
+   mo char?(char=='s' || char=='S') char?(char=='i') char?(char=='n') `/mo` => func_node{text="sin"; copy_attributes($0,this, "",false);};
+   mi char?(char=='s' || char=='S') char?(char=='i') char?(char=='n') char?(char=='h') `/mi` => func_node{text="sinh"; copy_attributes($0,this, "",false);};
+   mo char?(char=='s' || char=='S') char?(char=='i') char?(char=='n') char?(char=='h') `/mo` => func_node{text="sinh"; copy_attributes($0,this, "",false);};
+   mi char?(char=='s') char?(char=='u') char?(char=='p') `/mi` => func_node{text="sup"; copy_attributes($0,this, "",false);};
+   mo char?(char=='s') char?(char=='u') char?(char=='p') `/mo` => func_node{text="sup"; copy_attributes($0,this, "",false);};
+   mi char?(char=='t' || char=='T') char?(char=='a') char?(char=='n') `/mi` => func_node{text="tan"; copy_attributes($0,this, "",false);};
+   mo char?(char=='t' || char=='T') char?(char=='a') char?(char=='n') `/mo` => func_node{text="tan"; copy_attributes($0,this, "",false);};
+   mi char?(char=='t' || char=='T') char?(char=='a') char?(char=='n') char?(char=='h') `/mi` => func_node{text="tanh"; copy_attributes($0,this, "",false);};
+   mo char?(char=='t' || char=='T') char?(char=='a') char?(char=='n') char?(char=='h') `/mo` => func_node{text="tanh"; copy_attributes($0,this, "",false);};
+   mi char?(char=='v') char?(char=='a') char?(char=='r') `/mi` => func_node{text="var"; copy_attributes($0,this, "",false);};
+   mo char?(char=='v') char?(char=='a') char?(char=='r') `/mo` => func_node{text="var"; copy_attributes($0,this, "",false);};
+
+	// some special cases for use of msup templates later (OMML from Word comes like this)
+   mi char?(char==0x0027 || char==0x00B4 || char==0x02B9 || char==0x02CA || char==0x2032) `/mi`
+	mi char?(char==0x0027 || char==0x00B4 || char==0x02B9 || char==0x02CA || char==0x2032) `/mi`
+	mi char?(char==0x0027 || char==0x00B4 || char==0x02B9 || char==0x02CA || char==0x2032) `/mi`
+		=> mi_node{char=0x2034;copy_attributes($0,this, "",false);};
+   mi char?(char==0x0027 || char==0x00B4 || char==0x02B9 || char==0x02CA || char==0x2032) `/mi`
+	mi char?(char==0x0027 || char==0x00B4 || char==0x02B9 || char==0x02CA || char==0x2032) `/mi`
+		=> mi_node{char=0x0022;copy_attributes($0,this, "",false);};
+   // if it's only one char in it, it could be a under/over template (vec, etc)
+   mi char `/mi`  => mi_node{char=$1.char;copy_attributes($0,this, "",false);};
+   
+   mi CDATA `/mi` => mi_node{copy_attributes($0,this, "",false);};
+   mi `/mi` => mi_node{copy_attributes($0,this, "",false);error("empty mi will be ignored");};
+   `mi/` => mi_node{copy_attributes($0,this, "",false);error("empty mi will be ignored");};
+   // special cases for use with munder/mover/munderover
+   mo?(exists(movablelimits)) bigop_char `/mo` => bigop{code=$1.char; copy_attributes($0,this, "",false);};
+   // set default movablelimits (first special true cases)
+   mo bigop_char?(char==0x2211) `/mo` => bigop{code=$1.char; movablelimits=true; copy_attributes($0,this, "",false);}; // sum
+   mo bigop_char?(char==0x220f) `/mo` => bigop{code=$1.char; movablelimits=true; copy_attributes($0,this, "",false);}; // prod
+   mo bigop_char?(char==0x222b) `/mo` => bigop{code=$1.char; movablelimits=true; copy_attributes($0,this, "",false);}; // int
+   mo bigop_char?(char==0x2210) `/mo` => bigop{code=$1.char; movablelimits=true; copy_attributes($0,this, "",false);}; // coprod
+   mo bigop_char?(char==0x222e) `/mo` => bigop{code=$1.char; movablelimits=true; copy_attributes($0,this, "",false);}; // conint
+   mo bigop_char?(char==0x222c) `/mo` => bigop{code=$1.char; movablelimits=true; copy_attributes($0,this, "",false);}; // iint
+   mo bigop_char?(char==0x222d) `/mo` => bigop{code=$1.char; movablelimits=true; copy_attributes($0,this, "",false);}; // iiint
+   // rest default to false
+   mo bigop_char `/mo` => bigop{code=$1.char; movablelimits=false; copy_attributes($0,this, "",false);};
+
+   // get stretchy fences for which we have templates
+   // Note that fences (which is what we can process) are all stretchy by default
+   mo?((exists(stretchy) && stretchy==true) || !exists(stretchy))
+       char?(char=='(' || char==')' || char=='[' || char==']' || char=='{' || char=='}'
+          || char=='<' || char=='>' || char=='|') `/mo` => stretchy_mo_node{copy_attributes($0,this, "",false); fence=$1.char; stretchy="true";}; 
+   // fences for which MT has templates (some are missing bc unrecognized chars: &dbar; )
+   any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='(')
+       any_node?(!exists(stretchy) || (exists(stretchy) && stretchy!=true))+
+       any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence==')')  => mfenced_node{open="("; close=")"; separators="";}; // ( )
+   any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='[')
+       any_node?(!exists(stretchy) || (exists(stretchy) && stretchy!=true))+
+       any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence==']')  => mfenced_node{open="["; close="]"; separators="";}; // [ ]
+   any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='{')
+       any_node?(!exists(stretchy) || (exists(stretchy) && stretchy!=true))+
+       any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='}')  => mfenced_node{open="{"; close="}"; separators="";}; // { }
+   any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='<')
+       any_node?(!exists(stretchy) || (exists(stretchy) && stretchy!=true))+
+       any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='>')  => mfenced_node{open="<"; close=">"; separators="";}; // < >
+   any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='|') 
+       any_node?(!exists(stretchy) || (exists(stretchy) && stretchy!=true))+
+       any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='|')  => mfenced_node{open="|"; close="|"; separators="";}; // | |
+   any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='[')
+       any_node?(!exists(stretchy) || (exists(stretchy) && stretchy!=true))+
+       any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence==')')  => mfenced_node{open="["; close=")"; separators="";}; // [ )
+   any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='(')
+       any_node?(!exists(stretchy) || (exists(stretchy) && stretchy!=true))+
+       any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence==']')  => mfenced_node{open="("; close="]"; separators="";}; // ( ]
+   any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='|')
+       any_node?(!exists(stretchy) || (exists(stretchy) && stretchy!=true))+
+       any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='>')  => mfenced_node{open="|"; close=">"; separators="";}; // | >
+   any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='<')
+       any_node?(!exists(stretchy) || (exists(stretchy) && stretchy!=true))+
+       any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='|')  => mfenced_node{open="<"; close="|"; separators="";}; // < |
+   any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='[')
+       any_node?(!exists(stretchy) || (exists(stretchy) && stretchy!=true))+
+       any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='[')  => mfenced_node{open="["; close="["; separators="";}; // [ [
+   any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence==']')
+       any_node?(!exists(stretchy) || (exists(stretchy) && stretchy!=true))+
+       any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence==']')  => mfenced_node{open="]"; close="]"; separators="";}; // ] ]
+   any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence==']')
+       any_node?(!exists(stretchy) || (exists(stretchy) && stretchy!=true))+
+       any_node?(exists(stretchy) && stretchy==true && exists(fence) && fence=='[')  => mfenced_node{open="]"; close="["; separators="";}; // ] [
+
+	// some special cases for use of msup templates later (OMML from Word comes like this)
+   mo char?(char==0x0027 || char==0x00B4 || char==0x02B9 || char==0x02CA || char==0x2032) `/mo`
+	mo char?(char==0x0027 || char==0x00B4 || char==0x02B9 || char==0x02CA || char==0x2032) `/mo`
+	mo char?(char==0x0027 || char==0x00B4 || char==0x02B9 || char==0x02CA || char==0x2032) `/mo`
+		=> mo_node{char=0x2034;copy_attributes($0,this, "",false);};
+   mo char?(char==0x0027 || char==0x00B4 || char==0x02B9 || char==0x02CA || char==0x2032) `/mo`
+	mo char?(char==0x0027 || char==0x00B4 || char==0x02B9 || char==0x02CA || char==0x2032) `/mo`
+		=> mo_node{char=0x0022;copy_attributes($0,this, "",false);};
+   // if it's only one char in it, it could be a under/over template (vec, etc)
+   mo char `/mo`  => mo_node{char=$1.char;copy_attributes($0,this, "",false);};
+   mo CDATA `/mo` => mo_node{copy_attributes($0,this, "",false);};
+   mo `/mo` => mo_node{copy_attributes($0,this, "",false);error("empty mo will be ignored");};
+   `mo/` => mo_node{copy_attributes($0,this, "",false);error("empty mo will be ignored");};
+   // if it's only one char in it, it could be a under/over template (vec, etc)
+   mn char `/mn`  => mn_node{char=$1.char;copy_attributes($0,this, "",false);};
+   mn CDATA `/mn` => mn_node{copy_attributes($0,this, "",false);};
+   mn `/mn` => mn_node{copy_attributes($0,this, "",false);error("empty mn will be ignored");};
+   `mn/` => mn_node{copy_attributes($0,this, "",false);error("empty mn will be ignored");};
+   // if it's only one char in it, it could be a under/over template (vec, etc)
+   mtext char `/mtext`  => mtext_node{char=$1.char;copy_attributes($0,this, "",false);};
+   mtext CDATA `/mtext` => mtext_node{copy_attributes($0,this, "",false);};
+   mtext `/mtext` => mtext_node{copy_attributes($0,this, "",false);error("empty mtext will be ignored");};
+   `mtext/` => mtext_node{copy_attributes($0,this, "",false);error("empty mtext will be ignored");};
+   // if it's only one char in it, it could be a under/over template (vec, etc)
+   ms char `/ms`  => ms_node{char=$1.char;copy_attributes($0,this, "",false);};
+   ms CDATA `/ms` => ms_node{copy_attributes($0,this, "",false);};
+   ms `/ms` => ms_node{copy_attributes($0,this, "",false);error("empty ms will be ignored");};
+   `ms/` => ms_node{copy_attributes($0,this, "",false);error("empty ms will be ignored");};
+
+   // mspaces
+   // the width attr default is 0
+   `mspace/`?(!exists(width)) => mspace_node{width=0;};
+   `mspace/` => mspace_node{copy_attributes($0,this, "",false);};
+
+   // consider first case of a simple mrow in a mover/munder
+   mrow any_node?(exists(char)) `/mrow` => mrow_node{char=$1.char;copy_attributes($0,this, "",false);};
+   mrow any_node* `/mrow` => mrow_node{copy_attributes($0,this, "",false);};
+   `mrow/` => mrow_node{copy_attributes($0,this, "",false);}; // empty mrow
+
+   // some possible mfrac errors
+   mfrac `/mfrac` => error_node[$1,0]{msg="mfrac without children";};
+   mfrac any_node `/mfrac` => error_node[$1,0]{msg="mfrac with only one child";};
+   mfrac any_node any_node any_node+ `/mfrac` => error_node[$2,$(-2)]{msg="mfrac with more than two children";};
+   // a valid mfrac
+   mfrac any_node any_node `/mfrac` => mfrac_node{displaystyle=false;copy_attributes($0,this, "",false);};
+   // some possible mroot errors
+   mroot `/mroot` => error_node[$1,0]{msg="mroot without children";};
+   mroot any_node `/mroot` => error_node[$(-1),0]{msg="mroot with only one child";};
+   mroot any_node any_node any_node+ `/mroot` => error_node[$1,$(-3)]{msg="mroot with more than two children";};
+   // a valid mroot
+   mroot any_node any_node `/mroot` => mroot_node{copy_attributes($0,this, "",false);};
+   // some possible msqrt error
+   // msqrt `/msqrt` => error_node[$1,0]{msg="msqrt without children";};
+   msqrt any_node* `/msqrt` => msqrt_node{copy_attributes($0,this, "",false);};
+   `msqrt/` => msqrt_node{copy_attributes($0,this, "",false);};
+
+   // mstyle
+   mstyle?(exists(background)) any_node* `/mstyle` => mstyle_node{mathbackground=$0.background; copy_attributes($0,this, "background",false);};
+   mstyle any_node* `/mstyle` => mstyle_node{copy_attributes($0,this, "",false);};
+   // for an empty mstyle, it does not matter if it has background (or any) attribute
+   `mstyle/` => mstyle_node{copy_attributes($0,this, "",false);};
+
+   // mphantom mpadded are ignored
+   mpadded any_node* `/mpadded` => error_node{msg="mpadded is not implemented. Will ignore it";};
+   `mpadded/` => error_node{msg="mpadded is not implemented. Will ignore it";};
+   mphantom any_node* `/mphantom` => error_node{msg="mphantom is not implemented. Will ignore it";mathcolor="lightgray";};
+   `mphantom/` => error_node{msg="mphantom is not implemented. Will ignore it";mathcolor="lightgray";};
+
+   // merror displays its contents (valid mathml) in red
+   merror any_node* `/merror` => merror_node{mathcolor="red";copy_attributes($0,this, "mathcolor",false);};
+   `merror/` => merror_node{mathcolor="red";copy_attributes($0,this, "mathcolor",false);};
+
+   // empty mfenced are allowed
+   // mfenced `/mfenced` => error_node[$1,0]{msg="empty mfenced";};
+   mfenced?(exists(separators) && exists(open) && exists(close)) `/mfenced` => mfenced_node{copy_attributes($0,this, "",false);};
+   mfenced?(exists(separators) && exists(open)) `/mfenced` => mfenced_node{close=")"; copy_attributes($0,this, "close",false);};
+   mfenced?(exists(separators) && exists(close)) `/mfenced` => mfenced_node{open="("; copy_attributes($0,this, "open",false);};
+   mfenced?(exists(separators)) `/mfenced` => mfenced_node{open="("; close=")"; copy_attributes($0,this, "open close",false);};
+   mfenced?(exists(open) && exists(close)) `/mfenced` => mfenced_node{separators=","; copy_attributes($0,this, "separators",false);};
+   mfenced?(exists(open)) `/mfenced` => mfenced_node{close=")"; separators=","; copy_attributes($0,this, "close separators",false);};
+   mfenced?(exists(close)) `/mfenced` => mfenced_node{open="("; separators=","; copy_attributes($0,this, "open separators",false);};
+   mfenced `/mfenced` => mfenced_node{open="("; close=")"; separators=","; copy_attributes($0,this, "open close separators",false);};
+   // repeat with the empty tag notation
+   `mfenced/`?(exists(separators) && exists(open) && exists(close)) => mfenced_node{copy_attributes($0,this, "",false);};
+   `mfenced/`?(exists(separators) && exists(open)) => mfenced_node{close=")"; copy_attributes($0,this, "close",false);};
+   `mfenced/`?(exists(separators) && exists(close)) => mfenced_node{open="("; copy_attributes($0,this, "open",false);};
+   `mfenced/`?(exists(separators)) => mfenced_node{open="("; close=")"; copy_attributes($0,this, "open close",false);};
+   `mfenced/`?(exists(open) && exists(close)) => mfenced_node{separators=","; copy_attributes($0,this, "separators",false);};
+   `mfenced/`?(exists(open)) => mfenced_node{close=")"; separators=","; copy_attributes($0,this, "close separators",false);};
+   `mfenced/`?(exists(close)) => mfenced_node{open="("; separators=","; copy_attributes($0,this, "open separators",false);};
+   `mfenced/` => mfenced_node{open="("; close=")"; separators=","; copy_attributes($0,this, "open close separators",false);};
+   // we flag the last child of an mfenced, so that we don't follow it with a separator (,)
+   mfenced any_node+ `/mfenced` => last_mfenced_node[$(-2),1]{copy_attributes($(-2),this, "",false);};
+   // non-empty mfenced
+   mfenced?(exists(separators) && exists(open) && exists(close)) any_node* last_mfenced_node `/mfenced` => mfenced_node{copy_attributes($0,this, "",false);};
+   mfenced?(exists(separators) && exists(open))@otag any_node* last_mfenced_node `/mfenced` => mfenced_node{close=")"; copy_attributes($0,this, "close",false);};
+   mfenced?(exists(separators) && exists(close))@otag any_node* last_mfenced_node `/mfenced` => mfenced_node{open="("; copy_attributes($0,this, "open",false);};
+   mfenced?(exists(separators)) any_node* last_mfenced_node `/mfenced` => mfenced_node{open="("; close=")"; copy_attributes($0,this, "open close",false);};
+   mfenced?(exists(open) && exists(close)) any_node* last_mfenced_node `/mfenced` => mfenced_node{separators=","; copy_attributes($0,this, "separators",false);};
+   mfenced?(exists(open)) any_node* last_mfenced_node `/mfenced` => mfenced_node{close=")"; separators=","; copy_attributes($0,this, "close separators",false);};
+   mfenced?(exists(close)) any_node* last_mfenced_node `/mfenced` => mfenced_node{open="("; separators=","; copy_attributes($0,this, "open separators",false);};
+   mfenced any_node* last_mfenced_node `/mfenced` => mfenced_node{open="("; close=")"; separators=","; copy_attributes($0,this, "open close separators",false);};
+   //
+   menclose?(exists(notation)) any_node* `/menclose` => menclose_node{copy_attributes($0,this, "",false);};
+   menclose any_node* `/menclose` => menclose_node{notation="longdiv";copy_attributes($0,this, "longdiv",false);};
+   `menclose/` => menclose_node{notation="longdiv";copy_attributes($0,this, "longdiv",false);};
+   //
+   // some possible msub errors
+   msub `/msub` => error_node[$1,0]{msg="msub without children";};
+   msub any_node `/msub` => error_node[$2,0]{msg="msub with only one child";};
+   msub any_node any_node any_node+ `/msub` => error_node[$2,$(-2)]{msg="msub with more than two children";};
+   // some possible msup errors
+   msup `/msup` => error_node[$1,0]{msg="msup without children";};
+   msup any_node `/msup` => error_node[$2,0]{msg="msup with only one child";};
+   msup any_node any_node any_node+ `/msup` => error_node[$2,$(-2)]{msg="msup with more than two children";};
+   // some possible msubsup errors
+   msubsup `/msubsup` => error_node[$1,0]{msg="msubsup without children";};
+   msubsup any_node `/msubsup` => error_node[$2,0]{msg="msubsup with only one child";};
+   msubsup any_node any_node `/msubsup` => error_node[$2,0]{msg="msubsup with only two children";};
+   msubsup any_node any_node any_node any_node+ `/msubsup` => error_node[$2,$(-2)]{msg="msubsup with more than three children";};
+   // some possible munder errors
+   munder `/munder` => error_node[$1,0]{msg="munder without children";};
+   munder any_node `/munder` => error_node[$2,0]{msg="munder with only one child";};
+   munder any_node any_node any_node+ `/munder` => error_node[$2,$(-2)]{msg="munder with more than two children";};
+   // some possible mover errors
+   mover `/mover` => error_node[$1,0]{msg="mover without children";};
+   mover any_node `/mover` => error_node[$2,0]{msg="mover with only one child";};
+   mover any_node any_node any_node+ `/mover` => error_node[$2,$(-2)]{msg="mover with more than two children";};
+   // some possible munderover errors
+   munderover `/munderover` => error_node[$1,0]{msg="munderover without children";};
+   munderover any_node `/munderover` => error_node[$2,0]{msg="munderover with only one child";};
+   munderover any_node any_node `/munderover` => error_node[$2,0]{msg="munderover with only two children";};
+   munderover any_node any_node any_node any_node+ `/munderover` => error_node[$2,$(-2)]{msg="munderover with more than three children";};
+   // bigops first
+   munder any_node?(exists(type) && type=="bigop") any_node `/munder` => bigop_tmplt{copy_attributes($1,this, "",false);type="under_noarg";};
+   mover any_node?(exists(type) && type=="bigop") any_node `/mover` => bigop_tmplt{copy_attributes($1,this, "",false);type="over_noarg";};
+   munderover any_node?(exists(type) && type=="bigop") any_node any_node `/munderover` => bigop_tmplt{copy_attributes($1,this, "",false);type="underover_noarg";};
+   msub any_node?(exists(type) && type=="bigop") any_node `/msub` => bigop_tmplt{copy_attributes($1,this, "",false);type="sub_noarg";};
+   msup any_node?(exists(type) && type=="bigop") any_node `/msup` => bigop_tmplt{copy_attributes($1,this, "",false);type="sup_noarg";};
+   msubsup any_node?(exists(type) && type=="bigop") any_node any_node `/msubsup` => bigop_tmplt{copy_attributes($1,this, "",false);type="subsup_noarg";};
+   // normal munder/mover/munderover msub/smup/subsup
+   msub any_node any_node `/msub` => msub_node{copy_attributes($0,this, "",false);};
+   munder any_node any_node `/munder` => munder_node{copy_attributes($0,this, "",false);};
+   mover any_node any_node `/mover` => mover_node{copy_attributes($0,this, "",false);};
+   munderover any_node any_node any_node `/munderover` => munderover_node{copy_attributes($0,this, "",false);};
+   msup any_node any_node `/msup` => msup_node{copy_attributes($0,this, "",false);};
+   msubsup any_node any_node any_node `/msubsup` => msubsup_node{copy_attributes($0,this, "",false);};
+
+   // multiscripts
+   // errors in mmulti
+   mmultiscripts `/mmultiscripts` => error_node[$1,0]{msg="mmultiscripts without children";};
+   mmultiscripts any_node post_pair_node* any_node@lone [`mprescripts/` any_node*] `/mmultiscripts` => error_node[lone,0]{msg="mmultiscripts with odd number of postscripts";};
+   mmultiscripts any_node post_pair_node* `mprescripts/` pre_pair_node* any_node@lone `/mmultiscripts` => error_node[lone,0]{msg="mmultiscripts with odd number of prescripts";};
+   // mmultis with correct number of children: first, gather postscript pairs (if any)
+   mmultiscripts any_node post_pair_node* any_node@post_1 any_node@post_2 any_node* [`mprescripts/` any_node*] `/mmultiscripts` => post_pair_node[post_1,post_2];
+   // then, gather prescript pairs (if any)
+   mmultiscripts any_node post_pair_node* `mprescripts/` pre_pair_node* any_node@pre_1 any_node@pre_2 any_node* `/mmultiscripts` => pre_pair_node[pre_1,pre_2];
+   // now gather all the pre_pairs into a single node
+   mmultiscripts any_node post_pair_node* `mprescripts/`@mptag pre_pair_node+ `/mmultiscripts` => all_pre_nodes[mptag,$(-2)];
+   // and all the post_pairs into a single node
+   mmultiscripts any_node post_pair_node+ all_pre_nodes `/mmultiscripts` => all_post_nodes[$2,$(-3)];
+   // prescripts may be absent...
+   mmultiscripts any_node post_pair_node+ `/mmultiscripts` => all_post_nodes[$2,$(-2)];
+   // now we can finally match a mmulti node
+   mmultiscripts any_node [all_post_nodes] [all_pre_nodes] `/mmultiscripts` => mmultiscripts_node{copy_attributes($0,this, "",false);};
+
+    // table nodes
+   mtd any_node* `/mtd` => mtd_node{copy_attributes($0,this, "",false);};
+   `mtd/` => mtd_node{copy_attributes($0,this, "",false);};
+   mtr mtd_node* `/mtr` => mtr_node{copy_attributes($0,this, "",false);};
+   `mtr/` => mtr_node{copy_attributes($0,this, "",false);};
+   // mlabeledtr without label
+   mlabeledtr mtd_node* `/mlabeledtr` => error_node[$1,0]{msg="label missing from mlabeledtr";};
+   mlabeledtr any_node mtd_node* `/mlabeledtr` => mlabeledtr_node{copy_attributes($0,this, "",false);};
+   //
+   mtable mtr_node+ `/mtable` => mtable_node{copy_attributes($0,this, "",false);};
+   // empty mtables should be ignored (matrix in MT needs a row)
+   mtable `/mtable` => ignored_node{error("empty mtable will be ignored");};
+   `mtable/` => ignored_node{error("empty mtable will be ignored");};
+   // same thing, for tables with some mlabeledtr
+   mtable (mtr_node | mlabeledtr_node)* `/mtable` => mtable_node{labeled=true;copy_attributes($0,this, "",false);};
+
+   // malignmark, maligngroup are ignored (error)
+   `malignmark/` => alignment_node{error("malignmark is not implemented. Will ignore it");};
+   `maligngroup/` => alignment_node{error("maligngroup is not implemented. Will ignore it");};
+   // need to process semantics
+   semantics (any_node | char)* `/semantics` => semantics_node;
+   `semantics/` => semantics_node;   
+
+   math any_node* `/math` => math_node{copy_attributes($0,this, "",false);};
+   `math/`  => math_node{copy_attributes($0,this, "",false);};
+}
+
+
+outputs {
+	// one may prefer to not replace DifferentialD with a simple d, etc;
+	// in that case, comment out the corresponding line from these next ones
+	char?(exists(char) && char==0xed10) => {match.char='d';match.mathvariant="normal";}, match;   //DifferentialD
+	char?(exists(char) && char==0x2146) => {match.char='d';match.mathvariant="normal";}, match;   //DifferentialD
+	char?(exists(char) && char==0xed11) => {match.char='e';match.mathvariant="normal";}, match;   //ExponentialE
+	char?(exists(char) && char==0x2147) => {match.char='e';match.mathvariant="normal";}, match;   //ExponentialE
+	char?(exists(char) && char==0xed12) => {match.char='i';match.mathvariant="normal";}, match;   //ImaginaryI
+	char?(exists(char) && char==0x2148) => {match.char='i';match.mathvariant="normal";}, match;   //ImaginaryI
+	char?(exists(char) && char==0xed13) => {match.char='j';match.mathvariant="normal";}, match;   //ImaginaryJ
+	char?(exists(char) && char==0x2149) => {match.char='j';match.mathvariant="normal";}, match;   //ImaginaryJ
+	char?(exists(char) && char==0xed16) => {match.char='D';match.mathvariant="normal";}, match;   //CapitalDifferentialD
+	char?(exists(char) && char==0x2145) => {match.char='D';match.mathvariant="normal";}, match;   //CapitalDifferentialD
+
+   _input_root => eqn(slot(*));
+
+	// characters whose unicode MT may not recognize: swap for internal code
+	char?(exists(char) && char==0x2A72) => {match.char=0xE901;}, match; //EQUALS WITH PLUS ABOVE
+	char?(exists(char) && char==0x2A71) => {match.char=0xE902;}, match; //EQUALS WITH PLUS BELOW
+	char?(exists(char) && char==0x2A26) => {match.char=0xE903;}, match; //TILDE WITH PLUS ABOVE
+	char?(exists(char) && char==0x2A24) => {match.char=0xE904;}, match; //TILDE WITH PLUS BELOW
+	char?(exists(char) && char==0x2A99) => {match.char=0xE909;}, match; //EQUAL (DOUBLE) OVER LESS-THAN
+	char?(exists(char) && char==0x22FD) => {match.char=0xE90A;}, match; //CONTAINS OR EQUAL TO
+	char?(exists(char) && char==0x22F7) => {match.char=0xE912;}, match; //ELEMENT OF OR EQUAL TO
+	char?(exists(char) && char==0x2A9A) => {match.char=0xE913;}, match; //EQUAL TO (DOUBLE) OR GREATER-THAN
+	char?(exists(char) && char==0x2AC8) => {match.char=0xE914;}, match; //APPROXIMATE SUPERSET OF
+	char?(exists(char) && char==0x2AC7) => {match.char=0xE915;}, match; //APPROXIMATE SUBSET OF
+	char?(exists(char) && char==0x2ABE) => {match.char=0xE916;}, match; //SUPERSET OF WITH DOT
+	char?(exists(char) && char==0x2ABD) => {match.char=0xE917;}, match; //SUBSET OF WITH DOT
+	char?(exists(char) && char==0x2A66) => {match.char=0xE918;}, match; //EQUAL WITH DOT BELOW
+	char?(exists(char) && char==0x2A6A) => {match.char=0xE924;}, match; //TILDE WITH DOT
+	char?(exists(char) && char==0x2A91) => {match.char=0xE926;}, match; //LESS-THAN GREATER-THAN OR EQUAL TO (DOUBLE)
+	char?(exists(char) && char==0x2A92) => {match.char=0xE927;}, match; //GREATER-THAN LESS-THAN OR EQUAL TO (DOUBLE)
+	char?(exists(char) && char==0x2A9D) => {match.char=0xE928;}, match; //EQUIVALENT TO OR LESS-THAN
+	char?(exists(char) && char==0x2AA1) => {match.char=0xE936;}, match; //NESTED LESS-THAN
+	char?(exists(char) && char==0x2AA2) => {match.char=0xE937;}, match; //NESTED GREATER-THAN
+	char?(exists(char) && char==0x2A75) => {match.char=0xE94B;}, match; //DOUBLE EQUAL
+	char?(exists(char) && char==0x29F4) => {match.char=0xE94D;}, match; //RULE DELAYED
+	char?(exists(char) && char==0x29CF) => {match.char=0xE950;}, match; //NORMAL SUBGROUP OF WITH BAR
+	char?(exists(char) && char==0x29D0) => {match.char=0xE951;}, match; //CONTAINS AS NORMAL SUBGROUP WITH BAR
+	char?(exists(char) && char==0x2970) => {match.char=0xE954;}, match; //ROUND IMPLIES
+	char?(exists(char) && char==0x2A54) => {match.char=0xE95C;}, match; //DOUBLE LOGICAL OR
+	char?(exists(char) && char==0x2A53) => {match.char=0xE95D;}, match; //DOUBLE LOGICAL AND
+	char?(exists(char) && char==0x2AAE) => {match.char=0xE96D;}, match; //DIFFERENCE BETWEEN (VARIANT)
+	char?(exists(char) && char==0x2AA4) => {match.char=0xE96E;}, match; //LESS THAN GREATER THAN OVERLAY
+	char?(exists(char) && char==0x2AD6) => {match.char=0xE970;}, match; //SUPERSET OVER SUPERSET
+	char?(exists(char) && char==0x2AD5) => {match.char=0xE971;}, match; //SUBSET OVER SUBSET
+	char?(exists(char) && char==0x2AD4) => {match.char=0xE972;}, match; //SUPERSET OVER SUBSET
+	char?(exists(char) && char==0x2AD3) => {match.char=0xE973;}, match; //SUBSET OVER SUPERSET
+	char?(exists(char) && char==0x2AE8) => {match.char=0xE97B;}, match; //PERPENDICULAR OVER BAR
+	char?(exists(char) && char==0x2AE4) => {match.char=0xE97F;}, match; //DOUBLE LEFT TURNSTILE VERTICAL BAR
+	char?(exists(char) && char==0x29B6) => {match.char=0xE984;}, match; //CIRCLED VERTICAL BAR
+	char?(exists(char) && char==0x2A38) => {match.char=0xE985;}, match; //CIRCLED DIVISION SIGN
+	char?(exists(char) && char==0x297E) => {match.char=0xE98E;}, match; //VERTICAL BAR WITH DOUBLE HOOK
+	char?(exists(char) && char==0x2A33) => {match.char=0xE992;}, match; //SMASH PRODUCT
+	char?(exists(char) && char==0x29E5) => {match.char=0xE994;}, match; //IDENTICAL TO WITH DOUBLE SLASH
+	char?(exists(char) && char==0x2A89) => {match.char=0xEA32;}, match; //LESS-THAN BUT NOT APPROXIMATELY EQUAL TO
+	char?(exists(char) && char==0x2A8A) => {match.char=0xEA33;}, match; //GREATER-THAN BUT NOT APPROXIMATELY EQUAL TO
+	char?(exists(char) && char==0x2AB5) => {match.char=0xEA40;}, match; //PRECEDES BUT NOT EQUAL TO (DOUBLE)
+	char?(exists(char) && char==0x2AB6) => {match.char=0xEA41;}, match; //SUCCEEDS BUT NOT EQUAL TO (DOUBLE)
+	char?(exists(char) && char==0x2288) => {match.char=0xEA42;}, match; //NOT SUBSET OF NOR EQUAL TO
+	char?(exists(char) && char==0x2289) => {match.char=0xEA43;}, match; //NOT SUPERSET OF NOR EQUAL TO
+	char?(exists(char) && char==0x2942) => {match.char=0xEB01;}, match; //ARROW RIGHTWARDS OVER SMALL ARROW LEFTWARDS
+	char?(exists(char) && char==0x2944) => {match.char=0xEB02;}, match; //SMALL ARROW RIGHTWARDS OVER ARROW LEFTWARDS
+	char?(exists(char) && char==0x2922) => {match.char=0xEB05;}, match; //DOUBLE ARROW NORTHEAST SOUTHWEST
+	char?(exists(char) && char==0x2921) => {match.char=0xEB06;}, match; //DOUBLE ARROW NORTHWEST SOUTHEAST
+	char?(exists(char) && char==0x21F5) => {match.char=0xEB12;}, match; //DOWNWARDS ARROW LEFTWARDS OF UPWARDS ARROW
+	char?(exists(char) && char==0x293D) => {match.char=0xEB16;}, match; //ANTICLOCKWISE TOP SEMICIRCLE ARROW WITH PLUS
+	char?(exists(char) && char==0x293C) => {match.char=0xEB17;}, match; //CLOCKWISE TOP SEMICIRCLE ARROW WITH MINUS
+	char?(exists(char) && char==0x2950) => {match.char=0xEB1B;}, match; //LEFT RIGHT HARPOON WITH BARBS DOWNWARDS
+	char?(exists(char) && char==0x294E) => {match.char=0xEB1C;}, match; //LEFT RIGHT HARPOON WITH BARBS UPWARDS
+	char?(exists(char) && char==0x2951) => {match.char=0xEB1D;}, match; //UP DOWN HARPOON WITH BARBS LEFTWARDS
+	char?(exists(char) && char==0x294F) => {match.char=0xEB1E;}, match; //UP DOWN HARPOON WITH BARBS RIGHTWARDS
+	char?(exists(char) && char==0x2952) => {match.char=0xEB20;}, match; //LEFTWARDS HARPOON TO BAR WITH BARB UPWARDS
+	char?(exists(char) && char==0x2953) => {match.char=0xEB21;}, match; //RIGHTWARDS HARPOON TO BAR WITH BARB UPWARDS
+	char?(exists(char) && char==0x2956) => {match.char=0xEB22;}, match; //LEFTWARDS HARPOON TO BAR WITH BARB DOWNWARDS
+	char?(exists(char) && char==0x2957) => {match.char=0xEB23;}, match; //RIGHTWARDS HARPOON TO BAR WITH BARB DOWNWARDS
+	char?(exists(char) && char==0x295A) => {match.char=0xEB24;}, match; //LEFTWARDS HARPOON FROM BAR WITH BARB UPWARDS
+	char?(exists(char) && char==0x295B) => {match.char=0xEB25;}, match; //RIGHTWARDS HARPOON FROM BAR WITH BARB UPWARDS
+	char?(exists(char) && char==0x295E) => {match.char=0xEB26;}, match; //LEFTWARDS HARPOON FROM BAR WITH BARB DOWNWARDS
+	char?(exists(char) && char==0x295F) => {match.char=0xEB27;}, match; //RIGHTWARDS HARPOON FROM BAR WITH BARB DOWNWARDS
+	char?(exists(char) && char==0x2958) => {match.char=0xEB28;}, match; //UPWARDS HARPOON TO BAR WITH BARB LEFTWARDS
+	char?(exists(char) && char==0x2959) => {match.char=0xEB29;}, match; //DOWNWARDS HARPOON TO BAR WITH BARB LEFTWARDS
+	char?(exists(char) && char==0x2954) => {match.char=0xEB2A;}, match; //UPWARDS HARPOON TO BAR WITH BARB RIGHTWARDS
+	char?(exists(char) && char==0x2955) => {match.char=0xEB2B;}, match; //DOWNWARDS HARPOON TO BAR WITH BARB RIGHTWARDS
+	char?(exists(char) && char==0x2960) => {match.char=0xEB2C;}, match; //UPWARDS HARPOON FROM BAR WITH BARB LEFTWARDS
+	char?(exists(char) && char==0x2961) => {match.char=0xEB2D;}, match; //DOWNWARDS HARPOON FROM BAR WITH BARB LEFTWARDS
+	char?(exists(char) && char==0x295C) => {match.char=0xEB2E;}, match; //UPWARDS HARPOON FROM BAR WITH BARB RIGHTWARDS
+	char?(exists(char) && char==0x295D) => {match.char=0xEB2F;}, match; //DOWNWARDS HARPOON FROM BAR WITH BARB RIGHTWARDS
+	char?(exists(char) && char==0x2912) => {match.char=0xEB30;}, match; //UPWARDS ARROW TO BAR
+	char?(exists(char) && char==0x2913) => {match.char=0xEB31;}, match; //DOWNWARDS ARROW TO BAR
+	char?(exists(char) && char==0x296E) => {match.char=0xEB32;}, match; //UPWARDS HARPOON TO THE LEFT OF DOWNWARDS HARPOON
+	char?(exists(char) && char==0x296F) => {match.char=0xEB33;}, match; //UPWARDS HARPOON TO THE RIGHT OF DOWNWARDS HARPOON
+	char?(exists(char) && char==0x2939) => {match.char=0xEB40;}, match; //ANTICLOCKWISE LEFT SEMICIRCLE ARROW
+	char?(exists(char) && char==0x2974) => {match.char=0xEB44;}, match; //RIGHTWARDS ARROW OVER TILDE
+	char?(exists(char) && char==0x2973) => {match.char=0xEB45;}, match; //LEFTWARDS ARROW OVER TILDE
+	char?(exists(char) && char==0x296A) => {match.char=0xEB48;}, match; //LEFTWARDS HARPOON OVER BAR
+	char?(exists(char) && char==0x296C) => {match.char=0xEB49;}, match; //RIGHTWARDS HARPOON OVER BAR
+	char?(exists(char) && char==0x296B) => {match.char=0xEB4A;}, match; //LEFTWARDS HARPOON UNDER BAR
+	char?(exists(char) && char==0x296D) => {match.char=0xEB4B;}, match; //RIGHTWARDS HARPOON UNDER BAR
+	char?(exists(char) && char==0x2938) => {match.char=0xEB50;}, match; //CLOCKWISE RIGHT SEMICIRCLE ARROW
+	char?(exists(char) && char==0x23B5) => {match.char=0xEC0C;}, match; //UNDER SQUARE BRACKET
+	char?(exists(char) && char==0x23B4) => {match.char=0xEC0D;}, match; //OVER SQUARE BRACKET
+	char?(exists(char) && char==0x03DD) => {match.char=0xED03;}, match; //GREEK SMALL LETTER DIGAMMA
+	char?(exists(char) && char==0x2146) => {match.char=0xED10;}, match; //SMALL DIFFERENTIAL D
+	char?(exists(char) && char==0x2147) => {match.char=0xED11;}, match; //EXPONENTIAL E
+	char?(exists(char) && char==0x2148) => {match.char=0xED12;}, match; //IMAGINARY I
+	char?(exists(char) && char==0x2145) => {match.char=0xED16;}, match; //CAPITAL DIFFERENTIAL D
+	char?(exists(char) && char==0x2057) => {match.char=0xEE19;}, match; //QUADRUPLE PRIME
+	char?(exists(char) && char==0x200B) => {match.char=0xEF01; match.mathvariant="italic";}, match; //VIRTUAL ZERO WIDTH SPACE
+	char?(exists(char) && char==0x2009) => {match.char=0xEF02; match.mathvariant="italic";}, match; //VIRTUAL THIN SPACE
+	char?(exists(char) && char==0x205F) => {match.char=0xEF03; match.mathvariant="italic";}, match; //VIRTUAL MEDIUM SPACE
+	char?(exists(char) && char==0x2003) => {match.char=0xEF05; match.mathvariant="italic";}, match; //VIRTUAL EM SPACE
+	char?(exists(char) && char==0x200A) => {match.char=0xEF0A; match.mathvariant="italic";}, match; //VIRTUAL HAIR SPACE
+
+   // invalid attribute values
+   any?(exists(mathcolor) && !is_mathml_color_value(mathcolor)) => {error("Invalid color "+match.mathcolor+" specified. Will use black instead");match.mathcolor="black";}, match;
+   any?(exists(color) && !is_mathml_color_value(color)) => {error("Invalid color "+match.color+" specified. Will use black instead");match.color="black";}, match;
+
+   // valid attribute values that we don't handle
+   any?(exists(mathsize) && mathsize!="small" && mathsize!="normal" && mathsize!="big") => {error("MathType does not support mathsize value "+match.mathsize+". Will ignore");delete_attributes(match, "mathsize");}, match;
+   // check for some attributes that we are not handling, to log an error, but then process as usual
+   // the general pattern for removing unhandled attributes is:
+   // node?(check_attributes(this, "attr1 attr2 ..."))=>{error(errormsg);delete_attributes(match, "attr1 attr2 ..");}, match;
+   any?(exists(fontsize)) => {error("MathType does not support fontsize attribute. Will ignore");delete_attributes(match, "fontsize");}, match;
+   // any?(exists(fontsize)) => {error("MathType does not support fontsize attribute. Will ignore");match.fontsize="";}, match;
+   mo_node?(check_attributes(this, "form fence separator lspace rspace symmetric maxsize minsize accent")) => {error("can only process mo's attributes: mathvariant, mathcolor, mathbackground, mathsize, fontfamily, fontstyle, fontweight, color, largeop, movablelimits, stretchy. Will ignore the rest");delete_attributes(match, "form fence separator lspace rspace stretchy symmetric maxsize minsize accent");}, match;
+   mspace_node?(check_attributes(this, "height depth linebreak")) => {error("MathType only supports mspace's width attribute. Will ignore the rest");delete_attributes(match, "height depth linebreak");}, match;
+   mfrac_node?(exists(linethickness) && linethickness!="0" && linethickness!="0pt" && linethickness!="0 pt") => {error("MathType does not support mfrac's linethickness value "+match.linethickness+". Will ignore");delete_attributes(match, "linethickness");}, match;
+   mfrac_node?(check_attributes(this, "numalign denomalign")) => {error("MathType only supports mfrac's numalign, denomalign attributes. Will ignore the rest");delete_attributes(match, "numalign denomalign");}, match;
+   mstyle_node?(check_attributes(this, "scriptlevel scriptsizemultiplier scriptminsize veryverythinmathspace verythinmathspace thinmathspace mediummathspace thickmathspace verythickmathspace veryverythickmathspace")) => {error("MathType only supports mstyle's displaystyle, background attributes. Will ignore the rest");delete_attributes(match, "scriptlevel scriptsizemultiplier scriptminsize veryverythinmathspace verythinmathspace thinmathspace mediummathspace thickmathspace verythickmathspace veryverythickmathspace");}, match;
+   //
+   msub_node?(exists(subscriptshift))  => {error("MathType does not support msub's subscriptshift attribute, Will ignore");delete_attributes(match, "subscriptshift");}, match;
+   msup_node?(exists(superscriptshift))  => {error("MathType does not support msup's superscriptshift attribute, Will ignore");delete_attributes(match, "superscriptshift");}, match;
+   msubsup_node?(check_attributes(this, "subscriptshift subscriptshift")) => {error("MathType does not support msubsup's attributes, Will ignore");delete_attributes(match, "subscriptshift subscriptshift");}, match;
+   //
+   munder_node?(exists(accentunder))  => {error("MathType does not support munder's accentunder attribute, Will ignore");delete_attributes(match, "accentunder");}, match;
+   mover_node?(exists(accent))  => {error("MathType does not support mover's accent attribute, Will ignore");delete_attributes(match, "accent");}, match;
+   munderover_node?(check_attributes(this, "accentunder accent")) => {error("MathType does not support munderover's attributes, Will ignore");delete_attributes(match, "accentunder accent");}, match;
+   //
+   mmultiscripts_node?(check_attributes(this, "subscriptshift superscriptshift")) => {error("MathType does not support mmultiscripts's attributes, Will ignore");delete_attributes(match, "subscriptshift superscriptshift");}, match;
+   //
+   // mtable attribute errors: unsupported ones
+   mtable_node?(check_attributes(this, "groupalign alignmentscope columnwidth width rowspacing columnspacing rowlines columnlines frame framespacing displaystyle minlabelspacing")) => {error("MathType only supports mtable's align, rowalign, columnalign, equalrows, equalcolumns, side attributes, Will ignore the rest");delete_attributes(match, "groupalign alignmentscope columnwidth width rowspacing columnspacing rowlines columnlines frame framespacing displaystyle minlabelspacing");}, match;
+   // fill in default values
+   mtable_node?(!exists(align)) => {match.align="base";}, match;
+   mtable_node?(!exists(columnalign)) => {match.columnalign="center";}, match;
+   mtable_node?(!exists(rowalign)) => {match.rowalign="baseline";}, match;
+   mtable_node?(!exists(equalcolumns)) => {match.equalcolumns=false;}, match;
+   mtable_node?(!exists(equalrows)) => {match.equalrows=false;}, match;
+   mtable_node?(!exists(side)) => {match.side="right";}, match;
+   // correct invalid values
+   mtable_node?(exists(side) && side!="right" && side!="left") => {error("MathType only supports right, left values of mtable's side attribute. Will ignore"); match.side="right";}, match;
+   // check for unhandled and invalid values of align
+   mtable_node?(exists(align) && align!="top" && align!="baseline" && align!="base" && align!="bottom") => {error("MathType only supports top,baseline,bottom values of mtable's align attribute. Will ignore"); delete_attributes(match, "align");}, match;
+   // NOTE: since MT6 can only align all columns or rows the same way, we'll only pay attention to simple columnalign & rowalign
+   // in mtable elements. But the machinery is there for general lists. You'll only need to get rid of the following two lines and
+   // rely on the handling of the mtable rowalign and columnalign further down (since rowalign, columnalign values can be lists,
+   // and we can't easily check or modify them, we should wait until we actually use them... (see code way below for processing mtable_node)
+   mtable_node?(exists(columnalign) && columnalign!="left" && columnalign!="center" && columnalign!="right") => {error("MathType only supports left,center,right values of mtable's columnalign attribute. Will ignore"); match.columnalign="center";}, match;
+   mtable_node?(exists(rowalign) && rowalign!="top" && rowalign!="baseline" && rowalign!="bottom") => {error("MathType only supports top,baseline,bottom values of mtable's rowalign attribute. Will ignore"); match.rowalign="baseline";}, match;
+   // other attributes
+   // how to deal with these? if they are not "true" not "false", trying to compare them will throw an error
+   mtable_node?(exists(equalcolumns) && equalcolumns!=true && equalcolumns!=false) => {error("Invalid value "+match.equalcolumns+" for mtable's equalcolumns attribute. Will ignore"); match.equalcolumns=false;}, match;
+   mtable_node?(exists(equalrows) && equalrows!=true && equalrows!=false) => {error("Invalid value "+match.equalrows+" for mtable's equalrows attribute. Will ignore"); match.equalrows=false;}, match;
+
+   // mtr attribute errors
+   mtr_node?(exists(groupalign))  => {error("MathType only supports mtr's rowalign, columnalign attributes. Will ignore the rest");delete_attributes(match, "groupalign");}, match;
+   // unhandled values of rowalign
+   mtr_node?(exists(rowalign) && rowalign!="top" && rowalign!="baseline" && rowalign!="bottom") => {error("MathType only supports top,baseline,bottom values of mtr's rowalign attribute. Will ignore");delete_attributes(match, "rowalign");}, match;
+   // mlabeledtr attribute errors
+   mlabeledtr_node?(exists(groupalign))  => {error("MathType only supports mlabeledtr's rowalign, columnalign attributes. Will ignore the rest");delete_attributes(match, "groupalign");}, match;
+   // unhandled values of rowalign
+   mlabeledtr_node?(exists(rowalign) && rowalign!="top" && rowalign!="baseline" && rowalign!="bottom") => {error("MathType only supports top,baseline,bottom values of mlabeledtr's rowalign attribute. Will ignore");delete_attributes(match, "rowalign");}, match;
+
+   mtd_node?(check_attributes(this, "rowspan columnspan groupalign")) => {error("MathType only supports mtd's rowalign, columnalign attributes. Will ignore the rest");delete_attributes(match, "rowspan columnspan groupalign");}, match;
+   // unhandled values of rowalign, columnalign
+   mtd_node?(exists(rowalign) && rowalign!="top" && rowalign!="baseline" && rowalign!="base" && rowalign!="bottom") => {error("MathType only supports top,baseline,bottom values of mtd's rowalign attribute. Will ignore");delete_attributes(match, "rowalign");}, match;
+   // translate MathML baseline to MT base
+   mtd?(exists(rowalign) && rowalign=="baseline") => {match.rowalign="base";}, match;
+   mtd_node?(exists(columnalign) && columnalign!="left" && columnalign!="center" && columnalign!="right") => {error("MathType only supports  left,center,right values of mtd's columnalign attribute. Will ignore");delete_attributes(match, "columnalign");}, match;
+   // translate MathML values to MT values
+   mtable_node?(exists(align) && align=="baseline") => {match.align="base";}, match;
+   // translate mathsize values to (MT) size values
+   any?(exists(mathsize) && mathsize=="big") => {delete_attributes(match, "mathsize"); match.size="sym";}, match;
+   any?(exists(mathsize) && mathsize=="normal") => {delete_attributes(match, "mathsize"); match.size="full";}, match;
+   any?(exists(mathsize) && mathsize=="small") => {delete_attributes(match, "mathsize"); match.size="sub";}, match;
+
+   // any node in an mfenced that is not a last_mfenced_node is followed by a separators, so we get: (x,y,z)
+   // with one exception: when building a bra-ket
+   any_node?(name(parent(this))=="mfenced_node" && (parent(this).open!="<" || parent(this).close!=">" || parent(this).separators!="|" || count(parent(this))!=4)) => slot(*,text{text=extract_mathml_list_value(^match.separators,index(match)-1);text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");});
+
+   // begin translations of nodes
+   // nodes with 'char' attr are wrappers that we don't want to translate; only char nodes should be translated
+   // (to be cautious, we only ignore nodes that we know we do't want to translate)
+   any?((name(this)=="mrow_node" || name(this)=="mstyle_node" || 
+	 name(this)=="mi_node" || name(this)=="mn_node" || name(this)=="mo_node") &&
+	 exists(char) && name(this)!="char") => [$0,$(-1)];
+   
+   mrow_node => slot(*);
+   // we set the sizes on the slots above the chars, so that the inheritance of size will be done by MT itself
+   // NOTE: we have already translated MathML mathsize values to MT size values
+   mstyle_node?(exists(size)) => slot(*){size=match.size;};
+   mstyle_node => slot(*);
+   // mi_node?(exists(size)) => slot(*){size=match.size;};
+   // mi_node => slot(*);
+   mi_node => slot(*){copy_attributes(match, this, "size mathvariant");};
+
+   mn_node?(exists(size)) => slot(*){size=match.size;};
+   mn_node => slot(*);
+   // stretchy mos that are in an mfenced_node should be ignored
+   stretchy_mo_node?(name(^^this)=="mfenced_node") =>;
+
+   mo_node?(exists(largeop) && largeop==true && find_attribute(this, "displaystyle",true)) => slot(*){match.size="sym";};
+   mo_node?(exists(size)) => slot(*){size=match.size;};
+   mo_node => slot(*);
+   mtext_node?(!exists(mathvariant)) => {match.mathvariant="normal";}, match;
+	// See MT-3790: Problems importing MathML with <mtext> tags
+	// See the corresponding mi_node rules commented out above by Eduardo
+	//	mtext_node?(exists(size)) => slot(*){size=match.size;};
+	//	mtext_node => slot(*);
+   func_node?(exists(size)) => func{size=match.size;text=match.text;text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   func_node => func{text=match.text;text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+
+   // we need to check the existence of rquote or lquote, since they may not be there
+   ms_node?(exists(size) && exists(lquote) && exists(rquote)) => slot(text{text=match.lquote;text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");mathvariant=find_attribute(match, "mathvariant", "normal");}, *, text{text=match.rquote;text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");mathvariant=find_attribute(match, "mathvariant", "normal");}){size=match.size;};
+   ms_node?(exists(size) && exists(rquote)) => slot(text{text="\"";text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");mathvariant=find_attribute(match, "mathvariant", "normal");}, *, text{text=match.rquote;text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");mathvariant=find_attribute(match, "mathvariant", "normal");}){size=match.size;};
+   ms_node?(exists(size) && exists(lquote)) => slot(text{text=match.lquote;text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");}, *, text{text="\"";text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");}){size=match.size;};
+   ms_node?(exists(size)) => slot(text{text="\"";text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");mathvariant=find_attribute(match, "mathvariant", "normal");}, *, text{text="\"";text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");mathvariant=find_attribute(match, "mathvariant", "normal");}){size=match.size;};
+   // default size
+   ms_node?(exists(lquote) && exists(rquote)) => slot(text{text=match.lquote;text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");mathvariant=find_attribute(match, "mathvariant", "normal");}, *, text{text=match.rquote;text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");mathvariant=find_attribute(match, "mathvariant", "normal");});
+   ms_node?(exists(rquote)) => slot(text{text="\"";text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");mathvariant=find_attribute(match, "mathvariant", "normal");}, *, text{text=match.rquote;text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");mathvariant=find_attribute(match, "mathvariant", "normal");});
+   ms_node?(exists(lquote)) => slot(text{text=match.lquote;text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");}, *, text{text="\"";text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");});
+   ms_node => slot(text{text="\"";text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");mathvariant=find_attribute(match, "mathvariant", "normal");}, *, text{text="\"";text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");mathvariant=find_attribute(match, "mathvariant", "normal");});
+
+   // do we even need this?
+   merror_node => slot(*);
+   // if there is a linethickness attribute still, it was 0
+   mfrac_node?(exists(linethickness)) => slot(matrix(row(cell(slot($1))),row(cell(slot($2)))));
+   mfrac_node?(exists(bevelled) && bevelled=="true") => frac/sl(slot($1),slot($2)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfrac_node => frac(slot($1),slot($2)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+
+   // mglyphs (including attribute errors)
+   // MT-2432: the actual attribute (index) is being confused with the function index()
+   // `mglyph/`?(!exists(glyph_index)) => char{mtcode=0xFFFD; text_color="MathML: red";error("attribute index is required for mglyph");};
+   `mglyph/`?(!exists(fontfamily)) => char{mtcode=0xFFFD; text_color="MathML: red";error("attribute fontfamily is required for mglyph");};
+   `mglyph/`?(!exists(alt)) => char{glyph_index=match.index; font=match.fontfamily; text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");error("attribute alt is required for mglyph, but will process anyway");};
+   `mglyph/` => char{glyph_index=match.index; font=match.fontfamily; text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+
+   // an unknown char name throws an unaborting error and shows up in red
+   `_unknown_char_entity` => {error("bad character name "+match._name);}, text{text="&" +match._name+ ";";text_color="MathML: red";};
+   // special chars: ApplyFunction, InvisibleTimes and  InvisibleComma
+   char?(char==0x2061) => ;
+   char?(char==0x2062) => ;
+   char?(char==0x2063) => ;
+	// a char at the top level is just not part of the mathml
+	char?(name(^this)=="_input_root") => ;
+
+   // default mathvariant values are different for mi
+   // a mathvariant in the parent token takes the first precedence
+   char?(name(^this)=="mi_node" && count(^this)==3 && exists(^this.mathvariant)) => char{mtcode = match.char; mathvariant=find_attribute(match, "mathvariant", "italic");  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // second precedence goes to a fontfamily on the parent token
+   char?(name(^this)=="mi_node" && count(^this)==3 && exists(^this.fontfamily) && exists(^this.fontstyle) && (^this.fontstyle)=="normal" && exists(^this.fontweight) && (^this.fontweight)=="bold") => char{mtcode = match.char; font=find_attribute(match, "fontfamily", ""); char_style="bold";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(name(^this)=="mi_node" && count(^this)==3 && exists(^this.fontfamily) && exists(^this.fontstyle) && (^this.fontstyle)=="normal") => char{mtcode = match.char; font=find_attribute(match, "fontfamily", ""); char_style="plain";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(name(^this)=="mi_node" && count(^this)==3 && exists(^this.fontfamily) && exists(^this.fontweight) && (^this.fontweight)=="bold") => char{mtcode = match.char; font=find_attribute(match, "fontfamily", ""); char_style="bold_italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(name(^this)=="mi_node" && count(^this)==3 && exists(^this.fontfamily)) => char{mtcode = match.char; font=find_attribute(match, "fontfamily", ""); char_style="italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // these next three, without explicit font, may need to be combined with an inherited mathvariant... but not in these rule set
+   char?(name(^this)=="mi_node" && count(^this)==3 && exists(^this.fontstyle) && (^this.fontstyle)=="normal" && exists(^this.fontweight) && (^this.fontweight)=="bold") => char{mtcode = match.char; mathvariant="bold";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(name(^this)=="mi_node" && count(^this)==3 && exists(^this.fontstyle) && (^this.fontstyle)=="normal") => char{mtcode = match.char; mathvariant="normal";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(name(^this)=="mi_node" && count(^this)==3 && exists(^this.fontweight) && (^this.fontweight)=="bold") => char{mtcode = match.char; mathvariant="bold-italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // next, an inherited mathvariant
+   char?(name(^this)=="mi_node" && count(^this)==3 && find_attribute(this, "mathvariant", "")!="") => char{mtcode = match.char; mathvariant=find_attribute(match, "mathvariant", "italic");  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // or an inherited fontfamily
+   char?(name(^this)=="mi_node" && count(^this)==3 && find_attribute(this, "fontfamily", "")!="" && find_attribute(this, "fontstyle", "")=="normal" && find_attribute(this, "fontweight", "")=="bold") => char{mtcode = match.char;  font=find_attribute(match, "fontfamily", ""); char_style="bold";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(name(^this)=="mi_node" && count(^this)==3 && find_attribute(this, "fontfamily", "")!="" && find_attribute(this, "fontstyle", "")=="normal") => char{mtcode = match.char;  font=find_attribute(match, "fontfamily", ""); char_style="plain";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(name(^this)=="mi_node" && count(^this)==3 && find_attribute(this, "fontfamily", "")!="" && find_attribute(this, "fontweight", "")=="bold") => char{mtcode = match.char; font=find_attribute(match, "fontfamily", ""); char_style="bold_italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(name(^this)=="mi_node" && count(^this)==3 && find_attribute(this, "fontfamily", "")!="") => char{mtcode = match.char; font=find_attribute(match, "fontfamily", ""); char_style="italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // these next three, without explicit font, may need to be combined with an inherited mathvariant... but not in this rule set
+   char?(name(^this)=="mi_node" && count(^this)==3 && find_attribute(this, "fontstyle", "")=="normal" && find_attribute(this, "fontweight", "")=="bold") => char{mtcode = match.char;  mathvariant="bold";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(name(^this)=="mi_node" && count(^this)==3 && find_attribute(this, "fontstyle", "")=="normal") => char{mtcode = match.char; mathvariant="normal";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(name(^this)=="mi_node" && count(^this)==3 && find_attribute(this, "fontweight", "")=="bold") => char{mtcode = match.char; mathvariant="bold-italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // default case
+   char?(name(^this)=="mi_node" && count(^this)==3) => char{mtcode = match.char; mathvariant="italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+
+   // other tokens
+   // a mathvariant in the parent token takes the first precedence
+   char?(exists(^this.mathvariant)) => char{mtcode = match.char; mathvariant=find_attribute(match, "mathvariant", "normal");  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // second precedence goes to a fontfamily on the parent token
+   char?(exists(^this.fontfamily) && exists(^this.fontstyle) && (^this.fontstyle)=="italic" && exists(^this.fontweight) && (^this.fontweight)=="bold") => char{mtcode = match.char; font=find_attribute(match, "fontfamily", ""); char_style="bold_italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(exists(^this.fontfamily) && exists(^this.fontstyle) && (^this.fontstyle)=="italic") => char{mtcode = match.char; font=find_attribute(match, "fontfamily", ""); char_style="italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(exists(^this.fontfamily) && exists(^this.fontweight) && (^this.fontweight)=="bold") => char{mtcode = match.char; font=find_attribute(match, "fontfamily", ""); char_style="bold";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(exists(^this.fontfamily)) => char{mtcode = match.char; font=find_attribute(match, "fontfamily", ""); char_style="plain";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // these next three, without explicit font, may need to be combined with an inherited mathvariant... but not in this rule set
+   char?(exists(^this.fontstyle) && (^this.fontstyle)=="italic" && exists(^this.fontweight) && (^this.fontweight)=="bold") => char{mtcode = match.char; mathvariant="bold-italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(exists(^this.fontstyle) && (^this.fontstyle)=="italic") => char{mtcode = match.char; mathvariant="italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(exists(^this.fontweight) && (^this.fontweight)=="bold") => char{mtcode = match.char; mathvariant="bold";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // next, an inherited mathvariant
+   char?(find_attribute(this, "mathvariant", "")!="") => char{mtcode = match.char; mathvariant=find_attribute(match, "mathvariant", "normal");  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // or an inherited fontfamily
+   char?(find_attribute(this, "fontfamily", "")!="" && find_attribute(this, "fontstyle", "")=="italic" && find_attribute(this, "fontweight", "")=="bold") => char{mtcode = match.char;  font=find_attribute(match, "fontfamily", ""); char_style="bold_italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(find_attribute(this, "fontfamily", "")!="" && find_attribute(this, "fontstyle", "")=="italic") => char{mtcode = match.char;  font=find_attribute(match, "fontfamily", ""); char_style="italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(find_attribute(this, "fontfamily", "")!="" && find_attribute(this, "fontweight", "")=="bold") => char{mtcode = match.char; font=find_attribute(match, "fontfamily", ""); char_style="bold";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(find_attribute(this, "fontfamily", "")!="") => char{mtcode = match.char; font=find_attribute(match, "fontfamily", ""); char_style="plain";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // these next three, without explicit font, may need to be combined with an inherited mathvariant... but not in these rule set
+   char?(find_attribute(this, "fontstyle", "")=="italic" && find_attribute(this, "fontweight", "")=="bold") => char{mtcode = match.char;  mathvariant="bold-italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(find_attribute(this, "fontstyle", "")=="italic") => char{mtcode = match.char; mathvariant="italic";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   char?(find_attribute(this, "fontweight", "")=="bold") => char{mtcode = match.char; mathvariant="bold";  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // default case
+   char => char{mtcode = match.char; text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+
+   // the width attr is mandatory for space elements
+   mspace_node => space{width = match.width;};
+
+   mroot_node => root/nth(slot($1),slot($2)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   msqrt_node => root(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+
+   // mfences for which we have templates
+   // first, special case for bra-ket
+   mfenced_node?(open=="<" && close==">" && separators=="|" && count(this)==4) => braket(slot($1),slot($2)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="(" && close==")") => paren(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="[" && close=="]") => brack(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="{" && close=="}") => brace(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="<" && close==">") => abrack(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="|" && close=="|") => bar(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // these next should work if we can use unicode chars and the lexer does the right charname traslation
+   // mfenced_node?(open=="&dbar;" && close=="&dbar;") => dbar(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // mfenced_node?(open=="&lfloor;" && close=="&rfloor;") => floor(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // mfenced_node?(open=="&lceil;" && close=="&rceil;") => ceil(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+
+   mfenced_node?(open=="[" && close==")") => intval/lbrp(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="(" && close=="]") => intval/lprb(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="|" && close==">") => braket/r(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="<" && close=="|") => braket/l(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="[" && close=="[") => intval/lblb(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="]" && close=="]") => intval/rbrb(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="]" && close=="[") => intval/rblb(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // mfenced_node?(open=="&lobrack;" && close=="&robrack;") => obrack(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="(" && close=="") => paren/l(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="" && close==")") => paren/r(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="[" && close=="") => brack/l(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="" && close=="]") => brack/r(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="{" && close=="") => brace/l(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="" && close=="}") => brace/r(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="<" && close=="") => abrack/l(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="" && close==">") => abrack/r(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="|" && close=="") => bar/l(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   mfenced_node?(open=="" && close=="|") => bar/r(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // mfenced_node?(open=="&dbar;" && close=="") => dbar/l(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // mfenced_node?(open=="" && close=="&dbar;") => dbar/r(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // mfenced_node?(open=="&lobrack;" && close=="") => obrack/l(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // mfenced_node?(open=="" && close=="&robrack;") => obrack/r(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // non-template mfenced
+   mfenced_node => slot(text{text=match.open;  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");}, *, text{text=match.close;  text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");});
+
+   menclose_node?(notation=="longdiv") => ldiv/nq(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   menclose_node?(notation=="actuarial") => box/tr(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   //   menclose_node?(notation=="actuarial") => bar/r(slot(obar(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black"));})){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   menclose_node?(notation=="radical") => root(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   menclose_node?(notation=="box") => box(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   //   menclose_node?(notation=="roundedbox") => root(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   //   menclose_node?(notation=="circle") => root{(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   menclose_node?(notation=="left") => bar/l(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   menclose_node?(notation=="right") => bar/r(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   menclose_node?(notation=="top") => obar(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   menclose_node?(notation=="bottom") => ubar(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   menclose_node?(notation=="updiagonalstrike") => strike/up(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   menclose_node?(notation=="downdiagonalstrike") => strike/dn(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // menclose_node?(notation=="verticalstrike") =>
+   menclose_node?(notation=="horizontalstrike") => strike/m(slot(*)){text_color="MathML: "+find_attribute(match, "mathcolor",find_attribute(match, "color", "black")); background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   // rest, ignore (actually, error)
+   menclose_node => slot(char{mtcode=0xFFFD; text_color="MathML: red";error("MathType does not support menclose's "+match.notation+" notation. Will only display its contents");}, *);
+
+	// msup accents
+   msup_node?(exists($1.char) && exists($2.char) && ($2.char==0x0027 || $2.char==0x00B4 || $2.char==0x02B9 || $2.char==0x02CA || $2.char==0x2032)) => cprime($1);   // eprime
+   msup_node?(exists($1.char) && exists($2.char) && ($2.char==0x0022 || $2.char==0x02BA || $2.char==0x02DD || $2.char==0x2033 || $2.char==0x3003 || $2.char==0x301E)) => cprime/2($1);   // double eprime
+   msup_node?(exists($1.char) && exists($2.char) && ($2.char==0x2034)) => cprime/3($1);   			// triple eprime
+
+   msub_node => slot($1,sub(slot($2)));
+   msup_node => slot($1,sup(slot($2)));
+   msubsup_node => slot($1,subsup(slot($2),slot($3)));
+
+   // special cases of munder/mover/munderover
+   bigop_tmplt?((type=="underover_noarg" || type=="subsup_noarg")  && find_attribute(this, "displaystyle",true)==false && movablelimits==true) => intop(slot($2),slot($3),slot($1)){text_color="MathML: "+find_attribute($1, "mathcolor", "black");background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   bigop_tmplt?((type=="underover_noarg" || type=="subsup_noarg")) => sumop(slot($2),slot($3),slot($1)){text_color="MathML: "+find_attribute($1, "mathcolor", "black");background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   bigop_tmplt?((type=="over_noarg" || type=="sup_noarg")  && find_attribute(this, "displaystyle",true)==false && movablelimits==true) => intop/t(slot($2),slot($1)){text_color="MathML: "+find_attribute($1, "mathcolor", "black");background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   bigop_tmplt?((type=="over_noarg" || type=="sup_noarg")) => sumop/t(slot($2),slot($1)){text_color="MathML: "+find_attribute($1, "mathcolor", "black");background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   bigop_tmplt?((type=="under_noarg" || type=="sub_noarg")  && find_attribute(this, "displaystyle",true)==false && movablelimits==true) => intop/b(slot($2),slot($1)){text_color="MathML: "+find_attribute($1, "mathcolor", "black");background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+   bigop_tmplt?((type=="under_noarg" || type=="sub_noarg")) => sumop/b(slot($2),slot($1)){text_color="MathML: "+find_attribute($1, "mathcolor", "black");background_color="MathML: "+find_attribute(match, "mathbackground", "white");};
+	// See MT-3819
+   bigop => slot(*);
+
+   // accents (only one char in the base)
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x2024 || $2.char==0x002E || $2.char==0x02D9 || $2.char==0x0307)) => cdot($1);    // edot
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x2025 || $2.char==0x0308)) => cdot/2($1);    	// double edot
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x2026 || $2.char==0x20DB)) => cdot/3($1);    	// triple edot
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x20DC)) => cdot/4($1);    			// quadruple edot
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x002D || $2.char==0x00AD || $2.char==0x2010 || $2.char==0x2011 || $2.char==0x2012 || $2.char==0x2013 || $2.char==0x2014 || $2.char==0x2015 || $2.char==0x2212 || $2.char==0x005F || $2.char==0x00AF)) => cobar($1);      // hyphen-minus || soft hyphen || hyphen || nbr-hyphen || figure-dash || en-dash || em-dash || horizontal bar || minus || lowline || macron
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x007E || $2.char==0x223C)) => ctilde($1);       // tilde
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x2040 || $2.char==0x2312 || $2.char==0x2322 || $2.char==0x25E0)) => carc($1);    // tie || arc || frown || upper half circle
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x203F || $2.char==0x2323 || $2.char==0x25E1)) => carc/s($1);      // undertie || smile  || lower half circle
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x005E || $2.char==0x02C4 || $2.char==0x2038 || $2.char==0x2303)) => chat($1);    // caret
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x20D7 || $2.char==0x2192)) => cvec($1);         // right combining arrow || right arrow
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x20D6 || $2.char==0x2190)) => cvec/l($1);       // left combining arrow || left arrow
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x20E1 || $2.char==0x2194 || $2.char==0x27F7)) => cvec/lr($1);   		 // leftright arrow || long lefright arrow
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x20D1 || $2.char==0x21C0)) => cvec/h($1);       // right harpoon
+   mover_node?(exists($1.char) && exists($2.char) && ($2.char==0x20D0 || $2.char==0x21BC)) => cvec/h/l($1);     // left harpoon
+   
+   munder_node?(exists($1.char) && exists($2.char) && ($2.char==0x2024 || $2.char==0x002E || $2.char==0x02D9 || $2.char==0x0323)) => cdot/u($1); // edot
+   munder_node?(exists($1.char) && exists($2.char) && ($2.char==0x2025 || $2.char==0x0324)) => cdot/u/2($1);    // double edot
+   munder_node?(exists($1.char) && exists($2.char) && ($2.char==0x2026 || $2.char==0x20E8)) => cdot/u/3($1);    // triple edot
+   munder_node?(exists($1.char) && exists($2.char) && ($2.char==0x002D || $2.char==0x00AD || $2.char==0x2010 || $2.char==0x2011 || $2.char==0x2012 || $2.char==0x2013 || $2.char==0x2014 || $2.char==0x2015 || $2.char==0x2212 || $2.char==0x005F || $2.char==0x00AF)) => cubar($1);      // hyphen-minus || soft hyphen || hyphen || nbr-hyphen || figure-dash || en-dash || em-dash || horizontal bar || minus || lowline || macron
+   munder_node?(exists($1.char) && exists($2.char) && ($2.char==0x007E || $2.char==0x223C)) => ctilde/u($1);    // tilde
+   munder_node?(exists($1.char) && exists($2.char) && ($2.char==0x2040 || $2.char==0x2312 || $2.char==0x2322 || $2.char==0x25E0)) => carc/u($1); // tie || arc || frown || upper half circle
+   munder_node?(exists($1.char) && exists($2.char) && ($2.char==0x203F || $2.char==0x2323 || $2.char==0x25E1)) => carc/u/s($1);     		 // undertie || smile  || lower half circle
+   munder_node?(exists($1.char) && exists($2.char) && ($2.char==0x20EF || $2.char==0x2192)) => cvec/u($1);      // right combining arrow || right arrow
+   munder_node?(exists($1.char) && exists($2.char) && ($2.char==0x20EE || $2.char==0x2190)) => cvec/u/l($1);    // left combining arrow || left arrow
+   munder_node?(exists($1.char) && exists($2.char) && ($2.char==0x2194 || $2.char==0x27F7)) => cvec/u/lr($1);   // leftright arrow || long lefright arrow
+   munder_node?(exists($1.char) && exists($2.char) && ($2.char==0x20EC || $2.char==0x21C1)) => cvec/u/h($1);    // right harpoon
+   munder_node?(exists($1.char) && exists($2.char) && ($2.char==0x20ED || $2.char==0x21BD)) => cvec/u/h/l($1);  // left harpoon
+ 
+   // scripts
+   // underbar templates first
+   munder_node?(exists($2.char) && ($2.char==0x2040 || $2.char==0x2312 || $2.char==0x2322 || $2.char==0x25E0)) => arc/u(slot($1));      // tie || arc || frown || upper half circle
+   munder_node?(exists($2.char) && ($2.char==0x002D || $2.char==0x00AD || $2.char==0x2010 || $2.char==0x2011 || $2.char==0x2012 || $2.char==0x2013 || $2.char==0x2014 || $2.char==0x2015 || $2.char==0x2212 || $2.char==0x005F || $2.char==0x00AF)) => ubar(slot($1));      // hyphen-minus || soft hyphen || hyphen || nbr-hyphen || figure-dash || en-dash || em-dash || horizontal bar || minus || lowline || macron 
+   munder_node?(exists($2.char) && ($2.char==0x20EE || $2.char==0x2190)) => vec/u/l(slot($1));    // left arrow
+   munder_node?(exists($2.char) && ($2.char==0x20EF || $2.char==0x2192)) => vec/u(slot($1));      // right arrow
+   munder_node?(exists($2.char) && ($2.char==0x2194 || $2.char==0x27F7)) => vec/u/lr(slot($1));   // leftright arrow || long lefright arrow
+   munder_node?(exists($2.char) && ($2.char==0x20EC || $2.char==0x21C1)) => vec/u/h(slot($1));    // right harpoon
+   munder_node?(exists($2.char) && ($2.char==0x20ED || $2.char==0x21BD)) => vec/u/h/l(slot($1));  // left harpoon
+   // default case
+   munder_node => lim(slot($1),slot($2));
+
+   // overbar templates first
+   mover_node?(exists($2.char) && ($2.char==0x007E || $2.char==0x223C)) => tilde(slot($1));    // tilde
+   mover_node?(exists($2.char) && ($2.char==0x005E || $2.char==0x02C4 || $2.char==0x2038 || $2.char==0x2303)) => hat(slot($1));      // caret
+   mover_node?(exists($2.char) && ($2.char==0x2040 || $2.char==0x2312 || $2.char==0x2322 || $2.char==0x25E0)) => arc(slot($1));      // arc || frown || upper half circle
+   mover_node?(exists($2.char) && ($2.char==0x002D || $2.char==0x00AD || $2.char==0x2010 || $2.char==0x2011 || $2.char==0x2012 || $2.char==0x2013 || $2.char==0x2014 || $2.char==0x2015 || $2.char==0x2212 || $2.char==0x005F || $2.char==0x00AF)) => obar(slot($1));      // hyphen-minus || soft hyphen || hyphen || nbr-hyphen || figure-dash || en-dash || em-dash || horizontal bar || minus || lowline || macron
+   mover_node?(exists($2.char) && ($2.char==0x20D6 || $2.char==0x2190)) => vec/l(slot($1));    // left arrow
+   mover_node?(exists($2.char) && ($2.char==0x20D7 || $2.char==0x2192)) => vec(slot($1));      // right arrow
+   mover_node?(exists($2.char) && ($2.char==0x20E1 || $2.char==0x2194 || $2.char==0x27F7)) => vec/lr(slot($1));   // leftright arrow || long lefright arrow
+   mover_node?(exists($2.char) && ($2.char==0x20D1 || $2.char==0x21C0)) => vec/h(slot($1));    // right harpoon
+   mover_node?(exists($2.char) && ($2.char==0x20D0 || $2.char==0x21BC)) => vec/h/l(slot($1));  // left harpoon
+   // default case
+   mover_node => lim/t(slot($1),slot($2));
+   munderover_node => lim/tb(slot($1),slot($3),slot($2));
+   // mmultiscripts
+   pre_pair_node => subsup/pre(slot($0),slot($1));
+   post_pair_node => subsup(slot($0),slot($1));
+   // if there are 5 children, we had pre and post script pairs
+   mmultiscripts_node?(count(this)==5) => slot($3,$1,$2);
+   // if less than 5 cihldren, $2 could be the post or the pre scripts; we need to check which one it is to choose the right order
+   mmultiscripts_node?(name($2)=="all_post_nodes") => slot($1,$2);
+   mmultiscripts_node?(name($2)=="all_pre_nodes") => slot($2,$1);
+
+   // table nodes
+   // note that at this point mtable_node should only have top,bottom or baseline in rowalign, and left,center or right in columnalign
+   mtable_node?((!exists(align) || align=="") && rowalign!="baseline") => matrix(*){column_align=match.columnalign;row_align=match.rowalign;equal_column_widths=match.equalcolumns;equal_row_heights=match.equalrows;};
+   mtable_node?((!exists(align) || align=="") && rowalign=="baseline") => matrix(*){column_align=match.columnalign;row_align="base";equal_column_widths=match.equalcolumns;equal_row_heights=match.equalrows;};
+   mtable_node?(rowalign=="baseline") => matrix(*){valign=match.align;column_align=match.columnalign;row_align="base";equal_column_widths=match.equalcolumns;equal_row_heights=match.equalrows;};
+   mtable_node?(rowalign!="baseline") => matrix(*){valign=match.align;column_align=match.columnalign;row_align=match.rowalign;equal_column_widths=match.equalcolumns;equal_row_heights=match.equalrows;};
+   // mtrs
+   // labeled table nodes first
+   mlabeledtr_node?(^this.side=="left" && (!exists(rowalign) || rowalign=="") && (extract_mathml_list_value(^this.rowalign,index(this)-1)!="top" && extract_mathml_list_value(^this.rowalign,index(this)-1)!="bottom" && extract_mathml_list_value(^this.rowalign,index(this)-1)!="baseline")) => row(cell(slot($1)),[$2,$(-1)],cell(slot())){error("MathType only supports top,baseline,bottom values of mtable's rowalign attribute. Will ignore"); valign="base";};
+   mlabeledtr_node?(^this.side=="left" && (!exists(rowalign) || rowalign=="") && extract_mathml_list_value(^this.rowalign,index(this)-1)=="baseline") => row(cell(slot($1)),[$2,$(-1)],cell(slot())){valign="base";};
+   mlabeledtr_node?(^this.side=="left" && (!exists(rowalign) || rowalign=="")) => row(cell(slot($1)),[$2,$(-1)],cell(slot())){valign=extract_mathml_list_value(^match.rowalign,index(match)-1);};
+   mlabeledtr_node?(^this.side=="left" && rowalign!="top" && rowalign!="bottom" && rowalign!="baseline") => row(cell(slot($1)),[$2,$(-1)],cell(slot())){error("MathType only supports top,baseline,bottom values of mlabeledtr's rowalign attribute. Will ignore");valign="base";};
+   mlabeledtr_node?(^this.side=="left" && rowalign=="baseline") => row(cell(slot($1)),[$2,$(-1)],cell(slot())){valign="base";};
+   mlabeledtr_node?(^this.side=="left") => row(cell(slot($1)),[$2,$(-1)],cell(slot())){valign=match.rowalign;};
+   // labels on the right
+   mlabeledtr_node?((!exists(rowalign) || rowalign=="") && (extract_mathml_list_value(^this.rowalign,index(this)-1)!="top" && extract_mathml_list_value(^this.rowalign,index(this)-1)!="bottom" && extract_mathml_list_value(^this.rowalign,index(this)-1)!="baseline")) => row(cell(slot()),[$2,$(-1)],cell(slot($1))){error("MathType only supports top,baseline,bottom values of mtable's rowalign attribute. Will ignore"); valign="base";};
+   mlabeledtr_node?((!exists(rowalign) || rowalign=="") && extract_mathml_list_value(^this.rowalign,index(this)-1)=="baseline") => row(cell(slot()),[$2,$(-1)],cell(slot($1))){valign="base";};
+   mlabeledtr_node?(!exists(rowalign) || rowalign=="") => row(cell(slot()),[$2,$(-1)],cell(slot($1))){valign=extract_mathml_list_value(^match.rowalign,index(match)-1);};
+   mlabeledtr_node?(rowalign!="top" && rowalign!="bottom" && rowalign!="baseline") => row(cell(slot()),[$2,$(-1)],cell(slot($1))){error("MathType only supports top,baseline,bottom values of mlabeledtr's rowalign attribute. Will ignore");valign="base";};
+   mlabeledtr_node?(rowalign=="baseline") => row(cell(slot()),[$2,$(-1)],cell(slot($1))){valign="base";};
+   mlabeledtr_node => row(cell(slot()),[$2,$(-1)],cell(slot($1))){valign=match.rowalign;};
+   // and regular rows within an labeled table (need extra columns to the sides)
+   mtr_node?(exists(^this.labeled) && ^this.labeled==true && (!exists(rowalign) || rowalign=="") && (extract_mathml_list_value(^this.rowalign,index(this)-1)!="top" && extract_mathml_list_value(^this.rowalign,index(this)-1)!="bottom" && extract_mathml_list_value(^this.rowalign,index(this)-1)!="baseline")) => row(cell(slot()),*,cell(slot())){error("MathType only supports top,baseline,bottom values of mtable's rowalign attribute. Will ignore"); valign="base";};
+   mtr_node?(exists(^this.labeled) && ^this.labeled==true && (!exists(rowalign) || rowalign=="") && extract_mathml_list_value(^this.rowalign,index(this)-1)=="baseline") => row(cell(slot()),*,cell(slot())){valign="base";};
+   mtr_node?(exists(^this.labeled) && ^this.labeled==true && (!exists(rowalign) || rowalign=="")) => row(cell(slot()),*,cell(slot())){valign=extract_mathml_list_value(^match.rowalign,index(match)-1);};
+   mtr_node?(exists(^this.labeled) && ^this.labeled==true && rowalign!="top" && rowalign!="bottom" && rowalign!="baseline") => row(cell(slot()),*,cell(slot())){error("MathType only supports top,baseline,bottom values of mtr's rowalign attribute. Will ignore");valign="base";};
+   mtr_node?(exists(^this.labeled) && ^this.labeled==true && rowalign=="baseline") => row(cell(slot()),*,cell(slot())){valign="base";};
+   mtr_node?(exists(^this.labeled) && ^this.labeled==true ) => row(cell(slot()),*,cell(slot())){valign=match.rowalign;};
+   // finally, regular mtrs in a regular matrix
+   mtr_node?((!exists(rowalign) || rowalign=="") && (extract_mathml_list_value(^this.rowalign,index(this)-1)!="top" && extract_mathml_list_value(^this.rowalign,index(this)-1)!="bottom" && extract_mathml_list_value(^this.rowalign,index(this)-1)!="baseline")) => row(*){error("MathType only supports top,baseline,bottom values of mtable's rowalign attribute. Will ignore"); valign="base";};
+   mtr_node?((!exists(rowalign) || rowalign=="") && extract_mathml_list_value(^this.rowalign,index(this)-1)=="baseline") => row(*){valign="base";};
+   mtr_node?(!exists(rowalign) || rowalign=="") => row(*){valign=extract_mathml_list_value(^match.rowalign,index(match)-1);};
+   mtr_node?(rowalign!="top" && rowalign!="bottom" && rowalign!="baseline") => row(*){error("MathType only supports top,baseline,bottom values of mtr's rowalign attribute. Will ignore");valign="base";};
+   mtr_node?(rowalign=="baseline") => row(*){valign="base";};
+   mtr_node => row(*){valign=match.rowalign;};
+   // mtds
+   mtd_node?(exists(columnalign) && exists(rowalign)) => cell(slot(*)){halign=match.columnalign; valign=match.rowalign;};
+   mtd_node?(exists(rowalign) && exists(^this.columnalign)) => cell(slot(*)){halign=extract_mathml_list_value(^match.columnalign,index(match)-1); valign=match.rowalign;};
+   mtd_node?(exists(rowalign)) => cell(slot(*)){halign=extract_mathml_list_value(^^match.columnalign,index(^match)-1); valign=match.rowalign;};
+   mtd_node?(exists(columnalign)) => cell(slot(*)){halign=match.columnalign; valign=^this.valign;};
+   mtd_node?(exists(^this.columnalign)) => cell(slot(*)){halign=extract_mathml_list_value(^match.columnalign,index(match)-1); valign=^this.valign;};
+   mtd_node => cell(slot(*)){halign=extract_mathml_list_value(^^match.columnalign,index(^match)-1); valign=^this.valign;};
+
+   // ignore annotations and its contents
+   annotation_node => ;
+   annotation_xml_node => ;
+   // ignore alignment marks
+   alignment_node => ;
+   // and scripts markers
+   `none/` => ;
+   `mprescripts/` => ;
+
+   // catch errors
+   any_node?(name(this)!="`mglyph/`" && name(this)!="char" && name(this)!="`_unknown_char_entity`" && name(this)!="`malignmark/`" &&
+      (name(parent(this))=="mi_node" || name(parent(this))=="mn_node" || name(parent(this))=="mo_node" || name(parent(this))=="ms_node" ||
+      name(parent(this))=="mtext_node")) => char{mtcode=0xFFFD; text_color="MathML: red";error("non CDATA inside an mi");}, slot(*);
+   error_node => char{mtcode=0xFFFD; text_color="MathML: red";error(match.msg);}, slot(*);
+  	any?(!_td_matched && exists(_bu_matched) && !_bu_matched) => {error("unmatched element: "+name(match));}, char{mtcode=0xFFFD; text_color="MathML: red";};
+}

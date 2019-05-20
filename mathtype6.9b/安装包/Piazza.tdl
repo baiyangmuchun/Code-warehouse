@@ -1,0 +1,26 @@
+MathType Output Translator 1.0: "Piazza", "Piazza translator v1.00 by Design Science, Inc.", application
+
+// Copyright (c) 1998-2014 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Piazza.tdl 3     7/24/14 8:39a Automated $
+
+include "MathJax-LaTeX (base vars).tdl";
+// redefinitions of base variables
+var/"TranslatorName" = "Piazza";
+var/"TranslatorFileName" = "Piazza.tdl";
+
+// Piazza uses $$ as delimiters
+var/"BeginMathDisplay" = "$$";
+var/"BeginMathInline" = "$$";
+var/"EndMathDisplay" = "$$";
+var/"EndMathInline" = "$$";
+var/"newline" = "@n"; // here we need @ for escaping
+
+include "MathJax-LaTeX (base rules).tdl";
+// redefinition of base rules
+eqn         = "<BeginMathDisplay>#<EndMathDisplay>";     //  $$ <eqn> $$  -- display equation translation
+eqn/inline  = "<BeginMathInline>#<EndMathInline>";       //  $$ <eqn> $$  -- in-line equation translation

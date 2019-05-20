@@ -1,0 +1,1060 @@
+MathType Input Translator 1.0: "Texvc", "Texvc input translator v1.00 by Design Science, Inc."
+
+// "Texvc input.tdl"
+
+// Copyright (c) 2007-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Texvc input.tdl 78    9/20/12 5:37a Eduardot $
+
+input="Texvc";
+
+patterns {
+	// tokens
+	char_token = MI | MN | MO;
+	token = MI | MN | MO | symbol;
+
+	// named characters
+	greek	=	Alpha | Beta | Gamma | Delta | Epsilon | Zeta | Eta | Theta | Iota | Kappa | Lambda |
+					Mu | Nu | Xi | Pi | Rho | Sigma | Tau | Upsilon | Phi | Chi | Psi | Omega | alpha |
+					beta | gamma | EulerConstant | delta | varepsilon | zeta | eta | theta | iota | kappa | lambda | mu |
+					nu | xi | pi | rho | varsigma | sigma | tau | upsilon | phi | chi | psi | omega |
+					vartheta | thetasym | Upsilon | varphi | varpi | varsigma | digamma | varkappa |
+					varrho | epsilon;
+	punctuation	=	`!` | `$` | `\\$` | `\\#` | `%` | `\\%` | `,` | `:` | colon | `;` | `<` | `>` | `?` |
+								S | sect | P | cdot | sdot | dagger | Dagger | ddagger | bull | bullet |
+								ldots | dots | prime | backprime | vdots | dotsb | cdots | ddots | frown |
+								smallfrown | smile | smallsmile | textvisiblespace | centerdot |
+								`\\,` | `\\:` | `\\;` | `\\ ` | thinspace | medspace | thickspace | quad | qquad |
+								negthinspace | negmedspace | negthickspace | `\\!` | `\\_` | `~` | `@`; // | `&`
+	currencies = cent | pounds | pound | currency | yen | Colon | cruzeiro | franc | lira | mill | naira | peseta | rupee | won |
+					newsheqel | dong | euro | kip | tugrik | drachma | germanpenny | peso | guarani | austral | hryvnia | cedi;
+	letterlike	=	AA | eth | eth | imath | hbar | hslash | image | Im | imagpart | ell | wp |
+								weierp | real | Re | realpart | mho | Finv | alef | alefsym | aleph | beth |
+								gimel | daleth | infty | infin | circledS | Game | jmath | Bbbk |
+								Real | Integer | Rational | Complex | NatNumber;
+	arrows	=	gets | larr | leftarrow | rarr | rightarrow | to | harr | leftrightarrow |
+						lrarr | nwarrow | nearrow | searrow | swarrow | nleftarrow | nrightarrow |
+						leftarrowtail | rightarrowtail | mapsto | hookleftarrow | hookrightarrow |
+						looparrowleft | looparrowright | leftrightsquigarrow | nleftrightarrow |
+						Lsh | Rsh | curvearrowleft | curvearrowright | circlearrowleft |
+						circlearrowright | leftharpoonup | leftharpoondown | restriction |
+						upharpoonright | upharpoonleft | rightharpoonup | rightharpoondown |
+						downharpoonright | downharpoonleft | rightleftarrows | leftrightarrows |
+						leftleftarrows | upuparrows | rightrightarrows | downdownarrows |
+						leftrightharpoons | rightleftharpoons | nLeftarrow | nLeftrightarrow |
+						nRightarrow | Larr | Leftarrow | lArr | Rarr | Rightarrow | implies | rArr |
+						Harr | Leftrightarrow | Lrarr | hAar | lrArr | Lleftarrow | Rrightarrow |
+						rightsquigarrow | multimap | longleftarrow | longrightarrow |
+						longleftrightarrow | Longleftarrow | Longrightarrow | Longleftrightarrow |
+						iff | longmapsto;
+	equals = 	sim | propto | varpropto | thicksim | backsim | nsim | eqsim | simeq | cong |
+						ncong | approx | thickapprox | approxeq | asymp | Bumpeq | bumpeq | doteq |
+						Doteq | doteqdot | fallingdotseq | risingdotseq | eqcirc | circeq | triangleq |
+						ne | neq | equiv | backsimeq;
+	order	=	le | leq | ge | geq | leqq | geqq | ll | gg | lesssim | gtrsim | lessgtr |
+					gtrless | prec | succ | preccurlyeq | succcurlyeq | precsim | succsim | lessdot |
+					gtrdot | lll | ggg | gggtr | lesseqgtr | gtreqless | eqslantless | eqslantgtr |
+					curlyeqprec | curlyeqsucc | preceq | succeq | lesseqqgtr | gtreqqless | leqslant |
+					geqslant | lessapprox | gtrapprox | precapprox | succapprox;
+	norder	=	lneqq | lvertneqq | gneqq | gvertneqq | nless | ngtr | nleq | ngeq | nprec | nsucc | npreceq |
+						nsucceq | lnsim | gnsim | precnsim | succnsim | nleqq | nleqslant | ngeqq | ngeqslant | lnapprox |
+						gnapprox | lneq | gneq | precnapprox | succnapprox | precneqq | succneqq;
+	set	=	Complex | cnums | N | natnums | R | Reals | reals | Z | complement | O | empty | emptyset |
+				varnothing | in | isin | notin | ni | backepsilon  | setminus | smallsetminus | cap | cup | sub |
+				subset | supset | sube | subseteq | supe | supseteq | nsubseteq | nsupseteq | subsetneq | supsetneq |
+				uplus | sqsubset | sqsupset | sqsubseteq | sqsupseteq | sqcap | sqcup | Subset | Supset | Cap |
+				doublecap | Cup | doublecup | supseteqq | subseteqq | nsupseteqq | nsubseteqq | varsubsetneq |
+				varsupsetneq | subsetneqq | supsetneqq | varsubsetneqq | varsupsetneqq;
+	logic	=	And | lnot | neg | forall | exist | exists | nexists | and | land | wedge | lor | or | vee |
+					therefore | because | veebar | barwedge | curlyvee | curlywedge | doublebarwedge;
+	op	=	circ | plusmn | pm | div | mp | dotplus | ast | mid | nmid | wr | oplus | ominus | otimes | oslash |
+				odot | circledcirc | circledast | circleddash | boxplus | boxminus | boxtimes | boxdot |
+				dashv | top | bot | vdash | models | vDash | Vdash | Vvdash | nvdash | nvDash | nVdash |
+				nVDash | triangleleft | vartriangleleft | triangleright | vartriangleright |
+				trianglelefteq | trianglerighteq | intercal | star | divideontimes | bowtie | ltimes |
+				rtimes | leftthreetimes | rightthreetimes | ntriangleleft | ntriangleright | ntrianglelefteq |
+				ntrianglerighteq | bigcirc | triangle | blacktriangleright | blacktriangleleft | flat | natural |
+				sharp | times | amalg | shortmid | nshortmid | divides;
+	// control sequences (we'll ignore these, since they have no effect in math mode)
+	control_seq = `\\/` | `\\*` | `\\+` | `\\-` | `\\<` | `\\>`;
+	// big operators (the groups differ in their default handling of limits)
+	sumlike_op	=	bigcap | bigcup | coprod | sum | prod;
+	intlike_op	=	int | iint | iiint | oint;
+	// these two groups have no templates in MT
+	sumlike_op_nt	=	bigwedge | bigvee | bigodot | bigoplus | bigotimes | biguplus | bigsqcup;
+	intlike_op_nt	=	iiiint;
+
+	geometric	=	perp | ang | angle | measuredangle | sphericalangle | parallel | nparallel | between | pitchfork |
+							diagup | diagdown | shortparallel | nshortparallel;
+	// these next can be used with \left \right (but there is no way to expand them in MT)
+	delimiter	=	backslash | uarr | uparrow | darr | downarrow | updownarrow | twoheadleftarrow |
+							twoheadrightarrow | Uarr | Uparrow | uArr | Darr | Downarrow | dArr | Updownarrow |
+							ulcorner | urcorner | llcorner | lrcorner;
+	// delimiters that could appear in a MT template
+	templ_delim	=	`(` | `)` | lbrack | rbrack  | `\\{` | lbrace | `|` | vert |
+						`\\}` | rbrace | `\\|` | Vert | lVert | rVert | lceil | rceil | lfloor | rfloor |
+						lang | langle | rang | rangle;
+	// TeX style sizing for delimiters
+	bigs = big | bigg | Big | Bigg | bigl | biggl | Bigl | Biggl | bigr | biggr | Bigr | Biggr;
+	// odd ends
+	misc	=	part | partial | nabla | surd | diamond | blacksquare | Box | square | blacktriangle |
+					bigtriangleup | vartriangle | blacktriangledown | bigtriangledown | triangledown |
+					Diamond | lozenge | bigstar | spades | spadesuit | hearts | heartsuit | diamonds |
+					diamondsuit | clubs | clubsuit | blacklozenge | checkmark;
+    // named functions with regular subscripts
+	namedfunc = ker | hom | arg | dim | sin | cos | sinh | cosh | tan |
+							tanh | sec | csc | arcsin | arctan | arccos | arccot | arcsec |
+							arccsc | cot | coth | sgn | min | max | gcd | det | log | lg | ln | exp | deg ;
+	// these have the _ (sub) placed underneath, by default
+	limitfunc = inf | lim | limsup | liminf | sup | Pr |
+							varinjlim | varprojlim | injlim | projlim | varlimsup | varliminf;
+
+	// commands
+	// 1 argument
+ 	accent 	=	hat | widehat | overline | underline | overleftarrow | overrightarrow | overleftrightarrow |
+						check | acute | grave | bar | conj | vec | dot | ddot | dddot | ddddot | breve | tilde | not;
+	textstyle_cmd	=	emph | texttt | textbf | textit | textrm | mathit | mathrm | boldsymbol | bold | Bbb |
+							mathbf | mathsf | mathcal | mathbb | mathfrak | mathscr;
+	textstyle_node = text | mbox | hbox | vbox;
+	misc_onearg = pmod | pod | not | substack | cancel | bcancel | xcancel;
+	// these may have two arguments (the first one is optional, enclosed in [] (\sqrt[3]{a}))
+	oneortwoarg = sqrt | xleftarrow | xrightarrow;
+	// all the 1 argument commands
+	onearg = accent | textstyle_cmd | misc_onearg | oneortwoarg;
+
+	// 2 arguments
+	twoarg = binom | dbinom | tbinom | stackrel | underset | overset | frac | dfrac | tfrac | cfrac | ifrac;
+
+	// types of expressions
+	cmd_expr = onearg_expr | twoarg_expr | oneortwoarg_expr;
+	script_expr = sub_expr | sup_expr | subsup_expr | supsub_expr;
+	// for matrices, cases, align, etc.
+	begin_environ = BEGIN__MATRIX | BEGIN_VMATRIX | BEGIN_VVMATRIX | BEGIN_BMATRIX | BEGIN_BBMATRIX|
+                  BEGIN_PMATRIX | begin_array | BEGIN_ALIGN | begin_alignat | BEGIN_CASES | BEGIN_SMALLMATRIX;
+	end_environ = end_matrix | end_vmatrix | end_vvmatrix | end_bmatrix | end_bbmatrix|
+                end_pmatrix | end_array | end_align | end_alignat | end_cases | end_smallmatrix;
+	// auxilliary
+	subsup_marker = `^` | `_` | subsup_middle | supsub_middle;
+}
+
+
+rules {
+	// embellishments
+	accent@tag (token|embel_expr?(type!="check" && type!="acute" && type!="grave")) => embel_expr{type=name(tag);};
+	accent@tag `{` (token|embel_expr?(type!="check" && type!="acute" && type!="grave")) `}` => embel_expr{type=name(tag);};
+	(token|embel_expr?(type!="check" && type!="acute" && type!="grave")) `'` `'` `'` => embel_expr{type="prime";opts="/3";};
+	`{` (token|embel_expr?(type!="check" && type!="acute" && type!="grave")) `}` `'` `'` `'` => embel_expr{type="prime";opts="/3";};
+	(token|embel_expr?(type!="check" && type!="acute" && type!="grave")) `'` `'` => embel_expr{type="prime";opts="/2";};
+	`{` (token|embel_expr?(type!="check" && type!="acute" && type!="grave")) `}` `'` `'` => embel_expr{type="prime";opts="/2";};
+	(token|embel_expr?(type!="check" && type!="acute" && type!="grave")) `'` => embel_expr{type="prime";opts="";};
+	`{` (token|embel_expr?(type!="check" && type!="acute" && type!="grave")) `}` `'` => embel_expr{type="prime";opts="";};
+
+
+ // delimiters, special cases
+	left  MO?(char==0x007C)  => open_delimiter_node{type="vert";};
+	right MO?(char==0x007C) => close_delimiter_node{type="vert";};
+	left  MO?(char==0x002F)  => open_delimiter_node{type="/";};
+	right  MO?(char==0x002F)  => close_delimiter_node{type="/";};
+	left  (`[`@d | `]`@d | `.`@d) => open_delimiter_node{type=name(d);};
+	right (`[`@d | `]`@d | `.`@d) => close_delimiter_node{type=name(d);};
+	// standard
+	left  (templ_delim@d | delimiter@d) => open_delimiter_node{type=name(d);};
+	right (templ_delim@d | delimiter@d) => close_delimiter_node{type=name(d);};
+	// oversized
+	bigs@s MO?(char==0x007C)  => char_node{type="vert";size=name(s);};
+	bigs@s MO?(char==0x002F)  => char_node{type="/";size=name(s);};
+	bigs@s (`[`@d | `]`@d) => char_node{type=name(d);size=name(s);};
+	bigs@s (delimiter@d | templ_delim@d) => char_node{type=name(d);size=name(s);};
+
+   // expressions we'll ignore
+	BEGIN__EQUATION => ignorable_expr;
+	END__EQUATION => ignorable_expr;
+	hspace expr => ignorable_expr;
+	label expr  => ignorable_expr;
+	control_seq => ignorable_expr; // these do nothing in math mode (NIST's DLMF uses them, though )
+	// the input engine does not support matrix lines
+	cline expr => ignorable_expr;
+	hline | vline => ignorable_expr;
+	// named functions (separated by default script placement)
+	`{` namedfunc@d `}`  => func_node{type=name(d);limits_type="notlimit";};
+	`{` limitfunc@d `}`	=> func_node{type=name(d);limits_type="limit";};
+	namedfunc@d => func_node{type=name(d);limits_type="notlimit";};
+	limitfunc@d	=> func_node{type=name(d);limits_type="limit";};
+	operatorname?(exists(text)) => func_node{type=$0.text;limits_type="operatorname";}; 
+	operatorname char_token@d  => func_node{type=d._input;limits_type="operatorname";}; 
+	mathop?(exists(text)) => func_node{type=$0.text;limits_type="limit";};
+	mathop char_token@d => func_node{type=d._input;limits_type="limit";};
+	mathop expr => newop_node{type="mathop";};
+	operatorname expr => newop_node{type="operatorname";};
+
+	// delimiters: opts are for the placement of limits in the templates (careful order here)
+	sumlike_op@op nolimits => bigop_node{type=name(op); opts="/int";};
+	sumlike_op@op limits => bigop_node{type=name(op); opts="";};
+	sumlike_op@op => bigop_node{type=name(op); opts="implicit";};
+	intlike_op@op limits => bigop_node{type=name(op); opts="/sum";};
+	intlike_op@op nolimits => bigop_node{type=name(op); opts="";};
+	intlike_op@op => bigop_node{type=name(op); opts="implicit";};
+
+	// no template bigops
+	bigwedge@op nolimits => bigop_nt_node{type="nt"; code=0x22C0; opts="/int";};
+	bigwedge@op limits => bigop_nt_node{type="nt"; code=0x22C0; opts="/sum";};
+	bigwedge@op  => bigop_nt_node{type="nt"; code=0x22C0; opts="implicit";};
+	bigvee@op   nolimits => bigop_nt_node{type="nt"; code=0x22C1; opts="/int";};
+	bigvee@op   limits => bigop_nt_node{type="nt"; code=0x22C1; opts="/sum";};
+	bigvee@op   => bigop_nt_node{type="nt"; code=0x22C1; opts="implicit";};
+	bigodot@op nolimits => bigop_nt_node{type="nt"; code=0x2299; opts="/int";};
+	bigodot@op limits => bigop_nt_node{type="nt"; code=0x2299; opts="/sum";};
+	bigodot@op  => bigop_nt_node{type="nt"; code=0x2299; opts="implicit";};
+	bigoplus@op nolimits => bigop_nt_node{type="nt"; code=0x2295; opts="/int";};
+	bigoplus@op limits => bigop_nt_node{type="nt"; code=0x2295; opts="/sum";};
+	bigoplus@op  => bigop_nt_node{type="nt"; code=0x2295; opts="implicit";};
+	bigotimes@op nolimits => bigop_nt_node{type="nt"; code=0x2297; opts="/int";};
+	bigotimes@op limits => bigop_nt_node{type="nt"; code=0x2297; opts="/sum";};
+	bigotimes@op  => bigop_nt_node{type="nt"; code=0x2297; opts="implicit";};
+	biguplus@op nolimits => bigop_nt_node{type="nt"; code=0x228E; opts="/int";};
+	biguplus@op limits => bigop_nt_node{type="nt"; code=0x228E; opts="/sum";};
+	biguplus@op  => bigop_nt_node{type="nt"; code=0x228E; opts="implicit";};
+	bigsqcup@op nolimits => bigop_nt_node{type="nt"; code=0x2294; opts="/int";};
+	bigsqcup@op limits => bigop_nt_node{type="nt"; code=0x2294; opts="/sum";};
+	bigsqcup@op  => bigop_nt_node{type="nt"; code=0x2294; opts="implicit";};
+	iiiint@op limits     => bigop_nt_node{type="nt"; code=0x2A0C; opts="/sum";};
+	iiiint@op nolimits => bigop_nt_node{type="nt"; code=0x2A0C; opts="/int";};
+	iiiint@op => bigop_nt_node{type="nt"; code=0x2A0C; opts="implicit";};
+
+	// these next may have 2 args: \sqrt[3]{2} (cube root)
+	oneortwoarg@cmd `[` => oneortwoarg_start{type=name(cmd);};
+	oneortwoarg_start@cmd expr?(!exists(type) || type!="]")* (`]` | expr?(type=="]")) expr => oneortwoarg_expr{type=cmd.type;};
+	`[` expr* `]` => expr;
+	`[` expr*  => expr($0){type="[";}; 
+	// need to convert ] to an expression, in case it is used literally
+	expr* `]` => expr($(-1)){type="]";};
+	
+
+	// one arg commands
+	Bbb expr => onearg_expr{type="Bbb"; style="mathbb";};
+	textstyle_cmd@cmd expr => onearg_expr{type=name(cmd); style=name(cmd);};
+	// substack is special
+	substack `{`@tag1 (expr@tag2)+ (NEXT_ROW expr*)* [NEXT_ROW]`}` => ss_row[tag1+1,tag2]; // first match
+	substack `{`ss_row+ NEXT_ROW@tag1 (expr@tag2)+ (NEXT_ROW expr*)* [NEXT_ROW]`}` => ss_row[tag1,tag2]; // all intermediate matches
+	substack `{` ss_row+ [NEXT_ROW]`}` => onearg_expr{type="substack";}; // last match	
+
+	onearg@cmd expr => onearg_expr{type=name(cmd);};
+	// these have lower precedence
+	expr `'` `'` `'` => onearg_expr{type="prime"; opts="/3";};
+	expr `'` `'` => onearg_expr{type="prime"; opts="/2";};
+	expr `'` => onearg_expr{type="prime"; opts="";};
+
+	// two arg commands
+	twoarg@cmd expr expr => twoarg_expr{type=name(cmd);};
+
+	// sums, int and other templates
+	bigop_node@op `_` expr => bigop_sub{copy_attributes($0,this, "",false);};
+	bigop_sub@op `^` expr expr !subsup_marker => bigop_expr{copy_attributes($0,this, "",false);limits_type="";arg_order="sub_sup_main";};
+	bigop_sub@op expr !subsup_marker  => bigop_expr{copy_attributes($0,this, "",false);limits_type="/b";arg_order="sub_main";};
+	bigop_node@op `^` expr => bigop_sup{copy_attributes($0,this, "",false);};
+	bigop_sup@op `_` expr expr !subsup_marker => bigop_expr{copy_attributes($0,this, "",false);limits_type="";arg_order="sup_sub_main";};
+	// there are no templates with top limits only
+	bigop_sup@op !(`^` | `_`) => bigop_expr{copy_attributes($0,this, "",false);limits_type="/t";arg_order="sup";};
+	// ops with limits but no expression following
+	bigop_sub@op `^` expr !any => bigop_expr{copy_attributes($0,this, "",false);limits_type="";arg_order="sub_sup";};
+	bigop_sup@op `_` expr !any => bigop_expr{copy_attributes($0,this, "",false);limits_type="";arg_order="sup_sub";};
+	bigop_sub@op !any => bigop_expr{copy_attributes($0,this, "",false);limits_type="/b";arg_order="sub";};
+	bigop_sup@op !any => bigop_expr{copy_attributes($0,this, "",false);limits_type="/t";arg_order="sup";};
+	bigop_sub@op `^` expr `}` => bigop_expr[$0,$(-2)]{copy_attributes($0,this, "",false);limits_type="";arg_order="sub_sup";};
+	bigop_sup@op `_` expr `}` => bigop_expr[$0,$(-2)]{copy_attributes($0,this, "",false);limits_type="";arg_order="sup_sub";};
+	bigop_sub@op `}` => bigop_expr[$0,$(-2)]{copy_attributes($0,this, "",false);limits_type="/b";arg_order="sub";};
+	bigop_sup@op `}` => bigop_expr[$0,$(-2)]{copy_attributes($0,this, "",false);limits_type="/t";arg_order="sup";};
+
+	bigop_node@op expr !subsup_marker =>
+		bigop_expr{type=op.type;opts=op.opts;limits_type="/nol";arg_order="main";};
+	// sums, int and other without MT templates
+	bigop_nt_node@op subsup_middle expr =>
+		bigop_expr{type=op.type;opts=op.opts;limits_type="";arg_order="sub_sup";code=op.code;};
+	bigop_nt_node@op supsub_middle expr =>
+		bigop_expr{type=op.type;opts=op.opts;limits_type="";arg_order="sup_sub";code=op.code;};
+	bigop_nt_node@op `_` expr !`^` =>
+		bigop_expr{type=op.type;opts=op.opts;limits_type="/b";arg_order="sub";code=op.code;};
+	bigop_nt_node@op `^` expr !`_` =>
+		bigop_expr{type=op.type;opts=op.opts;limits_type="/t";arg_order="sup";code=op.code;};
+	bigop_nt_node@op !(`^` | `_`) =>
+		bigop_expr{type=op.type;opts=op.opts;limits_type="/nol";arg_order="main";code=op.code;};
+
+		// to avoid premature matching of sub/sups in what follows
+	`_` expr `^` => subsup_middle;
+	`^` expr `_` => supsub_middle;
+	// pathological under/over braces
+	overbrace expr supsub_middle expr  => hbrace_expr{limits_type="bothlims";brace_opts="t";lim_opts="";arg_order="bracemain_bracescript_extra";};
+	overbrace expr subsup_middle expr  => hbrace_expr{limits_type="bothlims";brace_opts="t";lim_opts="";arg_order="bracemain_extra_bracescript";};
+	underbrace expr supsub_middle expr => hbrace_expr{limits_type="bothlims";brace_opts="";lim_opts="t";arg_order="bracemain_extra_bracescript";};
+	underbrace expr subsup_middle expr => hbrace_expr{limits_type="bothlims";brace_opts="";lim_opts="t";arg_order="bracemain_bracescript_extra";};
+	overbrace expr `_` expr !`^` => hbrace_expr{limits_type="badlim";brace_opts="t";lim_opts="";};
+	underbrace expr `^` expr !`_` => hbrace_expr{limits_type="badlim";brace_opts="";lim_opts="t";};
+	// normal under/over braces
+	overbrace expr `^` expr !`_`  => hbrace_expr{limits_type="goodlim";brace_opts="t";};
+	underbrace expr `_` expr !`^` => hbrace_expr{limits_type="goodlim";brace_opts="";};
+	// still more pathological...
+	overbrace expr !(`^` | `_` | subsup_middle | supsub_middle) => hbrace_expr{limits_type="nolim";brace_opts="t";};
+	underbrace expr !(`^` | `_` | subsup_middle | supsub_middle) => hbrace_expr{limits_type="nolim";brace_opts="";};
+
+	// operatorname is always in nolimits mode (even when there is an explicit \limits)
+	(newop_node?(type=="operatorname")|func_node?(limits_type=="operatorname")) subsup_middle expr => subsup_expr{limits="implicitno";};
+	(newop_node?(type=="operatorname")|func_node?(limits_type=="operatorname")) supsub_middle expr => supsub_expr{limits="implicitno";};
+	(newop_node?(type=="operatorname")|func_node?(limits_type=="operatorname")) `_` expr !`^` => sub_expr{limits="implicitno";};
+	(newop_node?(type=="operatorname")|func_node?(limits_type=="operatorname")) `^` expr !`_` => sup_expr{limits="implicitno";};
+	(newop_node?(type=="operatorname")|func_node?(limits_type=="operatorname")) (limits|nolimits) subsup_middle expr => subsup_expr{limits="explicitno";};
+	(newop_node?(type=="operatorname")|func_node?(limits_type=="operatorname")) (limits|nolimits) supsub_middle expr => supsub_expr{limits="explicitno";};
+	(newop_node?(type=="operatorname")|func_node?(limits_type=="operatorname")) (limits|nolimits) `_` expr !`^` => sub_expr{limits="explicitno";};
+	(newop_node?(type=="operatorname")|func_node?(limits_type=="operatorname")) (limits|nolimits) `^` expr !`_` => sup_expr{limits="explicitno";};
+	
+	// default behavior of _ depends on kind of func_node or newop_node type
+	(newop_node?(type=="mathop") | func_node?(limits_type=="limit")) subsup_middle expr => subsup_expr{limits="implicit";};
+	func_node subsup_middle expr => subsup_expr{limits="implicitno";};
+	(newop_node?(type=="mathop") | func_node?(limits_type=="limit")) supsub_middle expr => supsub_expr{limits="implicit";};
+	func_node supsub_middle expr => supsub_expr{limits="implicitno";};
+	(newop_node?(type=="mathop") | func_node?(limits_type=="limit")) `_` expr  !`^` => sub_expr{limits="implicit";};
+	func_node `_` expr  !`^` => sub_expr{limits="implicitno";};
+	(newop_node?(type=="mathop") | func_node?(limits_type=="limit")) `^` expr !`_` => sup_expr{limits="implicit";};
+	func_node `^` expr !`_` => sup_expr{limits="implicitno";};
+
+	// for limit/nolimit existence...
+	(newop_node | func_node) limits subsup_middle expr => subsup_expr{limits="explicit";};
+	(newop_node | func_node) nolimits subsup_middle expr => subsup_expr{limits="explicitno";};
+	(newop_node | func_node) limits supsub_middle expr => supsub_expr{limits="explicit";};
+	(newop_node | func_node) nolimits supsub_middle expr => supsub_expr{limits="explicitno";};
+	(newop_node | func_node) limits `_` expr !`^` => sub_expr{limits="explicit";};
+	(newop_node | func_node) nolimits `_` expr !`^` => sub_expr{limits="explicitno";};
+	(newop_node | func_node) limits `^` expr !`_` => sup_expr{limits="explicit";};
+	(newop_node | func_node) nolimits `^` expr !`_` => sup_expr{limits="explicitno";};
+	// func without scripts
+	(newop_node | func_node) [limits|nolimits] !(`^` | `_` | supsub_middle | subsup_middle) => expr;
+	// mod, bmod are handled directly at output time
+	(bmod | mod) => expr;
+
+	// scripts (order is important)
+	expr subsup_middle expr => subsup_expr{limits="implicitno";};
+	expr supsub_middle expr => supsub_expr{limits="implicitno";};
+	expr `_` expr !`^` => sub_expr{limits="implicitno";};
+	expr `^` expr !`_` => sup_expr{limits="implicitno";};
+	// cases without a base (for when user types x^5 directly, for example)
+	subsup_middle?(index(this)==0) expr => subsup_expr{limits="nobase";};
+	supsub_middle?(index(this)==0) expr => supsub_expr{limits="nobase";};
+    `_`?(index(this)==0) expr !`^` => sub_expr{limits="nobase";};
+    `^`?(index(this)==0) expr !`_` => sup_expr{limits="nobase";};
+
+	// fence constructs
+	open_delimiter_node?(type=="(") expr* close_delimiter_node?(type==")") => fenced_expr{type="paren"; opts="";};
+	open_delimiter_node?(type==".") expr* close_delimiter_node?(type==")") => fenced_expr{type="paren"; opts="/r";};
+	open_delimiter_node?(type=="(") expr* close_delimiter_node?(type==".") => fenced_expr{type="paren"; opts="/l";};
+	open_delimiter_node?(type=="[" || type=="lbrack") expr* close_delimiter_node?(type=="]" || type=="rbrack") => fenced_expr{type="brack"; opts="";};
+	open_delimiter_node?(type==".") expr* close_delimiter_node?(type=="]" || type=="rbrack") => fenced_expr{type="brack"; opts="/r";};
+	open_delimiter_node?(type=="[" || type=="lbrack") expr* close_delimiter_node?(type==".") => fenced_expr{type="brack"; opts="/l";};
+	open_delimiter_node?(type=="\\{" || type=="lbrace") expr* close_delimiter_node?(type=="\\}" || type=="rbrace") => fenced_expr{type="brace"; opts="";};
+	open_delimiter_node?(type==".") expr* close_delimiter_node?(type=="\\}" || type=="rbrace") => fenced_expr{type="brace"; opts="/r";};
+	open_delimiter_node?(type=="\\{" || type=="lbrace") expr* close_delimiter_node?(type==".") => fenced_expr{type="brace"; opts="/l";};
+	open_delimiter_node?(type=="lang" || type=="langle") expr*
+		close_delimiter_node?(type=="rang" || type=="rangle") => fenced_expr{type="abrack"; opts="";};
+	open_delimiter_node?(type==".") expr* close_delimiter_node?(type=="rang" || type=="rangle") =>
+		fenced_expr{type="abrack"; opts="/l";};
+	open_delimiter_node?(type=="lang" || type=="langle") expr* close_delimiter_node?(type==".") =>
+		fenced_expr{type="abrack"; opts="/r";};
+	open_delimiter_node?(type=="vert") expr* close_delimiter_node?(type=="vert") => fenced_expr{type="bar"; opts="";};
+	open_delimiter_node?(type==".") expr* close_delimiter_node?(type=="vert") => fenced_expr{type="bar"; opts="/r";};
+	open_delimiter_node?(type=="vert") expr* close_delimiter_node?(type==".") => fenced_expr{type="bar"; opts="/l";};
+	open_delimiter_node?(type=="\\|" || type=="Vert" || type=="lVert" || type=="rVert") expr*
+		close_delimiter_node?(type=="\\|" || type=="Vert" || type=="rVert" || type=="lVert") => fenced_expr{type="dbar"; opts="";};
+	open_delimiter_node?(type==".") expr*
+		close_delimiter_node?(type=="\\|" || type=="Vert" || type=="rVert" || type=="lVert") => fenced_expr{type="dbar"; opts="/r";};
+	open_delimiter_node?(type=="\\|" || type=="Vert" || type=="lVert" || type=="rVert") expr*
+		close_delimiter_node?(type==".") => fenced_expr{type="dbar"; opts="/l";};
+	open_delimiter_node?(type=="lceil") expr* close_delimiter_node?(type=="rceil") => fenced_expr{type="ceil";};
+	open_delimiter_node?(type=="lfloor") expr* close_delimiter_node?(type=="rfloor") => fenced_expr{type="floor";};
+	open_delimiter_node?(type=="[" || type=="lbrack") expr* close_delimiter_node?(type==")") => fenced_expr{type="intval"; opts="/lbrp";};
+	open_delimiter_node?(type=="(") expr* close_delimiter_node?(type=="]" || type=="rbrack") => fenced_expr{type="intval"; opts="/lprb";};
+	open_delimiter_node?(type=="[" || type=="lbrack") expr* close_delimiter_node?(type=="[" || type=="lbrack") => fenced_expr{type="intval"; opts="/lblb";};
+	open_delimiter_node?(type=="]" || type=="rbrack") expr* close_delimiter_node?(type=="]" || type=="rbrack") => fenced_expr{type="intval"; opts="/rbrb";};
+	open_delimiter_node?(type=="]" || type=="rbrack") expr* close_delimiter_node?(type=="[" || type=="lbrack") => fenced_expr{type="intval"; opts="/rblb";};
+	open_delimiter_node?(type=="vert") expr* close_delimiter_node?(type=="rang" || type=="rangle") =>
+		fenced_expr{type="braket"; opts="/r";};
+	open_delimiter_node?(type=="rang" || type=="rangle") expr* close_delimiter_node?(type=="vert") =>
+		fenced_expr{type="braket"; opts="/l";};
+
+	open_delimiter_node expr* close_delimiter_node => fenced_expr{type="generic_fenced";};
+
+	// infix
+	`{` expr+ atop@tag expr+ `}` => atop1_subexpr[$1,tag-1] atop2_subexpr[tag+1,$(-2)];
+	atop1_subexpr atop atop2_subexpr => atop_expr;
+	// over
+	`{` expr+ over@tag expr+ `}` => over1_subexpr[$1,tag-1] over2_subexpr[tag+1,$(-2)];
+	over1_subexpr over over2_subexpr => over_expr;
+	// choose
+	`{` expr+ choose@tag expr+ `}` => choose1_subexpr[$1,tag-1] choose2_subexpr[tag+1,$(-2)];
+	choose1_subexpr choose choose2_subexpr => choose_expr;
+
+	// some of this we ignore for now
+	displaystyle | textstyle | rm | it | bf | cal | text => expr;
+	scriptstyle | scriptscriptstyle => expr;
+	// sideset is flagged as an error
+
+	// matrices begin groups
+	// special alignment cases 
+	// covered: all column alignment the same, i.e.:
+	// {*20l} or {lll} or {*l} or {*{20}{ll}} or similar combinations, 
+	// where the * and the number (20 in these examples) are optional,
+	// the 'l' can also be 'r' or 'c' (left, right or center),
+	// and the whole thing can be preceded by a [x], which has no effect
+	// (in latex it controls the alignment of the matrix w.r.t. sorrounding text)
+  	BEGIN_ARRAY [expr?(exists(type) && type=="[") MI expr?(exists(type) && type=="]")] `{` [MO?(char=='*')] [`{` MN+ `}` | MN+] (`{` MI?(char=='l')+ `}` | MI?(char=='l')+) `}` => begin_array{column_align="left";}; // ZANDAR -5-
+	BEGIN_ARRAY [expr?(exists(type) && type=="[") MI expr?(exists(type) && type=="]")] `{` [MO?(char=='*')] [`{` MN+ `}` | MN+] (`{` MI?(char=='r')+ `}` | MI?(char=='r')+) `}` => begin_array{column_align="right";}; // ZANDAR -5-
+	BEGIN_ARRAY [expr?(exists(type) && type=="[") MI expr?(exists(type) && type=="]")] `{` [MO?(char=='*')] [`{` MN+ `}` | MN+] (`{` MI?(char=='c')+ `}` | MI?(char=='c')+) `}` => begin_array{column_align="center";}; // ZANDAR -5-
+	// no alignment or non covered one (defaults to {c}):
+	// these go first to take out the {lcrl} or {n} bit
+	BEGIN_ARRAY expr => begin_array;
+	BEGIN_ALIGNAT expr => begin_alignat;
+	// matrices rules continue futher down, after the generic expressions
+
+	// generic expressions
+	cmd_expr | script_expr | fenced_expr | hbrace_expr | embel_expr | _error => expr;
+	textstyle_node | choose_expr | color | over_expr | atop_expr | ignorable_expr => expr;
+
+	// convertions to a generic expr (note that the order is very delicate here)
+	matrix_expr => expr;
+
+	// generic expressions
+	(`{` token* `}`) => expr;
+	char_token => expr;
+	`{` expr* `}` => expr;
+	(templ_delim@d | delimiter@d | symbol?(exists(kind) && kind=="delimiter")) expr* (templ_delim@d | delimiter@d | symbol?(exists(kind) && kind=="delimiter")) => expr;
+
+	// named symbols and fence characters
+	// delimiter symbols will be converted last
+	`.` => symbol{type = name($0);};
+	delimiter | templ_delim => symbol{type = name($0); kind = "delimiter";};
+	greek | punctuation | letterlike | arrows | equals | order | norder | set | logic | bigop | op | geometric | misc | char_node | currencies => symbol{type = name($0);};
+
+	// this may (very likely) represent a vertical space in a matrix (which we ignore)
+	`[` MN+ MI?(char=='e') MI?(char=='m') `]` => vertical_space;
+	vertical_space => expr;
+	// convert non-delimiter symbols first
+	symbol?(!exists(kind) || (exists(kind) && kind!="delimiter")) => expr;
+	// this we do almost last to try to maximize getting the integrand/summand right
+	bigop_expr => expr;
+	bigop_node => expr;
+	// and convert these last for grouping expressions within parentheses
+	symbol?(exists(kind) && kind=="delimiter") => expr;
+
+	// matrices
+	// take into account optional // at the end
+	[NEXT_ROW] END__MATRIX => end_matrix;
+	[NEXT_ROW] END_VMATRIX => end_vmatrix;
+	[NEXT_ROW] END_VVMATRIX => end_vvmatrix;
+	[NEXT_ROW] END_BMATRIX => end_bmatrix;
+	[NEXT_ROW] END_BBMATRIX => end_bbmatrix;
+	[NEXT_ROW] END_PMATRIX => end_pmatrix;
+	[NEXT_ROW] END_ARRAY => end_array;
+	[NEXT_ROW] END_ALIGN => end_align;
+	[NEXT_ROW] END_ALIGNAT => end_alignat;
+	[NEXT_ROW] END_CASES => end_cases;
+	[NEXT_ROW] END_SMALLMATRIX => end_smallmatrix;
+	// BEGIN_CELL expr* END_CELL => cell_node;
+	(begin_environ | NEXT_ROW | `&`) expr+ (NEXT_ROW | end_environ | `&`) => cell[$1,$(-2) - $0];
+	// empty cells in align indicates alignment, not content
+	(begin_environ | NEXT_ROW | `&`) (NEXT_ROW | end_environ | `&`) => cell[$1,$(-2) - $0]{empty="true";}; 
+	// BEGIN_ROW cell_node+ END_ROW => row;
+	// rows with only one (nonempty) cell get marked, to use in align translation to pile
+	(begin_environ | NEXT_ROW) cell (end_environ | NEXT_ROW) => row[$1,$(-2)]{ralign="left";rowtype="onecol";};
+	(begin_environ | NEXT_ROW) cell?(exists(empty)) `&` cell [`&`](end_environ | NEXT_ROW) => row[$1,$(-2)]{ralign="left";rowtype="onecol";};
+	(begin_environ | NEXT_ROW) cell `&` cell?(exists(empty)) (end_environ | NEXT_ROW) => row[$1,$(-2)]{ralign="right";rowtype="onecol";};
+	(begin_environ | NEXT_ROW) (cell [`&`])+ (end_environ | NEXT_ROW) => row[$1,$(-2)]{ralign="right";rowtype="regular";};
+	// BEGIN_MATRIX row+ END_MATRIX => matrix_expr;
+	BEGIN__MATRIX (row [NEXT_ROW])+ end_matrix => matrix_expr{type="matrix";};
+	BEGIN_VMATRIX (row [NEXT_ROW])+ end_vmatrix => matrix_expr{type="vmatrix";};
+	BEGIN_VVMATRIX (row [NEXT_ROW])+ end_vvmatrix => matrix_expr{type="vvmatrix";};
+	BEGIN_BMATRIX (row [NEXT_ROW])+ end_bmatrix => matrix_expr{type="bmatrix";};
+	BEGIN_BBMATRIX (row [NEXT_ROW])+ end_bbmatrix => matrix_expr{type="bbmatrix";};
+	BEGIN_PMATRIX (row [NEXT_ROW])+ end_pmatrix => matrix_expr{type="pmatrix";};
+	begin_array (row [NEXT_ROW])+ end_array => matrix_expr{type="array";copy_attributes($0,this,"",false);}; 
+	BEGIN_ALIGN (row [NEXT_ROW])+ end_align => matrix_expr{type="align";copy_attributes($1,this,"",false);};
+	begin_alignat (row [NEXT_ROW])+ end_alignat => matrix_expr{type="alignat";};
+	BEGIN_CASES (row [NEXT_ROW])+ end_cases => matrix_expr{type="cases";};
+	BEGIN_SMALLMATRIX (row [NEXT_ROW])+ end_smallmatrix => matrix_expr{type="smallmatrix";};
+
+}
+
+
+outputs {
+	// put out the first node, eqn
+	_input_root => eqn(slot(*)){inline="true";};
+	// ignore begin/end equation, hspace, label
+	ignorable_expr => ;
+	// exceptions first
+	`[`?(name(parent(this))=="_input_root" ||
+		name(parent(parent(this)))!="oneortwoarg_expr") => char{mtcode=0x005B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left square bracket
+	expr?(exists(type) && type=="[" && (name(parent(this))=="_input_root" || 
+		name(parent(parent(this)))!="oneortwoarg_expr")) => char{mtcode=0x005B;text_color=find_attribute(match,"color","LaTeX: Black");};    // Left square bracket 
+	`]`?(name(parent(this))=="_input_root" ||
+		name(parent(parent(this)))!="oneortwoarg_expr") => char{mtcode=0x005D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right square bracket
+	expr?(exists(type) && type=="]" && (name(parent(this))=="_input_root" || 
+		name(parent(parent(this)))!="oneortwoarg_expr")) => char{mtcode=0x005D;text_color=find_attribute(match,"color","LaTeX: Black");};    // Right square bracket
+	// the bulk of the char translations is in an auxiliary file
+	#include "Texvc input (chars).tdl"
+  // styles for MI, MN, MOs: first the special cases where we choose fonts
+	MI?(find_attribute(this,"style","")=="texttt") => char{mtcode = match.char; font="Courier New"; text_color=find_attribute(match,"color","LaTeX: Black");};
+	MN?(find_attribute(this,"style","")=="texttt") => char{mtcode = match.char; font="Courier New"; text_color=find_attribute(match,"color","LaTeX: Black");};
+	MO?(find_attribute(this,"style","")=="texttt") => char{mtcode = match.char; font="Courier New"; text_color=find_attribute(match,"color","LaTeX: Black");};
+	MI?(find_attribute(this,"style","")=="mathsf") => char{mtcode = match.char; font="Arial"; text_color=find_attribute(match,"color","LaTeX: Black");};
+	MN?(find_attribute(this,"style","")=="mathsf") => char{mtcode = match.char; font="Arial"; text_color=find_attribute(match,"color","LaTeX: Black");};
+	MO?(find_attribute(this,"style","")=="mathsf") => char{mtcode = match.char; font="Arial"; text_color=find_attribute(match,"color","LaTeX: Black");};
+	// mathfrak letters get their own codepoint, in the (chars) file
+	MN?(find_attribute(this,"style","")=="mathfrak") => char{mtcode = match.char; font="Euclid Fraktur"; text_color=find_attribute(match,"color","LaTeX: Black");};
+	// other styles are given by putting out a slot with the correct style (see further below)
+	MI?((find_attribute(this,"style","")=="text") || (find_attribute(this,"style","")=="function") ||
+		(find_attribute(this,"style","")=="variable") || (find_attribute(this,"style","")=="lc_greek") ||
+		(find_attribute(this,"style","")=="uc_greek") || (find_attribute(this,"style","")=="symbol") ||
+		(find_attribute(this,"style","")=="vector") || (find_attribute(this,"style","")=="number") ||
+		(find_attribute(this,"style","")=="user1") || (find_attribute(this,"style","")=="user2") ||
+		(find_attribute(this,"style","")=="extra_math") || (find_attribute(this,"style","")=="text_fe") ||
+		(find_attribute(this,"style","")=="math") || (find_attribute(this,"style","")=="unparsed_input") ||
+		(find_attribute(this,"style","")=="bad_input")) => char{mtcode = match.char; style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	MN?((find_attribute(this,"style","")=="text") || (find_attribute(this,"style","")=="function") ||
+		(find_attribute(this,"style","")=="variable") || (find_attribute(this,"style","")=="lc_greek") ||
+		(find_attribute(this,"style","")=="uc_greek") || (find_attribute(this,"style","")=="symbol") ||
+		(find_attribute(this,"style","")=="vector") || (find_attribute(this,"style","")=="number") ||
+		(find_attribute(this,"style","")=="user1") || (find_attribute(this,"style","")=="user2") ||
+		(find_attribute(this,"style","")=="extra_math") || (find_attribute(this,"style","")=="text_fe") ||
+		(find_attribute(this,"style","")=="math") || (find_attribute(this,"style","")=="unparsed_input") ||
+		(find_attribute(this,"style","")=="bad_input")) => char{mtcode = match.char; style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+  MO?((find_attribute(this,"style","")=="text") || (find_attribute(this,"style","")=="function") ||
+		(find_attribute(this,"style","")=="variable") || (find_attribute(this,"style","")=="lc_greek") ||
+		(find_attribute(this,"style","")=="uc_greek") || (find_attribute(this,"style","")=="symbol") ||
+		(find_attribute(this,"style","")=="vector") || (find_attribute(this,"style","")=="number") ||
+		(find_attribute(this,"style","")=="user1") || (find_attribute(this,"style","")=="user2") ||
+		(find_attribute(this,"style","")=="extra_math") || (find_attribute(this,"style","")=="text_fe") ||
+		(find_attribute(this,"style","")=="math") || (find_attribute(this,"style","")=="unparsed_input") ||
+		(find_attribute(this,"style","")=="bad_input")) => char{mtcode = match.char; style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	// finally, if the style given was not one of the known (as in mathfrak{0})
+	MI => char{mtcode = match.char; style="math"; text_color=find_attribute(match,"color","LaTeX: Black");};
+	MN => char{mtcode = match.char; style="math"; text_color=find_attribute(match,"color","LaTeX: Black");};
+	MO => char{mtcode = match.char; style="math"; text_color=find_attribute(match,"color","LaTeX: Black");};
+
+	// functions
+	// exceptions first (higher precedence)
+	func_node?(type=="varlimsup") 	=> obar(slot(func{text="lim";text_color=find_attribute(match,"color","LaTeX: Black");}));
+	func_node?(type=="varliminf") 	=> ubar(slot(func{text="lim";text_color=find_attribute(match,"color","LaTeX: Black");}));
+	func_node?(type=="varinjlim") 	=> vec/u(slot(func{text="lim";text_color=find_attribute(match,"color","LaTeX: Black");}));
+	func_node?(type=="varprojlim")	=> vec/u/l(slot(func{text="lim";text_color=find_attribute(match,"color","LaTeX: Black");}));
+	func_node?(type=="limsup") 		=> slot(func{text="lim";}, func{text="sup";text_color=find_attribute(match,"color","LaTeX: Black");});
+	func_node?(type=="liminf") 		=> slot(func{text="lim";}, func{text="inf";text_color=find_attribute(match,"color","LaTeX: Black");});
+	func_node?(type=="injlim") 		=> slot(func{text="lim";}, func{text="inj";text_color=find_attribute(match,"color","LaTeX: Black");});
+	func_node?(type=="projlim") 		=> slot(func{text="lim";}, func{text="proj";text_color=find_attribute(match,"color","LaTeX: Black");});
+	// XXX: mathop should be in italic?
+	func_node?(name(this[0])=="mathop") => text{text=match.type; style="math";text_color=find_attribute(match,"color","LaTeX: Black");};
+	// default handling
+	func_node => func{text=match.type;text_color=find_attribute(match,"color","LaTeX: Black");};
+	// mod has larger spacing before
+	mod => slot(space{width = "1em";}, func{text="mod";text_color=find_attribute(match,"color","LaTeX: Black");}, char{mtcode=0xEF02;});
+	// bmod is like mod, but equal (less) spacing before and after
+	bmod => slot(char{mtcode=0xEF02;}, func{text="mod";text_color=find_attribute(match,"color","LaTeX: Black");}, char{mtcode=0xEF02;});
+	// newop: operatorname needs to be in upright style, mathop in math style (default)
+	newop_node?(type=="operatorname") => {match.style="text";}, $1;
+	newop_node?(type=="mathop") => {match.style="math";}, $1;
+
+	// layout
+	expr => slot(*);
+	twoarg_expr?(type=="binom") => paren(pile($1,$2){halign="center";text_color=find_attribute(match,"color","LaTeX: Black");});
+	twoarg_expr?(type=="dbinom") => paren(pile($1,$2){halign="center";text_color=find_attribute(match,"color","LaTeX: Black");});
+	twoarg_expr?(type=="tbinom") => slot(paren(pile($1,$2){halign="center";text_color=find_attribute(match,"color","LaTeX: Black");})){size="sub";};
+	twoarg_expr?(type=="stackrel") => lim/t($2,$1);
+	twoarg_expr?(type=="underset") => lim($2,$1);
+	twoarg_expr?(type=="overset") => lim/t($2,$1);
+	twoarg_expr?(type=="frac") => frac($1,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	twoarg_expr?(type=="dfrac") => frac($1,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	twoarg_expr?(type=="tfrac") => frac/sm($1,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	twoarg_expr?(type=="cfrac") => frac($1,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	twoarg_expr?(type=="ifrac") => frac/sl/base($1,$2){text_color=find_attribute(match,"color","LaTeX: Black");}; // Follwing NIST's DLMF usage
+	// styles
+	text?(exists(text)) => text{text=match.text; text_color=find_attribute(match,"color","LaTeX: Black");};
+	// it may be an infix text, a la AMS-LaTeX (see below for more infix styles)
+	text => {^^match.style="text";};
+	// next one is an error
+	text => text{text=match._input;style="bad_input";};
+	mbox?(exists(text)) => text{text=match.text; text_color=find_attribute(match,"color","LaTeX: Black");};
+	// next one is an error
+	mbox => text{text=match._input;style="bad_input";};
+	hbox?(exists(text)) => text{text=match.text; text_color=find_attribute(match,"color","LaTeX: Black");};
+	// next one is an error
+	hbox => text{text=match._input;style="bad_input";};
+	vbox?(exists(text)) => text{text=match.text; text_color=find_attribute(match,"color","LaTeX: Black");};
+	// next one is an error
+	vbox => text{text=match._input;style="bad_input";};
+
+	onearg_expr?(type=="mathscr") => {match.style="mathcal";}, $1;	// treat mathscr = mathcal
+	onearg_expr?(type=="textbf") => {match.style="vector";}, $1;
+	onearg_expr?(type=="mathit" || type=="textit" || type=="emph") => {match.style="variable";}, $1;
+	onearg_expr?(type=="mathrm" || type=="textrm") => {match.style="text";}, $1;
+	onearg_expr?(type=="mathbf" || type=="bold" || type=="boldsymbol") => {match.style="vector";}, $1;
+
+	// these may have a second argument between SQ brackets
+	onearg_expr?(type=="sqrt") => root($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	onearg_expr?(type=="xleftarrow") => arrow/l($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	onearg_expr?(type=="xrightarrow") => arrow($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	// the two arg versions
+	oneortwoarg_expr?(type=="sqrt") => root/nth($(-1),slot([$1,$(-3)-$0])){text_color=find_attribute(match,"color","LaTeX: Black");};
+	oneortwoarg_expr?(type=="xleftarrow") => arrow/l/tb($(-1),slot([$1,$(-3)-$0])){text_color=find_attribute(match,"color","LaTeX: Black");};
+	oneortwoarg_expr?(type=="xrightarrow") => arrow/tb($(-1),slot([$1,$(-3)-$0])){text_color=find_attribute(match,"color","LaTeX: Black");};
+
+	// possible input errors
+	subsup_middle?(name(parent(this))!="bigop_expr" && name(parent(this))!="hbrace_expr" &&
+		name(parent(this))!="subsup_expr") => slot(text{style="bad_input";text="_";},$1,text{style="bad_input";text="^";});
+	supsub_middle?(name(parent(this))!="bigop_expr" && name(parent(this))!="hbrace_expr" &&
+		name(parent(this))!="supsub_expr") => slot(text{style="bad_input";text="^";},$1,text{style="bad_input";text="_";});
+	bigop_sub?(name(parent(this))!="bigop_expr") => slot($0,text{style="bad_input";text="_";},$2);
+	bigop_sup?(name(parent(this))!="bigop_expr") => slot($0,text{style="bad_input";text="^";},$2);
+
+	// big op templates
+	// for these first we can handle limits uniformly
+	bigop_expr?(type=="sum" && arg_order=="sub_sup_main" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => sum/int($3,$0,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="sum" && arg_order=="sub_sup_main" && opts=="implicit") => sum($3,$0,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="sum" && arg_order=="sub_sup_main") => sum($3,$0,$2){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="sum" && arg_order=="sup_sub_main" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => sum/int($3,$2,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="sum" && arg_order=="sup_sub_main" && opts=="implicit") => sum($3,$2,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="sum" && arg_order=="sup_sub_main") => sum($3,$2,$0){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="prod" && arg_order=="sub_sup_main" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => prod/int($3,$0,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="prod" && arg_order=="sub_sup_main" && opts=="implicit") => prod($3,$0,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="prod" && arg_order=="sub_sup_main") => prod($3,$0,$2){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="prod" && arg_order=="sup_sub_main" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => prod/int($3,$2,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="prod" && arg_order=="sup_sub_main" && opts=="implicit") => prod($3,$2,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="prod" && arg_order=="sup_sub_main") => prod($3,$2,$0){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="coprod" && arg_order=="sub_sup_main" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => coprod/int($3,$0,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="coprod" && arg_order=="sub_sup_main" && opts=="implicit") => coprod($3,$0,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="coprod" && arg_order=="sub_sup_main") => coprod($3,$0,$2){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="coprod" && arg_order=="sup_sub_main" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => coprod/int($3,$2,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="coprod" && arg_order=="sup_sub_main" && opts=="implicit") => coprod($3,$2,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="coprod" && arg_order=="sup_sub_main") => coprod($3,$2,$0){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcap" && arg_order=="sub_sup_main" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => inter/int($3,$0,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcap" && arg_order=="sub_sup_main" && opts=="implicit") => inter($3,$0,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcap" && arg_order=="sub_sup_main") => inter($3,$0,$2){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcap" && arg_order=="sup_sub_main" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => inter/int($3,$2,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcap" && arg_order=="sup_sub_main" && opts=="implicit") => inter($3,$2,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcap" && arg_order=="sup_sub_main") => inter($3,$2,$0){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcup" && arg_order=="sub_sup_main" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => union/int($3,$0,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcup" && arg_order=="sub_sup_main" && opts=="implicit") => union($3,$0,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcup" && arg_order=="sub_sup_main") => union($3,$0,$2){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcup" && arg_order=="sup_sub_main" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => union/int($3,$2,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcup" && arg_order=="sup_sub_main" && opts=="implicit") => union($3,$2,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcup" && arg_order=="sup_sub_main") => union($3,$2,$0){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="int" && arg_order=="sub_sup_main" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display") => int/sum($3,$0,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="int" && arg_order=="sub_sup_main" && opts=="implicit") => int($3,$0,$2){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="int" && arg_order=="sub_sup_main") => int($3,$0,$2){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="int" && arg_order=="sup_sub_main" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display") => int/sum($3,$2,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="int" && arg_order=="sup_sub_main" && opts=="implicit") => int($3,$2,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="int" && arg_order=="sup_sub_main") => int($3,$2,$0){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	// for these next... not so much
+	// operators with limits but no following expressions
+	// sum-like
+	bigop_expr?(type=="sum" && arg_order=="sub_sup" && (opts=="/int" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="text"))) => intop($0,$2,slot(char{mtcode=0x2211;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="sum" && arg_order=="sub_sup") => sumop($0,$2,slot(char{mtcode=0x2211;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="sum" && arg_order=="sup_sub" && (opts=="/int" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="text"))) => intop($2,$0,slot(char{mtcode=0x2211;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="sum" && arg_order=="sup_sub") => sumop($2,$0,slot(char{mtcode=0x2211;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="prod" && arg_order=="sub_sup" && (opts=="/int" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="text"))) => intop($0,$2,slot(char{mtcode=0x220F;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="prod" && arg_order=="sub_sup") => sumop($0,$2,slot(char{mtcode=0x220F;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="prod" && arg_order=="sup_sub" && (opts=="/int" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="text"))) => intop($2,$0,slot(char{mtcode=0x220F;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="prod" && arg_order=="sup_sub") => sumop($2,$0,slot(char{mtcode=0x220F;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="coprod" && arg_order=="sub_sup" && (opts=="/int" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="text"))) => intop($0,$2,slot(char{mtcode=0x2210;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="coprod" && arg_order=="sub_sup") => sumop($0,$2,slot(char{mtcode=0x2210;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="coprod" && arg_order=="sup_sub" && (opts=="/int" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="text"))) => intop($2,$0,slot(char{mtcode=0x2210;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="coprod" && arg_order=="sup_sub") => sumop($2,$0,slot(char{mtcode=0x2210;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcup" && arg_order=="sub_sup" && (opts=="/int" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="text"))) => intop($0,$2,slot(char{mtcode=0x222A;font="MT Extra";text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcup" && arg_order=="sub_sup") => sumop($0,$2,slot(char{mtcode=0x222A;font="MT Extra";text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcup" && arg_order=="sup_sub" && (opts=="/int" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="text"))) => intop($2,$0,slot(char{mtcode=0x222A;font="MT Extra";text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcup" && arg_order=="sup_sub") => sumop($2,$0,slot(char{mtcode=0x222A;font="MT Extra";text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcap" && arg_order=="sub_sup" && (opts=="/int" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="text"))) => intop($0,$2,slot(char{mtcode=0x2229;font="MT Extra";text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcap" && arg_order=="sub_sup") => sumop($0,$2,slot(char{mtcode=0x2229;font="MT Extra";text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcap" && arg_order=="sup_sub" && (opts=="/int" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="text"))) => intop($2,$0,slot(char{mtcode=0x2229;font="MT Extra";text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcap" && arg_order=="sup_sub") => sumop($2,$0,slot(char{mtcode=0x2229;font="MT Extra";text_color=find_attribute(match,"color","LaTeX: Black");}));
+	// int-like
+	bigop_expr?(type=="int" && arg_order=="sub_sup" && (opts=="/sum" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="display"))) => sumop($0,$2,slot(char{mtcode=0x222B;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="int" && arg_order=="sub_sup") => intop($0,$2,slot(char{mtcode=0x222B;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="int" && arg_order=="sup_sub" && (opts=="/sum" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="display"))) => sumop($2,$0,slot(char{mtcode=0x222B;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="int" && arg_order=="sup_sub") => intop($2,$0,slot(char{mtcode=0x222B;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iint" && arg_order=="sub_sup" && (opts=="/sum" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="display"))) => sumop($0,$2,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iint" && arg_order=="sub_sup") => intop($0,$2,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iint" && arg_order=="sup_sub" && (opts=="/sum" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="display"))) => sumop($2,$0,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iint" && arg_order=="sup_sub") => intop($2,$0,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iiint" && arg_order=="sub_sup" && (opts=="/sum" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="display"))) => sumop($0,$2,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iiint" && arg_order=="sub_sup") => intop($0,$2,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iiint" && arg_order=="sup_sub" && (opts=="/sum" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="display"))) => sumop($2,$0,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iiint" && arg_order=="sup_sub") => intop($2,$0,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="oint" && arg_order=="sub_sup" && (opts=="/sum" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="display"))) => sumop($0,$2,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="oint" && arg_order=="sub_sup") => intop($0,$2,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="oint" && arg_order=="sup_sub" && (opts=="/sum" || (opts=="implicit" && find_attribute(this,"displaystyle","")=="display"))) => sumop($2,$0,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="oint" && arg_order=="sup_sub") => intop($2,$0,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	// with following expression (uses MT templates)
+	// sum-like
+	bigop_expr?(type=="sum" && limits_type=="/b" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => sum/int/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="sum" && limits_type=="/b" && opts=="implicit") => sum/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="sum" && limits_type=="/b" && opts=="/int") => sum/int/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="sum" && limits_type=="/b" && opts=="")     => sum/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="sum" && limits_type=="/t" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => intop/t($0,slot(char{mtcode=0x2211;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="sum" && limits_type=="/t" && opts=="implicit") => sumop/t($0,slot(char{mtcode=0x2211;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="sum" && limits_type=="/t" && opts=="/int") => intop/t($0,slot(char{mtcode=0x2211;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="sum" && limits_type=="/t" && opts=="")     => sumop/t($0,slot(char{mtcode=0x2211;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="sum" && limits_type=="/nol")   => sum/nol($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="prod" && limits_type=="/b" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => prod/int/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="prod" && limits_type=="/b" && opts=="implicit") => prod/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="prod" && limits_type=="/b" && opts=="/int") => prod/int/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="prod" && limits_type=="/b" && opts=="")     => prod/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="prod" && limits_type=="/t" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => intop/t($0,slot(char{mtcode=0x220F;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="prod" && limits_type=="/t" && opts=="implicit") => sumop/t($0,slot(char{mtcode=0x220F;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="prod" && limits_type=="/t" && opts=="/int") => intop/t($0,slot(char{mtcode=0x220F;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="prod" && limits_type=="/t" && opts=="")     => sumop/t($0,slot(char{mtcode=0x220F;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="prod" && limits_type=="/nol")   => prod/nol($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="coprod" && limits_type=="/b" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => coprod/int/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="coprod" && limits_type=="/b" && opts=="implicit") => coprod/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="coprod" && limits_type=="/b" && opts=="/int") => coprod/int/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="coprod" && limits_type=="/b" && opts=="")     => coprod/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="coprod" && limits_type=="/t" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => intop/t($0,slot(char{mtcode=0x2210;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="coprod" && limits_type=="/t" && opts=="implicit") => sumop/t($0,slot(char{mtcode=0x2210;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="coprod" && limits_type=="/t" && opts=="/int") => intop/t($0,slot(char{mtcode=0x2210;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="coprod" && limits_type=="/t" && opts=="")     => sumop/t($0,slot(char{mtcode=0x2210;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="coprod" && limits_type=="/nol")   => coprod/nol($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcup" && limits_type=="/b" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => union/int/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcup" && limits_type=="/b" && opts=="implicit") => union/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcup" && limits_type=="/b" && opts=="/int") => union/int/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcup" && limits_type=="/b" && opts=="")     => union/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcup" && limits_type=="/t" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => intop/t($0,slot(char{mtcode=0x22C2;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcup" && limits_type=="/t" && opts=="implicit") => sumop/t($0,slot(char{mtcode=0x22C2;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcup" && limits_type=="/t" && opts=="/int") => intop/t($0,slot(char{mtcode=0x22C2;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcup" && limits_type=="/t" && opts=="")     => sumop/t($0,slot(char{mtcode=0x22C2;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcup" && limits_type=="/nol")   => union/nol($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcap" && limits_type=="/b" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => inter/int/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcap" && limits_type=="/b" && opts=="implicit") => inter/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcap" && limits_type=="/b" && opts=="/int") => inter/int/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcap" && limits_type=="/b" && opts=="")     => inter/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="bigcap" && limits_type=="/t" && opts=="implicit" && find_attribute(this,"displaystyle","")=="text") => intop/t($0,slot(char{mtcode=0x22C3;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcap" && limits_type=="/t" && opts=="implicit") => sumop/t($0,slot(char{mtcode=0x22C3;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcap" && limits_type=="/t" && opts=="/int") => intop/t($0,slot(char{mtcode=0x22C3;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcap" && limits_type=="/t" && opts=="")     => sumop/t($0,slot(char{mtcode=0x22C3;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="bigcap" && limits_type=="/nol")   => inter/nol($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	// int-like
+	bigop_expr?(type=="int" && limits_type=="/b" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display") => int/sum/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="int" && limits_type=="/b" && opts=="implicit") => int/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="int" && limits_type=="/b" && opts=="/sum") => int/sum/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="int" && limits_type=="/b" && opts=="")     => int/b($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="int" && limits_type=="/t" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display") => sumop/t($0,slot(char{mtcode=0x222B;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="int" && limits_type=="/t" && opts=="implicit") => intop/t($0,slot(char{mtcode=0x222B;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="int" && limits_type=="/t" && opts=="/sum") => sumop/t($0,slot(char{mtcode=0x222B;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="int" && limits_type=="/t" && opts=="")     => intop/t($0,slot(char{mtcode=0x222B;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="int" && limits_type=="/nol")   => int/nol($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="iint" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display" && arg_order=="sub_sup_main") => slot(sumop($0,$2,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iint" && opts=="implicit" && arg_order=="sub_sup_main") => slot(intop($0,$2,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iint" && opts=="" && arg_order=="sub_sup_main") => slot(intop($0,$2,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iint" && opts=="/sum" && arg_order=="sub_sup_main") => slot(sumop($0,$2,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iint" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display" && arg_order=="sup_sub_main") => slot(sumop($2,$0,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iint" && opts=="implicit" && arg_order=="sup_sub_main") => slot(intop($2,$0,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iint" && opts=="" && arg_order=="sup_sub_main") => slot(intop($2,$0,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iint" && opts=="/sum" && arg_order=="sup_sub_main") => slot(sumop($2,$0,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iint" && limits_type=="/b" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display") => int/2/sum($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="iint" && limits_type=="/b" && opts=="implicit") => int/2($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="iint" && limits_type=="/b" && opts=="/sum") => int/2/sum($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="iint" && limits_type=="/b" && opts=="")     => int/2($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="iint" && limits_type=="/t" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display") => sumop/t($0,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iint" && limits_type=="/t" && opts=="implicit") => intop/t($0,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iint" && limits_type=="/t" && opts=="/sum") => sumop/t($0,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iint" && limits_type=="/t" && opts=="")     => intop/t($0,slot(char{mtcode=0x222C;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iint" && limits_type=="/nol")   => int/2/nol($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	// ISSUE: 0x222D & 0x222E do not seem to be in many fonts...
+	bigop_expr?(type=="iiint" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display" && arg_order=="sub_sup_main") => slot(sumop($0,$2,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iiint" && opts=="implicit" && arg_order=="sub_sup_main") => slot(intop($0,$2,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iiint" && opts=="" && arg_order=="sub_sup_main") => slot(intop($0,$2,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iiint" && opts=="/sum" && arg_order=="sub_sup_main") => slot(sumop($0,$2,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iiint" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display" && arg_order=="sup_sub_main") => slot(sumop($2,$0,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iiint" && opts=="implicit" && arg_order=="sup_sub_main") => slot(intop($2,$0,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iiint" && opts=="" && arg_order=="sup_sub_main") => slot(intop($2,$0,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iiint" && opts=="/sum" && arg_order=="sup_sub_main") => slot(sumop($2,$0,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="iiint" && limits_type=="/b" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display") => int/3/sum($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="iiint" && limits_type=="/b" && opts=="implicit") => int/3($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="iiint" && limits_type=="/b" && opts=="/sum") => int/3/sum($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="iiint" && limits_type=="/b" && opts=="")     => int/3($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="iiint" && limits_type=="/t" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display") => sumop/t($0,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iiint" && limits_type=="/t" && opts=="implicit") => intop/t($0,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iiint" && limits_type=="/t" && opts=="/sum") => sumop/t($0,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iiint" && limits_type=="/t" && opts=="")     => intop/t($0,slot(char{mtcode=0x222D;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="iiint" && limits_type=="/nol")   => int/3/nol($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="oint" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display" && arg_order=="sub_sup_main") => slot(sumop($0,$2,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="oint" && opts=="implicit" && arg_order=="sub_sup_main") => slot(intop($0,$2,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="oint" && opts=="" && arg_order=="sub_sup_main") => slot(intop($0,$2,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="oint" && opts=="/sum" && arg_order=="sub_sup_main") => slot(sumop($0,$2,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="oint" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display" && arg_order=="sup_sub_main") => slot(sumop($2,$0,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="oint" && opts=="implicit" && arg_order=="sup_sub_main") => slot(intop($2,$0,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="oint" && opts=="" && arg_order=="sup_sub_main") => slot(intop($2,$0,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="oint" && opts=="/sum" && arg_order=="sup_sub_main") => slot(sumop($2,$0,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");})),$3);
+	bigop_expr?(type=="oint" && limits_type=="/b" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display") => int/c/sum($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="oint" && limits_type=="/b" && opts=="implicit") => int/c($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="oint" && limits_type=="/b" && opts=="/sum") => int/c/sum($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="oint" && limits_type=="/b" && opts=="")     => int/c($1,$0){text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(type=="oint" && limits_type=="/t" && opts=="implicit" && find_attribute(this,"displaystyle","")=="display") => sumop/t($0,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="oint" && limits_type=="/t" && opts=="implicit") => intop/t($0,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="oint" && limits_type=="/t" && opts=="/sum") => sumop/t($0,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="oint" && limits_type=="/t" && opts=="")     => intop/t($0,slot(char{mtcode=0x222E;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(type=="oint" && limits_type=="/nol")   => int/c/nol($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	// there are no templates whatsoever for these
+	bigop_expr?(opts=="implicit" && find_attribute(this,"displaystyle","")=="display" && arg_order=="sub_sup")		=> sumop($1,$2,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(opts=="implicit" && find_attribute(this,"displaystyle","")=="text" && arg_order=="sub_sup")		=> intop($1,$2,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	// default is sum-like for all except for iiiint (replaced by 4 integral chars because 0x2A0C is an uncommon char)
+	// bigop_expr?(opts=="implicit" && exists(code) && code==0x2A0C && arg_order=="sub_sup")	=> intop($2,$4,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?((opts=="implicit" || opts=="/int") && exists(code) && code==0x2A0C && arg_order=="sub_sup")	=> intop($1,$2,slot(char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(opts=="/sum" && exists(code) && code==0x2A0C && arg_order=="sub_sup")	=> sumop($1,$2,slot(char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(opts=="/int" && arg_order=="sub_sup")	=> intop($1,$2,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?((opts=="/sum" || opts=="implicit") && arg_order=="sub_sup")		=> sumop($1,$2,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(opts=="implicit" && find_attribute(this,"displaystyle","")=="display" && arg_order=="sup_sub")		=> sumop($2,$1,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(opts=="implicit" && find_attribute(this,"displaystyle","")=="text" && arg_order=="sup_sub")		=> intop($2,$1,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	// default is sum-like for all except for iiiint
+	// bigop_expr?(opts=="implicit" && exists(code) && code==0x2A0C && arg_order=="sup_sub")	=> intop($4,$2,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?((opts=="implicit" || opts=="/int") && exists(code) && code==0x2A0C && arg_order=="sup_sub")	=> intop($2,$1,slot(char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(opts=="/sum" && exists(code) && code==0x2A0C && arg_order=="sup_sub")	=> sumop($2,$1,slot(char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?(opts=="/int" && arg_order=="sup_sub")		=> intop($2,$1,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	bigop_expr?((opts=="/sum" || opts=="implicit") && arg_order=="sup_sub")		=> sumop($2,$1,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");}));
+	//
+	bigop_expr?(limits_type=="/nol" && exists(code) && code==0x2A0C)	=> slot(char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");});
+	bigop_expr?(limits_type=="/nol")	=> char{mtcode=match[0].code;size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_expr?(opts=="implicit" && find_attribute(this,"displaystyle","")=="display")	=> sumop(*,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");})){_options=match.limits_type;};
+	bigop_expr?(opts=="implicit" && find_attribute(this,"displaystyle","")=="text")	=> intop(*,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");})){_options=match.limits_type;};
+	// default is sum-like for all except for iiiint
+	// bigop_expr?(opts=="implicit" && exists(code) && code==0x2A0C)	=> intop(*,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");})){_options=match.limits_type;};
+	bigop_expr?((opts=="implicit" || opts=="/int") && exists(code) && code==0x2A0C)	=> intop(*,slot(char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");})){_options=match.limits_type;};
+	bigop_expr?(opts=="/sum" && exists(code) && code==0x2A0C)	=> sumop(*,slot(char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");},char{mtcode = 0xEF01;},
+		char{mtcode = 0x222B;text_color=find_attribute(match,"color","LaTeX: Black");})){_options=match.limits_type;};
+	bigop_expr?((opts=="/sum" || opts=="implicit"))	=> sumop(*,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");})){_options=match.limits_type;};
+	bigop_expr?(opts=="/int")	=> intop(*,slot(char{mtcode=match[0].code;text_color=find_attribute(match,"color","LaTeX: Black");})){_options=match.limits_type;};
+	// bigop_nodes that did match to form a bigop_expr should not be processed further
+	bigop_node?(name(parent(this))!="_input_root" && name(parent(parent(this)))=="bigop_expr") => ;
+	bigop_nt_node?(name(parent(this))!="_input_root" && name(parent(this))=="bigop_expr") => ;
+	// bigop_nodes that are alone (without expression after them)
+	bigop_node?(type=="sum") => char{mtcode=0x2211;size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_node?(type=="prod") => char{mtcode=0x220F;size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_node?(type=="coprod") => char{mtcode=0x2210;size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_node?(type=="bigcap") => char{mtcode=0x2229;size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_node?(type=="bigcup") => char{mtcode=0x222A;size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_node?(type=="int") => char{mtcode=0x222B;size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_node?(type=="iint") => char{mtcode=0x222C;size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_node?(type=="iiint") => char{mtcode=0x222D;size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};
+	bigop_node?(type=="oint") => char{mtcode=0x222E;size="sym";text_color=find_attribute(match,"color","LaTeX: Black");};
+
+	// over and underbraces
+	hbrace_expr?(limits_type=="goodlim") => hbrace($1,$3){_options=match.brace_opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	hbrace_expr?(limits_type=="nolim") => hbrace($1,slot()){_options=match.brace_opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	hbrace_expr?(limits_type=="badlim") =>
+		lim(slot(hbrace($1,slot()){_options=match.brace_opts;text_color=find_attribute(match,"color","LaTeX: Black");}),$3){_options=match.lim_opts;};
+	hbrace_expr?(limits_type=="bothlims" && arg_order=="bracemain_bracescript_extra") =>
+		lim(slot(hbrace($1,$2){_options=match.brace_opts;text_color=find_attribute(match,"color","LaTeX: Black");}),$3){_options=match.lim_opts;};
+	hbrace_expr?(limits_type=="bothlims" && arg_order=="bracemain_extra_bracescript") =>
+		lim(slot(hbrace($1,$3){_options=match.brace_opts;text_color=find_attribute(match,"color","LaTeX: Black");}),$2){_options=match.lim_opts;};
+
+	// scripts (order is important)
+	sub_expr?(limits=="implicit" && find_attribute(this,"displaystyle","")=="text")	=> slot($0,sub($2));
+	sub_expr?(limits=="implicit")	=> lim(slot($0),$2);
+	sub_expr?(limits=="implicitno")	=> slot($0,sub($2));
+	sub_expr?(limits=="nobase")	=> sub($1);
+	sub_expr?(limits=="explicit")	=> lim(slot($0),$3);
+	sub_expr?(limits=="explicitno")	=> slot($0,sub($3));
+	sup_expr?(limits=="implicit")	=> lim/t(slot($0),$2);
+	sup_expr?(limits=="implicit" && find_attribute(this,"displaystyle","")=="text")	=> slot($0,sup($2));
+	sup_expr?(limits=="implicitno")	=> slot($0,sup($2));
+	sup_expr?(limits=="nobase")	=> sup($1);
+	sup_expr?(limits=="explicit")	=> lim/t(slot($0),$3);
+	sup_expr?(limits=="explicitno")	=> slot($0,sup($3));
+	subsup_expr?(limits=="implicit")	=> lim/tb(slot($0),$1,$2);
+	subsup_expr?(limits=="implicit" && find_attribute(this,"displaystyle","")=="text")	=> slot($0,subsup($1,$2));
+	subsup_expr?(limits=="implicitno")	=> slot($0,subsup($1,$2));
+	subsup_expr?(limits=="nobase")	=> subsup($0,$1);
+	subsup_expr?(limits=="explicit")	=> lim/tb(slot($0),$2,$3);
+	subsup_expr?(limits=="explicitno")	=> slot($0,subsup($2,$3));
+	supsub_expr?(limits=="implicit")	=> lim/tb(slot($0),$2,$1);
+	supsub_expr?(limits=="implicit" && find_attribute(this,"displaystyle","")=="text")	=> slot($0,subsup($2,$1));
+	supsub_expr?(limits=="implicitno")	=> slot($0,subsup($2,$1));
+	supsub_expr?(limits=="nobase")	=> subsup($1,$0);
+	supsub_expr?(limits=="explicit")	=> lim/tb(slot($0),$3,$2);
+	supsub_expr?(limits=="explicitno")	=> slot($0,subsup($3,$2));
+	//  these next should never fire
+	sub_expr => slot($0,sub($2));
+	sup_expr => slot($0,sup($2));
+	subsup_expr => slot($0,subsup($1,$2));
+	supsub_expr => slot($0,subsup($2,$1));
+
+	// Math accents
+	// embellishments
+	embel_expr?(type=="hat" || type=="widehat") => chat(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="overline" || type=="bar" || type=="conj") => cobar(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="underline") => cubar(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="overleftarrow") => cvec/l(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="overrightarrow" || type=="vec") => cvec(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="overleftrightarrow") => cvec/lr(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="check") => lim/t(slot(*),slot(char(){mtcode=0x02C7;text_color=find_attribute(match,"color","LaTeX: Black");})); // no template versions
+	embel_expr?(type=="acute") => lim/t(slot(*),slot(char(){mtcode=0x00B4;text_color=find_attribute(match,"color","LaTeX: Black");})); // no template versions
+	embel_expr?(type=="grave") => lim/t(slot(*),slot(char(){mtcode=0x0060;text_color=find_attribute(match,"color","LaTeX: Black");})); // no template versions
+	embel_expr?(type=="dot") => cdot(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="ddot") => cdot/2(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="dddot") => cdot/3(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="ddddot") => cdot/4(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="breve") => carc/s(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="tilde") => ctilde(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="not") => cnot(*){style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	embel_expr?(type=="prime") => cprime(*){ _options=opts;style=find_attribute(match,"style","math"); text_color=find_attribute(match,"color","LaTeX: Black");};
+	// template versions
+	onearg_expr?(type=="hat" || type=="widehat") => hat($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	onearg_expr?(type=="overline" || type=="bar" || type=="conj") => obar($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	onearg_expr?(type=="underline") => ubar($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	onearg_expr?(type=="overleftarrow") => vec/l($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	onearg_expr?(type=="overrightarrow" || type=="vec") => vec($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	onearg_expr?(type=="overleftrightarrow") => vec/lr($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	onearg_expr?(type=="check") => lim/t($1,slot(char(){mtcode=0x02C7;text_color=find_attribute(match,"color","LaTeX: Black");})); // no template versions
+	onearg_expr?(type=="acute") => lim/t($1,slot(char(){mtcode=0x00B4;text_color=find_attribute(match,"color","LaTeX: Black");})); // no template versions
+	onearg_expr?(type=="grave") => lim/t($1,slot(char(){mtcode=0x0060;text_color=find_attribute(match,"color","LaTeX: Black");})); // no template versions
+	onearg_expr?(type=="dot") => lim/t($1,slot(char(){mtcode=0x002E;text_color=find_attribute(match,"color","LaTeX: Black");})); // no template versions
+	onearg_expr?(type=="ddot") => lim/t($1,slot(char(){mtcode=0x002E;text_color=find_attribute(match,"color","LaTeX: Black");},char(){mtcode=0x002E;text_color=find_attribute(match,"color","LaTeX: Black");})); // no template versions
+	onearg_expr?(type=="dddot") => lim/t($1,slot(char(){mtcode=0x002E;text_color=find_attribute(match,"color","LaTeX: Black");},char(){mtcode=0x002E;text_color=find_attribute(match,"color","LaTeX: Black");},char(){mtcode=0x002E;text_color=find_attribute(match,"color","LaTeX: Black");})); // no template versions
+	onearg_expr?(type=="ddddot") => lim/t($1,slot(char(){mtcode=0x002E;text_color=find_attribute(match,"color","LaTeX: Black");},char(){mtcode=0x002E;text_color=find_attribute(match,"color","LaTeX: Black");},char(){mtcode=0x002E;text_color=find_attribute(match,"color","LaTeX: Black");},char(){mtcode=0x002E;text_color=find_attribute(match,"color","LaTeX: Black");})); // no template versions
+	onearg_expr?(type=="breve") => lim/t($1,slot(char(){mtcode=0x02D8;text_color=find_attribute(match,"color","LaTeX: Black");})); // no template versions
+	onearg_expr?(type=="tilde") => tilde($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	onearg_expr?(type=="not" || type=="cancel")   => strike/up($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	onearg_expr?(type=="bcancel")   => strike/dn($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	onearg_expr?(type=="xcancel")   => strike($1){text_color=find_attribute(match,"color","LaTeX: Black");};
+	onearg_expr?(type=="prime" && opts=="/3") => slot($0,sup(slot(char(){mtcode=0x2032;text_color=find_attribute(match,"color","LaTeX: Black");},
+		char(){mtcode=0x2032;text_color=find_attribute(match,"color","LaTeX: Black");},char(){mtcode=0x2032;text_color=find_attribute(match,"color","LaTeX: Black");}))); // no template versions
+	onearg_expr?(type=="prime" && opts=="/2") => slot($0,sup(slot(char(){mtcode=0x2032;text_color=find_attribute(match,"color","LaTeX: Black");},
+		char(){mtcode=0x2032;text_color=find_attribute(match,"color","LaTeX: Black");}))); // no template versions
+	onearg_expr?(type=="prime") => slot($0,sup(slot(char(){mtcode=0x2032;text_color=find_attribute(match,"color","LaTeX: Black");}))); // no template versions
+
+	// misc onearg
+	onearg_expr?(type=="pmod")  => slot(space{width = "1em";},paren(slot(func{text="mod";text_color=find_attribute(match,"color","LaTeX: Black");},$1)){text_color=find_attribute(match,"color","LaTeX: Black");});
+	// pod is like pmod, but without the 'mod' part
+	onearg_expr?(type=="pod")  => slot(space{width = "1em";},paren(slot($1)){text_color=find_attribute(match,"color","LaTeX: Black");});
+	onearg_expr?(type=="substack") => pile/lim/l(*){halign="center";};
+	ss_row => slot(*);
+
+	// fenced expressions
+	fenced_expr?(type=="paren")  => paren(slot(*)){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	fenced_expr?(type=="brack")  => brack(slot(*)){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	fenced_expr?(type=="brace")  => brace(slot(*)){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	fenced_expr?(type=="abrack") => abrack(slot(*)){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	fenced_expr?(type=="bar")    => bar(slot(*)){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	fenced_expr?(type=="dbar")   => dbar(slot(*)){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	fenced_expr?(type=="ceil")   => ceil(slot(*)){text_color=find_attribute(match,"color","LaTeX: Black");};
+	fenced_expr?(type=="floor")  => floor(slot(*)){text_color=find_attribute(match,"color","LaTeX: Black");};
+	fenced_expr?(type=="intval") => intval(slot(*)){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	fenced_expr?(type=="braket") => braket(slot(*)){_options=match.opts;text_color=find_attribute(match,"color","LaTeX: Black");};
+	fenced_expr => slot(*);
+
+	// delimiters that were matched should not be output; for others we output the char...
+	open_delimiter_node?(name(parent(this))=="fenced_expr" && exists(parent(this).type) && parent(this).type!="generic_fenced")  => ;
+	close_delimiter_node?(name(parent(this))=="fenced_expr" && exists(parent(this).type) &&  parent(this).type!="generic_fenced") => ;
+
+	// infix
+	atop_expr => matrix(row(slot($0)),row(slot($2)));
+	choose_expr => paren(pile(slot($0),slot($2)){halign="center";}){text_color=find_attribute(match,"color","LaTeX: Black");};
+	over_expr => frac(slot($0),slot($2)){text_color=find_attribute(match,"color","LaTeX: Black");};
+	color?(!is_latex_color_name(match.text)) => text{style="bad_input"; text=match._input;};
+	color => {^^match.color="LaTeX: "+match.text;};
+	displaystyle => {^^match.displaystyle="display";^^this.inline="false";};
+	textstyle => {^^match.displaystyle="text";};
+	// scriptstyle => {^^match.displaystyle="text";^^match.size="sub";};
+	// scriptscriptstyle => {^^match.displaystyle="text";^^match.size="subsub";};
+	// infix text is treated way above
+	bf => {^^match.style="vector";};
+	rm => {^^match.style="text";};
+	it => {^^match.style="variable";};
+
+	// matrices
+	matrix_expr?(type=="matrix" || type=="array")	=> matrix(*){column_align=find_attribute(match,"column_align","center");}; 
+	matrix_expr?(type=="vmatrix")	=> bar(slot(matrix(*))){text_color=find_attribute(match,"color","LaTeX: Black");};
+	matrix_expr?(type=="vvmatrix")	=> dbar(slot(matrix(*))){text_color=find_attribute(match,"color","LaTeX: Black");};
+	matrix_expr?(type=="bmatrix")	=> brack(slot(matrix(*))){text_color=find_attribute(match,"color","LaTeX: Black");};
+	matrix_expr?(type=="bbmatrix")	=> brace(slot(matrix(*))){text_color=find_attribute(match,"color","LaTeX: Black");};
+	matrix_expr?(type=="pmatrix")	=> paren(slot(matrix(*))){text_color=find_attribute(match,"color","LaTeX: Black");};
+	matrix_expr?(type=="align" && rowtype=="onecol") => pile(*){halign=match.ralign;}; // matrix(*){column_align="left";};
+	matrix_expr?(type=="align")	=> matrix(*){column_align="left";};
+	matrix_expr?(type=="alignat")	=> matrix(*){column_align="left";};
+	matrix_expr?(type=="cases")	=> brace/l(slot(matrix(*){column_align="left";})){text_color=find_attribute(match,"color","LaTeX: Black");};
+	matrix_expr?(type=="smallmatrix")	=> matrix(*){size="sub";};
+	// before processing the elements inside the matrix_expr, check first for input errors
+	BEGIN__MATRIX?(name(^this)!="matrix_expr") => text{style="bad_input";  text=match._input;};
+	BEGIN_VMATRIX?(name(^this)!="matrix_expr") => text{style="bad_input";  text=match._input;};
+	BEGIN_VVMATRIX?(name(^this)!="matrix_expr") => text{style="bad_input";  text=match._input;};
+	BEGIN_BMATRIX?(name(^this)!="matrix_expr") => text{style="bad_input";  text=match._input;};
+	BEGIN_BBMATRIX?(name(^this)!="matrix_expr") => text{style="bad_input";  text=match._input;};
+	BEGIN_PMATRIX?(name(^this)!="matrix_expr") => text{style="bad_input";  text=match._input;};
+	begin_array?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	BEGIN_ALIGN?(name(^this)!="matrix_expr") => text{style="bad_input";  text=match._input;};
+	begin_alignat?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	BEGIN_CASES?(name(^this)!="matrix_expr") => text{style="bad_input";  text=match._input;};
+	BEGIN_SMALLMATRIX?(name(^this)!="matrix_expr") => text{style="bad_input";  text=match._input;};
+	end_matrix?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	end_vmatrix?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	end_vvmatrix?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	end_bmatrix?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	end_bbmatrix?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	end_pmatrix?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	end_array?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	end_align?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	end_alignat?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	end_cases?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	end_smallmatrix?(name(^this)!="matrix_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",true);};
+	row?(name(^this)!="matrix_expr") => *;
+	NEXT_ROW?(name(^this)!="matrix_expr" && (name(^this)!="_input_root" && name(^^this)!="matrix_expr") &&
+		  name(^this)!="ss_row" && !(exists(^this.type) && ^this.type=="substack") ) =>
+		text{style="bad_input"; text=match._input;};
+	`&`?(name(^this)!="row" || (name(^this)!="_input_root" && name(^^this)!="matrix_expr")) =>
+		text{style="bad_input"; text=match._input;};
+	cell?(name(^this)!="row" || (name(^this)!="_input_root" && name(^^this)!="matrix_expr")) => *;
+	// normal output (no errors)
+	// rows in aligns get translated to plain slots
+	row?(find_attribute(this,"type","")=="align" && find_attribute(^this,"rowtype","")=="onecol") => slot(*);
+	row => row(*);
+	// in aligns, ignore empty cells and put out slot for the ones that can end up in an MT pile
+	cell?(exists(empty) && (find_attribute(^^this,"rowtype","")=="onecol") && (find_attribute(this,"type","")=="align")) =>;
+	cell?((find_attribute(^^this,"rowtype","")=="onecol") && (find_attribute(this,"type","")=="align")) => slot(*);
+	// regular cells 
+	cell => cell(slot(*));
+	//	we don't want to see the alignment expression in the output
+	begin_array => ;
+	begin_alignat => ;
+	// we also ignore vertical_space if it's the only child of a cell
+	vertical_space?(name(^^this)=="cell" && count(^^this)==1) => ;
+
+	// more general error handling
+	open_delimiter_node?(name(^this)!="fenced_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",false);};
+	close_delimiter_node?(name(^this)!="fenced_expr") => text{style="bad_input";  text=concat_attributes(match,"_input",false);};
+	bigop_node => slot(text{style="bad_input"; text=concat_attributes(match,"_input",false);});
+	bigop_nt_node => slot(text{style="bad_input"; text=concat_attributes(match,"_input",false);});
+	oneortwoarg_start?(name(^this)!="oneortwoarg_expr") => slot(text{style="bad_input"; text=$0._input;},$1);
+
+	any?(!_td_matched && exists(_bu_matched) && !_bu_matched) => text{style="bad_input"; text=match._input;};
+	// vertical tabs get marked as errors in the lexer, but we rather just not display anything
+	_error?(_input=="\v") => ;
+	_error => text{style="bad_input"; text=match._input;};
+}
+

@@ -1,0 +1,138 @@
+MathType Input Translator 1.0: "HTML", "HTML input translator v1.00 by Design Science, Inc."
+
+// "HTML input.tdl"
+
+// Copyright (c) 2007-2011 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/HTML input.tdl 20    1/18/12 8:46a Eduardot $
+
+input = "HTML";
+
+
+rules {
+	// image tags embedded in HTML (have texvc code in alt attribute)
+//	img ? (exists(class) && class == "tex" && exists(alt)) [`/img`]=> texvc { code = $0.alt; };
+//	`img/` ? (exists(class) && class == "tex" && exists(alt)) => texvc { code = $0.alt; };
+
+	// for images with tex in alt
+	img ?(exists(alt) && alt!="") char?(char==0x0020)* [`/img`]=> texvc { code = $0.alt; };
+	`img/` ?(exists(alt) && alt!="") char?(char==0x0020)* => texvc { code = $0.alt; };
+	// for zoho writer
+	img ?(exists(latexexpression)) char?(char==0x0020)* [`/img`]=> texvc { code = $0.latexexpression; };
+	`img/` ?(exists(latexexpression)) char?(char==0x0020)* => texvc { code = $0.latexexpression; };
+
+	// mark delimiter chars, for possible later matching
+	char?(char=='(' || char==')' || char=='[' || char== ']' || char== '{' ||
+		char== '|' || char== '}')@d => expr{kind="delimiter"; type=d.char;};
+	// newlines and line feeds
+	char?(char==0x000A) => expr{type=0x000A;};
+	char?(char==0x000D) => expr{type=0x000D;};
+	// runs of chars
+	char+ => char_expr{type=0;};
+
+	// named entities are in an auxiliary file
+	#include "HTML input (chars).tdl"
+
+	// variables show in italics(use mStyle since many HTML tags have style attr)
+	i expr* `/i` => expr{type=0;mStyle="variable";};
+	em expr* `/em` => expr{type=0;mStyle="variable";};
+	// vectors in bold
+	b expr* `/b` => expr{type=0;mStyle="vector";};
+	strong expr* `/strong` => expr{type=0;mStyle="vector";};
+	// font tags
+	font expr* `/font` => font_expr{copy_attributes($0,this, "",false);};
+	// scripts
+	sup expr* `/sup` => sup_expr;
+	sub expr* `/sub` => sub_expr;
+
+	// these combinations we recognize for templates
+	expr?(type=='(') expr?(type!=')' && type!='(' && type!=']' && type!='[')+  expr?(type==')') => fenced_expr{type="paren";};
+	expr?(type=='[') expr?(type!=')' && type!='(' && type!=']' && type!='[')+ expr?(type==']') => fenced_expr{type="brack";};
+	expr?(type=='{') expr?(type!='}' && type!='{')+ expr?(type=='}') => fenced_expr{type="brace";};
+	expr?(type=='|') expr?(type!='|')+ expr?(type=='|') => fenced_expr{type="bar";};
+	expr?(type=='[') expr?(type!=')' && type!='(' && type!=']' && type!='[')+ expr?(type==')') => fenced_expr{type="intval"; opts="/lbrp";};
+	expr?(type=='(') expr?(type!=')' && type!='(' && type!=']' && type!='[')+ expr?(type==']') => fenced_expr{type="intval"; opts="/lprb";};
+	expr?(type=='[') expr?(type!=')' && type!=']' && type!='[')+ expr?(type=='[') => fenced_expr{type="intval"; opts="/lblb";};
+	expr?(type==']') expr?(type!='(' && type!=']' && type!='[')+ expr?(type==']') => fenced_expr{type="intval"; opts="/rbrb";};
+	expr?(type==']') expr?(type!='[' && type!=']')+ expr?(type=='[') => fenced_expr{type="intval"; opts="/rblb";};
+	
+	// paragraphs
+	p expr* `/p` => expr{type=-1;copy_attributes($0,this, "",false);}; // type < 0 to signal it does not correspond to a char
+	expr?(type==-1) expr?(type==-1)+ !p => paras_expr{copy_attributes($0,this, "",false);};
+
+	// tables
+	td expr* `/td` (td | th | td_expr) => td_expr[$0,$(-2)]{onlytd="false";copy_attributes($1,this,"",false);copy_attributes($0,this, "",false);};
+	td expr* `/td` => td_expr{onlytd="true";copy_attributes($0,this, "",false);copy_attributes($1,this,"",false);copy_attributes($1,this,"",false);};
+	th expr* `/th` (td | th | td_expr) => td_expr[$0,$(-2)]{onlytd="false";copy_attributes($1,this,"",false);copy_attributes($0,this, "",false);mStyle="vector";};
+	th expr* `/th` => td_expr{onlytd="true";copy_attributes($1,this,"",false);copy_attributes($0,this, "",false); mStyle="vector";};
+	tr td_expr* `/tr` => tr_expr{copy_attributes($1,this,"",false);copy_attributes($0,this, "",false);};
+	// a well formatted table
+	table [tbody] tr_expr@first_tr tr_expr* [`/tbody`] `/table` => table_expr{copy_attributes(first_tr,this,"",false);};
+	// a fragment from Excel
+	col tr_expr* tr_expr@last_tr (!(tr | tr_expr) | !any) => table_expr[$0,last_tr]{copy_attributes($1,this,"",false);};
+	// just the table fragment (FF, for instance)
+	body tr_expr+ `/body` => table_expr{copy_attributes($1,this,"",false);};
+	// other fragments
+	!any tr_expr* tr_expr@last_tr (!(tr | tr_expr) | !any) => table_expr[$0,last_tr]{copy_attributes($0,this,"",false);};
+	// just the trs, as we sometimes get from an HTML table
+	tr_expr+ !any => table_expr{copy_attributes($0,this,"",false);};
+
+	// make everything into an expr
+	char_expr | sup_expr | sub_expr | fenced_expr | texvc | table_expr | font_expr | paras_expr => expr{type=0;};
+	// these we ignore, really, but to keep the tree correct...
+	a expr* `/a` => expr{type=0;};
+	span expr* `/span` => expr{type=0;};
+}
+
+outputs {
+	_input_root => eqn(slot(*));
+	// invalid attribute values
+	font_expr?(exists(color) && !is_html_color_value(color)) => {error("Invalid color "+match.color+" specified. Will use black instead");match.color="black";}, match;
+	// process the image tag
+	texvc => apply( "Texvc input.tdl", tex_normalize(match.code) );
+
+	// fenced expressions (note that we don't process first and last children (the fences)
+	fenced_expr?(type=="paren")  => paren(slot([$1,$(-2) - $0]));
+	fenced_expr?(type=="brack")  => brack(slot([$1,$(-2) - $0]));
+	fenced_expr?(type=="brace")  => brace(slot([$1,$(-2) - $0]));
+	fenced_expr?(type=="bar")    => bar(slot([$1,$(-2) - $0]));
+	fenced_expr?(type=="intval") => intval(slot([$1,$(-2) - $0])){_options=match.opts;};
+	// fenced_expr => paren(slot(*));
+
+	sup_expr => sup(slot(*));
+	sub_expr => sub(slot(*));
+
+	// group of paragraphs, as one-column matrices
+	paras_expr => matrix(*){column_align=find_attribute(match,"align","left"); row_align=find_attribute(match,"valign","base");};
+	expr?(name(^this)=="paras_expr") => row(cell(slot(*)));
+
+	// tables.
+	// MT6 can only align all rows and column the same way
+	// For tables coming from Word, it will use the alignment of the first element. 
+	td_expr?(name(^this)!="tr_expr" && exists(onlytd) && onlytd=="true") => slot(*);
+	td_expr?(name(^this)!="tr_expr") => slot(*, space{width = "2em";});
+	td_expr => cell(slot(*));
+	tr_expr?(name(^this)!="table_expr") => matrix(row(*)){column_align=find_attribute(match,"align","left"); row_align=find_attribute(match,"valign","bottom");};
+	tr_expr => row(*);
+	table_expr => matrix(*){column_align=find_attribute(match,"align","left"); row_align=find_attribute(match,"valign","base");};
+
+	// we don't (generally) want newlines and line feeds
+	expr?(type==0x000A || type==0x000D) => ;
+	// expr of positive type not processed above are from named entities
+	expr?(type>0) => char{mtcode=match.type;};
+
+	// a generic expr
+	expr => slot(*);
+
+	// chars (exceptions go first)
+	// there sometimes are newlines and line feeds
+	char?(char==0x000A || char==0x000D) => ;
+
+	// generic chars
+	char => char{mtcode=match.char;style=find_attribute(match,"mStyle","math");text_color="HTML: "+find_attribute(match, "color","black");};
+}
+

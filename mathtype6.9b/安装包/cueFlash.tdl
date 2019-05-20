@@ -1,0 +1,20 @@
+MathType Output Translator 1.0: "cueFlash", "cueFlash translator v1.00 by Design Science, Inc.", website, text, public
+
+// Copyright (c) 1998-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/cueFlash.tdl 2     1/19/12 7:58a Eduardot $
+
+include "Google (chart api vars).tdl";
+// redefinitions of base variables
+
+var/"TranslatorName" = "cueFlash";
+var/"TranslatorFileName" = "cueFlash.tdl";
+
+include "Google (chart api rules).tdl";
+// build the img tag, with just the alt and src attrs (no long description, in particular)
+wrapper = "<img alt=@"<EqnHTMLPasteEncoded>@" src=@"http://chart.apis.google.com/chart?cht=tx&amp;chs=1x0&amp;chf=bg,s,FFFFFF00&amp;chco=000000&amp;chl=<EqnPercentEncoded>@">";
+

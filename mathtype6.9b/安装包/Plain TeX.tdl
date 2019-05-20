@@ -1,0 +1,436 @@
+MathType Output Translator 1.0: "Plain TeX", "Plain TeX translator v1.00 by Design Science, Inc.", language
+
+// Copyright (c) 1999-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Plain TeX.tdl 20    7/09/10 10:17a Eduardot $
+
+include "TeX (base vars).tdl";
+// redefinitions of base variables
+var/"TranslatorName" = "Plain TeX";                   // names to use in error messages
+var/"TranslatorFileName" = "Plain TeX.tdl";
+
+include "TeX (base rules).tdl";
+// include TeX Chars.tdl to get character definitions common to all dialects of TeX
+include "TeX (chars).tdl";
+// redefinitions of base rules
+
+// =====================================================
+// Default Translation Strings
+// =====================================================
+ 
+deffunc     = "{<mathop>{\rm #}\nolimits} ";	//  default function translation 
+defchar     = error "@nNo translation available for <FullDesc>. @nPlease add a translation for  @"<Cmd>@"  in the file 'Plain TeX.tdl', or try using AMSTeX.";    //  default character translation 
+deftmpl     = error "@nNo translation available for <Desc>. @nPlease add a translation for  @"<Cmd>@"  in the file 'Plain TeX.tdl', or try using AMSTeX.";        //  default template translation 
+defemb      = error "@nNo translation available for <Desc>. @nPlease add a translation for  @"<Cmd>@"  in the file 'Plain TeX.tdl', or try using AMSTeX.";        //  default embellishment translation 
+run/text         = "{\rm{#}}";        // run of Text style characters 
+run/vector       = "{\bf{#}}";        // run of Vector style characters 
+
+// =====================================================
+// Piles
+// =====================================================
+
+// Pile translation (default, embedded)
+pile      = "\matrix{@n  # \cr @n  # \cr} ";                    // default
+pile/l    = "\matrix{@n  # <hfill> \cr @n  # <hfill> \cr} ";      // left justified
+pile/c    = "\matrix{@n  # \cr @n  # \cr} ";                    // centered
+pile/r    = "\matrix{@n  <hfill> # \cr @n  <hfill> # \cr} ";      // right justified 
+pile/al   = "\eqalign{@n  # \cr @n  # \cr} ";                   // aligned at alignment mark
+
+// Top level pile translation
+pile/t      = "\displaylines{@n  # \cr @n  # \cr} ";            // default
+pile/t/l    = "\eqalign{@n  & #  \cr @n  & # \cr} ";            // left justified
+pile/t/c    = "\displaylines{@n  # \cr @n  # \cr} ";            // centered
+pile/t/r    = "\eqalign{@n  # &\cr @n  # &\cr} ";               // right justified
+pile/t/al   = "\eqalign{@n  # \cr @n  # \cr} ";                 // aligned at alignment mark
+
+// 2-line limit pile translation (as in limit of summation)
+pile/lim/2        = "{<scriptstyle> #1 \atop @n  <scriptstyle> #2} ";                   // default 
+pile/lim/2/l      = "{<scriptstyle> #1 <hfill> \atop @n  <scriptstyle> #2 <hfill>} ";     // left justified
+pile/lim/2/c      = "{<scriptstyle> #1 \atop @n  <scriptstyle> #2} ";                   // centered    
+pile/lim/2/r      = "{<scriptstyle> <hfill> #1 \atop @n  <scriptstyle> <hfill> #2} ";     // right justified
+
+// 3-line limit pile translation (as in limit of summation)
+pile/lim/3        = "{<scriptstyle> #1 \atop @n  {<scriptstyle> #2 \atop @n  <scriptstyle> #3}} ";                         // default 
+pile/lim/3/l      = "{<scriptstyle> #1 <hfill> \atop @n  {<scriptstyle> #2 <hfill> \atop @n  <scriptstyle> #3 <hfill>}} ";    // left justified
+pile/lim/3/c      = "{<scriptstyle> #1 \atop @n  {<scriptstyle> #2 \atop @n  <scriptstyle> #3}} ";                         // centered
+pile/lim/3/r      = "{<scriptstyle> <hfill> #1 \atop @n  {<scriptstyle> <hfill> #2 \atop @n  <scriptstyle> <hfill> #3}} ";    // right justified
+
+// =====================================================
+// Matrices and Matrix Elements
+// =====================================================
+
+// Matrix translation (not allowing for partition lines)
+matrix = "\matrix{@n#@n } ";      
+ 
+// Matrix row translation
+matrow   = "  # \cr @n";
+
+
+// =====================================================
+// Fractions
+// =====================================================
+
+frac         = "{#1 \over #2}";                  // fraction 
+frac/sm      = "{\textstyle{#1 \over #2}}";      // piece fraction 
+
+// =====================================================
+// Roots and Long Division
+// =====================================================
+
+root/nth   = "\root #2 \of #1 ";     // higher root 
+
+// =====================================================
+// Integrals 
+// =====================================================
+
+int/2/nol     = "\int\!\!\!\int #1 ";                                               // double integral, no limits 
+int/2/sum     = "\int\!\!\!\int\limits_#2 #1 ";                                     // double summation-style integral, lower limit 
+int/2         = "\int\!\!\!\int_#2 #1 ";                                            // double integral, lower limit 
+int/3/nol     = "\int\!\!\!\int\!\!\!\int @n #1 ";                                     // triple integral, no limits 
+int/3/sum     = "<mathop>{\int\!\!\!\int\!\!\!\int}\limits_{\kern-5.5pt #2} @n #1 ";    // triple summation-style integral, lower limit 
+int/3         = "\int\!\!\!\int\!\!\!\int_#2 @n #1 ";                                  // triple integral, lower limit 
+
+// =====================================================
+// Arrows with Slots Above and Below
+// =====================================================
+
+arrow         = "\buildrel #1 \over@n \longrightarrow ";                          // right arrow, box on top 
+arrow/l       = "\buildrel #1 \over@n \longrightarrow ";                          // left arrow, box on top 
+arrow/lr      = "\buildrel #1 \over@n \longleftrightarrow ";                      // both arrow, box on top 
+arrow/b	      = "\mathrel{<mathop>{\kern0pt\longrightarrow}@n\limits_#2} ";         // right arrow, box on bottom 
+arrow/l/b     = "\mathrel{<mathop>{\kern0pt\longleftarrow}@n\limits_#2} ";          // left arrow, box on bottom 
+arrow/lr/b    = "\mathrel{<mathop>{\kern0pt\longleftrightarrow}@n\limits_#2} ";     // both arrow, box on bottom 
+
+arrow/tb      = "\mathrel{<mathop>{\kern0pt\longrightarrow}@n\limits_#2^#1} ";        // Right arrow with upper & lower text slots 
+arrow/l/tb    = "\mathrel{<mathop>{\kern0pt\longleftarrow}@n\limits_#2^#1} ";         // Left arrow with upper & lower text slots 
+arrow/lr/tb   = "\mathrel{<mathop>{\kern0pt\longleftrightarrow}@n\limits_#2^#1} ";    // Double-headed arrow with upper & lower text slots 
+
+arrow/2       = error "@nPlain TeX does not support <Desc>. @nPlease use AMSTeX.";     // Double arrow with upper text slot 
+arrow/2/b     = error "@nPlain TeX does not support <Desc>. @nPlease use AMSTeX.";     // Double arrow with lower text slot 
+arrow/2/tb    = error "@nPlain TeX does not support <Desc>. @nPlease use AMSTeX.";     // Double arrow with upper & lower text slots 
+
+// =====================================================
+// Boxes
+// =====================================================
+
+box = error "@nPlain TeX does not support <Desc>. @nPlease use AMSTeX.";   // Box 
+
+// =====================================================
+// Function Translations
+// =====================================================
+
+func/"Re"       = "{<mathop>{\rm Re}\nolimits} ";
+func/"Im"       = "{<mathop>{\rm Im}\nolimits} ";
+func/"cov"      = "{<mathop>{\rm cov}} ";
+func/"glb"      = "{<mathop>{\rm glb}} ";
+func/"int"      = "{<mathop>{\rm int}} ";
+func/"lub"      = "{<mathop>{\rm lub}} ";
+func/"sgn"      = "{<mathop>{\rm sgn}} ";
+func/"var"      = "{<mathop>{\rm var}} ";
+
+// =====================================================
+// Embellishment Translations
+// =====================================================
+
+edot/3         = error "@nPlain TeX does not support <Desc>. @nPlease use AMSTeX.";       // three dot over
+edot/4         = error "@nPlain TeX does not support <Desc>. @nPlease use AMSTeX.";       // four dots over
+
+evec/l       = "\mathord{\buildrel{\lower3pt\hbox{$<scriptscriptstyle>\leftarrow$}}\over @n #} ";         // Left arrow above
+evec/lr      = "\mathord{\buildrel{\lower3pt\hbox{$<scriptscriptstyle>\leftrightarrow$}}\over @n #} ";    // Left-right arrow above
+evec/h       = "\mathord{\buildrel{\lower3pt\hbox{$<scriptscriptstyle>\rightharpoonup$}}\over @n #} ";    // Right harpoon above
+evec/h/l     = "\mathord{\buildrel{\lower3pt\hbox{$<scriptscriptstyle>\leftharpoonup$}}\over @n #} ";     // Left harpoon above
+
+
+earc       = "\mathord{\buildrel{\lower3pt\hbox{$<scriptscriptstyle>\frown$}}\over @n #} ";        // Frown above
+earc/s     = "\mathord{\buildrel{\lower3pt\hbox{$<scriptscriptstyle>\smile$}}\over @n #} ";        // Smile above
+
+// Character translations (math-only)
+
+char/0x2013/mathmode = "-";                    // En dash in math mode
+char/0x2014/mathmode = "\hbox{---}";           // Em dash in math mode
+
+// Character translations (text-only)
+
+char/0x2013/textmode = "--";                   // En dash in text mode
+char/0x2014/textmode = "---";                  // Em dash in text mode
+
+
+// =====================================================
+// Script, Fraktur, Blackboard Bold, etc.
+// =====================================================
+
+char/0x2102     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";            // Blackboard-bold capital C
+char/0x210B     = "{\cal H}";              // Script capital H
+char/0x210C     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital H
+char/0x210D     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";            // Blackboard-bold capital H
+char/0x2110     = "{\cal I}";              // Script capital I
+char/0x2112     = "{\cal L}";              // Script capital L
+char/0x2115     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";            // Blackboard-bold capital N
+char/0x2119     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";            // Blackboard-bold capital P
+char/0x211A     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";            // Blackboard-bold capital Q
+char/0x211B     = "{\cal R}";              // Script capital R
+char/0x211D     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";            // Blackboard-bold capital R
+char/0x2124     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";            // Blackboard-bold capital Z
+char/0x2128     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital X
+char/0x212C     = "{\cal B}";              // Script capital B
+char/0x212D     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital C
+char/0x2130     = "{\cal E}";              // Script capital E
+char/0x2131     = "{\cal F}";              // Script capital F
+char/0x2133     = "{\cal M}";              // Script capital M
+
+// =====================================================
+// Arrows
+// =====================================================
+
+char/0x219A           = " \mathrel{\setbox0=\hbox{$\leftarrow$}@n \rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                 // Leftwards arrow with stroke
+char/0x219B           = " \mathrel{\setbox0=\hbox{$\rightarrow$}@n \rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                // Rightwards arrow with stroke
+char/0x21C4           = " \mathbin{\lower.3ex\hbox{$\buildrel\textstyle\rightarrow\over@n {\smash{\leftarrow}\vphantom{_{\vbox to.5ex{\vss}}}}$}} ";            // Rightwards arrow over leftwards arrow
+char/0x21C6           = " \mathbin{\lower.3ex\hbox{$\buildrel\textstyle\leftarrow\over@n {\smash{\rightarrow}\vphantom{_{\vbox to.5ex{\vss}}}}$}} ";            // Leftwards arrow over rightwards arrow
+char/0x21C7           = " \mathbin{\lower.3ex\hbox{$\buildrel\textstyle\leftarrow\over@n {\smash{\leftarrow}\vphantom{_{\vbox to.5ex{\vss}}}}$}} ";             // Leftwards paired arrows
+char/0x21C8           = " \mathrel{\uparrow\joinrel\uparrow} ";                 // Upwards paired arrows
+char/0x21C9           = " \mathbin{\lower.3ex\hbox{$\buildrel\textstyle\rightarrow\over@n {\smash{\rightarrow}\vphantom{_{\vbox to.5ex{\vss}}}}$}} ";           // Rightwards paired arrows
+char/0x21CA           = " \mathrel{\downarrow\joinrel\downarrow} ";             // Downwards paired arrows
+char/0x21CB           = " \mathbin{\lower.3ex\hbox{$\buildrel\textstyle\leftharpoonup\over@n {\smash{\rightharpoondown}}$}} ";          // Left harpoon over right harpoon
+char/0x21CD           = " \mathrel{\setbox0=\hbox{$\Leftarrow$}@n \rlap{\hbox to\wd0{\hss$\,/$\hss}}\box0} ";                 // Leftwards double arrow with stroke
+char/0x21CE           = " \mathrel{\setbox0=\hbox{$\Leftrightarrow$}@n \rlap{\hbox to\wd0{\hss/\hss}}\box0} ";            // Left right double arrow with stroke
+char/0x21CF           = " \mathrel{\setbox0=\hbox{$\Rightarrow$}@n \rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                // Rightwards double arrow with stroke
+
+// =====================================================
+// Other More Exotic Character Translations
+// =====================================================
+
+char/0x2204     = "\mathord{\setbox0=\hbox{$\exists$}@n \rlap{\raise.2ex\hbox to\wd0{\hss/\hss}}\box0} ";                   // There does not exist
+char/0x2214     = " \buildrel\textstyle.\over+ ";   // Dot plus
+char/0x221B     = "\root 3 \of {\mathstrut} ";   // Cube root
+char/0x221C     = "\root 4 \of {\mathstrut} ";   // Fourth root
+char/0x2224     = "\mathrel{\setbox0=\hbox{$\mid$}@n \rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                      // Does not divide
+char/0x2226     = "\mathrel{\setbox0=\hbox{$\parallel$}@n \rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                 // Not parallel to
+char/0x222C     = "\int\!\!\!\int ";             // Double integral
+char/0x222D     = "\int\!\!\!\int\!\!\!\int ";   // Triple integral
+
+char/0x2241     = " \not\sim ";                  // Not tilde
+char/0x2247     = " \not\cong ";                 // Neither approximately nor actually equal to
+char/0x224A     = " \mathbin{\lower.3ex\hbox{$\buildrel\approx\over@n {\smash{<scriptstyle>\relbar}\vphantom{_{\vbox to.5ex{\vss}}}}$}} ";                 // Almost equal or equal to
+char/0x2250     = " \buildrel\textstyle.\over= ";     // Approaches the limit
+char/0x2251     = " \mathbin{\lower.3ex\hbox{$\buildrel{\mathbin{\buildrel<scriptstyle>.\over@n {\smash{<scriptstyle>=}@n\vphantom{_{<scriptstyle> x}}}}}\over{\smash{<scriptstyle>\cdot}}$}} ";                 // Geometrically equal to
+char/0x2252     = " \mathbin{\lower.3ex\hbox{$\buildrel{\mathbin{\buildrel<scriptstyle>.<hfill>\over@n {\smash{<scriptstyle>=}@n\vphantom{_{<scriptstyle> x}}}}}\over{<hfill>\smash{<scriptstyle>\cdot}}$}} ";            // Approximately equal to or the image of
+char/0x2253     = " \mathbin{\lower.3ex\hbox{$\buildrel{\mathbin{\buildrel<hfill><scriptstyle>.\over@n {\smash{<scriptstyle>=}@n\vphantom{_{<scriptstyle> x}}}}}\over{\smash{<scriptstyle>\cdot}<hfill>}$}} ";             // Image of or approximately equal to
+char/0x2257     = " \buildrel\circ \over = ";         // Ring equal to
+char/0x2258     = " \buildrel{\lower1em\hbox{$<scriptstyle>\frown$}}@n \over = ";    // Corresponds to
+char/0x2259     = " \buildrel \wedge \over = ";       // Estimates
+char/0x225A     = " \buildrel \vee \over = ";         // Equiangular to
+char/0x225B     = " \buildrel{\lower1em\hbox{$<scriptstyle>\star$}}@n \over = ";     // Star equals
+char/0x225C     = " \buildrel \Delta \over = ";       // Delta equal to
+char/0x225D     = " \buildrel {\rm def} \over = ";    // Equal to by definition
+char/0x225E     = " \buildrel \wedge \over = ";       // Measured by
+char/0x225F     = " \buildrel ? \over = ";            // Questioned equal to
+char/0x2264     = " \le ";                       // Less-than or equal to
+char/0x2265     = " \ge ";                       // Greater-than or equal to
+char/0x2266     = " \mathbin{\lower.3ex\hbox{$\buildrel<\over@n {\smash{<scriptstyle>=}\vphantom{_x}}$}} ";                     // Less-than over equal to
+char/0x2267     = " \mathbin{\lower.3ex\hbox{$\buildrel>\over@n {\smash{<scriptstyle>=}\vphantom{_x}}$}} ";                     // Greater-than over equal to
+char/0x226C     = " \mathrel{(\llap)} ";              // Between
+char/0x226E     = " \not < ";                    // Not less-than
+char/0x226F     = " \not > ";                    // Not greater-than
+char/0x2272     = " \mathbin{\lower.3ex\hbox{$\buildrel<\over@n {\smash{<scriptstyle>\sim}\vphantom{_x}}$}} ";                  // Less-than or equivalent to
+char/0x2273     = " \mathbin{\lower.3ex\hbox{$\buildrel>\over@n {\smash{<scriptstyle>\sim}\vphantom{_x}}$}} ";                   // Greater-than or equivalent to
+char/0x2274     = " \mathrel{\setbox0=\hbox{$\mathbin{\lower.3ex\hbox{$\buildrel<\over@n {\smash{<scriptstyle>\sim}@n\vphantom{_x}}$}}$}\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";              // Neither less-than nor equivalent to
+char/0x2275     = " \mathrel{\setbox0=\hbox{$\mathbin{\lower.3ex\hbox{$\buildrel>\over@n {\smash{<scriptstyle>\sim}@n\vphantom{_x}}$}}$}\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";               // Neither greater-than nor equivalent to
+char/0x2276     = " \mathbin{\lower.3ex\hbox{$\buildrel<\over@n {\smash{<scriptstyle>>}\vphantom{_x}}$}} ";                  // Less-than or greater-than
+char/0x2277     = " \mathbin{\lower.3ex\hbox{$\buildrel>\over@n {\smash{<scriptstyle><}\vphantom{_x}}$}} ";                  // Greater-than or less-than
+char/0x2278     = " \mathrel{\setbox0=\hbox{$\mathbin{\lower.3ex\hbox{$\buildrel<\over@n {\smash{<scriptstyle>>}@n\vphantom{_x}}$}}$}\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";              // Neither less-than nor greater-than
+char/0x2279     = " \mathrel{\setbox0=\hbox{$\mathbin{\lower.3ex\hbox{$\buildrel>\over@n {\smash{<scriptstyle><}@n\vphantom{_x}}$}}$}\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";              // Neither greater-than nor less-than
+char/0x227E     = " \mathbin{\lower.3ex\hbox{$\buildrel\prec\over@n {\smash{<scriptstyle>\sim}\vphantom{_x}}$}} ";                  // Precedes or equivalent to
+char/0x227F     = " \mathbin{\lower.3ex\hbox{$\buildrel\succ\over@n {\smash{<scriptstyle>\sim}\vphantom{_x}}$}} ";                  // Succeeds or equivalent to
+char/0x2280     = " \not\prec ";                 // Does not precede
+char/0x2281     = " \not\succ ";                 // Does not succeed
+char/0x2288     = " \not\subseteq ";             // Neither a subset of nor equal to
+char/0x2289     = " \not\supseteq ";             // Neither a superset of nor equal to
+char/0x22A7     = " \models ";                    // Models
+char/0x22A8     = " \models ";                    // True
+char/0x22A9     = " \mathrel|\,\joinrel\mathrel|\joinrel\relbar ";       // Forces
+char/0x22AA     = " \mathrel|\,\joinrel\mathrel|\mathrel|\joinrel= ";    // Triple vertical bar right turnstile
+char/0x22AC     = " \mathrel{\setbox0=\hbox{$\vdash$}@n \rlap{\raise.2ex\hbox to\wd0{\hss/\hss}}\box0} ";                   // Does not prove
+char/0x22AD     = " \mathrel{\setbox0=\hbox{$\models$}@n \rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                   // Not true
+char/0x22AE     = " \mathrel{\setbox0=\hbox{$\mathrel|\,\joinrel\mathrel|\joinrel\relbar$}@n\rlap{\hbox to\wd0{\hss$\;$/\hss}}\box0} ";                   // Does not force
+char/0x22AF     = " \mathrel{\setbox0=\hbox{$\mathrel|\,\joinrel\mathrel|\joinrel\Relbar$}@n\rlap{\hbox to\wd0{\hss$\;$/\hss}}\box0} ";                   // Negated double vertical bar double right turnstile
+char/0x22B4     = " \mathbin{\lower.3ex\hbox{$\buildrel{\textstyle\triangleleft}@n\over{\smash{<scriptstyle>\relbar}\vphantom{_x}}$}} ";           // Normal subgroup of or equal to
+char/0x22B5     = " \mathbin{\lower.3ex\hbox{$\buildrel{\textstyle\triangleright}@n\over{\smash{<scriptstyle>\relbar}\vphantom{_x}}$}} ";          // Contains as normal subgroup or equal to
+char/0x22B8     = " \relbar\joinrel\mathrel\circ ";                 // Multimap
+char/0x22BB     = " \mathbin{\lower.3ex\hbox{$\buildrel\vee@n\over{\smash{<scriptstyle>\relbar}\vphantom{_x}}$}} ";                   // Xor
+char/0x22BC     = " \mathbin{\buildrel\relbar@n\over{\smash{<scriptstyle>\wedge}\vphantom{_x}}} ";                 // Nand
+char/0x22BD     = " \mathbin{\lower.3ex\hbox{$\buildrel\vee@n\over{\smash{<scriptstyle>\relbar}\vphantom{_x}}$}} ";                   // Nor
+char/0x22C7     = " \mathrel{\setbox0=\hbox{$\times$}\rlap@n{\hbox to\wd0{\hss$\div$\hss}}\box0} ";            // Division times
+char/0x22D6     = " \mathrel{<\!\!\!\cdot} ";                  // Less-than with dot
+char/0x22D7     = " \mathrel{\cdot\!\!\!>} ";                   // Greater-than with dot
+char/0x22D8     = " \mathrel{<\!\!\!<\!\!\!<} ";                      // Very much less-than
+char/0x22D9     = " \mathrel{>\!\!\!>\!\!\!>} ";                      // Very much greater-than
+char/0x22DA     = " \mathbin{\lower.4ex\hbox{$\buildrel{\mathbin{\buildrel<scriptstyle><\over@n{\smash{<scriptstyle>\relbar}\vphantom{_{<scriptstyle> x}}}}}\over@n{\smash{<scriptstyle>>}\vphantom{_x}}$}} ";                // Less-than equal to or greater-than
+char/0x22DB     = " \mathbin{\lower.4ex\hbox{$\buildrel{\mathbin{\buildrel<scriptstyle>>\over@n{\smash{<scriptstyle>\relbar}\vphantom{_{<scriptstyle> x}}}}}\over@n{\smash{<scriptstyle><}\vphantom{_x}}$}} ";                // Greater-than equal to or less-than
+char/0x22E6     = " \mathbin{\lower.3ex\hbox{$\buildrel<\over@n{\smash{<scriptstyle>\not\sim}\vphantom{_2}}$}} ";                    // Less-than but not equivalent to
+char/0x22E7     = " \mathbin{\lower.3ex\hbox{$\buildrel>\over@n{\smash{<scriptstyle>\not\sim}\vphantom{_2}}$}} ";                    // Greater-than but not equivalent to
+char/0x22E8     = " \mathbin{\lower.3ex\hbox{$\buildrel\prec\over@n{\smash{<scriptstyle>\not\sim}\vphantom{_2}}$}} ";                 // Precedes but not equivalent to
+char/0x22E9     = " \mathbin{\lower.3ex\hbox{$\buildrel\succ\over@n{\smash{<scriptstyle>\not\sim}\vphantom{_2}}$}} ";                 // Succeeds but not equivalent to
+char/0x22EA     = " \mathrel{\setbox0=\hbox{$\triangleleft$}\rlap@n{\hbox to\wd0{\hss/\hss}}\box0} ";            // Not normal subgroup of
+char/0x22EB     = " \mathrel{\setbox0=\hbox{$\triangleright$}\rlap@n{\hbox to\wd0{\hss/\hss}}\box0} ";           // Does not contain as normal subgroup
+char/0x22EC     = " \mathrel{\setbox0=\hbox{$\mathbin{\lower.3ex\hbox{$\buildrel{\textstyle\triangleleft}\over@n{\smash{<scriptstyle>\relbar}\vphantom{_x}}$}}$}@n\rlap{\raise.3ex\hbox to\wd0{\hss/\hss}}\box0} ";          // Not normal subgroup of or equal to
+char/0x22ED     = " \mathrel{\setbox0=\hbox{$\mathbin{\lower.3ex\hbox{$\buildrel{\textstyle\triangleright}\over@n{\smash{<scriptstyle>\relbar}\vphantom{_x}}$}}$}@n\rlap{\raise.3ex\hbox to\wd0{\hss/\hss}}\box0} ";         // Does not contain as normal subgroup or equal
+char/0x2306     = " \mathrel{\bar{\bar{\wedge}}} ";           // Perspective
+char/0xE922     = " \mathbin{\lower.4ex\hbox{$\buildrel{\mathbin{\buildrel<scriptstyle><\over@n{\smash{<scriptstyle>=}\vphantom{_{<scriptstyle> x}}}}}\over@n{\smash{<scriptstyle>>}\vphantom{_x}}$}} ";               // Less-than equal to or greater-than
+char/0xE92D     = " \mathbin{\lower.4ex\hbox{$\buildrel{\mathbin{\buildrel<scriptstyle>>\over@n{\smash{<scriptstyle>=}\vphantom{_{<scriptstyle> x}}}}}\over@n{\smash{<scriptstyle><}\vphantom{_x}}$}} ";               // Greater-than equal to or less-than
+char/0xE932     = " \mathbin{\lower.3ex\hbox{$\buildrel<\over@n{\smash{<scriptstyle>\approx}\vphantom{_2}}$}} ";               // Less-than or approximately equal to
+char/0xE933     = " \mathbin{\lower.3ex\hbox{$\buildrel>\over@n{\smash{<scriptstyle>\approx}\vphantom{_2}}$}} ";                // Greater-than or approximately equal to
+char/0xE93A     = " \mathbin{\lower.3ex\hbox{$\buildrel\prec\over@n{\smash{<scriptstyle>\approx}\vphantom{_2}}$}} ";               // Precedes or equivalent to
+char/0xE93B     = " \mathbin{\lower.3ex\hbox{$\buildrel\succ\over@n{\smash{<scriptstyle>\approx}\vphantom{_2}}$}} ";               // Succeeds or equivalent to
+char/0xEA06     = " \not\leq ";                  // Not less-than or equal to
+char/0xEA07     = " \not\geq ";                  // Not greater-than or equal to
+char/0xEA11     = " \not\sim ";                  // Small not tilde operator
+char/0xEA2E     = " \mathrel{\setbox0=\hbox{$\mid$}@n\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";                  // Not bar operator
+char/0xEA2F     = " \mathrel{\setbox0=\hbox{$\parallel$}@n\rlap{\hbox to\wd0{\hss/\hss}}\box0} ";             // Not double bar operator
+char/0xEA32     = " \mathbin{\lower.3ex\hbox{$\buildrel<\over@n{\smash{<scriptstyle>\not\approx}\vphantom{_2}}$}} ";                 // Less-than but not approximately equal to
+char/0xEA33     = " \mathbin{\lower.3ex\hbox{$\buildrel>\over@n{\smash{<scriptstyle>\not\approx}\vphantom{_2}}$}} ";                 // Greater-than but not approximately equal to
+char/0xEA38     = " \not\preceq ";               // Not much less-than
+char/0xEA39     = " \not\succeq ";               // Not much greater-than
+char/0xEA3A     = " \mathbin{\lower.3ex\hbox{$\buildrel\prec\over@n{\smash{<scriptstyle>\not\approx}\vphantom{_2}}$}} ";              // Precedes but not equivalent to
+char/0xEA3B     = " \mathbin{\lower.3ex\hbox{$\buildrel\succ\over@n{\smash{<scriptstyle>\not\approx}\vphantom{_2}}$}} ";              // Succeeds but not equivalent to
+char/0xEA40     = " \mathbin{\lower.3ex\hbox{$\buildrel\prec\over@n{\smash{<scriptstyle>\ne}\vphantom{_2}}$}} ";                 // Precedes but not equal to
+char/0xEA41     = " \mathbin{\lower.3ex\hbox{$\buildrel\succ\over@n{\smash{<scriptstyle>\ne}\vphantom{_2}}$}} ";                 // Succeeds but not equal to
+
+// =====================================================
+// Spaces, etc.
+// =====================================================
+
+char/0xEF02/mathmode     = "\,";                     // Thin space (1/6 EM)
+char/0x2009/mathmode = "\,";			     // Thin space (Unicode 5)
+char/0xEF02/textmode     = "\thinspace ";            // Thin space (1/6 EM)
+char/0x2009/textmode     = "\thinspace ";	     // Thin space (Unicode 5)
+char/0xEF03/mathmode     = "\>";                     // Medium space
+char/0x205F/mathmode     = "\>";                     // Medium space (Unicode 5)
+char/0xEF04/mathmode     = "\;";                     // Thick space (1/3 EM)
+char/0x2004/mathmode     = "\;";		     // Three-per-em space (Unicode 5)
+
+// =====================================================
+// Fraktur (black) letters
+// =====================================================
+
+char/0xF000     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital A
+char/0xF001     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital B
+char/0xF002     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital C
+char/0xF003     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital D
+char/0xF004     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital E
+char/0xF005     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital F
+char/0xF006     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital G
+char/0xF007     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital H
+char/0xF008     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital I
+char/0xF009     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital J
+char/0xF00A     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital K
+char/0xF00B     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital L
+char/0xF00C     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital M
+char/0xF00D     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital N
+char/0xF00E     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital O
+char/0xF00F     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital P
+char/0xF010     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital Q
+char/0xF011     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital R
+char/0xF012     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital S
+char/0xF013     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital T
+char/0xF014     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital U
+char/0xF015     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital V
+char/0xF016     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital W
+char/0xF017     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital X
+char/0xF018     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital Y
+char/0xF019     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur capital Z
+char/0xF01A     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small a
+char/0xF01B     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small b
+char/0xF01C     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small c
+char/0xF01D     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small d
+char/0xF01E     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small e
+char/0xF01F     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small f
+char/0xF020     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small g
+char/0xF021     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small h
+char/0xF022     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small i
+char/0xF023     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small j
+char/0xF024     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small k
+char/0xF025     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small l
+char/0xF026     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small m
+char/0xF027     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small n
+char/0xF028     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small o
+char/0xF029     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small p
+char/0xF02A     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small q
+char/0xF02B     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small r
+char/0xF02C     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small s
+char/0xF02D     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small t
+char/0xF02E     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small u
+char/0xF02F     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small v
+char/0xF030     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small w
+char/0xF031     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small x
+char/0xF032     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small y
+char/0xF033     = error "@nPlain TeX does not support Fraktur characters. @nPlease use AMSTeX.";                     // Fraktur small z
+
+// =====================================================
+// Double-struck (Blackboard bold) characters
+// =====================================================
+
+char/0xF080     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital A
+char/0xF081     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital B
+char/0xF082     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital C
+char/0xF083     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital D
+char/0xF084     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital E
+char/0xF085     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital F
+char/0xF086     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital G
+char/0xF087     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital H
+char/0xF088     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital I
+char/0xF089     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital J
+char/0xF08A     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital K
+char/0xF08B     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital L
+char/0xF08C     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital M
+char/0xF08D     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital N
+char/0xF08E     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital O
+char/0xF08F     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital P
+char/0xF090     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital Q
+char/0xF091     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital R
+char/0xF092     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital S
+char/0xF093     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital T
+char/0xF094     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital U
+char/0xF095     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital V
+char/0xF096     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital W
+char/0xF097     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital X
+char/0xF098     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital Y
+char/0xF099     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold capital Z
+char/0xF0A4     = error "@nPlain TeX does not support black-board bold characters. @nPlease use AMSTeX.";             // Blackboard-bold small k
+
+// =====================================================
+// Script (calligraphic) characters
+// =====================================================
+
+char/0xF100     = "{\cal A}";            // Script capital A
+char/0xF101     = "{\cal B}";            // Script capital B
+char/0xF102     = "{\cal C}";            // Script capital C
+char/0xF103     = "{\cal D}";            // Script capital D
+char/0xF104     = "{\cal E}";            // Script capital E
+char/0xF105     = "{\cal F}";            // Script capital F
+char/0xF106     = "{\cal G}";            // Script capital G
+char/0xF107     = "{\cal H}";            // Script capital H
+char/0xF108     = "{\cal I}";            // Script capital I
+char/0xF109     = "{\cal J}";            // Script capital J
+char/0xF10A     = "{\cal K}";            // Script capital K
+char/0xF10B     = "{\cal L}";            // Script capital L
+char/0xF10C     = "{\cal M}";            // Script capital M
+char/0xF10D     = "{\cal N}";            // Script capital N
+char/0xF10E     = "{\cal O}";            // Script capital O
+char/0xF10F     = "{\cal P}";            // Script capital P
+char/0xF110     = "{\cal Q}";            // Script capital Q
+char/0xF111     = "{\cal R}";            // Script capital R
+char/0xF112     = "{\cal S}";            // Script capital S
+char/0xF113     = "{\cal T}";            // Script capital T
+char/0xF114     = "{\cal U}";            // Script capital U
+char/0xF115     = "{\cal V}";            // Script capital V
+char/0xF116     = "{\cal W}";            // Script capital W
+char/0xF117     = "{\cal X}";            // Script capital X
+char/0xF118     = "{\cal Y}";            // Script capital Y
+char/0xF119     = "{\cal Z}";            // Script capital Z
+
+
+

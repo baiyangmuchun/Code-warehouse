@@ -1,0 +1,1830 @@
+// MathML2 (base rules).tdl
+
+// Copyright (c) 2002-2011 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/MathML2 (base rules).tdl 6     12/18/13 2:06p Jimm $
+
+// This file contains the basic set of rules for MathML 2.0 (http://www.w3.org/TR/MathML2/)
+// Note:Numeric entities are used in this file instead of named entities for greater support in various MathML renderers.
+
+// =====================================================
+// Top-level Equation Translation Rules   
+// =====================================================
+comment   	 = "<!-- # -->$n";  // HTML comment string for translator name
+eqndatachars = "@+=";           // characters used to delimit and encode MTEF 
+                                // in comments (must be 3 chars exactly)
+                                // Irrelevant in this case since MTEF
+                                // data is included with <semantics>
+
+// default top-level display equation translation with MTEF data
+eqn/eqndata	=	"(xmlPI)(StdStartCmt)(BeginMathDisplay)$+$n(TransAndData)$-$n"
+					"(EndMath)$n(StdEndCmt)";
+// default top-level inline equation translation with MTEF data
+eqn/eqndata/inline	=	"(xmlPI)(StdStartCmt)(BeginMathInline)$+$n(TransAndData)$-$n"
+					"(EndMath)$n(StdEndCmt)";
+// default top-level display equation translation without MTEF data
+eqn	= 			"(xmlPI)(StdStartCmt)(BeginMathDisplay)$+$n#$-$n"
+					"(EndMath)$n(StdEndCmt)";
+// default top-level inline equation translation without MTEF data
+eqn/inline	= 	"(xmlPI)(StdStartCmt)(BeginMathInline)$+$n#$-$n"
+					"(EndMath)$n(StdEndCmt)";
+
+// ============================================================
+// Default definitions for translation error handling 
+// ============================================================
+
+// default function translation 
+deffunc   =  "<(ns)mi mathvariant=$"normal$">#</(ns)mi>(appfunc)";
+
+// default mathmode character translation
+defmathchar = "<(ns)mi>&$#x(CharHex);</(ns)mi>";
+// default textmode character translation
+deftextchar = "&$#x(CharHex);";
+
+// Default character translation 
+defchar   = error "Character not currently supported in (TranslatorName): (FullDesc)";         
+// default template translation 
+deftmpl   = error "Template not currently supported: $n    (Cmd) -- (Desc)";
+// default embellishment
+defemb   = error "Embellishment not currently supported: $n    (Cmd) -- (Desc)";
+
+// =====================================================
+// Basic Translation Strings and Default Definitions
+// =====================================================
+
+// sepchar = "#"                                  // separator character
+// escchar = "$"                                  // escape character
+
+indent    = " ";                                  // string to output for each indent level
+
+// common multi-characters run definitions
+
+styletype/user1   = textmode;                     // User1 style is treated as text
+styletype/user2   = textmode;                     // User2 style is treated as text 
+
+run/user1style   = "<(ns)mtext>#</(ns)mtext>";    // run of User1 style characters 
+run/user2style   = "<(ns)mtext>#</(ns)mtext>";    // run of User2 style characters 
+
+// an alternative here would be to designate one of the user styles 
+// for setting the mathvariant attribute on token nodes.  For example,
+// in MathType user1style is often set to Courier, which corresponds
+// closely to mathvariant="monospace".  Thus, one might 
+//
+// a) comment out the styletype/user1 and run/user1style declarations above
+// b) add a named run as follows
+// 
+// run/user1style/name/"monotype" = "#";
+// 
+// c) in the character translations below, add rules with the "monotype" 
+//    qualifier such as
+// 
+// char/0x0061/textmode = "a";                                 // LATIN SMALL LETTER A
+// char/0x0061 = "<(ns)mi>a</(ns)mi>";                        
+// char/0x0061/"monotype" = "<(ns)mi mathvariant='monotype'>a</(ns)mi>";  
+
+// run of Text style characters 
+run/text/single  = "<(ns)mtext>#</(ns)mtext>";          
+
+// run of Vector style characters 
+run/vector  = "<(ns)mstyle mathvariant='bold' mathsize='normal'>#</(ns)mstyle>";       
+ 
+number      = "<(ns)mn>#</(ns)mn>";                           // run of Number style characters
+ 
+
+// =====================================================
+// Slots in Various Locations
+// =====================================================
+
+//    No "lim" slot translation rules are given, since
+//    they require no special handling in MathML, and can be allowed 
+//    to default to these cases.
+
+// default slot translation (empty, 1 char, and 1 char w/embell.)
+
+slot          = "<(ns)mrow>$+$n#$-</(ns)mrow>";               // default
+slot/0        = "<(ns)mrow></(ns)mrow>";                        // 0 characters
+slot/1        = "#";                                            // 1 character
+slot/1/e      = "#";                                            // 1 character with embellishment
+
+// slots at the top level with a single character can be omited
+
+slot/t/0      = "<(ns)mrow></(ns)mrow>";
+slot/t/1      = "#";
+slot/t/1/e    = "#";
+
+// slots in piles will already be wrapped in <(ns)mtd>'s and
+// thus require no explicit mrow
+
+slot/p        = "#";                                  // default
+slot/p/0      = "<(ns)mrow></(ns)mrow>";              // 0 characters
+slot/p/1      = "#";                                  // 1 character
+slot/p/1/e    = "#";                                  // 1 character with embellishment
+
+
+// =====================================================
+// Matrices
+// =====================================================
+
+// matrix translation (left, center, right)
+matrix/l    = "<(ns)mtable columnalign='left'>$+$n#$-$n</(ns)mtable>";
+matrix      = "<(ns)mtable>$+$n#$-$n</(ns)mtable>";
+matrix/r    = "<(ns)mtable columnalign='right'>$+$n#$-$n</(ns)mtable>";
+
+// matrix line translation (left, center, right)
+matrow/l   = "<(ns)mtr columnalign='left'>$+$n#$-$n</(ns)mtr>$n";
+matrow     = "<(ns)mtr>$+$n#$-$n</(ns)mtr>$n";
+matrow/r   = "<(ns)mtr columnalign='right'>$+$n#$-$n</(ns)mtr>$n";
+
+// matrix element translation (except for last element) (left, center, right)
+matelem/l   = "<(ns)mtd columnalign='left'>$+$n#$-$n</(ns)mtd>$n";
+matelem     = "<(ns)mtd>$+$n#$-$n</(ns)mtd>$n";
+matelem/r   = "<(ns)mtd columnalign='right'>$+$n#$-$n</(ns)mtd>$n";
+
+// matrix element translation (last element only) (left, center, right)
+matelem/last/l   = "<(ns)mtd columnalign='left'>$+$n#$-$n</(ns)mtd>";
+matelem/last     = "<(ns)mtd>$+$n#$-$n</(ns)mtd>";
+matelem/last/r   = "<(ns)mtd columnalign='right'>$+$n#$-$n</(ns)mtd>";
+
+// ---------------- MathML Translation Warning -----------------------
+
+//  Matrix partition lines are handled in a different way in MathML
+//  so no direct translation from MathType to MathML is possible.
+//  Consequently these translation rule keys are ignored
+
+//  Horizontal matrix partition lines (solid, dashed, dotted)
+//  currently must be translated into MathML by hand, as attributes
+//  of the enclosing mtable, e.g. <(ns)mtable rowlines='none solid none'>...
+
+//hline                   = "";
+//hline/dash              = "";
+//hline/dot               = "";
+
+//  Vertical matrix partition lines (solid, dashed, dotted)
+//  currently must be translated into MathML by hand, as attributes
+//  of the enclosing mtable, e.g. <(ns)mtable columnlines='none solid none'>...
+
+//vline                   = "";
+//vline/dash              = "";
+//vline/dot               = "";
+
+// =====================================================
+// Pile translations (handled as tables in MathML)
+// =====================================================
+
+//    Only basic pile translation rules are specified, since
+//    top-level, and reduce-sized pile need no special handling 
+//    in MathML, and can be allowed to default to these cases.
+
+//    embedded, without alignment marks (left, center, right)
+pile        = "<(ns)mtable>$+$n<(ns)mtr>$+$n<(ns)mtd>$+$n#$-$n</(ns)mtd>$-$n</(ns)mtr>$n"
+              "<(ns)mtr>$+$n<(ns)mtd>$+$n#$-$n</(ns)mtd>$-$n</(ns)mtr>$-$n</(ns)mtable>$n";
+pile/l      = "<(ns)mtable columnalign='left'>$+$n<(ns)mtr>$+$n<(ns)mtd>$+$n#$-$n</(ns)mtd>$-$n"
+              "</(ns)mtr>$n<(ns)mtr>$+$n<(ns)mtd>$+$n#$-$n</(ns)mtd>$-$n</(ns)mtr>$-$n</(ns)mtable>$n";
+pile/r      = "<(ns)mtable columnalign='right'>$+$n<(ns)mtr>$+$n<(ns)mtd>$+$n#$-$n</(ns)mtd>$-$n"
+              "</(ns)mtr>$n<(ns)mtr>$+$n<(ns)mtd>$+$n#$-$n</(ns)mtd>$-$n</(ns)mtr>$-$n</(ns)mtable>$n";
+pile/dec    = "<(ns)mtable groupalign='decimalpoint'>$+$n<(ns)mtr>$+$n<(ns)mtd>$+$n<(ns)maligngroup(maligngroupclose)"
+              "#$-$n</(ns)mtd>$-$n</(ns)mtr>$n<(ns)mtr>$+$n<(ns)mtd>$+$n<(ns)maligngroup(maligngroupclose)"
+              "#$-$n</(ns)mtd>$-$n</(ns)mtr>$-$n</(ns)mtable>$n";
+pile/al     = "<(ns)mtable>$+$n<(ns)mtr>$+$n<(ns)mtd>$+$n<(ns)maligngroup(maligngroupclose)"
+              "#$-$n</(ns)mtd>$-$n</(ns)mtr>$n<(ns)mtr>$+$n<(ns)mtd>$+$n<(ns)maligngroup(maligngroupclose)"
+              "#$-$n</(ns)mtd>$-$n</(ns)mtr>$-$n</(ns)mtable>$n";
+
+// ---------------- MathML Translation Warning -----------------------
+
+// MathML requires placing a <malignmark/> element before each
+// equal sign to be aligned.  Since there is no automated way of
+// doing this in TDL, the following translation rule key is not
+// specified, and the handling of this construct defaults to the
+// rule for "pile" given above.
+
+//pile/eq      = "";
+
+
+// =====================================================
+// Fences, Intervals, etc.
+// =====================================================
+
+// In many cases, the fence related MathType templates
+// could be better translated as an <mfenced> MathML
+// contruction.  However, in general, the more basic
+// <mrow>/<mo> construction is probably more robust.
+
+// parentheses (both)
+paren         = "<(ns)mrow><(ns)mo>(</(ns)mo>$+$n#1$-$n<(ns)mo>)</(ns)mo></(ns)mrow>";
+// brackets (both)
+brack         = "<(ns)mrow><(ns)mo>[</(ns)mo> #1 <(ns)mo>]</(ns)mo></(ns)mrow>";
+// braces (both)
+brace         = "<(ns)mrow><(ns)mo>{</(ns)mo> #1 <(ns)mo>}</(ns)mo></(ns)mrow>";       
+// angle brackets 
+abrack        = "<(ns)mrow><(ns)mo>&$#x2329;</(ns)mo> #1 <(ns)mo>&$#x232A;</(ns)mo></(ns)mrow>";     
+// bars (both)
+bar           = "<(ns)mrow><(ns)mo>|</(ns)mo> #1 <(ns)mo>|</(ns)mo></(ns)mrow>";
+// floor 
+floor         = "<(ns)mrow><(ns)mo>&$#x230A;</(ns)mo> #1 <(ns)mo>&$#x230B;</(ns)mo></(ns)mrow>";  
+// ceiling 
+ceil          = "<(ns)mrow><(ns)mo>&$#x2308;</(ns)mo> #1 <(ns)mo>&$#x2309;</(ns)mo></(ns)mrow>";  
+// left bracket, left bracket interval 
+intval/lblb   = "<(ns)mrow> <(ns)mo>[</(ns)mo> #1 <(ns)mo>[</(ns)mo> </(ns)mrow>";    
+// right bracket, right bracket interval 
+intval/rbrb   = "<(ns)mrow><(ns)mo>]</(ns)mo> #1 <(ns)mo>]</(ns)mo></(ns)mrow>";    
+// right bracket, left bracket interval 
+intval/rblb   = "<(ns)mrow><(ns)mo>]</(ns)mo> #1 <(ns)mo>[</(ns)mo></(ns)mrow>";    
+// left bracket, right paren interval 
+intval/lbrp   = "<(ns)mrow><(ns)mo>[</(ns)mo> #1 <(ns)mo>)</(ns)mo></(ns)mrow>";
+// left paren, right bracket interval 
+intval/lprb   = "<(ns)mrow><(ns)mo>(</(ns)mo> #1 <(ns)mo>]</(ns)mo></(ns)mrow>";                
+// parentheses (left)
+paren/l       = "<(ns)mrow><(ns)mo>(</(ns)mo> #1</(ns)mrow>";                
+// parentheses (right)
+paren/r       = "<(ns)mrow> #1 <(ns)mo>)</(ns)mo></(ns)mrow>";                
+// brackets (left)
+brack/l       = "<(ns)mrow> <(ns)mo>[</(ns)mo> #1 </(ns)mrow>";                
+// brackets (right)
+brack/r       = "<(ns)mrow>#1 <(ns)mo>]</(ns)mo></(ns)mrow>";               
+// braces (left) 
+brace/l       = "<(ns)mrow><(ns)mo>{</(ns)mo> #1 </(ns)mrow>";
+// braces (right)
+brace/r       = "<(ns)mrow>#1 <(ns)mo>}</(ns)mo></(ns)mrow>";               
+// angle brackets (left)
+abrack/l      = "<(ns)mrow><(ns)mo>&$#x2329;</(ns)mo>#1</(ns)mrow>";          
+// angle brackets (right)
+abrack/r      = "<(ns)mrow>#1<(ns)mo>&$#x232A;</(ns)mo></(ns)mrow>";         
+// bars (left)
+bar/l         = "<(ns)mrow><(ns)mo>|</(ns)mo>#1</(ns)mrow>";                
+// bars (right)
+bar/r         = "<(ns)mrow>#1<(ns)mo>|</(ns)mo></(ns)mrow>";                
+// dirac (right)
+braket/r      = "<(ns)mrow><(ns)mo>|</(ns)mo>#2<(ns)mo>&$#x232A;</(ns)mo></(ns)mrow>";         
+// dirac (left)
+braket/l      = "<(ns)mrow><(ns)mo>&$#x2329;</(ns)mo>#1<(ns)mo>|</(ns)mo></(ns)mrow>";          
+// braket
+braket        = "<(ns)mrow><(ns)mo>&$#x2329;</(ns)mo>#1<(ns)mo>|</(ns)mo>#2<(ns)mo>"
+                "&$#x232A;</(ns)mo></(ns)mrow>";
+// double bars (both)
+dbar          = "<(ns)mrow><(ns)mo>&$#x2016;</(ns)mo> #1 <(ns)mo>&$#x2016;</(ns)mo></(ns)mrow>";  
+// double bars (left)
+dbar/l        = "<(ns)mrow><(ns)mo>&$#x2016;</(ns)mo>#1</(ns)mrow>";               
+// double bars (right)
+dbar/r        = "<(ns)mrow>#1<(ns)mo>&$#x2016;</(ns)mo></(ns)mrow>";               
+// Open brackets 
+obrack        = "<(ns)mrow><(ns)mo>&$#x301A;</(ns)mo>#1<(ns)mo>&$#x301B;</(ns)mo></(ns)mrow>";         
+// Left open bracket 
+obrack/l      = "<(ns)mrow><(ns)mo>&$#x301A;</(ns)mo>#1</(ns)mrow>";          
+// Right open bracket 
+obrack/r      = "<(ns)mrow>#1<(ns)mo>&$#x301B;</(ns)mo></(ns)mrow>";          
+// horizontal brace (lower)
+hbrace        = "<(ns)munder>$+$n<(ns)munder>$+$n#1$n<(ns)mo stretchy='true'>&$#xFE38;</(ns)mo>$-$n"
+                "</(ns)munder>$n#2$-$n</(ns)munder>$n";
+// horizontal brace (top)
+hbrace/t      = "<(ns)mover>$+$n<(ns)mover>$+$n#1$n<(ns)mo stretchy='true'>&$#xFE37;</(ns)mo>$-$n"
+                "</(ns)mover>$n#2$-$n</(ns)mover>$n";
+// horizontal bracket (lower) -- hbrack  
+hbrack        = "<(ns)munder>$+$n<(ns)munder>$+$n#1$n<(ns)mo stretchy='true'>&$#x23B5;</(ns)mo>$-$n"
+                "</(ns)munder>$n#2$-$n</(ns)munder>$n";
+// horizontal bracket (top) -- hbrack/t
+hbrack/t      = "<(ns)mover>$+$n<(ns)mover>$+$n#1$n<(ns)mo stretchy='true'>&$#x23B4;</(ns)mo>$-$n"
+                "</(ns)mover>$n#2$-$n</(ns)mover>$n";
+
+// =====================================================
+// Fractions
+// =====================================================
+
+frac         = "<(ns)mfrac>$+$n#1$n#2$-$n</(ns)mfrac>$n";             // fraction 
+frac/sm      = "<(ns)mstyle scriptlevel='+1'>$+$n<(ns)mfrac>$+$n#1$n" 
+               "#2$-$n</(ns)mfrac>$-$n</(ns)mstyle>$n";               // small fraction 
+frac/sl/base = "<(ns)mrow>#1<(ns)mo>/</(ns)mo>#2</(ns)mrow>$n";         
+// diagonal fraction (normal)
+frac/sl      = "<(ns)mfrac bevelled='true'>$+$n#1$n#2$-$n</(ns)mfrac>$n"; 
+// diagonal fraction (subscript-size)
+frac/sl/sm   = "<(ns)mstyle scriptlevel='+1'>$+$n"                        
+               "<(ns)mfrac bevelled='true'>$+$n"
+               "#1$n#2$-$n"
+               "</(ns)mfrac>$-$n</(ns)mstyle>$n";
+
+// =====================================================
+// Roots and Long Division
+// =====================================================
+
+root       = "<(ns)msqrt>$+$n#1$-$n</(ns)msqrt>$n";             // square root 
+root/nth   = "<(ns)mroot>$+$n#1$n#2$-$n</(ns)mroot>$n";         // higher root 
+
+// long division
+ldiv       = "<(ns)mtable>$+$n<(ns)mtr>$+$n<(ns)mtd columnalign='right'>$+$n#2"
+             "$-$n</(ns)mtd>$-$n</(ns)mtr>$n<(ns)mtr>$+$n<(ns)mtd columnalign='right'>$+$n"
+             "<(ns)menclose notation='longdiv'>$+$n#1$-$n</(ns)menclose>$-$n"
+             "</(ns)mtd>$-$n</(ns)mtr>$-$n</(ns)mtable>$n";
+
+// long division (without upper slot)
+ldiv/nq    = "<(ns)menclose notation='longdiv'>$+$n#1$-$n</(ns)menclose>$n";
+
+// =====================================================
+// Subscripts & Superscripts - we need scanning versions for MathML
+// =====================================================
+
+// superscript (normal, trailing)
+sup/scan         = "<(ns)msup>$+$n#1$n#3$-$n</(ns)msup>$n";
+
+// subscript (normal, trailing)    
+sub/scan         = "<(ns)msub>$+$n#1$n#2$-$n</(ns)msub>$n";    
+
+// both super- and subscripts (normal, trailing)
+subsup/scan      = "<(ns)msubsup>$+$n#1$n#2$n#3$-$n</(ns)msubsup>$n";      
+
+// we need these non-scanning versions as workaround for 'nested' subsups: {x_0}^1 or {x^0}_1
+sup   		     = "<(ns)msup>$+$n<(ns)mrow></(ns)mrow>$n#2$-$n</(ns)msup>$n";
+sub       		 = "<(ns)msub>$+$n<(ns)mrow></(ns)mrow>$n#1$-$n</(ns)msub>$n";    
+subsup      	 = "<(ns)msubsup>$+$n<(ns)mrow></(ns)mrow>$n#1$n#2$-$n</(ns)msubsup>$n";      
+
+// ============================================================
+// prescripts
+// ============================================================
+
+// superscript (leading)
+sup/scan/pre     = "<(ns)mmultiscripts>$+$n#1$n<(ns)mprescripts(mprescriptsclose)$n"
+                   "<(ns)none(noneclose)$n#3$-$n</(ns)mmultiscripts>$n";   
+
+// subscript (leading) 
+sub/scan/pre     = "<(ns)mmultiscripts>$+$n#1$n<(ns)mprescripts(mprescriptsclose)$n"
+                   "#2$n<(ns)none(noneclose)$-$n</(ns)mmultiscripts>$n";   
+
+// both super- and subscripts (leading)
+subsup/scan/pre  = "<(ns)mmultiscripts>$+$n#1$n<(ns)mprescripts(mprescriptsclose)$n"
+                   "#2$n#3$-$n</(ns)mmultiscripts>$n"; 
+
+// we need these non-scanning versions as workaround for 'nested' sub/sups: {x_0}^1 or {x^0}_1
+sup/pre		     = "<(ns)mmultiscripts>$+$n<(ns)mrow></(ns)mrow>$n<(ns)mprescripts(mprescriptsclose)$n"
+                   "<(ns)none(noneclose)$n#2$-$n</(ns)mmultiscripts>$n";   
+sub/pre    		 = "<(ns)mmultiscripts>$+$n<(ns)mrow></(ns)mrow>$n<(ns)mprescripts(mprescriptsclose)$n"
+                   "#1$n<(ns)none(noneclose)$-$n</(ns)mmultiscripts>$n";   
+subsup/pre    	 = "<(ns)mmultiscripts>$+$n<(ns)mrow></(ns)mrow>$n<(ns)mprescripts(mprescriptsclose)$n"
+                   "#1$n#2$-$n</(ns)mmultiscripts>$n"; 
+
+// =====================================================
+// Limit-Like Structures - also allow scanning, but not needed here
+// =====================================================
+
+lim/t       = "<(ns)mover>$+$n#1$n#3$-$n</(ns)mover>$n";             
+lim         = "<(ns)munder>$+$n#1$n#2$-$n</(ns)munder>$n";           
+lim/tb      = "<(ns)munderover>$+$n#1$n#2$n#3$-$n</(ns)munderover>$n";   
+
+
+// =====================================================
+// General Large Operators (like Integrals and Summations)
+// =====================================================
+
+// ---------------- MathML Translation Warning -----------------------
+
+// In MathML, most operators for which it is appropriate should 
+// automatically be set in a larger font, according to the renderers operator
+// dictionary.  However, in many situations, the following translations
+// will produce the desired results.
+
+// -------------------------------------------------------------------
+
+// big integral-style operator (upper limit)
+intop/t   = "<(ns)msup>$+$n<(ns)mstyle mathsize='140%' displaystyle='true'>"
+            "#4</(ns)mstyle>$n#3$-$n</(ns)msup>$n";     
+
+// big integral-style operator (lower limit)
+intop/b   = "<(ns)msub>$+$n<(ns)mstyle mathsize='140%' displaystyle='true'>"
+            "#4</(ns)mstyle>$n#2$-$n</(ns)msub>$n"; 
+
+// big integral-style operator (both limits)
+intop     = "<(ns)msubsup>$+$n<(ns)mstyle mathsize='140%' displaystyle='true'>"
+            "#4</(ns)mstyle>$n#2$n#3$-$n</(ns)msubsup>$n";         
+
+// big summation-style operator (upper limit)
+sumop/t   = "<(ns)mover>$+$n<(ns)mstyle mathsize='140%' displaystyle='true'>"
+            "#4</(ns)mstyle>$n#3$-$n</(ns)mover>$n";                
+
+// big summation-style operator (lower limit)
+sumop/b   = "<(ns)munder>$+$n<(ns)mstyle mathsize='140%' displaystyle='true'>"
+            "#4</(ns)mstyle>$n#2$-$n</(ns)munder>$n";              
+
+// big summation-style operator (both limits)
+sumop     = "<(ns)munderover>$+$n<(ns)mstyle mathsize='140%' displaystyle='true'>"
+            "#4</(ns)mstyle>$n#2$n#3$-$n</(ns)munderover >$n";  
+
+// =====================================================
+// Summations
+// =====================================================
+
+// sum, no limits 
+sum/nol     = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)mo>&$#x2211;</(ns)mo> #1"
+              "$-$n</(ns)mstyle>";                                   
+
+// sum, lower limit only 
+sum/b       = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)munder>$+$n<(ns)mo>&$#x2211;</(ns)mo>$n#2$-$n</(ns)munder>$n#1"
+              "$-$n</(ns)mstyle>";             
+
+// sum, both limits 
+sum         = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)munderover>$+$n<(ns)mo>&$#x2211;</(ns)mo>$n#2$n#3$-$n</(ns)munderover>$n#1"
+              "$-$n</(ns)mstyle>";  
+
+// sum, lower limit only (integral-style)
+sum/int/b   = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)msub>$+$n<(ns)mo>&$#x2211;</(ns)mo>$n#2$-$n</(ns)msub>$n#1"
+              "$-$n</(ns)mstyle>";                 
+
+// sum, both limits (integral-style)
+sum/int     = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)msubsup>$+$n<(ns)mo>&$#x2211;</(ns)mo>$n#2$n#3$-$n</(ns)msubsup>$n#1"
+              "$-$n</(ns)mstyle>";     
+
+// =====================================================
+// Integrals 
+// =====================================================
+
+// single integral, no limits 
+int/nol      = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow><(ns)mo>&$#x222B;</(ns)mo>$+$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// single stretchy integral, no limits 
+int/ex/nol   = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow><(ns)mo stretchy='true'>&$#x222B;</(ns)mo>$+$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// single summation-style integral, both limits 
+int/sum      = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow><(ns)munderover>$+$n<(ns)mo>&$#x222B;</(ns)mo>$n#2$n#3$-$n"
+               "</(ns)munderover>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// single stretchy summation-style integral, both limits 
+int/ex/sum   = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)munderover>$+$n<(ns)mo stretchy='true'>&$#x222B;</(ns)mo>$n#2$n#3$-$n"
+               "</(ns)munderover>$n#1$-$n</(ns)mrow>$n"       
+               "$-$n</(ns)mstyle>";     
+
+// single integral, both limits 
+int          = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msubsup>$+$n<(ns)mo>&$#x222B;</(ns)mo>$n#2$n#3$-$n"
+               "</(ns)msubsup>$n#1$-$n</(ns)mrow>$n"      
+               "$-$n</(ns)mstyle>";     
+
+// single stretchy integral, both limits 
+int/ex       = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msubsup>$+$n<(ns)mo stretchy='true'>&$#x222B;</(ns)mo>$n#2$n#3$-$n"
+               "</(ns)msubsup>$n#1$-$n</(ns)mrow>$n"   
+              "$-$n</(ns)mstyle>";     
+
+// single summation-style integral, lower limit 
+int/sum/b    = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo>&$#x222B;</(ns)mo>$n#2$-$n</(ns)munder>$n#1"
+             "$-$n</(ns)mrow>$n"   
+              "$-$n</(ns)mstyle>";     
+
+// single stretchy summation-style integral, lower limit 
+int/ex/sum/b = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo stretchy='true'>&$#x222B;</(ns)mo>$n#2$-$n</(ns)munder>"
+               "$n#1$-$n</(ns)mrow>$n"   
+              "$-$n</(ns)mstyle>";     
+
+// single integral, lower limit 
+int/b        = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo>&$#x222B;</(ns)mo>$n#2$-$n</(ns)msub>$n#1$-$n</(ns)mrow>$n"   
+              "$-$n</(ns)mstyle>";     
+
+// single stretchy integral, lower limit 
+int/ex/b     = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo stretchy='true'>&$#x222B;</(ns)mo>$n#2$-$n</(ns)msub>"
+               "$n#1$-$n</(ns)mrow>$n"   
+              "$-$n</(ns)mstyle>";     
+
+// double integral, no limits 
+int/2/nol    = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow><(ns)mo>&$#x222C;</(ns)mo>$+$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// double integral, no limits 
+int/2/ex/nol = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow><(ns)mo stretchy='true'>&$#x222C;</(ns)mo>$+$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// double summation-style integral, lower limit 
+int/2/sum    = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo>&$#x222C;</(ns)mo>$n#2$-$n</(ns)munder>"
+               "$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// double stretchy summation-style integral, lower limit 
+int/2/ex/sum = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo stretchy='true'>&$#x222C;</(ns)mo>"
+               "$n#2$-$n</(ns)munder>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// double integral, lower limit 
+int/2        = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo>&$#x222C;</(ns)mo>$n#2$-$n</(ns)msub>"
+               "$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// double integral, lower limit 
+int/2/ex     = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo stretchy='true'>&$#x222C;</(ns)mo>$n#2$-$n"
+               "</(ns)msub>$n#1$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// triple integral, no limits 
+int/3/nol    = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)mo>&$#x222D;</(ns)mo>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// triple stretchy integral, no limits 
+int/3/ex/nol = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)mo stretchy='true'>&$#x222D;</(ns)mo>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// triple summation-style integral, lower limit           
+int/3/sum    = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo>&$#x222D;</(ns)mo>$n#2$-$n</(ns)munder>"
+               "$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// triple stretchy summation-style integral, lower limit           
+int/3/ex/sum = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo stretchy='true'>&$#x222D;</(ns)mo>$n#2$-$n"
+               "</(ns)munder>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// triple integral, lower limit 
+int/3        = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo>&$#x222D;</(ns)mo>$n#2$-$n</(ns)msub>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// triple integral, lower limit 
+int/3/ex     = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo stretchy='true'>&$#x222D;</(ns)mo>$n#2$-$n</(ns)msub>"
+               "$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// contour integral, no limits 
+int/c/nol    = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow><(ns)mo>&$#x222E;</(ns)mo>$+$n#1$-$n</(ns)mrow>$n"                           
+              "$-$n</(ns)mstyle>";     
+
+// stretchy contour integral, no limits 
+int/ex/c/nol = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow><(ns)mo stretchy='true'>&$#x222E;</(ns)mo>$+$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// contour summation-style integral, lower limit 
+int/c/sum    = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo>&$#x222E;</(ns)mo>$n#2$-$n"
+               "</(ns)munder>$n#1$-$n</(ns)mrow>$n"      
+              "$-$n</(ns)mstyle>";     
+
+// stretchy contour summation-style integral, lower limit 
+int/ex/c/sum = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo stretchy='true'>&$#x222E;</(ns)mo>$n#2$-$n"
+               "</(ns)munder>$n#1$-$n</(ns)mrow>$n"      
+              "$-$n</(ns)mstyle>";     
+
+// contour integral, lower limit 
+int/c        = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo>&$#x222E;</(ns)mo>$n#2$-$n</(ns)msub>"
+               "$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// stretchy contour integral, lower limit 
+int/ex/c     = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo stretchy='true'>&$#x222E;</(ns)mo>"
+               "$n#2$-$n</(ns)msub>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// area integral, no limits 
+int/2/c/nol  = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow><(ns)mo>&$#x222F;</(ns)mo>$+$n#1$-$n</(ns)mrow>"
+              "$-$n</(ns)mstyle>";     
+
+// stretchy area integral, no limits 
+int/2/ex/c/nol = "<(ns)mstyle displaystyle='true'>$+$n"
+                 "<(ns)mrow><(ns)mo stretchy='true'>&$#x222F;</(ns)mo>$+$n#1$-$n</(ns)mrow>"
+              "$-$n</(ns)mstyle>";     
+
+// area summation-style integral, lower limit 
+int/2/c/sum  = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo>&$#x222F;</(ns)mo>$n#2$-$n"
+               "</(ns)munder>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// stretchy area summation-style integral, lower limit 
+int/2/ex/c/sum = "<(ns)mstyle displaystyle='true'>$+$n"
+                 "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo stretchy='true'>&$#x222F;</(ns)mo>$n#2$-$n"
+                 "</(ns)munder>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// area integral, lower limit 
+int/2/c        = "<(ns)mstyle displaystyle='true'>$+$n"
+                 "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo>&$#x222F;</(ns)mo>$n#2$-$n</(ns)msub>"
+                 "$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// stretchy area integral, lower limit 
+int/2/ex/c     = "<(ns)mstyle displaystyle='true'>$+$n"
+                 "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo stretchy='true'>&$#x222F;</(ns)mo>$n#2$-$n"
+                 "</(ns)msub>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// volume integral, no limits 
+int/3/c/nol    = "<(ns)mstyle displaystyle='true'>$+$n"
+                 "<(ns)mrow>$+$n<(ns)mo>&$#x2230;</(ns)mo>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// stretchy volume integral, no limits 
+int/3/ex/c/nol = "<(ns)mstyle displaystyle='true'>$+$n"
+                 "<(ns)mrow>$+$n<(ns)mo stretchy='true'>&$#x2230;</(ns)mo>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// volume summation-style integral, lower limit 
+int/3/c/sum    = "<(ns)mstyle displaystyle='true'>$+$n"
+                 "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo>&$#x2230;</(ns)mo>$n#2$-$n"
+                   "</(ns)munder>$n#1$-$n</(ns)mrow>$n"  
+              "$-$n</(ns)mstyle>";     
+
+// stretchy volume summation-style integral, lower limit 
+int/3/ex/c/sum  = "<(ns)mstyle displaystyle='true'>$+$n"
+                  "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo stretchy='true'>&$#x2230;</(ns)mo>$n#2$-$n"
+                  "</(ns)munder>$n#1$-$n</(ns)mrow>$n"  
+              "$-$n</(ns)mstyle>";     
+
+// volume integral, lower limit 
+int/3/c         = "<(ns)mstyle displaystyle='true'>$+$n"
+                  "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo>&$#x2230;</(ns)mo>$n#2$-$n</(ns)msub>"
+                  "$n#1$-$n</(ns)mrow>$n"  
+              "$-$n</(ns)mstyle>";     
+
+// stretchy volume integral, lower limit 
+int/3/ex/c      = "<(ns)mstyle displaystyle='true'>$+$n"
+                  "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo stretchy='true'>&$#x2230;</(ns)mo>$n#2$-$n"
+                  "</(ns)msub>$n#1$-$n</(ns)mrow>$n"  
+              "$-$n</(ns)mstyle>";     
+
+// counterclockwise contour integral
+int/ccw/nol     = "<(ns)mstyle displaystyle='true'>$+$n"
+                  "<(ns)mrow>$+$n<(ns)mo>&$#x2233;</(ns)mo>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// stretchy counterclockwise contour integral
+int/ex/ccw/nol  = "<(ns)mstyle displaystyle='true'>$+$n"
+                  "<(ns)mrow>$+$n<(ns)mo stretchy='true'>&$#x2233;</(ns)mo>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// counterclockwise contour integral, lower limit
+int/ccw/sum  = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo>&$#x2233;</(ns)mo>$n#2$-$n"
+               "</(ns)munder>$n#1$-$n</(ns)mrow>$n"          
+              "$-$n</(ns)mstyle>";     
+
+// stretchy counterclockwise contour integral, lower limit
+int/ex/ccw/sum  = "<(ns)mstyle displaystyle='true'>$+$n"
+                  "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo stretchy='true'>&$#x2233;</(ns)mo>$n#2$-$n"
+                  "</(ns)munder>$n#1$-$n</(ns)mrow>$n"          
+              "$-$n</(ns)mstyle>";     
+
+// counterclockwise contour integral, subscript limit
+int/ccw      = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo>&$#x2233;</(ns)mo>$n#2$-$n</(ns)msub>"
+               "$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// stretchy counterclockwise contour integral, subscript limit
+int/ex/ccw   = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo stretchy='true'>&$#x2233;</(ns)mo>"
+               "$n#2$-$n</(ns)msub>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// clockwise contour integral
+int/cw/nol   =  "<(ns)mstyle displaystyle='true'>$+$n"
+                "<(ns)mrow>$+$n<(ns)mo>&$#x2232;</(ns)mo>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// stretchy clockwise contour integral
+int/ex/cw/nol =  "<(ns)mstyle displaystyle='true'>$+$n"
+                 "<(ns)mrow>$+$n<(ns)mo stretchy='true'>&$#x2232;</(ns)mo>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// clockwise contour integral, lower limit
+int/cw/sum   = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo>&$#x2232;</(ns)mo>$n#2$-$n"
+               "</(ns)munder>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// stretchy clockwise contour integral, lower limit
+int/ex/cw/sum = "<(ns)mstyle displaystyle='true'>$+$n"
+                "<(ns)mrow>$+$n<(ns)munder>$+$n<(ns)mo stretchy='true'>&$#x2232;</(ns)mo>"
+                "$n#2$-$n</(ns)munder>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// clockwise contour integral, subscript limit
+int/cw       = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo>&$#x2232;</(ns)mo>$n#2$-$n</(ns)msub>"
+               "$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// clockwise contour integral, subscript limit
+int/ex/cw    = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mrow>$+$n<(ns)msub>$+$n<(ns)mo stretchy='true'>&$#x2232;</(ns)mo>"
+               "$n#2$-$n</(ns)msub>$n#1$-$n</(ns)mrow>$n"
+              "$-$n</(ns)mstyle>";     
+
+// ===========================================================
+// Bars Hats, Tildes, etc (wide ones, over several characters)
+// ===========================================================
+
+// Tilde -- note, there is a STIX character &wdtilde; that could be used here
+tilde    =  "<(ns)mover accent='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#x02DC;</(ns)mo>$-$n</(ns)mover>$n";
+
+// arc
+arc      = "<(ns)mover accent='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#x2322;</(ns)mo>$-$n</(ns)mover>$n";
+
+// hat 
+hat      = "<(ns)mover accent='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#x005E;</(ns)mo>$-$n</(ns)mover>$n";
+
+// joint status 
+jstat    = "<(ns)mover accent='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#xFE39;</(ns)mo>$-$n</(ns)mover>$n";
+
+// over-bar 
+obar        = "<(ns)mover accent='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#x00AF;</(ns)mo>$-$n</(ns)mover>$n";
+
+// double over-bar 
+obar/2      = "<(ns)mover accent='true'>$+$n<(ns)mover accent='true'>$+$n#1$n"
+              "<(ns)mo stretchy='true'>&$#x00AF;</(ns)mo>$-$n</(ns)mover>$-$n"
+              "<(ns)mo stretchy='true'>&$#x00AF;</(ns)mo>$-$n</(ns)mover>$n";
+// under-bar 
+ubar        = "<(ns)munder accentunder='true'>$+$n#1$n<(ns)mo stretchy='true'>_</(ns)mo>$-$n"
+              "</(ns)munder>$n";
+
+// double under-bar 
+ubar/2      = "<(ns)munder accentunder='true'>$+$n<(ns)munder accentunder='true'>"
+              "$+$n#1$n<(ns)mo stretchy='true'>_</(ns)mo>$-$n</(ns)munder>$-$n"
+              "<(ns)mo stretchy='true'>_</(ns)mo>$-$n</(ns)munder>$n";
+
+// right arrow, box on top 
+vec         = "<(ns)mover accent='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#x2192;</(ns)mo>$-$n</(ns)mover>$n";
+
+// left arrow, box on top 
+vec/l       = "<(ns)mover accent='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#x2190;</(ns)mo>"
+              "$-$n</(ns)mover>$n";
+
+// both arrow, box on top 
+vec/lr      = "<(ns)mover accent='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#x2194;</(ns)mo>"
+              "$-$n</(ns)mover>$n";
+
+// harpoon right, box on top 
+vec/h    = "<(ns)mover accent='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#x21C0;</(ns)mo>"
+           "$-$n</(ns)mover>$n";
+
+// right arrow, box on bottom
+vec/u       = "<(ns)munder accentunder='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#x2192;</(ns)mo>"
+              "$-$n</(ns)munder>$n";
+
+// left arrow, box on bottom
+vec/u/l     = "<(ns)munder accentunder='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#x2190;</(ns)mo>"
+              "$-$n</(ns)munder>$n";
+
+// both arrow, box on bottom 
+vec/u/lr    = "<(ns)munder accentunder='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#x2194;</(ns)mo>"
+              "$-$n</(ns)munder>$n";
+
+// harpoon right, box on bottom
+vec/u/h  = "<(ns)munder accentunder='true'>$+$n#1$n<(ns)mo stretchy='true'>&$#x21C1;</(ns)mo>"
+           "$-$n</(ns)munder>$n";
+
+
+// =====================================================
+// Strike Outs
+// =====================================================
+
+// Mid-line strike-through --  strike/m
+strike/m = "<(ns)menclose notation='horizontalstrike'>$+$n#1$-$n</(ns)menclose>$n";
+// Strike-through -- strike
+strike = "<(ns)menclose notation='updiagonalstrike downdiagonalstrike'>$+$n#1$-$n</(ns)menclose>$n";   
+// Strike-through (bottom-left to upper-right) -- strike/up
+strike/up = "<(ns)menclose notation='updiagonalstrike'>$+$n#1$-$n</(ns)menclose>$n";
+// Strike-through (top-left to bottom-right) -- strike/dn 
+strike/dn = "<(ns)menclose notation='downdiagonalstrike'>$+$n#1$-$n</(ns)menclose>$n";
+
+// =====================================================
+// Arrows with Slots Attached
+// =====================================================
+
+// Right arrow with upper & lower text slots 
+arrow/tb      = "<(ns)munderover>$+$n<(ns)mo>&$#x2192;</(ns)mo>$n#2$n#1$-$n"
+              "</(ns)munderover>$n";
+
+// Left arrow with upper & lower text slots 
+arrow/l/tb    = "<(ns)munderover>$+$n<(ns)mo>&$#x2190;</(ns)mo>$n#2$n#1$-$n"
+               "</(ns)munderover>$n";
+
+// Double-headed arrow arrow with upper & lower text slots 
+arrow/lr/tb   = "<(ns)munderover>$+$n<(ns)mo>&$#x2194;</(ns)mo>$n#2$n#1$-$n"
+               "</(ns)munderover>$n";
+
+// Double arrow with upper & lower text slots 
+arrow/2/tb    = "<(ns)munderover>$+$n<(ns)mo>&$#x21C4;</(ns)mo>$n#2$n#1$-$n"
+               "</(ns)munderover>$n";
+
+// Large over small arrow with upper & lower text slots 
+arrow/2/los/tb = "<(ns)munderover accentunder='true'>$+$n"
+                 "<(ns)mstyle scriptlevel='-1'><(ns)mo>&$#x2192;</(ns)mo></(ns)mstyle>$n"
+                "<(ns)munder>$+$n<(ns)mstyle scriptlevel='+1'><(ns)mo>&$#x2190;</(ns)mo></(ns)mstyle>$n#2$-$n</(ns)munder>$n"
+                "#1$-$n</(ns)munderover>$n";
+
+// Small over large arrow with upper & lower text slots 
+arrow/2/sol/tb = "<(ns)munderover accentunder='true'>$+$n"
+                 "<(ns)mstyle scriptlevel='+1'><(ns)mo>&$#x2192;</(ns)mo></(ns)mstyle>$n"
+                "<(ns)munder>$+$n<(ns)mstyle scriptlevel='-1'><(ns)mo>&$#x2190;</(ns)mo></(ns)mstyle>$n#2$-$n</(ns)munder>$n"
+                "#1$-$n</(ns)munderover>$n";
+
+// Harpoons with upper & lower text slots 
+arrow/2/h/tb  =  "<(ns)munderover>$+$n<(ns)mo>&$#x21CC;</(ns)mo>$n#2$n#1$-$n"
+                "</(ns)munderover>$n";
+
+// Large over small harpoon with upper & lower text slots 
+arrow/2/h/los/tb = "<(ns)munderover accentunder='true'>$+$n"
+                   "<(ns)mstyle scriptlevel='-1'><(ns)mo>&$#x21C0;</(ns)mo></(ns)mstyle>$n"
+                  "<(ns)munder>$+$n<(ns)mstyle scriptlevel='+1'><(ns)mo>&$#x21BD;</(ns)mo></(ns)mstyle>$n"
+                  "#2$-$n</(ns)munder>$n#1$-$n</(ns)munderover>$n";
+
+// Small over large harpoon with upper & lower text slots 
+arrow/2/h/sol/tb = "<(ns)munderover accentunder='true'>$+$n"
+                   "<(ns)mstyle scriptlevel='+1'><(ns)mo>&$#x21C0;</(ns)mo></(ns)mstyle>$n"
+                   "<(ns)munder>$+$n<(ns)mstyle scriptlevel='-1'><(ns)mo>&$#x21BD;</(ns)mo></(ns)mstyle>$n"
+                   "#2$-$n</(ns)munder>$n#1$-$n</(ns)munderover>$n";
+
+// ------ upper only text slots
+
+// Right arrow with upper text slots 
+arrow         = "<(ns)mover>$+$n<(ns)mo>&$#x2192;</(ns)mo>$n#1$-$n</(ns)mover>$n";
+
+// Left arrow with upper text slots 
+arrow/l       = "<(ns)mover>$+$n<(ns)mo>&$#x2190;</(ns)mo>$n#1$-$n</(ns)mover>$n";
+
+// Double-headed arrow arrow with upper text slots 
+arrow/lr      = "<(ns)mover>$+$n<(ns)mo>&$#x2194;</(ns)mo>$n#1$-$n</(ns)mover>$n";
+
+// Double arrow with upper text slot 
+arrow/2       = "<(ns)mover>$+$n<(ns)mo>&$#x21C4;</(ns)mo>$n#1$-$n</(ns)mover>$n";
+
+// Large over small arrow with upper text slot 
+arrow/2/los   = "<(ns)mover>$+$n<(ns)munder accentunder='true'>$+$n"
+                "<(ns)mstyle scriptlevel='-1'><(ns)mo>&$#x2192;</(ns)mo></(ns)mstyle>$n"
+                "<(ns)mstyle scriptlevel='+1'><(ns)mo>&$#x2190;</(ns)mo></(ns)mstyle>$-$n"
+                "</(ns)munder>$n#1$-$n</(ns)mover>$n";
+
+// Small over large arrow with upper text slot 
+arrow/2/sol   = "<(ns)mover>$+$n<(ns)munder accentunder='true'>$+$n"
+                "<(ns)mstyle scriptlevel='+1'><(ns)mo>&$#x2192;</(ns)mo></(ns)mstyle>$n"
+                "<(ns)mstyle scriptlevel='-1'><(ns)mo>&$#x2190;</(ns)mo></(ns)mstyle>$-$n"
+                "</(ns)munder>$n#1$-$n</(ns)mover>$n";
+
+// Harpoons with upper text slot 
+arrow/2/h     = "<(ns)mover>$+$n<(ns)mo>&$#x21CC;</(ns)mo>$n#1$-$n</(ns)mover>$n";
+
+// Large over small harpoon with upper text slot 
+arrow/2/h/los = "<(ns)mover>$+$n<(ns)munder accentunder='true'>$+$n"
+                "<(ns)mstyle scriptlevel='-1'><(ns)mo>&$#x21C0;</(ns)mo></(ns)mstyle>$n"
+                "<(ns)mstyle scriptlevel='+1'><(ns)mo>&$#x21BD;</(ns)mo></(ns)mstyle>$-$n"
+                "</(ns)munder>$n#1$-$n</(ns)mover>$n";
+
+// Small over large harpoon with upper text slot 
+arrow/2/h/sol = "<(ns)mover>$+$n<(ns)munder accentunder='true'>$+$n"
+                "<(ns)mstyle scriptlevel='+1'><(ns)mo>&$#x21C0;</(ns)mo></(ns)mstyle>$n"
+                "<(ns)mstyle scriptlevel='-1'><(ns)mo>&$#x21BD;</(ns)mo></(ns)mstyle>$-$n"
+                "</(ns)munder>$n#1$-$n</(ns)mover>$n";
+
+// ------ lower only text slots
+
+// Right arrow with lower text slots 
+arrow/b       = "<(ns)munder>$+$n<(ns)mo>&$#x2192;</(ns)mo>$n#2$-$n</(ns)munder>$n";
+
+// Left arrow with lower text slots 
+arrow/l/b     = "<(ns)munder>$+$n<(ns)mo>&$#x2190;</(ns)mo>$n#2$-$n</(ns)munder>$n";
+
+// Double-headed arrow arrow with lower text slots 
+arrow/lr/b    = "<(ns)munder>$+$n<(ns)mo>&$#x2194;</(ns)mo>$n#2$-$n</(ns)munder>$n";
+
+// Double arrow with lower text slot 
+arrow/2/b     = "<(ns)munder>$+$n<(ns)mo>&$#x21C4;</(ns)mo>$n#2$-$n</(ns)munder>$n";
+
+// Large over small arrow with lower text slot 
+arrow/2/los/b = "<(ns)munder>$+$n<(ns)munder accentunder='true'>$+$n"
+                "<(ns)mstyle scriptlevel='-1'><(ns)mo>&$#x2192;</(ns)mo></(ns)mstyle>$n"
+                "<(ns)mstyle scriptlevel='+1'><(ns)mo>&$#x2190;</(ns)mo></(ns)mstyle>$-$n"
+                "</(ns)munder>$n#2$-$n</(ns)munder>$n";
+
+// Small over large arrow with lower text slot 
+arrow/2/sol/b = "<(ns)munder>$+$n<(ns)munder accentunder='true'>$+$n"
+                "<(ns)mstyle scriptlevel='+1'><(ns)mo>&$#x2192;</(ns)mo></(ns)mstyle>$n"
+                "<(ns)mstyle scriptlevel='-1'><(ns)mo>&$#x2190;</(ns)mo></(ns)mstyle>$-$n"
+                "</(ns)munder>$n#2$-$n</(ns)munder>$n";
+
+// Harpoons with lower text slot 
+arrow/2/h/b   = "<(ns)munder>$+$n<(ns)mo>&$#x21CC;</(ns)mo>$n#2$-$n</(ns)munder>$n";
+
+// Large over small harpoon with lower text slot 
+arrow/2/h/los/b = "<(ns)munder>$+$n<(ns)munder accentunder='true'>$+$n"
+                  "<(ns)mstyle scriptlevel='-1'><(ns)mo>&$#x21C0;</(ns)mo></(ns)mstyle>$n"
+                  "<(ns)mstyle scriptlevel='+1'><(ns)mo>&$#x21BD;</(ns)mo></(ns)mstyle>$-$n"
+                  "</(ns)munder>$n#2$-$n</(ns)munder>$n";
+
+// Small over large harpoon with lower text slot 
+arrow/2/h/sol/b = "<(ns)munder>$+$n<(ns)munder accentunder='true'>$+$n"
+                  "<(ns)mstyle scriptlevel='+1'><(ns)mo>&$#x21C0;</(ns)mo></(ns)mstyle>$n"
+                  "<(ns)mstyle scriptlevel='-1'><(ns)mo>&$#x21BD;</(ns)mo></(ns)mstyle>$-$n"
+                  "</(ns)munder>$n#2$-$n</(ns)munder>$n";
+
+// =====================================================
+// Products and Coproducts
+// =====================================================
+
+prod/nol     = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mo>&$#x220F;</(ns)mo> #1"
+               "$-$n</(ns)mstyle>";     
+
+// product, lower limit only 
+prod/b       = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)munder>$+$n<(ns)mo>&$#x220F;</(ns)mo>$n#2$-$n</(ns)munder>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// product, both limits 
+prod         = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)munderover>$+$n<(ns)mo>&$#x220F;</(ns)mo>$n#2$n#3$-$n</(ns)munderover>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// product (integral-style), lower limit only
+prod/int/b   = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)msub>$-$n<(ns)mo>&$#x220F;</(ns)mo>$n#2$-$n</(ns)msub>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// product (integral-style), both limits 
+prod/int     = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)msubsup>$-$n<(ns)mo>&$#x220F;</(ns)mo>$n#2$n#3$-$n</(ns)msubsup>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// coproduct, no limits 
+coprod/nol   = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)mo>&$#x2210;</(ns)mo> #1"
+               "$-$n</(ns)mstyle>";     
+
+// coproduct, lower limit only 
+coprod/b     = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)munder>$+$n<(ns)mo>&$#x2210;</(ns)mo>$n#2$-$n</(ns)munder>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// coproduct, both limits 
+coprod       = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)munderover>$+$n<(ns)mo>&$#x2210;</(ns)mo>$n#2$n#3$-$n</(ns)munderover>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// coproduct (integral-style), lower limit only
+coprod/int/b = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)msub>$+$n<(ns)mo>&$#x2210;</(ns)mo>$n#2$-$n</(ns)msub>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// coproduct (integral-style), both limits 
+coprod/int   = "<(ns)mstyle displaystyle='true'>$+$n"
+               "<(ns)msubsup>$+$n<(ns)mo>&$#x2210;</(ns)mo>$n#2$n#3$-$n</(ns)msubsup>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// =====================================================
+// Unions and Intersections
+// =====================================================
+
+// intersection, no limits 
+inter/nol   = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)mo>&$#x2229;</(ns)mo> #1"
+               "$-$n</(ns)mstyle>";     
+
+// intersection, lower limit only 
+inter/b     = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)munder>$+$n<(ns)mo>&$#x2229;</(ns)mo>$n#2$-$n</(ns)munder>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// intersection, both limits 
+inter       = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)munderover>$+$n<(ns)mo>&$#x2229;</(ns)mo>$n#2$n#3$-$n</(ns)munderover>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// intersection (integral-style), lower limit only 
+inter/int/b = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)msub>$+$n<(ns)mo>&$#x2229;</(ns)mo>$n#2$-$n</(ns)msub>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// intersection (integral-style), both limits 
+inter/int   = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)msubsup>$+$n<(ns)mo>&$#x2229;</(ns)mo>$n#2$n#3$-$n</(ns)msubsup>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// union, no limits 
+union/nol   = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)mo>&$#x222A;</(ns)mo> #1"
+               "$-$n</(ns)mstyle>";     
+
+// union, lower limit only 
+union/b     = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)munder>$+$n<(ns)mo>&$#x222A;</(ns)mo>$n#2$-$n</(ns)munder>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// union, both limits 
+union       = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)munderover>$+$n<(ns)mo>&$#x222A;</(ns)mo>$n#2$n#3$-$n</(ns)munderover>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// union (integral-style), lower limit only 
+union/int/b = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)msub>$+$n<(ns)mo>&$#x222A;</(ns)mo>$n#2$-$n</(ns)msub>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+// union (integral-style), both limits 
+union/int   = "<(ns)mstyle displaystyle='true'>$+$n"
+              "<(ns)msubsup>$+$n<(ns)mo>&$#x222A;</(ns)mo>$n#2$n#3$-$n</(ns)msubsup>$n#1"
+               "$-$n</(ns)mstyle>";     
+
+
+// =====================================================
+// Boxes
+// =====================================================
+
+// Box 
+box    = "<(ns)menclose notation='box'>$+$n#1$-$n</(ns)menclose>$n";    
+box/tl = "<(ns)menclose notation='top left'>$+$n#1$-$n</(ns)menclose>$n";   // Box (top & left sides) &boxul;
+box/tr = "<(ns)menclose notation='actuarial'>$+$n#1$-$n</(ns)menclose>$n";   // Box (top & right sides) &boxur;
+box/bl = "<(ns)menclose notation='bottom left'>$+$n#1$-$n</(ns)menclose>$n";   // Box (bottom & left sides) &boxdl;
+box/br = "<(ns)menclose notation='bottom right'>$+$n#1$-$n</(ns)menclose>$n";   // Box (bottom & right sides) &boxdr;
+
+// =====================================================
+// Embellishment Translations
+// =====================================================
+
+edot        = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x02D9;</(ns)mo>$-$n</(ns)mover>$n";
+edot/2      = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x00A8;</(ns)mo>$-$n</(ns)mover>$n";
+edot/3      = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x20DB;</(ns)mo>$-$n</(ns)mover>$n";
+edot/4      = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x20DC;</(ns)mo>$-$n</(ns)mover>$n";
+
+edot/u      = "<(ns)munder>$+$n#$n<(ns)mo>&$#x02D9;</(ns)mo>$-$n</(ns)munder>$n";
+edot/u/2    = "<(ns)munder>$+$n#$n<(ns)mo>&$#x00A8;</(ns)mo>$-$n</(ns)munder>$n";
+edot/u/3    = "<(ns)munder>$+$n#$n<(ns)mo>&$#x20DB;</(ns)mo>$-$n</(ns)munder>$n";
+edot/u/4    = "<(ns)munder>$+$n#$n<(ns)mo>&$#x20DC;</(ns)mo>$-$n</(ns)munder>$n";
+
+eprime      = "<(ns)msup>$+$n#$n<(ns)mo>&$#x2032;</(ns)mo>$-$n</(ns)msup>$n";
+eprime/2    = "<(ns)msup>$+$n#$n<(ns)mo>&$#x2033;</(ns)mo>$-$n</(ns)msup>$n";
+eprime/3    = "<(ns)msup>$+$n#$n<(ns)mo>&$#x2034;</(ns)mo>$-$n</(ns)msup>$n";
+eprime/b    = "<(ns)mmultiscripts>$+$n#$n<(ns)mprescripts(mprescriptsclose)$n<(ns)none(noneclose)$n"
+              "<(ns)mo>&$#x2035;</(ns)mo>$-$n</(ns)mmultiscripts>$n";
+
+etilde      = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x02DC;</(ns)mo>$-$n</(ns)mover>$n";
+etilde/u    = "<(ns)munder accentunder='true'>$+$n#$n<(ns)mo>&$#x02DC;</(ns)mo>$-$n</(ns)munder>$n";
+
+ehat        = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x005E;</(ns)mo>$-$n</(ns)mover>$n";
+
+evec        = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x2192;</(ns)mo>$-$n</(ns)mover>$n";
+evec/l      = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x2190;</(ns)mo>$-$n</(ns)mover>$n";
+evec/lr     = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x2194;</(ns)mo>$-$n</(ns)mover>$n";
+evec/h      = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x21C0;</(ns)mo>$-$n"
+              "</(ns)mover>$n";
+evec/h/l    = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x21BC;</(ns)mo>$-$n"
+              "</(ns)mover>$n";
+
+evec/u      = "<(ns)munder>$+$n#$n<(ns)mo>&$#x2192;</(ns)mo>$-$n"
+              "</(ns)munder>$n";
+evec/u/l    = "<(ns)munder>$+$n#$n<(ns)mo>&$#x2190;</(ns)mo>$-$n</(ns)munder>$n";
+evec/u/lr   = "<(ns)munder>$+$n#$n<(ns)mo>&$#x2194;</(ns)mo>$-$n</(ns)munder>$n";
+evec/u/h    = "<(ns)munder>$+$n#$n<(ns)mo>&$#x21C1;</(ns)mo>$-$n</(ns)munder>$n";
+evec/u/h/l  = "<(ns)munder>$+$n#$n<(ns)mo>&$#x21BD;</(ns)mo>$-$n</(ns)munder>$n";
+
+eobar       = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x00AF;</(ns)mo>$-$n</(ns)mover>$n";
+eubar       = "<(ns)munder accentunder='true'>$+$n#$n<(ns)mo>_</(ns)mo>$-$n"
+              "</(ns)munder>$n";
+
+earc        = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x2322;</(ns)mo>$-$n</(ns)mover>$n";
+earc/u      = "<(ns)munder accentunder='true'>$+$n#$n<(ns)mo>&$#x2322;</(ns)mo>$-$n"
+              "</(ns)munder>$n";
+earc/s      = "<(ns)mover accent='true'>$+$n#$n<(ns)mo>&$#x2323;</(ns)mo>$-$n</(ns)mover>$n";
+earc/u/s    = "<(ns)munder accentunder='true'>$+$n#$n<(ns)mo>&$#x2323;</(ns)mo>$-$n</(ns)munder>$n";
+
+enot = "<(ns)menclose notation='updiagonalstrike'>$+$n#$-$n</(ns)menclose>$n";  
+estrike = "<(ns)menclose notation='updiagonalstrike downdiagonalstrike'>$+$n#$-$n</(ns)menclose>$n";   
+estrike/m = "<(ns)menclose notation='horizontalstrike'>$+$n#$-$n</(ns)menclose>$n";
+estrike/up = "<(ns)menclose notation='updiagonalstrike'>$+$n#$-$n</(ns)menclose>$n";
+estrike/dn = "<(ns)menclose notation='downdiagonalstrike'>$+$n#$-$n</(ns)menclose>$n";
+
+
+// =====================================================
+// Function Translations
+// =====================================================
+
+func/"Im"       = "<(ns)mi>Im</(ns)mi>(appfunc)";
+func/"Pr"       = "<(ns)mi>Pr</(ns)mi>(appfunc)";
+func/"Re"       = "<(ns)mi>Re</(ns)mi>(appfunc)";
+func/"arg"      = "<(ns)mi>arg</(ns)mi>(appfunc)";
+func/"sin"      = "<(ns)mi>sin</(ns)mi>(appfunc)";
+func/"cos"      = "<(ns)mi>cos</(ns)mi>(appfunc)";
+func/"tan"      = "<(ns)mi>tan</(ns)mi>(appfunc)";
+func/"sec"      = "<(ns)mi>sec</(ns)mi>(appfunc)";
+func/"csc"      = "<(ns)mi>csc</(ns)mi>(appfunc)";
+func/"cot"      = "<(ns)mi>cot</(ns)mi>(appfunc)";
+func/"arcsin"   = "<(ns)mi>arcsin</(ns)mi>(appfunc)";
+func/"arccos"   = "<(ns)mi>arccos</(ns)mi>(appfunc)";
+func/"arctan"   = "<(ns)mi>arctan</(ns)mi>(appfunc)";
+func/"arcsec"   = "<(ns)mi>arcsec</(ns)mi>(appfunc)";
+func/"arccsc"   = "<(ns)mi>arccsc</(ns)mi>(appfunc)";
+func/"arccot"   = "<(ns)mi>arccot</(ns)mi>(appfunc)";
+func/"sinh"     = "<(ns)mi>sinh</(ns)mi>(appfunc)";
+func/"cosh"     = "<(ns)mi>cosh</(ns)mi>(appfunc)";
+func/"tanh"     = "<(ns)mi>tanh</(ns)mi>(appfunc)";
+func/"sech"     = "<(ns)mi>sech</(ns)mi>(appfunc)";
+func/"csch"     = "<(ns)mi>csch</(ns)mi>(appfunc)";
+func/"coth"     = "<(ns)mi>coth</(ns)mi>(appfunc)";
+func/"arcsinh"  = "<(ns)mi>arcsinh</(ns)mi>(appfunc)";
+func/"arccosh"  = "<(ns)mi>arccosh</(ns)mi>(appfunc)";
+func/"arctanh"  = "<(ns)mi>arctanh</(ns)mi>(appfunc)";
+func/"arcsech"  = "<(ns)mi>arcsech</(ns)mi>(appfunc)";
+func/"arccsch"  = "<(ns)mi>arccsch</(ns)mi>(appfunc)";
+func/"arccoth"  = "<(ns)mi>arccoth</(ns)mi>(appfunc)";
+func/"cov"      = "<(ns)mi>cov</(ns)mi>(appfunc)";
+func/"deg"      = "<(ns)mi>deg</(ns)mi>(appfunc)";
+func/"det"      = "<(ns)mi>det</(ns)mi>(appfunc)";
+func/"dim"      = "<(ns)mi>dim</(ns)mi>(appfunc)";
+func/"exp"      = "<(ns)mi>exp</(ns)mi>(appfunc)";
+func/"gcd"      = "<(ns)mi>gcd</(ns)mi>(appfunc)";
+func/"glb"      = "<(ns)mi>glb</(ns)mi>(appfunc)";
+func/"hom"      = "<(ns)mi>hom</(ns)mi>(appfunc)";
+func/"inf"      = "<(ns)mi>inf</(ns)mi>(appfunc)";
+func/"int"      = "<(ns)mi>int</(ns)mi>(appfunc)";
+func/"ker"      = "<(ns)mi>ker</(ns)mi>(appfunc)";
+func/"ln"       = "<(ns)mi>ln</(ns)mi>(appfunc)";
+func/"lg"       = "<(ns)mi>lg</(ns)mi>(appfunc)";
+func/"lim"      = "<(ns)mi>lim</(ns)mi>(appfunc)";
+func/"log"      = "<(ns)mi>log</(ns)mi>(appfunc)";
+func/"lub"      = "<(ns)mi>lub</(ns)mi>(appfunc)";
+func/"max"      = "<(ns)mi>max</(ns)mi>(appfunc)";
+func/"min"      = "<(ns)mi>min</(ns)mi>(appfunc)";
+func/"mod"      = "<(ns)mi>mod</(ns)mi>(appfunc)";
+func/"sgn"      = "<(ns)mi>sgn</(ns)mi>(appfunc)";
+func/"sup"      = "<(ns)mi>sup</(ns)mi>(appfunc)";
+func/"var"      = "<(ns)mi>var</(ns)mi>(appfunc)";
+
+
+    
+
+// ======================================================================
+// character translations
+// ======================================================================
+
+// We include all the named MathML chars defined in the spec here. 
+// We also include many other Unicode characters of interest to math
+// both from the MathML 2.0 spec and elsewhere, translated as numerical
+// references
+
+// Many of the characters below will fail in current implementations...
+
+// Note that roman letters and numerals have several specialized
+// character translations, so that within <(ns)mtext> and <(ns)mn> tags,
+// individual characters and numerals are not further wrapped in
+// token tags.
+
+// Translation order is:
+//    - look for translation rule for char for current mode
+//    - look for translation rule for char for no mode
+//    - use default translation rule
+
+// Textmode translations cannot contain <mo>, <mi>, <mn> ... (only <mglyph> allowed),
+// so translations using these tags must be explicitly labeled mathmode.
+
+char/0x0000/0x0008 = error "Character not currently supported: (FullDesc)";
+                                                               // range: C0 Controls
+char/0x0000/0x0008/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: C0 Controls
+char/0x0009/mathmode = "<(ns)mtext>&$#x(CharHex);</(ns)mtext>"; // HORIZONTAL TABULATION
+char/0x000A/mathmode = "<(ns)mtext>&$#x(CharHex);</(ns)mtext>"; // LINE FEED
+char/0x000B/0x001F = error "Character not currently supported: (FullDesc)";
+                                                               // range: C0 Controls
+char/0x000B/0x001F/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: C0 Controls
+char/0x0020/textmode = "&$#x00A0;";                            // SPACE
+char/0x0021/mathmode = "<(ns)mo>(Char)</(ns)mo>";              // EXCLAMATION MARK
+char/0x0021/textmode = "(Char)";                               // EXCLAMATION MARK
+char/0x0022/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";      // QUOTATION MARK
+char/0x0023/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";      // NUMBER SIGN
+char/0x0023/textmode = "(Char)";                               // NUMBER SIGN
+char/0x0024/textmode = "(Char)";                               // DOLLAR SIGN
+char/0x0025/textmode = "(Char)";                               // PERCENT SIGN
+char/0x0026/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";      // AMPERSAND
+char/0x0027/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";      // APOSTROPHE
+char/0x0027/textmode = "(Char)";                               // APOSTROPHE
+char/0x0028/mathmode = "<(ns)mo stretchy='false'>(Char)</(ns)mo>";
+                                                               // LEFT PARENTHESIS
+char/0x0028/textmode = "(Char)";                               // LEFT PARENTHESIS
+char/0x0029/mathmode = "<(ns)mo stretchy='false'>(Char)</(ns)mo>";  
+                                                               // RIGHT PARENTHESIS
+char/0x0029/textmode = "(Char)";                               // RIGHT PARENTHESIS
+char/0x002A/mathmode = "<(ns)mo>(Char)</(ns)mo>";              // ASTERISK
+char/0x002A/textmode = "(Char)";                               // ASTERISK
+char/0x002B/mathmode = "<(ns)mo>(Char)</(ns)mo>";              // PLUS SIGN
+char/0x002B/textmode = "(Char)";                               // PLUS SIGN
+char/0x002C/mathmode = "<(ns)mo>(Char)</(ns)mo>";              // COMMA
+char/0x002C/textmode = "(Char)";                               // COMMA
+char/0x002C/"number" = "(Char)";                               // COMMA
+char/0x002D/mathmode = "<(ns)mo>(Char)</(ns)mo>";              // HYPHEN-MINUS
+char/0x002D/textmode = "(Char)";                               // HYPHEN-MINUS
+char/0x002E/mathmode = "<(ns)mo>(Char)</(ns)mo>";              // FULL STOP
+char/0x002E/"number" = "(Char)";                               // FULL STOP
+char/0x002E/textmode = "(Char)";                               // FULL STOP
+char/0x002F/mathmode = "<(ns)mo>(Char)</(ns)mo>";              // SOLIDUS
+char/0x002F/textmode = "(Char)";                               // SOLIDUS
+char/0x0030/0x0039/mathmode = "<(ns)mn>(Char)</(ns)mn>";       // (range) DIGITS 0-9
+char/0x0030/0x0039/"number" = "(Char)";                        // (range) DIGITS 0-9
+char/0x0030/0x0039/textmode = "(Char)";                        // (range) DIGITS 0-9
+char/0x003A/0x003B/mathmode = "<(ns)mo>(Char)</(ns)mo>";       // (range) COLON, SEMICOLON
+char/0x003A/0x003B/textmode = "(Char)";                        // (range) COLON, SEMICOLON
+char/0x003C/mathmode = "<(ns)mo>&$#x003C;</(ns)mo>";           // LESS-THAN SIGN
+char/0x003D/mathmode = "<(ns)mo>(Char)</(ns)mo>";              // EQUALS SIGN
+char/0x003D/textmode = "(Char)";                               // EQUALS SIGN
+char/0x003E/mathmode = "<(ns)mo>&$#x003E;</(ns)mo>";           // GREATER-THAN SIGN
+char/0x003F/mathmode = "<(ns)mo>(Char)</(ns)mo>";              // QUESTION MARK
+char/0x003F/textmode = "(Char)";                               // QUESTION MARK
+char/0x0040/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";      // COMMERCIAL AT
+char/0x0040/textmode = "(Char)";                               // COMMERCIAL AT
+char/0x0041/0x005A/mathmode = "<(ns)mi>(Char)</(ns)mi>";       // range: Basic Latin
+char/0x0041/0x005A/textmode = "(Char)";                        // range: Basic Latin
+char/0x005B/mathmode = "<(ns)mo stretchy='false'>(Char)</(ns)mo>";
+                                                               // LEFT SQUARE BRACKET
+char/0x005B/textmode = "(Char)";                               // LEFT SQUARE BRACKET
+char/0x005C/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";      // REVERSE SOLIDUS
+char/0x005D/mathmode = "<(ns)mo stretchy='false'>(Char)</(ns)mo>";
+                                                               // RIGHT SQUARE BRACKET
+char/0x005D/textmode = "(Char)";                               // RIGHT SQUARE BRACKET
+char/0x005E/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";      // CIRCUMFLEX ACCENT
+char/0x005F/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";      // LOW LINE
+char/0x0060/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";      // GRAVE ACCENT
+char/0x0061/0x007A/mathmode = "<(ns)mi>(Char)</(ns)mi>";       // range: Basic Latin
+char/0x0061/0x007A/textmode = "(Char)";                        // range: Basic Latin
+char/0x007B/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";      // LEFT CURLY BRACKET
+char/0x007C/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";      // VERTICAL LINE
+char/0x007D/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";      // RIGHT CURLY BRACKET
+char/0x007E/mathmode = "<(ns)mo>(Char)</(ns)mo>";              // TILDE
+char/0x007F = error "Character not currently supported: (FullDesc)";
+                                                               // DELETE
+char/0x007F/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // DELETE
+char/0x0080/0x009F = error "Character not currently supported: (FullDesc)";
+                                                               // range: C1 Controls
+char/0x0080/0x009F/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: C1 Controls
+char/0x00A0/0x00B0/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Latin-1 Supplement
+char/0x00B1/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Latin-1 Supplement
+char/0x00B2/0x00BB/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Latin-1 Supplement
+char/0x00BC/0x00BE/mathmode = "<(ns)mn>&$#x(CharHex);</(ns)mn>";        // range: Latin-1 Supplement
+char/0x00BF/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";               // INVERTED QUESTION MARK
+char/0x00D7/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";               // MULTIPLICATION SIGN
+char/0x00F7/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";               // DIVISION SIGN
+char/0x02C6/0x02FF/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Spacing Modifier Letters
+char/0x0300/0x036F/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Combining Diacritical Marks
+char/0x2000/0x200B/mathmode = "<(ns)mtext>&$#x(CharHex);</(ns)mtext>";  // range: Spaces
+char/0x200C/0x200F/mathmode = error "Character not currently supported: (FullDesc)";
+                                                                        // range: Formatting Characters
+char/0x200C/0x200F/textmode = error "Character not currently supported: (FullDesc)";
+                                                                        // range: Formatting Characters
+char/0x2010/0x2027/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: General Punctuation
+char/0x2028/0x202F/mathmode = error "Character not currently supported: (FullDesc)";
+                                                                        // range: Formatting Characters
+char/0x2028/0x202F/textmode = error "Character not currently supported: (FullDesc)";
+                                                                        // range: Formatting Characters
+char/0x2030/0x2069/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: General Punctuation
+char/0x206A/0x206F/mathmode = error "Character not currently supported: (FullDesc)";
+                                                                        // range: Deprecated
+char/0x206A/0x206F/textmode = error "Character not currently supported: (FullDesc)";
+                                                                        // range: Deprecated
+char/0x2070/0x209F/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Superscripts and Subscripts
+char/0x20A0/0x20CF/mathmode = "<(ns)mi>&$#x(CharHex);</(ns)mi>";        // range: Currency Symbols
+char/0x20D0/0x20FF/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Combining Diacritical Marks for Symbols
+char/0x2100/0x2101/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Letterlike Symbols 
+char/0x2102/mathmode = "<(ns)mi>&$#x(CharHex);</(ns)mi>";               // DOUBLE-STRUCK CAPITAL C
+char/0x2103/0x210A/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Letterlike Symbols 
+char/0x2116/0x2117/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Letterlike Symbols
+char/0x213C/0x2146/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Letterlike Symbols
+char/0x2150/0x218F/mathmode = "<(ns)mn>&$#x(CharHex);</(ns)mn>";        // range: Number Forms
+char/0x2190/0x21FF/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Arrows
+char/0x2200/0x2211/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Mathematical Operators
+// skipped minus sign, it needs special translation in some MathML translators
+char/0x2213/0x221D/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Mathematical Operators
+char/0x221F/0x22FF/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Mathematical Operators
+char/0x2300/0x23FF/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Miscellaneous Technical
+char/0x2400/0x243F/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Control Pictures
+char/0x2500/0x257F/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Box Drawing
+char/0x2580/0x259F/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Block Elements
+char/0x25A0/0x25FF/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Geometric Shapes
+char/0x2600/0x267F/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Miscellaneous Symbols
+char/0x2700/0x27BF/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Dingbats
+char/0x27F0/0x27FF/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Supplemental Arrows-A
+char/0x2900/0x297F/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Supplemental Arrows-B
+char/0x2980/0x29AF/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Miscellaneous Mathematical Symbols-B
+char/0x29B1/0x29DB/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Miscellaneous Mathematical Symbols-B
+char/0x29DD/0x29FF/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Miscellaneous Mathematical Symbols-B
+char/0x2A00/0x2AFF/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: Supplemental Mathematical Operators
+char/0x3000/0x303F/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: CJK Symbols and Punctuation
+
+// ------------   Unicode Private Use Area -------------------------
+//
+// The following block of characters are in the Unicode Private Use Area,
+// and are used internally by MathType.  Some of the characters in this block 
+// have been assigned official Unicode codepoints and MathML entity names.
+// starting with Unicode 3.2/MathML 2.0.  However, for backward compatibility 
+// older MathType equations, the internal MathType representation has not 
+// changed, and thus we need these rules even though many of these characters
+// also have rules using the official codepoints as well.
+                            
+char/0xE000/0xE900/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE000/0xE900/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE901/mathmode = "<(ns)mo>&$#x2A72;</(ns)mo>";           // PLUS ABOVE EQUALS
+char/0xE901/textmode = "&$#x2A72;";                            // PLUS ABOVE EQUALS
+char/0xE902/mathmode = "<(ns)mo>&$#x2A71;</(ns)mo>";           // PLUS BELOW EQUALS
+char/0xE902/textmode = "&$#x2A71;";                            // PLUS BELOW EQUALS
+char/0xE903/mathmode = "<(ns)mo>&$#x2A26;</(ns)mo>";           // PLUS ABOVE TILDE
+char/0xE903/textmode = "&$#x2A26;";                            // PLUS ABOVE TILDE
+char/0xE904/mathmode = "<(ns)mo>&$#x2A24;</(ns)mo>";           // PLUS BELOW TILDE
+char/0xE904/textmode = "&$#x2A24;";                            // PLUS BELOW TILDE
+char/0xE905/0xE90A/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE905/0xE90A/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE90B/mathmode = "<(ns)mo>&$#x2287;</(ns)mo>";           // SUPERSET OF OR EQUAL TO (DOUBLE)
+char/0xE90B/textmode = "&$#x2287;";                            // SUPERSET OF OR EQUAL TO (DOUBLE)
+char/0xE90C/mathmode = "<(ns)mo>&$#x2286;</(ns)mo>";           // SUBSET OF OR EQUAL TO (DOUBLE)
+char/0xE90C/textmode = "&$#x2286;";                            // SUBSET OF OR EQUAL TO (DOUBLE)
+char/0xE90D/0xE921/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE90D/0xE921/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE922/mathmode = "<(ns)mo>&$#x22DA;</(ns)mo>";           // LESS-THAN EQUAL TO (DOUBLE) OR GREATER-THAN
+char/0xE922/textmode = "&$#x22DA;";                            // LESS-THAN EQUAL TO (DOUBLE) OR GREATER-THAN
+char/0xE923/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // EQUIVALENT TO OR GREATER-THAN 
+char/0xE923/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // EQUIVALENT TO OR GREATER-THAN 
+char/0xE924/mathmode = "<(ns)mo>&$#x2A6A;</(ns)mo>";           // TILDE WITH DOT
+char/0xE924/textmode = "&$#x2A6A;";                            // TILDE WITH DOT
+char/0xE925/mathmode = "<(ns)mover accent='true'><(ns)mo>&$#x223B;</(ns)mo><(ns)mo>&$#x00A8;</(ns)mo></(ns)mover>";
+                                                               // TILDE WITH TWO DOTS
+char/0xE925/textmode = error "Character not currently supported in Text Style: (FullDesc)";
+                                                               // TILDE WITH TWO DOTS
+char/0xE926/0xE92C/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE926/0xE92C/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE92D/mathmode = "<(ns)mo>&$#x22DB;</(ns)mo>";           // GREATER-THAN EQUAL TO (DOUBLE) OR LESS-THAN
+char/0xE92D/textmode = "&$#x22DB;";                            // GREATER-THAN EQUAL TO (DOUBLE) OR LESS-THAN
+char/0xE92E/0xE931/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE92E/0xE931/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE932/mathmode = "<(ns)mo>&$#x2272;</(ns)mo>";           // LESS-THAN OR APPROXIMATELY EQUAL TO
+char/0xE932/textmode = "&$#x2272;";                            // LESS-THAN OR APPROXIMATELY EQUAL TO
+char/0xE933/mathmode = "<(ns)mo>&$#x2273;</(ns)mo>";           // GREATER-THAN OR APPROXIMATELY EQUAL TO
+char/0xE933/textmode = "&$#x2273;";                            // GREATER-THAN OR APPROXIMATELY EQUAL TO
+char/0xE934/0xE939/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE934/0xE939/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE93A/mathmode = "<(ns)mo>&$#x227E;</(ns)mo>";           // PRECEDES OR EQUIVALENT TO (DOUBLE)
+char/0xE93A/textmode = "&$#x227E;";                            // PRECEDES OR EQUIVALENT TO (DOUBLE)
+char/0xE93B/mathmode = "<(ns)mo>&$#x227F;</(ns)mo>";           // SUCCEEDS OR EQUIVALENT TO (DOUBLE)
+char/0xE93B/textmode = "&$#x227F;";                            // SUCCEEDS OR EQUIVALENT TO (DOUBLE)
+char/0xE93C/0xE98E/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE93C/0xE98E/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE98F/mathmode = "<(ns)mo>&$#x00B7;</(ns)mo>";           // MEDIUM DOT OPERATOR (FREE RADICAL)
+char/0xE98F/textmode = "&$#x00B7;";                            // MEDIUM DOT OPERATOR (FREE RADICAL)
+char/0xE990/0xEA05/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xE990/0xEA05/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEA06/mathmode = "<(ns)mo>&$#x2270;</(ns)mo>";           // NOT LESS-THAN OR EQUAL TO (DOUBLE)
+char/0xEA06/textmode = "&$#x2270;";                            // NOT LESS-THAN OR EQUAL TO (DOUBLE)
+char/0xEA07/mathmode = "<(ns)mo>&$#x2271;</(ns)mo>";           // NOT GREATER-THAN OR EQUAL TO (DOUBLE)
+char/0xEA07/textmode = "&$#x2271;";                            // NOT GREATER-THAN OR EQUAL TO (DOUBLE)
+char/0xEA08/0xEA0A/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEA08/0xEA0A/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEA0B/mathmode = "<(ns)mo>&$#x2289;</(ns)mo>";           // NEITHER SUPERSET OF NOR EQUAL TO (DOUBLE)
+char/0xEA0B/textmode = "&$#x2289;";                            // NEITHER SUPERSET OF NOR EQUAL TO (DOUBLE)
+char/0xEA0C/mathmode = "<(ns)mo>&$#x2288;</(ns)mo>";           // NEITHER SUBSET OF NOR EQUAL TO (DOUBLE)
+char/0xEA0C/textmode = "&$#x2288;";                            // NEITHER SUBSET OF NOR EQUAL TO (DOUBLE)
+char/0xEA0D/0xEA31/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEA0D/0xEA31/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEA32/mathmode = "<(ns)mo>&$#x2A89;</(ns)mo>";           // LESS-THAN BUT NOT APPROXIMATELY EQUAL TO
+char/0xEA32/textmode = "&$#x2A89;";                            // LESS-THAN BUT NOT APPROXIMATELY EQUAL TO
+char/0xEA33/mathmode = "<(ns)mo>&$#x2A8A;</(ns)mo>";           // GREATER-THAN BUT NOT APPROXIMATELY EQUAL TO
+char/0xEA33/textmode = "&$#x2A8A;";                            // GREATER-THAN BUT NOT APPROXIMATELY EQUAL TO
+char/0xEA34/mathmode = "<(ns)mo>&$#x2268;</(ns)mo>";           // LESS-THAN OR NOT EQUAL TO (SINGLE)
+char/0xEA34/textmode = "&$#x2268;";                            // LESS-THAN OR NOT EQUAL TO (SINGLE)
+char/0xEA35/mathmode = "<(ns)mo>&$#x2269;</(ns)mo>";           // GREATER-THAN OR NOT EQUAL TO (SINGLE)
+char/0xEA35/textmode = "&$#x2269;";                            // GREATER-THAN OR NOT EQUAL TO (SINGLE)
+char/0xEA36/0xEA39/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEA36/0xEA39/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEA3A/mathmode = "<(ns)mo>&$#x22E8;</(ns)mo>";           // PRECEDES BUT NOT EQUIVALENT TO (DOUBLE)
+char/0xEA3A/textmode = "&$#x22E8;";                            // PRECEDES BUT NOT EQUIVALENT TO (DOUBLE)
+char/0xEA3B/mathmode = "<(ns)mo>&$#x22E9;</(ns)mo>";           // SUCCEEDS BUT NOT EQUIVALENT TO (DOUBLE)
+char/0xEA3B/textmode = "&$#x22E9;";                            // SUCCEEDS BUT NOT EQUIVALENT TO (DOUBLE)
+char/0xEA3C/0xEA3F/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEA3C/0xEA3F/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEA40/mathmode = "<(ns)mo>&$#x2AB5;</(ns)mo>";           // PRECEDES BUT NOT EQUAL TO (DOUBLE)
+char/0xEA40/textmode = "&$#x2AB5;";                            // PRECEDES BUT NOT EQUAL TO (DOUBLE)
+char/0xEA41/mathmode = "<(ns)mo>&$#x2AB6;</(ns)mo>";           // SUCCEEDS BUT NOT EQUAL TO (DOUBLE)
+char/0xEA41/textmode = "&$#x2AB6;";                            // SUCCEEDS BUT NOT EQUAL TO (DOUBLE)
+char/0xEA42/mathmode = "<(ns)mo>&$#x2288;</(ns)mo>";           // NOT SUBSET OF NOR EQUAL TO
+char/0xEA42/textmode = "&$#x2288;";                            // NOT SUBSET OF NOR EQUAL TO
+char/0xEA43/mathmode = "<(ns)mo>&$#x2289;</(ns)mo>";           // NOT SUPERSET OF NOR EQUAL TO
+char/0xEA43/textmode = "&$#x2289;";                            // NOT SUPERSET OF NOR EQUAL TO
+char/0xEA44/mathmode = "<(ns)mo>&$#x228A;</(ns)mo>";           // SUBSET OF OR NOT EQUAL TO (DOUBLE)
+char/0xEA44/textmode = "&$#x228A;";                            // SUBSET OF OR NOT EQUAL TO (DOUBLE)
+char/0xEA45/mathmode = "<(ns)mo>&$#x228B;</(ns)mo>";           // SUPERSET OF OR NOT EQUAL TO (DOUBLE)
+char/0xEA45/textmode = "&$#x228B;";                            // SUPERSET OF OR NOT EQUAL TO (DOUBLE)
+char/0xEA46/0xEB00/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEA46/0xEB00/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEB01/mathmode = "<(ns)mo>&$#x2942;</(ns)mo>";                    // RIGHTWARDS ARROW ABOVE SHORT LEFTWARDS ARROW
+char/0xEB02/mathmode = "<(ns)mo>&$#x2944;</(ns)mo>";                    // SHORT RIGHTWARDS ARROW ABOVE LEFTWARDS ARROW
+char/0xEB03/0xEB04/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEB03/0xEB04/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEB05/mathmode = "<(ns)mo>&$#x2922;</(ns)mo>";                    // DOUBLE ARROW NORTHEAST SOUTHWEST
+char/0xEB06/mathmode = "<(ns)mo>&$#x2921;</(ns)mo>";                    // DOUBLE ARROW NORTHWEST SOUTHEAST
+char/0xEB07/0xED09/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEB07/0xED09/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+// the hole in between these two ranges is addressed in the files that include this one
+char/0xED14/0xED15/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xED14/0xED15/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+// the hole in between these two ranges is addressed in the files that include this one
+char/0xED17/0xEE03/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xED17/0xEE03/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEE04/mathmode = "<(ns)mo stretchy='true'>&$#x02DC;</(ns)mo>";    // COMBINING TILDE TWO SPACE
+char/0xEE05/mathmode = "<(ns)mo stretchy='true'>&$#x02DC;</(ns)mo>";    // COMBINING TILDE THREE SPACE
+char/0xEE06/mathmode = "<(ns)mo stretchy='true'>&$#x02DC;</(ns)mo>";    // COMBINING TILDE FOUR SPACE
+char/0xEE07/mathmode = "<(ns)mo stretchy='true'>&$#x005E;</(ns)mo>";    // COMBINING CIRCUMFLEX TWO SPACE
+char/0xEE08/mathmode = "<(ns)mo stretchy='true'>&$#x005E;</(ns)mo>";    // COMBINING CIRCUMFLEX THREE SPACE
+char/0xEE09/mathmode = "<(ns)mo stretchy='true'>&$#x005E;</(ns)mo>";    // COMBINING CIRCUMFLEX FOUR SPACE
+char/0xEE0A/mathmode = "<(ns)mo stretchy='true'>&$#x2322;</(ns)mo>";    // COMBINING ARC TWO SPACE
+char/0xEE0B/mathmode = "<(ns)mo stretchy='true'>&$#x2322;</(ns)mo>";    // COMBINING ARC THREE SPACE
+char/0xEE0C/mathmode = "<(ns)mo stretchy='true'>&$#x2322;</(ns)mo>";    // COMBINING ARC FOUR SPACE
+char/0xEE04/0xEE0C/textmode = error "Character not currently supported in Text Style: (FullDesc)";
+                                                               // range (COMBINING xxxx)
+
+char/0xEE0D/0xEE18/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEE0D/0xEE18/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEE19/mathmode = "<(ns)mo>&$#x2057;</(ns)mo>";           // QUADRUPLE PRIME
+char/0xEE19/textmode = "&$#x2057;";                            // QUADRUPLE PRIME
+char/0xEE1A/0xEEFF/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xEE1A/0xEEFF/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+
+// Spaces, etc.
+
+char/0xEF00/mathmode = "<(ns)malignmark(malignmarkclose)";			// ALIGNMENT MARK
+char/0xEF00/textmode = "<(ns)malignmark(malignmarkclose)";			// ALIGNMENT MARK
+char/0xEF01/mathmode = "<(ns)mtext>&$#x200B;</(ns)mtext>";	// MT ZERO SPACE
+char/0xEF01/textmode = "&$#x200B;";				// MT ZERO SPACE
+char/0xEF02/mathmode = "<(ns)mtext>&$#x2009;</(ns)mtext>";	// MT THIN SPACE
+char/0xEF02/textmode = "&$#x2009;";				// MT THIN SPACE
+char/0xEF03/mathmode = "<(ns)mtext>&$#x205F;</(ns)mtext>";	// MT MEDIUM SPACE
+char/0xEF03/textmode = "&$#x205F;";				// MT MEDIUM SPACE
+char/0xEF04/mathmode = "<(ns)mtext>&$#x2009;</(ns)mtext>";
+								// MT THICK SPACE
+char/0xEF04/textmode = "&$#x2009;";				// MT THICK SPACE
+char/0xEF05/mathmode = "<(ns)mtext>&$#x2003;</(ns)mtext>";	// MT EM SPACE
+char/0xEF05/textmode = "&$#x2003;";				// MT EM SPACE
+char/0xEF06/mathmode = "<(ns)mtext>&$#x2003;&$#x2003;</(ns)mtext>"; // MT 2 EM SPACE
+char/0xEF06/textmode = "&$#x2003;&$#x2003;";			// MT 2 EM SPACE
+char/0xEF07/mathmode = error "Character not currently supported: (FullDesc)";
+								// range: Private Use Area
+char/0xEF07/textmode = error "Character not currently supported: (FullDesc)";
+								// range: Private Use Area
+char/0xEF08/mathmode = "<(ns)mtext>&$#x200A;</(ns)mtext>";	// MT 1 POINT SPACE
+char/0xEF08/textmode = "&$#x200A;";				// MT 1 POINT SPACE
+
+char/0xEF09/0xEFFF/mathmode = error "Character not currently supported: (FullDesc)";
+                                                                // range: Private Use Area
+char/0xEF09/0xEFFF/textmode = error "Character not currently supported: (FullDesc)";
+                                                                // range: Private Use Area
+
+// Named characters with plane 1 unicodes
+// The codes here are internal mathtype codes, not the official
+// unicodes (except for the ones that are commented, which 
+// have already appeared somewhere in the list above this and are
+// not used by MathType.)
+
+// Fraktur alphabet
+
+// An error is generated if Fraktur characters are entered as text because the individual character
+// translations for text cannot insert a mathvariant parameter into their containing <mtext> tag.
+
+char/0xF000/0xF033/textmode = error "Character not supported in Text Style: (FullDesc)";
+                                                               // range: Private Use Area
+
+char/0xF000/mathmode = "<(ns)mi mathvariant='fraktur'>A</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL A
+char/0xF001/mathmode = "<(ns)mi mathvariant='fraktur'>B</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL B
+// char/0x212D/mathmode = "<(ns)mi>&$#x212D;</(ns)mi>";                 // MATHEMATICAL FRAKTUR CAPITAL C
+char/0xF002/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xF003/mathmode = "<(ns)mi mathvariant='fraktur'>D</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL D
+char/0xF004/mathmode = "<(ns)mi mathvariant='fraktur'>E</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL E
+char/0xF005/mathmode = "<(ns)mi mathvariant='fraktur'>F</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL F
+char/0xF006/mathmode = "<(ns)mi mathvariant='fraktur'>G</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL G
+// char/0x210C/mathmode = "<(ns)mi>&$#x210C;</(ns)mi>";                 // MATHEMATICAL FRAKTUR CAPITAL H
+char/0xF007/mathmode = error "Character not currently supported: (FullDesc)";
+// char/0x2111/mathmode = "<(ns)mi>&$#x2111;</(ns)mi>";                 // MATHEMATICAL FRAKTUR CAPITAL I
+char/0xF008/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF009/mathmode = "<(ns)mi mathvariant='fraktur'>J</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL J
+char/0xF00A/mathmode = "<(ns)mi mathvariant='fraktur'>K</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL K
+char/0xF00B/mathmode = "<(ns)mi mathvariant='fraktur'>L</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL L
+char/0xF00C/mathmode = "<(ns)mi mathvariant='fraktur'>M</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL M
+char/0xF00D/mathmode = "<(ns)mi mathvariant='fraktur'>N</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL N
+char/0xF00E/mathmode = "<(ns)mi mathvariant='fraktur'>O</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL O
+char/0xF00F/mathmode = "<(ns)mi mathvariant='fraktur'>P</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL P
+char/0xF010/mathmode = "<(ns)mi mathvariant='fraktur'>Q</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL Q
+// char/0x211C/mathmode = "<(ns)mi>&$#x211C;</(ns)mi>";                 // MATHEMATICAL FRAKTUR CAPITAL R
+char/0xF011/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF012/mathmode = "<(ns)mi mathvariant='fraktur'>S</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL S
+char/0xF013/mathmode = "<(ns)mi mathvariant='fraktur'>T</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL T
+char/0xF014/mathmode = "<(ns)mi mathvariant='fraktur'>U</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL U
+char/0xF015/mathmode = "<(ns)mi mathvariant='fraktur'>V</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL V
+char/0xF016/mathmode = "<(ns)mi mathvariant='fraktur'>W</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL W
+char/0xF017/mathmode = "<(ns)mi mathvariant='fraktur'>X</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL X
+char/0xF018/mathmode = "<(ns)mi mathvariant='fraktur'>Y</(ns)mi>";      // MATHEMATICAL FRAKTUR CAPITAL Y
+// char/0x2128/mathmode = "<(ns)mi>&$#x2128;</(ns)mi>";                 // MATHEMATICAL FRAKTUR CAPITAL Z
+char/0xF019/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF01A/mathmode = "<(ns)mi mathvariant='fraktur'>a</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL A
+char/0xF01B/mathmode = "<(ns)mi mathvariant='fraktur'>b</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL B
+char/0xF01C/mathmode = "<(ns)mi mathvariant='fraktur'>c</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL C
+char/0xF01D/mathmode = "<(ns)mi mathvariant='fraktur'>d</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL D
+char/0xF01E/mathmode = "<(ns)mi mathvariant='fraktur'>e</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL E
+char/0xF01F/mathmode = "<(ns)mi mathvariant='fraktur'>f</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL F
+char/0xF020/mathmode = "<(ns)mi mathvariant='fraktur'>g</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL G
+char/0xF021/mathmode = "<(ns)mi mathvariant='fraktur'>h</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL H
+char/0xF022/mathmode = "<(ns)mi mathvariant='fraktur'>i</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL I
+char/0xF023/mathmode = "<(ns)mi mathvariant='fraktur'>j</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL J
+char/0xF024/mathmode = "<(ns)mi mathvariant='fraktur'>k</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL K
+char/0xF025/mathmode = "<(ns)mi mathvariant='fraktur'>l</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL L
+char/0xF026/mathmode = "<(ns)mi mathvariant='fraktur'>m</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL M
+char/0xF027/mathmode = "<(ns)mi mathvariant='fraktur'>n</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL N
+char/0xF028/mathmode = "<(ns)mi mathvariant='fraktur'>o</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL O
+char/0xF029/mathmode = "<(ns)mi mathvariant='fraktur'>p</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL P
+char/0xF02A/mathmode = "<(ns)mi mathvariant='fraktur'>q</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL Q
+char/0xF02B/mathmode = "<(ns)mi mathvariant='fraktur'>r</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL R
+char/0xF02C/mathmode = "<(ns)mi mathvariant='fraktur'>s</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL S
+char/0xF02D/mathmode = "<(ns)mi mathvariant='fraktur'>t</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL T
+char/0xF02E/mathmode = "<(ns)mi mathvariant='fraktur'>u</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL U
+char/0xF02F/mathmode = "<(ns)mi mathvariant='fraktur'>v</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL V
+char/0xF030/mathmode = "<(ns)mi mathvariant='fraktur'>w</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL W
+char/0xF031/mathmode = "<(ns)mi mathvariant='fraktur'>x</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL X
+char/0xF032/mathmode = "<(ns)mi mathvariant='fraktur'>y</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL Y
+char/0xF033/mathmode = "<(ns)mi mathvariant='fraktur'>z</(ns)mi>";      // MATHEMATICAL FRAKTUR SMALL Z
+
+char/0xF034/0xF07F/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xF034/0xF07F/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+
+// Blackboard Bold Roman alphabet
+
+// An error is generated if Blackboard Bold characters are entered as text because the individual 
+// character translations for text cannot insert a mathvariant parameter into their containing 
+// <mtext> tag.
+
+char/0xF080/0xF0B3/textmode = error "Character not supported in Text Style: (FullDesc)";
+                                                               // range: Private Use Area
+
+char/0xF080/mathmode = "<(ns)mi mathvariant='double-struck'>A</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL A
+char/0xF081/mathmode = "<(ns)mi mathvariant='double-struck'>B</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL B
+// char/0x2102/mathmode = "<(ns)mi>&$#x2102;</(ns)mi>";                 // MATHEMATICAL DOUBLE-STRUCK CAPITAL C
+char/0xF082/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF083/mathmode = "<(ns)mi mathvariant='double-struck'>D</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL D
+char/0xF084/mathmode = "<(ns)mi mathvariant='double-struck'>E</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL E
+char/0xF085/mathmode = "<(ns)mi mathvariant='double-struck'>F</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL F
+char/0xF086/mathmode = "<(ns)mi mathvariant='double-struck'>G</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL G
+// char/0x210D/mathmode = "<(ns)mi>&$#x210D;</(ns)mi>";                 // MATHEMATICAL DOUBLE-STRUCK CAPITAL H
+char/0xF087/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF088/mathmode = "<(ns)mi mathvariant='double-struck'>I</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL I
+char/0xF089/mathmode = "<(ns)mi mathvariant='double-struck'>J</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL J
+char/0xF08A/mathmode = "<(ns)mi mathvariant='double-struck'>K</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL K
+char/0xF08B/mathmode = "<(ns)mi mathvariant='double-struck'>L</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL L
+char/0xF08C/mathmode = "<(ns)mi mathvariant='double-struck'>M</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL M
+// char/0x2115/mathmode = "<(ns)mi>&$#x2115;</(ns)mi>";                 // MATHEMATICAL DOUBLE-STRUCK CAPITAL N
+char/0xF08D/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF08E/mathmode = "<(ns)mi mathvariant='double-struck'>O</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL O
+// char/0x2119/mathmode = "<(ns)mi>&$#x2119;</(ns)mi>";                 // MATHEMATICAL DOUBLE-STRUCK CAPITAL P
+char/0xF08F/mathmode = error "Character not currently supported: (FullDesc)";
+// char/0x211A/mathmode = "<(ns)mi>&$#x211A;</(ns)mi>";                 // MATHEMATICAL DOUBLE-STRUCK CAPITAL Q
+char/0xF090/mathmode = error "Character not currently supported: (FullDesc)";
+// char/0x211D/mathmode = "<(ns)mi>&$#x211D;</(ns)mi>";                 // MATHEMATICAL DOUBLE-STRUCK CAPITAL R
+char/0xF091/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF092/mathmode = "<(ns)mi mathvariant='double-struck'>S</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL S
+char/0xF093/mathmode = "<(ns)mi mathvariant='double-struck'>T</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL T
+char/0xF094/mathmode = "<(ns)mi mathvariant='double-struck'>U</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL U
+char/0xF095/mathmode = "<(ns)mi mathvariant='double-struck'>V</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL V
+char/0xF096/mathmode = "<(ns)mi mathvariant='double-struck'>W</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL W
+char/0xF097/mathmode = "<(ns)mi mathvariant='double-struck'>X</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL X
+char/0xF098/mathmode = "<(ns)mi mathvariant='double-struck'>Y</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK CAPITAL Y
+// char/0x2124/mathmode = "<(ns)mi>&$#x2124;</(ns)mi>";                 // MATHEMATICAL DOUBLE-STRUCK CAPITAL Z
+char/0xF099/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF09A/mathmode = "<(ns)mi mathvariant='double-struck'>a</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL A
+char/0xF09B/mathmode = "<(ns)mi mathvariant='double-struck'>b</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL B
+char/0xF09C/mathmode = "<(ns)mi mathvariant='double-struck'>c</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL C
+char/0xF09D/mathmode = "<(ns)mi mathvariant='double-struck'>d</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL D
+char/0xF09E/mathmode = "<(ns)mi mathvariant='double-struck'>e</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL E
+char/0xF09F/mathmode = "<(ns)mi mathvariant='double-struck'>f</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL F
+char/0xF0A0/mathmode = "<(ns)mi mathvariant='double-struck'>g</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL G
+char/0xF0A1/mathmode = "<(ns)mi mathvariant='double-struck'>h</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL H
+char/0xF0A2/mathmode = "<(ns)mi mathvariant='double-struck'>i</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL I
+char/0xF0A3/mathmode = "<(ns)mi mathvariant='double-struck'>j</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL J
+char/0xF0A4/mathmode = "<(ns)mi mathvariant='double-struck'>k</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL K
+char/0xF0A5/mathmode = "<(ns)mi mathvariant='double-struck'>l</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL L
+char/0xF0A6/mathmode = "<(ns)mi mathvariant='double-struck'>m</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL M
+char/0xF0A7/mathmode = "<(ns)mi mathvariant='double-struck'>n</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL N
+char/0xF0A8/mathmode = "<(ns)mi mathvariant='double-struck'>o</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL O
+char/0xF0A9/mathmode = "<(ns)mi mathvariant='double-struck'>p</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL P
+char/0xF0AA/mathmode = "<(ns)mi mathvariant='double-struck'>q</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL Q
+char/0xF0AB/mathmode = "<(ns)mi mathvariant='double-struck'>r</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL R
+char/0xF0AC/mathmode = "<(ns)mi mathvariant='double-struck'>s</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL S
+char/0xF0AD/mathmode = "<(ns)mi mathvariant='double-struck'>t</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL T
+char/0xF0AE/mathmode = "<(ns)mi mathvariant='double-struck'>u</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL U
+char/0xF0AF/mathmode = "<(ns)mi mathvariant='double-struck'>v</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL V
+char/0xF0B0/mathmode = "<(ns)mi mathvariant='double-struck'>w</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL W
+char/0xF0B1/mathmode = "<(ns)mi mathvariant='double-struck'>x</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL X
+char/0xF0B2/mathmode = "<(ns)mi mathvariant='double-struck'>y</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL Y
+char/0xF0B3/mathmode = "<(ns)mi mathvariant='double-struck'>z</(ns)mi>";// MATHEMATICAL DOUBLE-STRUCK SMALL Z
+
+char/0xF0B4/0xF0BF/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xF0B4/0xF0BF/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+
+// An error is generated if Blackboard Bold characters are entered as text because the individual 
+// character translations for text cannot insert a mathvariant parameter into their containing 
+// <mtext> tag.
+char/0xF0C0/0xF0C9/textmode = error "Character not supported in Text Style: (FullDesc)";
+                                                               // range: Private Use Area
+
+char/0xF0C0/mathmode = "<(ns)mn mathvariant='double-struck'>0</(ns)mn>"; // BLACKBOARD-BOLD DIGIT ZERO
+char/0xF0C1/mathmode = "<(ns)mn mathvariant='double-struck'>1</(ns)mn>"; // BLACKBOARD-BOLD DIGIT ONE
+char/0xF0C2/mathmode = "<(ns)mn mathvariant='double-struck'>2</(ns)mn>"; // BLACKBOARD-BOLD DIGIT TWO
+char/0xF0C3/mathmode = "<(ns)mn mathvariant='double-struck'>3</(ns)mn>"; // BLACKBOARD-BOLD DIGIT THREE
+char/0xF0C4/mathmode = "<(ns)mn mathvariant='double-struck'>4</(ns)mn>"; // BLACKBOARD-BOLD DIGIT FOUR
+char/0xF0C5/mathmode = "<(ns)mn mathvariant='double-struck'>5</(ns)mn>"; // BLACKBOARD-BOLD DIGIT FIVE
+char/0xF0C6/mathmode = "<(ns)mn mathvariant='double-struck'>6</(ns)mn>"; // BLACKBOARD-BOLD DIGIT SIX
+char/0xF0C7/mathmode = "<(ns)mn mathvariant='double-struck'>7</(ns)mn>"; // BLACKBOARD-BOLD DIGIT SEVEN
+char/0xF0C8/mathmode = "<(ns)mn mathvariant='double-struck'>8</(ns)mn>"; // BLACKBOARD-BOLD DIGIT EIGHT
+char/0xF0C9/mathmode = "<(ns)mn mathvariant='double-struck'>9</(ns)mn>"; // BLACKBOARD-BOLD DIGIT NINE
+
+char/0xF0CA/0xF0FF/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xF0CA/0xF0FF/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+
+// Script alphabet
+
+// An error is generated if Blackboard Bold characters are entered as text because the individual 
+// character translations for text cannot insert a mathvariant parameter into their containing 
+// <mtext> tag.
+char/0xF100/0xF133/textmode = error "Character not supported in Text Style: (FullDesc)";
+                                                               // range: Private Use Area
+
+char/0xF100/mathmode = "<(ns)mi mathvariant='script'>A</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL A
+char/0x212C/mathmode = "<(ns)mi mathvariant='script'>B</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL B
+char/0xF101/mathmode = "<(ns)mi mathvariant='script'>B</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL B
+// char/0xF101/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF102/mathmode = "<(ns)mi mathvariant='script'>C</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL C
+char/0xF103/mathmode = "<(ns)mi mathvariant='script'>D</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL D
+char/0x2130/mathmode = "<(ns)mi mathvariant='script'>E</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL E
+char/0xF104/mathmode = "<(ns)mi mathvariant='script'>E</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL E
+// char/0xF104/mathmode = error "Character not currently supported: (FullDesc)";
+char/0x2131/mathmode = "<(ns)mi mathvariant='script'>F</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL F
+char/0xF105/mathmode = "<(ns)mi mathvariant='script'>F</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL F
+// char/0xF105/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF106/mathmode = "<(ns)mi mathvariant='script'>G</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL G
+char/0x210B/mathmode = "<(ns)mi mathvariant='script'>H</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL H
+char/0xF107/mathmode = "<(ns)mi mathvariant='script'>H</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL H
+// char/0xF107/mathmode = error "Character not currently supported: (FullDesc)";
+char/0x2110/mathmode = "<(ns)mi mathvariant='script'>I</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL I
+char/0xF108/mathmode = "<(ns)mi mathvariant='script'>I</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL I
+// char/0xF108/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF109/mathmode = "<(ns)mi mathvariant='script'>J</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL J
+char/0xF10A/mathmode = "<(ns)mi mathvariant='script'>K</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL K
+char/0x2112/mathmode = "<(ns)mi mathvariant='script'>L</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL L
+char/0xF10B/mathmode = "<(ns)mi mathvariant='script'>L</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL L
+// char/0xF10B/mathmode = error "Character not currently supported: (FullDesc)";
+char/0x2133/mathmode = "<(ns)mi mathvariant='script'>M</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL M
+char/0xF10C/mathmode = "<(ns)mi mathvariant='script'>M</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL M
+// char/0xF10C/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF10D/mathmode = "<(ns)mi mathvariant='script'>N</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL N
+char/0xF10E/mathmode = "<(ns)mi mathvariant='script'>O</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL O
+char/0x2118/mathmode = "<(ns)mi>&$#x2118;</(ns)mi>";                    // Weierstrass Elliptic Function
+// char/0x2118/mathmode = "<(ns)mi>&$#x1D4AB;</(ns)mi>";                // MATHEMATICAL SCRIPT CAPITAL P
+char/0xF10F/mathmode = "<(ns)mi mathvariant='script'>P</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL P
+// char/0xF10F/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF110/mathmode = "<(ns)mi mathvariant='script'>Q</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL Q
+char/0x211B/mathmode = "<(ns)mi mathvariant='script'>R</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL R
+char/0xF111/mathmode = "<(ns)mi mathvariant='script'>R</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL R
+// char/0xF111/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF112/mathmode = "<(ns)mi mathvariant='script'>S</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL S
+char/0xF113/mathmode = "<(ns)mi mathvariant='script'>T</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL T
+char/0xF114/mathmode = "<(ns)mi mathvariant='script'>U</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL U
+char/0xF115/mathmode = "<(ns)mi mathvariant='script'>V</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL V
+char/0xF116/mathmode = "<(ns)mi mathvariant='script'>W</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL W
+char/0xF117/mathmode = "<(ns)mi mathvariant='script'>X</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL X
+char/0xF118/mathmode = "<(ns)mi mathvariant='script'>Y</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL Y
+char/0xF119/mathmode = "<(ns)mi mathvariant='script'>Z</(ns)mi>";       // MATHEMATICAL SCRIPT CAPITAL Z
+char/0xF11A/mathmode = "<(ns)mi mathvariant='script'>a</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL A
+char/0xF11B/mathmode = "<(ns)mi mathvariant='script'>b</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL B
+char/0xF11C/mathmode = "<(ns)mi mathvariant='script'>c</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL C
+char/0xF11D/mathmode = "<(ns)mi mathvariant='script'>d</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL D
+char/0xF11E/mathmode = "<(ns)mi mathvariant='script'>e</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL E
+char/0x212F/mathmode = "<(ns)mi mathvariant='script'>e</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL E
+// char/0xF11E/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF11F/mathmode = "<(ns)mi mathvariant='script'>f</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL F
+char/0x210A/mathmode = "<(ns)mi mathvariant='script'>g</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL G
+char/0xF120/mathmode = "<(ns)mi mathvariant='script'>g</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL G
+// char/0xF120/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF121/mathmode = "<(ns)mi mathvariant='script'>h</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL H
+char/0xF122/mathmode = "<(ns)mi mathvariant='script'>i</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL I
+char/0xF123/mathmode = "<(ns)mi mathvariant='script'>j</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL J
+char/0xF124/mathmode = "<(ns)mi mathvariant='script'>k</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL K
+char/0x2113/mathmode = "<(ns)mi mathvariant='script'>l</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL L
+char/0xF125/mathmode = "<(ns)mi mathvariant='script'>l</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL L
+// char/0xF125/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF126/mathmode = "<(ns)mi mathvariant='script'>m</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL M
+char/0xF127/mathmode = "<(ns)mi mathvariant='script'>n</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL N
+char/0x2134/mathmode = "<(ns)mi mathvariant='script'>o</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL O
+char/0xF128/mathmode = "<(ns)mi mathvariant='script'>o</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL O
+// char/0xF128/mathmode = error "Character not currently supported: (FullDesc)";
+char/0xF129/mathmode = "<(ns)mi mathvariant='script'>p</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL P
+char/0xF12A/mathmode = "<(ns)mi mathvariant='script'>q</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL Q
+char/0xF12B/mathmode = "<(ns)mi mathvariant='script'>r</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL R
+char/0xF12C/mathmode = "<(ns)mi mathvariant='script'>s</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL S
+char/0xF12D/mathmode = "<(ns)mi mathvariant='script'>t</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL T
+char/0xF12E/mathmode = "<(ns)mi mathvariant='script'>u</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL U
+char/0xF12F/mathmode = "<(ns)mi mathvariant='script'>v</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL V
+char/0xF130/mathmode = "<(ns)mi mathvariant='script'>w</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL W
+char/0xF131/mathmode = "<(ns)mi mathvariant='script'>x</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL X
+char/0xF132/mathmode = "<(ns)mi mathvariant='script'>y</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL Y
+char/0xF133/mathmode = "<(ns)mi mathvariant='script'>z</(ns)mi>";       // MATHEMATICAL SCRIPT SMALL Z
+
+char/0xF134/0xF8FF/mathmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+char/0xF134/0xF8FF/textmode = error "Character not currently supported: (FullDesc)";
+                                                               // range: Private Use Area
+
+// ------------   Unicode Private Use Area ends here-------------------------
+
+char/0xFB00/0xFB4F/mathmode = "<(ns)mtext>&$#x(CharHex);</(ns)mtext>";  // range: Alphabetic Presentation Forms
+
+char/0xFE35/0xFE4F/mathmode = "<(ns)mo>&$#x(CharHex);</(ns)mo>";        // range: CJK Compatibility Forms
+
+char/0xFEFF/mathmode = "<(ns)mtext>&$#xFEFF;</(ns)mtext>";              // ZERO WIDTH NO-BREAK SPACE
+
+
+// -------------------- old stuff coming back
+char/0x2212/mathmode = "<(ns)mo>&$#x2212;</(ns)mo>";        
+
+char/0xED10/mathmode = "<(ns)mo>&$#x2146;</(ns)mo>";                    // DifferentialD
+char/0xED10/textmode = "&$#x2146;";							                  // DifferentialD
+char/0xED11/mathmode = "<(ns)mo>&$#x2147;</(ns)mo>";                    // ExponentialE
+char/0xED11/textmode = "&$#x2147;";							                  // ExponentialE
+char/0xED12/mathmode = "<(ns)mo>&$#x2148;</(ns)mo>";                    // ImaginaryI
+char/0xED12/textmode = "&$#x2148;";							                  // ImaginaryI
+char/0xED13/mathmode = "<(ns)mo>&$#x2149;</(ns)mo>";                    // ImaginaryJ
+char/0xED13/textmode = "&$#x2149;";							                  // ImaginaryJ
+char/0xED16/mathmode = "<(ns)mo>&$#x2145;</(ns)mo>";                    // CapitalDifferentialD
+char/0xED16/textmode = "&$#x2145;";							                  // CapitalDifferentialD
+

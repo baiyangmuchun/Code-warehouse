@@ -1,0 +1,311 @@
+// "HTML input(chars).tdl"
+
+// Copyright (c) 2007-2011 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/HTML input (chars).tdl 5     12/07/11 8:36p Eduardot $
+
+// ISO 8859-1 (Latin 1) characters -- HTMLlat1
+char?(char=='&') char?(char=='n') char?(char=='b') char?(char=='s') char?(char=='p') char?(char==';') => expr{type=160;}; //  -- no-break space = non-breaking space, U+00A0 ISOnum -->
+char?(char=='&') char?(char=='i') char?(char=='e') char?(char=='x') char?(char=='c') char?(char=='l') char?(char==';') => expr{type=161;}; //  -- inverted exclamation mark, U+00A1 ISOnum -->
+char?(char=='&') char?(char=='c') char?(char=='e') char?(char=='n') char?(char=='t') char?(char==';') => expr{type=162;}; //  -- cent sign, U+00A2 ISOnum -->
+char?(char=='&') char?(char=='p') char?(char=='o') char?(char=='u') char?(char=='n') char?(char=='d') char?(char==';') => expr{type=163;}; //  -- pound sign, U+00A3 ISOnum -->
+char?(char=='&') char?(char=='c') char?(char=='u') char?(char=='r') char?(char=='r') char?(char=='e') char?(char=='n') char?(char==';') => expr{type=164;}; //  -- currency sign, U+00A4 ISOnum -->
+char?(char=='&') char?(char=='y') char?(char=='e') char?(char=='n') char?(char==';') => expr{type=165;}; //  -- yen sign = yuan sign, U+00A5 ISOnum -->
+char?(char=='&') char?(char=='b') char?(char=='r') char?(char=='v') char?(char=='b') char?(char=='a') char?(char=='r') char?(char==';') => expr{type=166;}; //  -- broken bar = broken vertical bar, U+00A6 ISOnum -->
+char?(char=='&') char?(char=='s') char?(char=='e') char?(char=='c') char?(char=='t') char?(char==';') => expr{type=167;}; //  -- section sign, U+00A7 ISOnum -->
+char?(char=='&') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==';') => expr{type=168;}; //  -- diaeresis = spacing diaeresis,U+00A8 ISOdia -->
+char?(char=='&') char?(char=='c') char?(char=='o') char?(char=='p') char?(char=='y') char?(char==';') => expr{type=169;}; //  -- copyright sign, U+00A9 ISOnum -->
+char?(char=='&') char?(char=='o') char?(char=='r') char?(char=='d') char?(char=='f') char?(char==';') => expr{type=170;}; //  -- feminine ordinal indicator, U+00AA ISOnum -->
+char?(char=='&') char?(char=='l') char?(char=='a') char?(char=='q') char?(char=='u') char?(char=='o') char?(char==';') => expr{type=171;}; //  -- left-pointing double angle quotation mark U+00AB ISOnum -->
+char?(char=='&') char?(char=='n') char?(char=='o') char?(char=='t') char?(char==';') => expr{type=172;}; //  -- not sign, U+00AC ISOnum -->
+char?(char=='&') char?(char=='s') char?(char=='h') char?(char=='y') char?(char==';') => expr{type=173;}; //  -- soft hyphen = discretionary hyphen,U+00AD ISOnum -->
+char?(char=='&') char?(char=='r') char?(char=='e') char?(char=='g') char?(char==';') => expr{type=174;}; //  -- registered sign = registered trade mark sign,U+00AE ISOnum -->
+char?(char=='&') char?(char=='m') char?(char=='a') char?(char=='c') char?(char=='r') char?(char==';') => expr{type=175;}; //  -- macron = spacing macron = overline,U+00AF ISOdia -->
+char?(char=='&') char?(char=='d') char?(char=='e') char?(char=='g') char?(char==';') => expr{type=176;}; //  -- degree sign, U+00B0 ISOnum -->
+char?(char=='&') char?(char=='p') char?(char=='l') char?(char=='u') char?(char=='s') char?(char=='m') char?(char=='n') char?(char==';') => expr{type=177;}; //  -- plus-minus sign = plus-or-minus sign,U+00B1 ISOnum -->
+char?(char=='&') char?(char=='s') char?(char=='u') char?(char=='p') char?(char=='2') char?(char==';') => expr{type=178;}; //  -- superscript two = superscript digit two = squared, U+00B2 ISOnum -->
+char?(char=='&') char?(char=='s') char?(char=='u') char?(char=='p') char?(char=='3') char?(char==';') => expr{type=179;}; //  -- superscript three = superscript digit three = cubed, U+00B3 ISOnum -->
+char?(char=='&') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=180;}; //  -- acute accent = spacing acute,U+00B4 ISOdia -->
+char?(char=='&') char?(char=='m') char?(char=='i') char?(char=='c') char?(char=='r') char?(char=='o') char?(char==';') => expr{type=181;}; //  -- micro sign, U+00B5 ISOnum -->
+char?(char=='&') char?(char=='p') char?(char=='a') char?(char=='r') char?(char=='a') char?(char==';') => expr{type=182;}; //  -- pilcrow sign = paragraph sign,U+00B6 ISOnum -->
+char?(char=='&') char?(char=='m') char?(char=='i') char?(char=='d') char?(char=='d') char?(char=='o') char?(char=='t') char?(char==';') => expr{type=183;}; //  -- middle dot = Georgian comma = Greek middle dot, U+00B7 ISOnum -->
+char?(char=='&') char?(char=='c') char?(char=='e') char?(char=='d') char?(char=='i') char?(char=='l') char?(char==';') => expr{type=184;}; //  -- cedilla = spacing cedilla, U+00B8 ISOdia -->
+char?(char=='&') char?(char=='s') char?(char=='u') char?(char=='p') char?(char=='1') char?(char==';') => expr{type=185;}; //  -- superscript one = superscript digit one,U+00B9 ISOnum -->
+char?(char=='&') char?(char=='o') char?(char=='r') char?(char=='d') char?(char=='m') char?(char==';') => expr{type=186;}; //  -- masculine ordinal indicator,U+00BA ISOnum -->
+char?(char=='&') char?(char=='r') char?(char=='a') char?(char=='q') char?(char=='u') char?(char=='o') char?(char==';') => expr{type=187;}; //  -- right-pointing double angle quotation mark= right pointing guillemet, U+00BB ISOnum -->
+char?(char=='&') char?(char=='f') char?(char=='r') char?(char=='a') char?(char=='c') char?(char=='1') char?(char=='4') char?(char==';') => expr{type=188;}; //  -- vulgar fraction one quarter= fraction one quarter, U+00BC ISOnum -->
+char?(char=='&') char?(char=='f') char?(char=='r') char?(char=='a') char?(char=='c') char?(char=='1') char?(char=='2') char?(char==';') => expr{type=189;}; //  -- vulgar fraction one half= fraction one half, U+00BD ISOnum -->
+char?(char=='&') char?(char=='f') char?(char=='r') char?(char=='a') char?(char=='c') char?(char=='3') char?(char=='4') char?(char==';') => expr{type=190;}; //  -- vulgar fraction three quarters= fraction three quarters, U+00BE ISOnum -->
+char?(char=='&') char?(char=='i') char?(char=='q') char?(char=='u') char?(char=='e') char?(char=='s') char?(char=='t') char?(char==';') => expr{type=191;}; //  -- inverted question mark= turned question mark, U+00BF ISOnum -->
+char?(char=='&') char?(char=='A') char?(char=='g') char?(char=='r') char?(char=='a') char?(char=='v') char?(char=='e') char?(char==';') => expr{type=192;}; //  -- latin capital letter A with grave= latin capital letter A grave,U+00C0 ISOlat1 -->
+char?(char=='&') char?(char=='A') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=193;}; //  -- latin capital letter A with acute,U+00C1 ISOlat1 -->
+char?(char=='&') char?(char=='A') char?(char=='c') char?(char=='i') char?(char=='r') char?(char=='c') char?(char==';') => expr{type=194;}; //  -- latin capital letter A with circumflex,U+00C2 ISOlat1 -->
+char?(char=='&') char?(char=='A') char?(char=='t') char?(char=='i') char?(char=='l') char?(char=='d') char?(char=='e') char?(char==';') => expr{type=195;}; //  -- latin capital letter A with tilde,U+00C3 ISOlat1 -->
+char?(char=='&') char?(char=='A') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==';') => expr{type=196;}; //  -- latin capital letter A with diaeresis,U+00C4 ISOlat1 -->
+char?(char=='&') char?(char=='A') char?(char=='r') char?(char=='i') char?(char=='n') char?(char=='g') char?(char==';') => expr{type=197;}; //  -- latin capital letter A with ring above= latin capital letter A ring,U+00C5 ISOlat1 -->
+char?(char=='&') char?(char=='A') char?(char=='E') char?(char=='l') char?(char=='i') char?(char=='g') char?(char==';') => expr{type=198;}; //  -- latin capital letter AE= latin capital ligature AE,U+00C6 ISOlat1 -->
+char?(char=='&') char?(char=='C') char?(char=='c') char?(char=='e') char?(char=='d') char?(char=='i') char?(char=='l') char?(char==';') => expr{type=199;}; //  -- latin capital letter C with cedilla,U+00C7 ISOlat1 -->
+char?(char=='&') char?(char=='E') char?(char=='g') char?(char=='r') char?(char=='a') char?(char=='v') char?(char=='e') char?(char==';') => expr{type=200;}; //  -- latin capital letter E with grave,U+00C8 ISOlat1 -->
+char?(char=='&') char?(char=='E') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=201;}; //  -- latin capital letter E with acute,U+00C9 ISOlat1 -->
+char?(char=='&') char?(char=='E') char?(char=='c') char?(char=='i') char?(char=='r') char?(char=='c') char?(char==';') => expr{type=202;}; //  -- latin capital letter E with circumflex,U+00CA ISOlat1 -->
+char?(char=='&') char?(char=='E') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==';') => expr{type=203;}; //  -- latin capital letter E with diaeresis,U+00CB ISOlat1 -->
+char?(char=='&') char?(char=='I') char?(char=='g') char?(char=='r') char?(char=='a') char?(char=='v') char?(char=='e') char?(char==';') => expr{type=204;}; //  -- latin capital letter I with grave,U+00CC ISOlat1 -->
+char?(char=='&') char?(char=='I') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=205;}; //  -- latin capital letter I with acute,U+00CD ISOlat1 -->
+char?(char=='&') char?(char=='I') char?(char=='c') char?(char=='i') char?(char=='r') char?(char=='c') char?(char==';') => expr{type=206;}; //  -- latin capital letter I with circumflex,U+00CE ISOlat1 -->
+char?(char=='&') char?(char=='I') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==';') => expr{type=207;}; //  -- latin capital letter I with diaeresis,U+00CF ISOlat1 -->
+char?(char=='&') char?(char=='E') char?(char=='T') char?(char=='H') char?(char==';') => expr{type=208;}; //  -- latin capital letter ETH, U+00D0 ISOlat1 -->
+char?(char=='&') char?(char=='N') char?(char=='t') char?(char=='i') char?(char=='l') char?(char=='d') char?(char=='e') char?(char==';') => expr{type=209;}; //  -- latin capital letter N with tilde,U+00D1 ISOlat1 -->
+char?(char=='&') char?(char=='O') char?(char=='g') char?(char=='r') char?(char=='a') char?(char=='v') char?(char=='e') char?(char==';') => expr{type=210;}; //  -- latin capital letter O with grave,U+00D2 ISOlat1 -->
+char?(char=='&') char?(char=='O') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=211;}; //  -- latin capital letter O with acute,U+00D3 ISOlat1 -->
+char?(char=='&') char?(char=='O') char?(char=='c') char?(char=='i') char?(char=='r') char?(char=='c') char?(char==';') => expr{type=212;}; //  -- latin capital letter O with circumflex,U+00D4 ISOlat1 -->
+char?(char=='&') char?(char=='O') char?(char=='t') char?(char=='i') char?(char=='l') char?(char=='d') char?(char=='e') char?(char==';') => expr{type=213;}; //  -- latin capital letter O with tilde,U+00D5 ISOlat1 -->
+char?(char=='&') char?(char=='O') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==';') => expr{type=214;}; //  -- latin capital letter O with diaeresis,U+00D6 ISOlat1 -->
+char?(char=='&') char?(char=='t') char?(char=='i') char?(char=='m') char?(char=='e') char?(char=='s') char?(char==';') => expr{type=215;}; //  -- multiplication sign, U+00D7 ISOnum -->
+char?(char=='&') char?(char=='O') char?(char=='s') char?(char=='l') char?(char=='a') char?(char=='s') char?(char=='h') char?(char==';') => expr{type=216;}; //  -- latin capital letter O with stroke= latin capital letter O slash,U+00D8 ISOlat1 -->
+char?(char=='&') char?(char=='U') char?(char=='g') char?(char=='r') char?(char=='a') char?(char=='v') char?(char=='e') char?(char==';') => expr{type=217;}; //  -- latin capital letter U with grave,U+00D9 ISOlat1 -->
+char?(char=='&') char?(char=='U') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=218;}; //  -- latin capital letter U with acute,U+00DA ISOlat1 -->
+char?(char=='&') char?(char=='U') char?(char=='c') char?(char=='i') char?(char=='r') char?(char=='c') char?(char==';') => expr{type=219;}; //  -- latin capital letter U with circumflex,U+00DB ISOlat1 -->
+char?(char=='&') char?(char=='U') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==' ') char?(char==';') => expr{type=220;}; //  -- latin capital letter U with diaeresis,U+00DC ISOlat1 -->
+char?(char=='&') char?(char=='Y') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=221;}; //  -- latin capital letter Y with acute,U+00DD ISOlat1 -->
+char?(char=='&') char?(char=='T') char?(char=='H') char?(char=='O') char?(char=='R') char?(char=='N') char?(char==';') => expr{type=222;}; //  -- latin capital letter THORN,U+00DE ISOlat1 -->
+char?(char=='&') char?(char=='s') char?(char=='z') char?(char=='l') char?(char=='i') char?(char=='g') char?(char==';') => expr{type=223;}; //  -- latin small letter sharp s = ess-zed,U+00DF ISOlat1 -->
+char?(char=='&') char?(char=='a') char?(char=='g') char?(char=='r') char?(char=='a') char?(char=='v') char?(char=='e') char?(char==';') => expr{type=224;}; //  -- latin small letter a with grave= latin small letter a grave,U+00E0 ISOlat1 -->
+char?(char=='&') char?(char=='a') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=225;}; //  -- latin small letter a with acute,U+00E1 ISOlat1 -->
+char?(char=='&') char?(char=='a') char?(char=='c') char?(char=='i') char?(char=='r') char?(char=='c') char?(char==';') => expr{type=226;}; //  -- latin small letter a with circumflex,U+00E2 ISOlat1 -->
+char?(char=='&') char?(char=='a') char?(char=='t') char?(char=='i') char?(char=='l') char?(char=='d') char?(char=='e') char?(char==';') => expr{type=227;}; //  -- latin small letter a with tilde,U+00E3 ISOlat1 -->
+char?(char=='&') char?(char=='a') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==';') => expr{type=228;}; //  -- latin small letter a with diaeresis,U+00E4 ISOlat1 -->
+char?(char=='&') char?(char=='a') char?(char=='r') char?(char=='i') char?(char=='n') char?(char=='g') char?(char==';') => expr{type=229;}; //  -- latin small letter a with ring above= latin small letter a ring,U+00E5 ISOlat1 -->
+char?(char=='&') char?(char=='a') char?(char=='e') char?(char=='l') char?(char=='i') char?(char=='g') char?(char==';') => expr{type=230;}; //  -- latin small letter ae= latin small ligature ae, U+00E6 ISOlat1 -->
+char?(char=='&') char?(char=='c') char?(char=='c') char?(char=='e') char?(char=='d') char?(char=='i') char?(char=='l') char?(char==';') => expr{type=231;}; //  -- latin small letter c with cedilla,U+00E7 ISOlat1 -->
+char?(char=='&') char?(char=='e') char?(char=='g') char?(char=='r') char?(char=='a') char?(char=='v') char?(char=='e') char?(char==';') => expr{type=232;}; //  -- latin small letter e with grave,U+00E8 ISOlat1 -->
+char?(char=='&') char?(char=='e') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=233;}; //  -- latin small letter e with acute,U+00E9 ISOlat1 -->
+char?(char=='&') char?(char=='e') char?(char=='c') char?(char=='i') char?(char=='r') char?(char=='c') char?(char==';') => expr{type=234;}; //  -- latin small letter e with circumflex,U+00EA ISOlat1 -->
+char?(char=='&') char?(char=='e') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==';') => expr{type=235;}; //  -- latin small letter e with diaeresis,U+00EB ISOlat1 -->
+char?(char=='&') char?(char=='i') char?(char=='g') char?(char=='r') char?(char=='a') char?(char=='v') char?(char=='e') char?(char==';') => expr{type=236;}; //  -- latin small letter i with grave,U+00EC ISOlat1 -->
+char?(char=='&') char?(char=='i') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=237;}; //  -- latin small letter i with acute,U+00ED ISOlat1 -->
+char?(char=='&') char?(char=='i') char?(char=='c') char?(char=='i') char?(char=='r') char?(char=='c') char?(char==';') => expr{type=238;}; //  -- latin small letter i with circumflex,U+00EE ISOlat1 -->
+char?(char=='&') char?(char=='i') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==';') => expr{type=239;}; //  -- latin small letter i with diaeresis,U+00EF ISOlat1 -->
+char?(char=='&') char?(char=='e') char?(char=='t') char?(char=='h') char?(char==';') => expr{type=240;}; //  -- latin small letter eth, U+00F0 ISOlat1 -->
+char?(char=='&') char?(char=='n') char?(char=='t') char?(char=='i') char?(char=='l') char?(char=='d') char?(char=='e') char?(char==';') => expr{type=241;}; //  -- latin small letter n with tilde,U+00F1 ISOlat1 -->
+char?(char=='&') char?(char=='o') char?(char=='g') char?(char=='r') char?(char=='a') char?(char=='v') char?(char=='e') char?(char==';') => expr{type=242;}; //  -- latin small letter o with grave,U+00F2 ISOlat1 -->
+char?(char=='&') char?(char=='o') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=243;}; //  -- latin small letter o with acute,U+00F3 ISOlat1 -->
+char?(char=='&') char?(char=='o') char?(char=='c') char?(char=='i') char?(char=='r') char?(char=='c') char?(char==';') => expr{type=244;}; //  -- latin small letter o with circumflex,U+00F4 ISOlat1 -->
+char?(char=='&') char?(char=='o') char?(char=='t') char?(char=='i') char?(char=='l') char?(char=='d') char?(char=='e') char?(char==';') => expr{type=245;}; //  -- latin small letter o with tilde,U+00F5 ISOlat1 -->
+char?(char=='&') char?(char=='o') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==';') => expr{type=246;}; //  -- latin small letter o with diaeresis,U+00F6 ISOlat1 -->
+char?(char=='&') char?(char=='d') char?(char=='i') char?(char=='v') char?(char=='i') char?(char=='d') char?(char=='e') char?(char==';') => expr{type=247;}; //  -- division sign, U+00F7 ISOnum -->
+char?(char=='&') char?(char=='o') char?(char=='s') char?(char=='l') char?(char=='a') char?(char=='s') char?(char=='h') char?(char==';') => expr{type=248;}; //  -- latin small letter o with stroke,= latin small letter o slash,U+00F8 ISOlat1 -->
+char?(char=='&') char?(char=='u') char?(char=='g') char?(char=='r') char?(char=='a') char?(char=='v') char?(char=='e') char?(char==';') => expr{type=249;}; //  -- latin small letter u with grave,U+00F9 ISOlat1 -->
+char?(char=='&') char?(char=='u') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=250;}; //  -- latin small letter u with acute,U+00FA ISOlat1 -->
+char?(char=='&') char?(char=='u') char?(char=='c') char?(char=='i') char?(char=='r') char?(char=='c') char?(char==';') => expr{type=251;}; //  -- latin small letter u with circumflex,U+00FB ISOlat1 -->
+char?(char=='&') char?(char=='u') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==';') => expr{type=252;}; //  -- latin small letter u with diaeresis,U+00FC ISOlat1 -->
+char?(char=='&') char?(char=='y') char?(char=='a') char?(char=='c') char?(char=='u') char?(char=='t') char?(char=='e') char?(char==';') => expr{type=253;}; //  -- latin small letter y with acute,U+00FD ISOlat1 -->
+char?(char=='&') char?(char=='t') char?(char=='h') char?(char=='o') char?(char=='r') char?(char=='n') char?(char==';') => expr{type=254;}; //  -- latin small letter thorn,U+00FE ISOlat1 -->
+char?(char=='&') char?(char=='y') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==';') => expr{type=255;}; //  -- latin small letter y with diaeresis,U+00FF ISOlat1 -->
+
+// Mathematical, Greek and Symbolic characters -- HTMLsymbol
+// <!-- Latin Extended-B -->
+char?(char=='&') char?(char=='f') char?(char=='n') char?(char=='o') char?(char=='f') char?(char==';') => expr{type=402;}; //  -- latin small f with hook = function = florin, U+0192 ISOtech -->
+// <!-- Greek -->
+char?(char=='&') char?(char=='A') char?(char=='l') char?(char=='p') char?(char=='h') char?(char=='a') char?(char==';') => expr{type=913;}; //  -- greek capital letter alpha, U+0391 -->
+char?(char=='&') char?(char=='B') char?(char=='e') char?(char=='t') char?(char=='a') char?(char==';') => expr{type=914;}; //  -- greek capital letter beta, U+0392 -->
+char?(char=='&') char?(char=='G') char?(char=='a') char?(char=='m') char?(char=='m') char?(char=='a') char?(char==';') => expr{type=915;}; //  -- greek capital letter gamma,U+0393 ISOgrk3 -->
+char?(char=='&') char?(char=='D') char?(char=='e') char?(char=='l') char?(char=='t') char?(char=='a') char?(char==';') => expr{type=916;}; //  -- greek capital letter delta,U+0394 ISOgrk3 -->
+char?(char=='&') char?(char=='E') char?(char=='p') char?(char=='s') char?(char=='i') char?(char=='l') char?(char=='o') char?(char=='n') char?(char==';') => expr{type=917;}; //  -- greek capital letter epsilon, U+0395 -->
+char?(char=='&') char?(char=='Z') char?(char=='e') char?(char=='t') char?(char=='a') char?(char==';') => expr{type=918;}; //  -- greek capital letter zeta, U+0396 -->
+char?(char=='&') char?(char=='E') char?(char=='t') char?(char=='a') char?(char==';') => expr{type=919;}; //  -- greek capital letter eta, U+0397 -->
+char?(char=='&') char?(char=='T') char?(char=='h') char?(char=='e') char?(char=='t') char?(char=='a') char?(char==';') => expr{type=920;}; //  -- greek capital letter theta,U+0398 ISOgrk3 -->
+char?(char=='&') char?(char=='I') char?(char=='o') char?(char=='t') char?(char=='a') char?(char==';') => expr{type=921;}; //  -- greek capital letter iota, U+0399 -->
+char?(char=='&') char?(char=='K') char?(char=='a') char?(char=='p') char?(char=='p') char?(char=='a') char?(char==';') => expr{type=922;}; //  -- greek capital letter kappa, U+039A -->
+char?(char=='&') char?(char=='L') char?(char=='a') char?(char=='m') char?(char=='b') char?(char=='d') char?(char=='a') char?(char==';') => expr{type=923;}; //  -- greek capital letter lambda,U+039B ISOgrk3 -->
+char?(char=='&') char?(char=='M') char?(char=='u') char?(char==';') => expr{type=924;}; //  -- greek capital letter mu, U+039C -->
+char?(char=='&') char?(char=='N') char?(char=='u') char?(char==';') => expr{type=925;}; //  -- greek capital letter nu, U+039D -->
+char?(char=='&') char?(char=='X') char?(char=='i') char?(char==';') => expr{type=926;}; //  -- greek capital letter xi, U+039E ISOgrk3 -->
+char?(char=='&') char?(char=='O') char?(char=='m') char?(char=='i') char?(char=='c') char?(char=='r') char?(char=='o') char?(char=='n') char?(char==';') => expr{type=927;}; //  -- greek capital letter omicron, U+039F -->
+char?(char=='&') char?(char=='P') char?(char=='i') char?(char==';') => expr{type=928;}; //  -- greek capital letter pi, U+03A0 ISOgrk3 -->
+char?(char=='&') char?(char=='R') char?(char=='h') char?(char=='o') char?(char==';') => expr{type=929;}; //  -- greek capital letter rho, U+03A1 -->
+// <!-- there is no Sigmaf, and no U+03A2 character either -->
+char?(char=='&') char?(char=='S') char?(char=='i') char?(char=='g') char?(char=='m') char?(char=='a') char?(char==';') => expr{type=931;}; //  -- greek capital letter sigma,U+03A3 ISOgrk3 -->
+char?(char=='&') char?(char=='T') char?(char=='a') char?(char=='u') char?(char==';') => expr{type=932;}; //  -- greek capital letter tau, U+03A4 -->
+char?(char=='&') char?(char=='U') char?(char=='p') char?(char=='s') char?(char=='i') char?(char=='l') char?(char=='o') char?(char=='n') char?(char==';') => expr{type=933;}; //  -- greek capital letter upsilon,U+03A5 ISOgrk3 -->
+char?(char=='&') char?(char=='P') char?(char=='h') char?(char=='i') char?(char==';') => expr{type=934;}; //  -- greek capital letter phi,U+03A6 ISOgrk3 -->
+char?(char=='&') char?(char=='C') char?(char=='h') char?(char=='i') char?(char==';') => expr{type=935;}; //  -- greek capital letter chi, U+03A7 -->
+char?(char=='&') char?(char=='P') char?(char=='s') char?(char=='i') char?(char==';') => expr{type=936;}; //  -- greek capital letter psi,U+03A8 ISOgrk3 -->
+char?(char=='&') char?(char=='O') char?(char=='m') char?(char=='e') char?(char=='g') char?(char=='a') char?(char==';') => expr{type=937;}; //  -- greek capital letter omega,U+03A9 ISOgrk3 -->
+char?(char=='&') char?(char=='a') char?(char=='l') char?(char=='p') char?(char=='h') char?(char=='a') char?(char==';') => expr{type=945;}; //  -- greek small letter alpha,U+03B1 ISOgrk3 -->
+char?(char=='&') char?(char=='b') char?(char=='e') char?(char=='t') char?(char=='a') char?(char==';') => expr{type=946;}; //  -- greek small letter beta, U+03B2 ISOgrk3 -->
+char?(char=='&') char?(char=='g') char?(char=='a') char?(char=='m') char?(char=='m') char?(char=='a') char?(char==';') => expr{type=947;}; //  -- greek small letter gamma,U+03B3 ISOgrk3 -->
+char?(char=='&') char?(char=='d') char?(char=='e') char?(char=='l') char?(char=='t') char?(char=='a') char?(char==';') => expr{type=948;}; //  -- greek small letter delta,U+03B4 ISOgrk3 -->
+char?(char=='&') char?(char=='e') char?(char=='p') char?(char=='s') char?(char=='i') char?(char=='l') char?(char=='o') char?(char=='n') char?(char==';') => expr{type=949;}; //  -- greek small letter epsilon,U+03B5 ISOgrk3 -->
+char?(char=='&') char?(char=='z') char?(char=='e') char?(char=='t') char?(char=='a') char?(char==';') => expr{type=950;}; //  -- greek small letter zeta, U+03B6 ISOgrk3 -->
+char?(char=='&') char?(char=='e') char?(char=='t') char?(char=='a') char?(char==';') => expr{type=951;}; //  -- greek small letter eta, U+03B7 ISOgrk3 -->
+char?(char=='&') char?(char=='t') char?(char=='h') char?(char=='e') char?(char=='t') char?(char=='a') char?(char==';') => expr{type=952;}; //  -- greek small letter theta,U+03B8 ISOgrk3 -->
+char?(char=='&') char?(char=='i') char?(char=='o') char?(char=='t') char?(char=='a') char?(char==';') => expr{type=953;}; //  -- greek small letter iota, U+03B9 ISOgrk3 -->
+char?(char=='&') char?(char=='k') char?(char=='a') char?(char=='p') char?(char=='p') char?(char=='a') char?(char==';') => expr{type=954;}; //  -- greek small letter kappa,U+03BA ISOgrk3 -->
+char?(char=='&') char?(char=='l') char?(char=='a') char?(char=='m') char?(char=='b') char?(char=='d') char?(char=='a') char?(char==';') => expr{type=955;}; //  -- greek small letter lambda,U+03BB ISOgrk3 -->
+char?(char=='&') char?(char=='m') char?(char=='u') char?(char==';') => expr{type=956;}; //  -- greek small letter mu, U+03BC ISOgrk3 -->
+char?(char=='&') char?(char=='n') char?(char=='u') char?(char==';') => expr{type=957;}; //  -- greek small letter nu, U+03BD ISOgrk3 -->
+char?(char=='&') char?(char=='x') char?(char=='i') char?(char==';') => expr{type=958;}; //  -- greek small letter xi, U+03BE ISOgrk3 -->
+char?(char=='&') char?(char=='o') char?(char=='m') char?(char=='i') char?(char=='c') char?(char=='r') char?(char=='o') char?(char=='n') char?(char==';') => expr{type=959;}; //  -- greek small letter omicron, U+03BF NEW -->
+char?(char=='&') char?(char=='p') char?(char=='i') char?(char==';') => expr{type=960;}; //  -- greek small letter pi, U+03C0 ISOgrk3 -->
+char?(char=='&') char?(char=='r') char?(char=='h') char?(char=='o') char?(char==';') => expr{type=961;}; //  -- greek small letter rho, U+03C1 ISOgrk3 -->
+char?(char=='&') char?(char=='s') char?(char=='i') char?(char=='g') char?(char=='m') char?(char=='a') char?(char=='f') char?(char==';') => expr{type=962;}; //  -- greek small letter final sigma,U+03C2 ISOgrk3 -->
+char?(char=='&') char?(char=='s') char?(char=='i') char?(char=='g') char?(char=='m') char?(char=='a') char?(char==';') => expr{type=963;}; //  -- greek small letter sigma,U+03C3 ISOgrk3 -->
+char?(char=='&') char?(char=='t') char?(char=='a') char?(char=='u') char?(char==';') => expr{type=964;}; //  -- greek small letter tau, U+03C4 ISOgrk3 -->
+char?(char=='&') char?(char=='u') char?(char=='p') char?(char=='s') char?(char=='i') char?(char=='l') char?(char=='o') char?(char=='n') char?(char==';') => expr{type=965;}; //  -- greek small letter upsilon,U+03C5 ISOgrk3 -->
+char?(char=='&') char?(char=='p') char?(char=='h') char?(char=='i') char?(char==';') => expr{type=966;}; //  -- greek small letter phi, U+03C6 ISOgrk3 -->
+char?(char=='&') char?(char=='c') char?(char=='h') char?(char=='i') char?(char==';') => expr{type=967;}; //  -- greek small letter chi, U+03C7 ISOgrk3 -->
+char?(char=='&') char?(char=='p') char?(char=='s') char?(char=='i') char?(char==';') => expr{type=968;}; //  -- greek small letter psi, U+03C8 ISOgrk3 -->
+char?(char=='&') char?(char=='o') char?(char=='m') char?(char=='e') char?(char=='g') char?(char=='a') char?(char==';') => expr{type=969;}; //  -- greek small letter omega,U+03C9 ISOgrk3 -->
+char?(char=='&') char?(char=='t') char?(char=='h') char?(char=='e') char?(char=='t') char?(char=='a') char?(char=='s') char?(char=='y') char?(char=='m') char?(char==';') => expr{type=977;}; //  -- greek small letter theta symbol,U+03D1 NEW -->
+char?(char=='&') char?(char=='u') char?(char=='p') char?(char=='s') char?(char=='i') char?(char=='h') char?(char==';') => expr{type=978;}; //  -- greek upsilon with hook symbol,U+03D2 NEW -->
+char?(char=='&') char?(char=='p') char?(char=='i') char?(char=='v') char?(char==';') => expr{type=982;}; //  -- greek pi symbol, U+03D6 ISOgrk3 -->
+// <!-- General Punctuation -->
+char?(char=='&') char?(char=='b') char?(char=='u') char?(char=='l') char?(char=='l') char?(char==';') => expr{type=8226;}; //  -- bullet = black small circle,U+2022 ISOpub  -->
+// <!-- bullet is NOT the same as bullet operator, U+2219 -->
+char?(char=='&') char?(char=='h') char?(char=='e') char?(char=='l') char?(char=='l') char?(char=='i') char?(char=='p') char?(char==';') => expr{type=8230;}; //  -- horizontal ellipsis = three dot leader,U+2026 ISOpub  -->
+char?(char=='&') char?(char=='p') char?(char=='r') char?(char=='i') char?(char=='m') char?(char=='e') char?(char==';') => expr{type=8242;}; //  -- prime = minutes = feet, U+2032 ISOtech -->
+char?(char=='&') char?(char=='P') char?(char=='r') char?(char=='i') char?(char=='m') char?(char=='e') char?(char==';') => expr{type=8243;}; //  -- double prime = seconds = inches,U+2033 ISOtech -->
+char?(char=='&') char?(char=='o') char?(char=='l') char?(char=='i') char?(char=='n') char?(char=='e') char?(char==';') => expr{type=8254;}; //  -- overline = spacing overscore,U+203E NEW -->
+char?(char=='&') char?(char=='f') char?(char=='r') char?(char=='a') char?(char=='s') char?(char=='l') char?(char==';') => expr{type=8260;}; //  -- fraction slash, U+2044 NEW -->
+// <!-- Letterlike Symbols -->
+char?(char=='&') char?(char=='w') char?(char=='e') char?(char=='i') char?(char=='e') char?(char=='r') char?(char=='p') char?(char==';') => expr{type=8472;}; //  -- script capital P = power setU+2118 ISOamso -->
+char?(char=='&') char?(char=='i') char?(char=='m') char?(char=='a') char?(char=='g') char?(char=='e') char?(char==';') => expr{type=8465;}; //  -- blackletter capital I = imaginary part,U+2111 ISOamso -->
+char?(char=='&') char?(char=='r') char?(char=='e') char?(char=='a') char?(char=='l') char?(char==';') => expr{type=8476;}; //  -- blackletter capital R = real part symbol,U+211C ISOamso -->
+char?(char=='&') char?(char=='t') char?(char=='r') char?(char=='a') char?(char=='d') char?(char=='e') char?(char==';') => expr{type=8482;}; //  -- trade mark sign, U+2122 ISOnum -->
+char?(char=='&') char?(char=='a') char?(char=='l') char?(char=='e') char?(char=='f') char?(char=='s') char?(char=='y') char?(char=='m') char?(char==';') => expr{type=8501;}; //  -- alef symbol = first transfinite cardinal,U+2135 NEW -->
+// <!-- alef symbol is NOT the same as hebrew letter alef,
+// U+05D0 although the same glyph could be used to depict both characters -->
+// <!-- Arrows -->
+char?(char=='&') char?(char=='l') char?(char=='a') char?(char=='r') char?(char=='r') char?(char==';') => expr{type=8592;}; //  -- leftwards arrow, U+2190 ISOnum -->
+char?(char=='&') char?(char=='u') char?(char=='a') char?(char=='r') char?(char=='r') char?(char==';') => expr{type=8593;}; //  -- upwards arrow, U+2191 ISOnum-->
+char?(char=='&') char?(char=='r') char?(char=='a') char?(char=='r') char?(char=='r') char?(char==';') => expr{type=8594;}; //  -- rightwards arrow, U+2192 ISOnum -->
+char?(char=='&') char?(char=='d') char?(char=='a') char?(char=='r') char?(char=='r') char?(char==';') => expr{type=8595;}; //  -- downwards arrow, U+2193 ISOnum -->
+char?(char=='&') char?(char=='h') char?(char=='a') char?(char=='r') char?(char=='r') char?(char==';') => expr{type=8596;}; //  -- left right arrow, U+2194 ISOamsa -->
+char?(char=='&') char?(char=='c') char?(char=='r') char?(char=='a') char?(char=='r') char?(char=='r') char?(char==';') => expr{type=8629;}; //  -- downwards arrow with corner leftwards = carriage return, U+21B5 NEW -->
+char?(char=='&') char?(char=='l') char?(char=='A') char?(char=='r') char?(char=='r') char?(char==';') => expr{type=8656;}; //  -- leftwards double arrow, U+21D0 ISOtech -->
+// <!-- ISO 10646 does not say that lArr is the same as the 'is implied by' arrow
+//    but also does not have any other character for that function. So ? lArr can
+//    be used for 'is implied by' as ISOtech suggests -->
+char?(char=='&') char?(char=='u') char?(char=='A') char?(char=='r') char?(char=='r') char?(char==';') => expr{type=8657;}; //  -- upwards double arrow, U+21D1 ISOamsa -->
+char?(char=='&') char?(char=='r') char?(char=='A') char?(char=='r') char?(char=='r') char?(char==';') => expr{type=8658;}; //  -- rightwards double arrow,U+21D2 ISOtech -->
+// <!-- ISO 10646 does not say this is the 'implies' character but does not have
+//     another character with this function so ?
+//     rArr can be used for 'implies' as ISOtech suggests -->
+char?(char=='&') char?(char=='d') char?(char=='A') char?(char=='r') char?(char=='r') char?(char==';') => expr{type=8659;}; //  -- downwards double arrow, U+21D3 ISOamsa -->
+char?(char=='&') char?(char=='h') char?(char=='A') char?(char=='r') char?(char=='r') char?(char==';') => expr{type=8660;}; //  -- left right double arrow,U+21D4 ISOamsa -->
+// <!-- Mathematical Operators -->
+char?(char=='&') char?(char=='f') char?(char=='o') char?(char=='r') char?(char=='a') char?(char=='l') char?(char=='l') char?(char==';') => expr{type=8704;}; //  -- for all, U+2200 ISOtech -->
+char?(char=='&') char?(char=='p') char?(char=='a') char?(char=='r') char?(char=='t') char?(char==';') => expr{type=8706;}; //  -- partial differential, U+2202 ISOtech  -->
+char?(char=='&') char?(char=='e') char?(char=='x') char?(char=='i') char?(char=='s') char?(char=='t') char?(char==';') => expr{type=8707;}; //  -- there exists, U+2203 ISOtech -->
+char?(char=='&') char?(char=='e') char?(char=='m') char?(char=='p') char?(char=='t') char?(char=='y') char?(char==';') => expr{type=8709;}; //  -- empty set = null set = diameter,U+2205 ISOamso -->
+char?(char=='&') char?(char=='n') char?(char=='a') char?(char=='b') char?(char=='l') char?(char=='a') char?(char==';') => expr{type=8711;}; //  -- nabla = backward difference,U+2207 ISOtech -->
+char?(char=='&') char?(char=='i') char?(char=='s') char?(char=='i') char?(char=='n') char?(char==';') => expr{type=8712;}; //  -- element of, U+2208 ISOtech -->
+char?(char=='&') char?(char=='n') char?(char=='o') char?(char=='t') char?(char=='i') char?(char=='n') char?(char==';') => expr{type=8713;}; //  -- not an element of, U+2209 ISOtech -->
+char?(char=='&') char?(char=='n') char?(char=='i') char?(char==';') => expr{type=8715;}; //  -- contains as member, U+220B ISOtech -->
+// <!-- should there be a more memorable name than 'ni'? -->
+char?(char=='&') char?(char=='p') char?(char=='r') char?(char=='o') char?(char=='d') char?(char==';') => expr{type=8719;}; //  -- n-ary product = product sign,U+220F ISOamsb -->
+// <!-- prod is NOT the same character as U+03A0 'greek capital letter pi' though
+//     the same glyph might be used for both -->
+char?(char=='&') char?(char=='s') char?(char=='u') char?(char=='m') char?(char==';') => expr{type=8721;}; //  -- n-ary sumation, U+2211 ISOamsb -->
+// <!-- sum is NOT the same character as U+03A3 'greek capital letter sigma'
+//     though the same glyph might be used for both -->
+char?(char=='&') char?(char=='m') char?(char=='i') char?(char=='n') char?(char=='u') char?(char=='s') char?(char==';') => expr{type=8722;}; //  -- minus sign, U+2212 ISOtech -->
+char?(char=='&') char?(char=='M') char?(char=='i')  char?(char=='n') char?(char=='n') char?(char=='u') char?(char=='s') char?(char=='P') char?(char=='l') char?(char=='u') char?(char=='s') char?(char==';') => expr{type=177;}; //  -- minus-or-plus sign, U+2213 ISOtech -->
+char?(char=='&') char?(char=='m') char?(char=='n') char?(char=='p') char?(char=='l') char?(char=='u') char?(char=='s') char?(char==';') => expr{type=177;}; //  -- minus-or-plus sign, U+2213 ISOtech -->
+char?(char=='&') char?(char=='l') char?(char=='o') char?(char=='w') char?(char=='a') char?(char=='s') char?(char=='t') char?(char==';') => expr{type=8727;}; //  -- asterisk operator, U+2217 ISOtech -->
+char?(char=='&') char?(char=='r') char?(char=='a') char?(char=='d') char?(char=='i') char?(char=='c') char?(char==';') => expr{type=8730;}; //  -- square root = radical sign,U+221A ISOtech -->
+char?(char=='&') char?(char=='p') char?(char=='r') char?(char=='o') char?(char=='p') char?(char==';') => expr{type=8733;}; //  -- proportional to, U+221D ISOtech -->
+char?(char=='&') char?(char=='i') char?(char=='n') char?(char=='f') char?(char=='i') char?(char=='n') char?(char==';') => expr{type=8734;}; //  -- infinity, U+221E ISOtech -->
+char?(char=='&') char?(char=='a') char?(char=='n') char?(char=='g') char?(char==';') => expr{type=8736;}; //  -- angle, U+2220 ISOamso -->
+char?(char=='&') char?(char=='a') char?(char=='n') char?(char=='d') char?(char==';') => expr{type=8743;}; //  -- logical and = wedge, U+2227 ISOtech -->
+char?(char=='&') char?(char=='o') char?(char=='r') char?(char==';') => expr{type=8744;}; //  -- logical or = vee, U+2228 ISOtech -->
+char?(char=='&') char?(char=='c') char?(char=='a') char?(char=='p') char?(char==';') => expr{type=8745;}; //  -- intersection = cap, U+2229 ISOtech -->
+char?(char=='&') char?(char=='c') char?(char=='u') char?(char=='p') char?(char==';') => expr{type=8746;}; //  -- union = cup, U+222A ISOtech -->
+char?(char=='&') char?(char=='i') char?(char=='n') char?(char=='t') char?(char==';') => expr{type=8747;}; //  -- integral, U+222B ISOtech -->
+char?(char=='&') char?(char=='t') char?(char=='h') char?(char=='e') char?(char=='r') char?(char=='e') char?(char=='4') char?(char==';') => expr{type=8756;}; //  -- therefore, U+2234 ISOtech -->
+char?(char=='&') char?(char=='s') char?(char=='i') char?(char=='m') char?(char==';') => expr{type=8764;}; //  -- tilde operator = varies with = similar to,U+223C ISOtech -->
+// <!-- tilde operator is NOT the same character as the tilde, U+007E,
+//     although the same glyph might be used to represent both  -->
+char?(char=='&') char?(char=='c') char?(char=='o') char?(char=='n') char?(char=='g') char?(char==';') => expr{type=8773;}; //  -- approximately equal to, U+2245 ISOtech -->
+char?(char=='&') char?(char=='a') char?(char=='s') char?(char=='y') char?(char=='m') char?(char=='p') char?(char==';') => expr{type=8776;}; //  -- almost equal to = asymptotic to,U+2248 ISOamsr -->
+char?(char=='&') char?(char=='n') char?(char=='e') char?(char==';') => expr{type=8800;}; //  -- not equal to, U+2260 ISOtech -->
+char?(char=='&') char?(char=='e') char?(char=='q') char?(char=='u') char?(char=='i') char?(char=='v') char?(char==';') => expr{type=8801;}; //  -- identical to, U+2261 ISOtech -->
+char?(char=='&') char?(char=='l') char?(char=='e') char?(char==';') => expr{type=8804;}; //  -- less-than or equal to, U+2264 ISOtech -->
+char?(char=='&') char?(char=='g') char?(char=='e') char?(char==';') => expr{type=8805;}; //  -- greater-than or equal to,U+2265 ISOtech -->
+char?(char=='&') char?(char=='s') char?(char=='u') char?(char=='b') char?(char==';') => expr{type=8834;}; //  -- subset of, U+2282 ISOtech -->
+char?(char=='&') char?(char=='s') char?(char=='u') char?(char=='p') char?(char==';') => expr{type=8835;}; //  -- superset of, U+2283 ISOtech -->
+// <!-- note that nsup, 'not a superset of, U+2283' is not covered by the Symbol
+//     font encoding and is not included. Should it be, for symmetry?
+//     It is in ISOamsn  -->
+char?(char=='&') char?(char=='n') char?(char=='s') char?(char=='u') char?(char=='b') char?(char==';') => expr{type=8836;}; //  -- not a subset of, U+2284 ISOamsn -->
+char?(char=='&') char?(char=='s') char?(char=='u') char?(char=='b') char?(char=='e') char?(char==';') => expr{type=8838;}; //  -- subset of or equal to, U+2286 ISOtech -->
+char?(char=='&') char?(char=='s') char?(char=='u') char?(char=='p') char?(char=='e') char?(char==';') => expr{type=8839;}; //  -- superset of or equal to,U+2287 ISOtech -->
+char?(char=='&') char?(char=='o') char?(char=='p') char?(char=='l') char?(char=='u') char?(char=='s') char?(char==';') => expr{type=8853;}; //  -- circled plus = direct sum,U+2295 ISOamsb -->
+char?(char=='&') char?(char=='o') char?(char=='t') char?(char=='i') char?(char=='m') char?(char=='e') char?(char=='s') char?(char==';') => expr{type=8855;}; //  -- circled times = vector product,U+2297 ISOamsb -->
+char?(char=='&') char?(char=='p') char?(char=='e') char?(char=='r') char?(char=='p') char?(char==';') => expr{type=8869;}; //  -- up tack = orthogonal to = perpendicular,U+22A5 ISOtech -->
+char?(char=='&') char?(char=='s') char?(char=='d') char?(char=='o') char?(char=='t') char?(char==';') => expr{type=8901;}; //  -- dot operator, U+22C5 ISOamsb -->
+// <!-- dot operator is NOT the same character as U+00B7 middle dot -->
+// <!-- Miscellaneous Technical -->
+char?(char=='&') char?(char=='l') char?(char=='c') char?(char=='e') char?(char=='i') char?(char=='l') char?(char==';') => expr{type=8968;}; //  -- left ceiling = apl upstile,U+2308 ISOamsc  -->
+char?(char=='&') char?(char=='r') char?(char=='c') char?(char=='e') char?(char=='i') char?(char=='l') char?(char==';') => expr{type=8969;}; //  -- right ceiling, U+2309 ISOamsc  -->
+char?(char=='&') char?(char=='l') char?(char=='f') char?(char=='l') char?(char=='o') char?(char=='o') char?(char=='r') char?(char==';') => expr{type=8970;}; //  -- left floor = apl downstile,U+230A ISOamsc  -->
+char?(char=='&') char?(char=='r') char?(char=='f') char?(char=='l') char?(char=='o') char?(char=='o') char?(char=='r') char?(char==';') => expr{type=8971;}; //  -- right floor, U+230B ISOamsc  -->
+char?(char=='&') char?(char=='l') char?(char=='a') char?(char=='n') char?(char=='g') char?(char==';') => expr{type=9001;}; //  -- left-pointing angle bracket = bra,U+2329 ISOtech -->
+// <!-- lang is NOT the same character as U+003C 'less than'
+//     or U+2039 'single left-pointing angle quotation mark' -->
+char?(char=='&') char?(char=='r') char?(char=='a') char?(char=='n') char?(char=='g') char?(char==';') => expr{type=9002;}; //  -- right-pointing angle bracket = ket,U+232A ISOtech -->
+// <!-- rang is NOT the same character as U+003E 'greater than'
+//     or U+203A 'single right-pointing angle quotation mark' -->
+// <!-- Geometric Shapes -->
+char?(char=='&') char?(char=='l') char?(char=='o') char?(char=='z') char?(char==';') => expr{type=9674;}; //  -- lozenge, U+25CA ISOpub -->
+// <!-- Miscellaneous Symbols -->
+char?(char=='&') char?(char=='s') char?(char=='p') char?(char=='a') char?(char=='d') char?(char=='e') char?(char=='s') char?(char==';') => expr{type=9824;}; //  -- black spade suit, U+2660 ISOpub -->
+// <!-- black here seems to mean filled as opposed to hollow -->
+char?(char=='&') char?(char=='c') char?(char=='l') char?(char=='u') char?(char=='b') char?(char=='s') char?(char==';') => expr{type=9827;}; //  -- black club suit = shamrock,U+2663 ISOpub -->
+char?(char=='&') char?(char=='h') char?(char=='e') char?(char=='a') char?(char=='r') char?(char=='t') char?(char=='s') char?(char==';') => expr{type=9829;}; //  -- black heart suit = valentine,U+2665 ISOpub -->
+char?(char=='&') char?(char=='d') char?(char=='i') char?(char=='a') char?(char=='m') char?(char=='s') char?(char==';') => expr{type=9830;}; //  -- black diamond suit, U+2666 ISOpub -->
+
+// Special characters -- HTMLspecial
+// <!--C0 Controls and Basic Latin -->
+char?(char=='&') char?(char=='q') char?(char=='u') char?(char=='o') char?(char=='t') char?(char==';') => expr{type=34;}; //    -- quotation mark = APL quote,U+0022 ISOnum -->
+char?(char=='&') char?(char=='a') char?(char=='m') char?(char=='p') char?(char==';') => expr{type=38;}; //    -- ampersand, U+0026 ISOnum -->
+char?(char=='&') char?(char=='l') char?(char=='t') char?(char==';') => expr{type=60;}; //    -- less-than sign, U+003C ISOnum -->
+char?(char=='&') char?(char=='g') char?(char=='t') char?(char==';') => expr{type=62;}; //    -- greater-than sign, U+003E ISOnum -->
+// <!--Latin Extended-A -->
+char?(char=='&') char?(char=='O') char?(char=='E') char?(char=='l') char?(char=='i') char?(char=='g') char?(char==';') => expr{type=338;}; //   -- latin capital ligature OE,U+0152 ISOlat2 -->
+char?(char=='&') char?(char=='o') char?(char=='e') char?(char=='l') char?(char=='i') char?(char=='g') char?(char==';') => expr{type=339;}; //   -- latin small ligature oe, U+0153 ISOlat2 -->
+// <!--ligature is a misnomer, this is a separate character in some languages -->
+char?(char=='&') char?(char=='S') char?(char=='c') char?(char=='a') char?(char=='r') char?(char=='o') char?(char=='n') char?(char==';') => expr{type=352;}; //   -- latin capital letter S with caron,U+0160 ISOlat2 -->
+char?(char=='&') char?(char=='s') char?(char=='c') char?(char=='a') char?(char=='r') char?(char=='o') char?(char=='n') char?(char==';') => expr{type=353;}; //   -- latin small letter s with caron,U+0161 ISOlat2 -->
+char?(char=='&') char?(char=='Y') char?(char=='u') char?(char=='m') char?(char=='l') char?(char==';') => expr{type=376;}; //   -- latin capital letter Y with diaeresis,U+0178 ISOlat2 -->
+// <!--Spacing Modifier Letters -->
+char?(char=='&') char?(char=='c') char?(char=='i') char?(char=='r') char?(char=='c') char?(char==';') => expr{type=710;}; //   -- modifier letter circumflex accent,U+02C6 ISOpub -->
+char?(char=='&') char?(char=='t') char?(char=='i') char?(char=='l') char?(char=='d') char?(char=='e') char?(char==';') => expr{type=732;}; //   -- small tilde, U+02DC ISOdia -->
+// <!--General Punctuation -->
+char?(char=='&') char?(char=='e') char?(char=='n') char?(char=='s') char?(char=='p') char?(char==';') => expr{type=8194;}; //  -- en space, U+2002 ISOpub -->
+char?(char=='&') char?(char=='e') char?(char=='m') char?(char=='s') char?(char=='p') char?(char==';') => expr{type=8195;}; //  -- em space, U+2003 ISOpub -->
+char?(char=='&') char?(char=='t') char?(char=='h') char?(char=='i') char?(char=='n') char?(char=='s') char?(char=='p') char?(char==';') => expr{type=8201;}; //  -- thin space, U+2009 ISOpub -->
+char?(char=='&') char?(char=='z') char?(char=='w') char?(char=='n') char?(char=='j') char?(char==';') => expr{type=8204;}; //  -- zero width non-joiner,U+200C NEW RFC 2070 -->
+char?(char=='&') char?(char=='z') char?(char=='w') char?(char=='j') char?(char==';') => expr{type=8205;}; //  -- zero width joiner, U+200D NEW RFC 2070 -->
+char?(char=='&') char?(char=='l') char?(char=='r') char?(char=='m') char?(char==';') => expr{type=8206;}; //  -- left-to-right mark, U+200E NEW RFC 2070 -->
+char?(char=='&') char?(char=='r') char?(char=='l') char?(char=='m') char?(char==';') => expr{type=8207;}; //  -- right-to-left mark, U+200F NEW RFC 2070 -->
+char?(char=='&') char?(char=='n') char?(char=='d') char?(char=='a') char?(char=='s') char?(char=='h') char?(char==';') => expr{type=8211;}; //  -- en dash, U+2013 ISOpub -->
+char?(char=='&') char?(char=='m') char?(char=='d') char?(char=='a') char?(char=='s') char?(char=='h') char?(char==';') => expr{type=8212;}; //  -- em dash, U+2014 ISOpub -->
+char?(char=='&') char?(char=='l') char?(char=='s') char?(char=='q') char?(char=='u') char?(char=='o') char?(char==';') => expr{type=8216;}; //  -- left single quotation mark,U+2018 ISOnum -->
+char?(char=='&') char?(char=='r') char?(char=='s') char?(char=='q') char?(char=='u') char?(char=='o') char?(char==';') => expr{type=8217;}; //  -- right single quotation mark,U+2019 ISOnum -->
+char?(char=='&') char?(char=='s') char?(char=='b') char?(char=='q') char?(char=='u') char?(char=='o') char?(char==';') => expr{type=8218;}; //  -- single low-9 quotation mark, U+201A NEW -->
+char?(char=='&') char?(char=='l') char?(char=='d') char?(char=='q') char?(char=='u') char?(char=='o') char?(char==';') => expr{type=8220;}; //  -- left double quotation mark,U+201C ISOnum -->
+char?(char=='&') char?(char=='r') char?(char=='d') char?(char=='q') char?(char=='u') char?(char=='o') char?(char==';') => expr{type=8221;}; //  -- right double quotation mark,U+201D ISOnum -->
+char?(char=='&') char?(char=='b') char?(char=='d') char?(char=='q') char?(char=='u') char?(char=='o') char?(char==';') => expr{type=8222;}; //  -- double low-9 quotation mark, U+201E NEW -->
+char?(char=='&') char?(char=='d') char?(char=='a') char?(char=='g') char?(char=='g') char?(char=='e') char?(char=='r') char?(char==';') => expr{type=8224;}; //  -- dagger, U+2020 ISOpub -->
+char?(char=='&') char?(char=='D') char?(char=='a') char?(char=='g') char?(char=='g') char?(char=='e') char?(char=='r') char?(char==';') => expr{type=8225;}; //  -- double dagger, U+2021 ISOpub -->
+char?(char=='&') char?(char=='p') char?(char=='e') char?(char=='r') char?(char=='m') char?(char=='i') char?(char=='l') char?(char==';') => expr{type=8240;}; //  -- per mille sign, U+2030 ISOtech -->
+char?(char=='&') char?(char=='l') char?(char=='s') char?(char=='a') char?(char=='q') char?(char=='u') char?(char=='o') char?(char==';') => expr{type=8249;}; //  -- single left-pointing angle quotation mark,U+2039 ISO proposed -->
+// <!--lsaquo is proposed but not yet ISO standardized -->
+char?(char=='&') char?(char=='r') char?(char=='s') char?(char=='a') char?(char=='q') char?(char=='u') char?(char=='o') char?(char==';') => expr{type=8250;}; //  -- single right-pointing angle quotation mark,U+203A ISO proposed -->
+// <!--rsaquo is proposed but not yet ISO standardized -->
+char?(char=='&') char?(char=='e') char?(char=='u') char?(char=='r') char?(char=='o') char?(char==';') => expr{type=8364;}; //   -- euro sign, U+20AC NEW -->

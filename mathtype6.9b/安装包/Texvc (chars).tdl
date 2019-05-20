@@ -1,0 +1,1333 @@
+// "texvc (chars).tdl"
+
+// Copyright (c) 2007-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Texvc (chars).tdl 10    1/19/10 12:35p Jimm $
+
+run/extra_math/name/"extra_math" = "#";    // a couple of chars (bigcup, bigcap) are in MT Extra in the MT Palettes
+
+// =====================================================
+// ASCII (0x0020 to 0x007F)
+// =====================================================
+
+// char/0x0009          = " & ";                       // Tab
+char/0x0020          = " ";                         // Space
+char/0x0021          = "!";                         // Exclamation mark
+char/0x0022          = "''";                        // Quotation mark
+char/0x0023/mathmode = "\@#";                       // Number sign (# is separator char so needs escaping)
+char/0x0023/textmode = "<ct>\@#<ot>";               // Number sign (# is separator char so needs escaping)
+char/0x0024/mathmode = "\$";                        // Dollar sign
+char/0x0024/textmode = "<ct>\$<ot>";                // Dollar sign
+char/0x0025/mathmode = "%";                         // Percent sign
+char/0x0025/textmode = "<ct>%<ot>";                 // Percent sign
+char/0x0026/mathmode = "\And ";                     // Ampersand
+char/0x0026/textmode = "<ct>\And<ot>";              // Ampersand
+char/0x0027/mathmode = "'";                         // Apostrophe
+char/0x0027/textmode = "<ct>'<ot>";                 // Apostrophe
+char/0x0028          = "(";                         // Left parenthesis
+char/0x0029          = ")";                         // Right parenthesis
+char/0x002A          = "*";                         // Asterisk
+char/0x002B          = "+";                         // Plus sign
+char/0x002C          = ",";                         // Comma
+char/0x002D          = "-";                         // Hyphen-minus
+char/0x002E          = ".";                         // Full stop
+char/0x002F          = "/";                         // Forward slash (solidus)
+char/0x0030          = "0";                         // Digit zero
+char/0x0031          = "1";                         // Digit one
+char/0x0032          = "2";                         // Digit two
+char/0x0033          = "3";                         // Digit three
+char/0x0034          = "4";                         // Digit four
+char/0x0035          = "5";                         // Digit five
+char/0x0036          = "6";                         // Digit six
+char/0x0037          = "7";                         // Digit seven
+char/0x0038          = "8";                         // Digit eight
+char/0x0039          = "9";                         // Digit nine
+char/0x003A          = ":";                         // Colon
+char/0x003B          = ";";                         // Semicolon
+char/0x003C/mathmode = "<";                         // Less-than sign
+char/0x003D          = "=";                         // Equals sign
+char/0x003E/mathmode = ">";                         // Greater-than sign
+char/0x003F          = "?";                         // Question mark
+// char/0x0040          = "@$";                        // Commercial at (@ is escape char so needs escaping)
+char/0x0041          = "A";                         // Latin capital letter A
+char/0x0042          = "B";                         // Latin capital letter B
+char/0x0043          = "C";                         // Latin capital letter C
+char/0x0044          = "D";                         // Latin capital letter D
+char/0x0045          = "E";                         // Latin capital letter E
+char/0x0046          = "F";                         // Latin capital letter F
+char/0x0047          = "G";                         // Latin capital letter G
+char/0x0048          = "H";                         // Latin capital letter H
+char/0x0049          = "I";                         // Latin capital letter I
+char/0x004A          = "J";                         // Latin capital letter J
+char/0x004B          = "K";                         // Latin capital letter K
+char/0x004C          = "L";                         // Latin capital letter L
+char/0x004D          = "M";                         // Latin capital letter M
+char/0x004E          = "N";                         // Latin capital letter N
+char/0x004F          = "O";                         // Latin capital letter O
+char/0x0050          = "P";                         // Latin capital letter P
+char/0x0051          = "Q";                         // Latin capital letter Q
+char/0x0052          = "R";                         // Latin capital letter R
+char/0x0053          = "S";                         // Latin capital letter S
+char/0x0054          = "T";                         // Latin capital letter T
+char/0x0055          = "U";                         // Latin capital letter U
+char/0x0056          = "V";                         // Latin capital letter V
+char/0x0057          = "W";                         // Latin capital letter W
+char/0x0058          = "X";                         // Latin capital letter X
+char/0x0059          = "Y";                         // Latin capital letter Y
+char/0x005A          = "Z";                         // Latin capital letter Z
+char/0x005B/mathmode = "[";                         // Left square bracket
+char/0x005B/textmode = "<ct>[<ot>";                 // Left square bracket
+char/0x005C/mathmode = "\backslash ";               // Backward slash (reverse solidus)
+char/0x005C/textmode = "<ct>\backslash<ot>";        // Backward slash (reverse solidus)
+char/0x005D/mathmode = "]";                         // Right square bracket
+char/0x005D/textmode = "<ct>]<ot>";                 // Right square bracket
+char/0x005E/mathmode = "\hat{\ }";                  // Circumflex accent
+char/0x005E/textmode = "<ct>\hat{\ }<ot>";          // Circumflex accent
+char/0x005F/mathmode = "\_";                        // Low line
+char/0x005F/textmode = "<ct>\_<ot>";                // Low line
+char/0x0060/mathmode = "\grave{\ }";                // Grave accent
+char/0x0060/textmode = "<ct>\grave{\ }<ot>";        // Grave accent
+char/0x0061          = "a";                         // Latin small letter a
+char/0x0062          = "b";                         // Latin small letter b
+char/0x0063          = "c";                         // Latin small letter c
+char/0x0064          = "d";                         // Latin small letter d
+char/0x0065          = "e";                         // Latin small letter e
+char/0x0066          = "f";                         // Latin small letter f
+char/0x0067          = "g";                         // Latin small letter g
+char/0x0068          = "h";                         // Latin small letter h
+char/0x0069          = "i";                         // Latin small letter i
+char/0x006A          = "j";                         // Latin small letter j
+char/0x006B          = "k";                         // Latin small letter k
+char/0x006C          = "l";                         // Latin small letter l
+char/0x006D          = "m";                         // Latin small letter m
+char/0x006E          = "n";                         // Latin small letter n
+char/0x006F          = "o";                         // Latin small letter o
+char/0x0070          = "p";                         // Latin small letter p
+char/0x0071          = "q";                         // Latin small letter q
+char/0x0072          = "r";                         // Latin small letter r
+char/0x0073          = "s";                         // Latin small letter s
+char/0x0074          = "t";                         // Latin small letter t
+char/0x0075          = "u";                         // Latin small letter u
+char/0x0076          = "v";                         // Latin small letter v
+char/0x0077          = "w";                         // Latin small letter w
+char/0x0078          = "x";                         // Latin small letter x
+char/0x0079          = "y";                         // Latin small letter y
+char/0x007A          = "z";                         // Latin small letter z
+char/0x007B/mathmode = "\{";                        // Left curly bracket
+char/0x007B/textmode = "<ct>\{<ot>";                // Left curly bracket
+char/0x007C/mathmode = "|";                         // Vertical line
+char/0x007C/textmode = "<ct>|<ot>";                 // Vertical line
+char/0x007D/mathmode = "\}";                        // Right curly bracket
+char/0x007D/textmode = "<ct>\}<ot>";                // Right curly bracket
+char/0x007E/mathmode = "\tilde{\ }";                // Tilde
+char/0x007E/textmode = "<ct>\tilde{\ }<ot>";        // Tilde
+
+// =====================================================
+// ANSI (Windows CP 1251, ISO-Latin-8859-1, etc) (0x0080 to 0x00FF)
+// =====================================================
+
+char/0x00A0/mathmode = "~";                         // Non-breakable space
+char/0x00A0/textmode = "<ct>~<ot>";                 // Non-breakable space
+char/0x00A1/mathmode  = "\text{¡}";                 // Inverted exclamation mark
+char/0x00A1/textmode  = "¡";                        // Inverted exclamation mark
+char/0x00A2/mathmode  = "\text{¢}";                 // Cent sign
+char/0x00A2/textmode  = "¢";                        // Cent sign
+char/0x00A3/mathmode  = "\text{£}";                 // Pound signchar
+char/0x00A3/textmode  = "£";                        // Pound signchar
+char/0x00A4/mathmode  = "\text{¤}";                 // Inverted exclamation mark
+char/0x00A4/textmode  = "¤";                        // Inverted exclamation mark
+char/0x00A5/mathmode  = "\text{¥}";                 // Cent sign
+char/0x00A5/textmode  = "¥";                        // Cent sign
+char/0x00A6/mathmode  = "\text{¦}";                 // Broken bar
+char/0x00A6/textmode  = "¦";                        // Broken bar
+char/0x00A7/mathmode = "\S ";                       // Section sign
+char/0x00A7/textmode = "<ct>\S<ot>";                // Section sign
+char/0x00A8/mathmode = "\ddot{\ }";                 // Diaeresis
+char/0x00A8/textmode = "<ct>\ddot{\ }<ot>";         // Diaeresis
+// char/0x00A9       = "\copyright ";                  // Copyright sign
+char/0x00AA/mathmode = "{}^\text{a}";               // Feminine ordinal indicator
+char/0x00AA/textmode = "<ct>{}^\text{a}<ot>";       // Feminine ordinal indicator
+char/0x00AB/mathmode = "\ll ";                      // Left-pointing double angle quotation mark
+char/0x00AB/textmode = "<ct>\ll<ot>";               // Left-pointing double angle quotation mark
+char/0x00AC/mathmode = "\neg ";                     // Not sign
+char/0x00AC/textmode = "<ct>\neg<ot>";              // Not sign
+char/0x00AF/mathmode = "\bar{\ }";                  // Macron
+char/0x00AF/textmode = "<ct>\bar{\ }<ot>";          // Macron
+char/0x00B0/mathmode = "{}^\circ ";                   // Degree sign
+char/0x00B0/textmode = "<ct>{}^\circ<ot>";            // Degree sign
+char/0x00B1/mathmode = "\pm ";                      // Plus-minus sign
+char/0x00B1/textmode = "<ct>\pm<ot>";               // Plus-minus sign
+char/0x00B2/mathmode = "{}^\text{2}";               // Superscript 2
+char/0x00B2/textmode = "<ct>{}^\text{2}<ot>";       // Superscript 2
+char/0x00B3/mathmode = "{}^\text{3}";               // Superscript 3
+char/0x00B3/textmode = "<ct>{}^\text{3}<ot>";       // Superscript 3
+char/0x00B4/mathmode = "\acute{\ }";                // Acute accent
+char/0x00B4/textmode = "<ct>\acute{\ }<ot>";        // Acute accent
+char/0x00B5/mathmode = "\mu ";                      // Micro sign
+char/0x00B5/textmode = "<ct>\mu<ot>";               // Micro sign
+char/0x00B6/mathmode = "\P ";                       // Paragraph sign (pilcrow)
+char/0x00B6/textmode = "<ct>\P<ot>";                // Paragraph sign (pilcrow)
+char/0x00B7/mathmode = "\cdot ";                    // Middle dot
+char/0x00B7/textmode = "<ct>\cdot<ot>";             // Middle dot
+// char/0x00B8/mathmode = "\text{¸}";               // cedilla
+// char/0x00B8/textmode = "¸";                      // cedilla
+char/0x00B9/mathmode = "{}^\text{1}";               // Superscript 1
+char/0x00B9/textmode = "<ct>{}^\text{1}<ot>";       // Superscript 1
+char/0x00BA/mathmode = "{}^\text{o}";               // Masculine ordinal indicator
+char/0x00BA/textmode = "<ct>{}^\text{o}<ot>";       // Masculine ordinal indicator
+char/0x00BB/mathmode = "\gg ";                      // Right-pointing double angle quotation mark
+char/0x00BB/textmode = "<ct>\gg<ot>";               // Right-pointing double angle quotation mark
+char/0x00BC/mathmode = "{\scriptscriptstyle 1\!/\!{ }_4}";         // Vulgar fraction one quarter
+char/0x00BC/textmode = "<ct>{\scriptscriptstyle 1\!/\!{ }_4}<ot>"; // Vulgar fraction one quarter
+char/0x00BD/mathmode = "{\scriptscriptstyle 1\!/\!{ }_2}";         // Vulgar fraction one half
+char/0x00BD/textmode = "<ct>{\scriptscriptstyle 1\!/\!{ }_2}<ot>"; // Vulgar fraction one half
+char/0x00BE/mathmode = "{\scriptscriptstyle 3\!/\!{ }_4}";         // Vulgar fraction three quarters
+char/0x00BE/textmode = "<ct>{\scriptscriptstyle 3\!/\!{ }_4}<ot>"; // Vulgar fraction three quarters
+// char/0x00BE/mathmode = "\text{¿}"                 // Inverted question mark
+// char/0x00BE/textmode = "¿"                        // Inverted question mark
+char/0x00C0/mathmode = "\grave{A}";                  // Latin capital letter A with grave
+char/0x00C0/textmode = "<ct>\grave{\mathrm{A}}<ot>"; // Latin capital letter A with grave
+char/0x00C1/mathmode = "\acute{A}";                  // Latin capital letter A with acute
+char/0x00C1/textmode = "<ct>\acute{\mathrm{A}}<ot>"; // Latin capital letter A with acute
+char/0x00C2/mathmode = "\hat{A}";                    // Latin capital letter A with circumflex
+char/0x00C2/textmode = "<ct>\hat{\mathrm{A}}<ot>";   // Latin capital letter A with circumflex
+char/0x00C3/mathmode = "\tilde{A}";                  // Latin capital letter A with tilde
+char/0x00C3/textmode = "<ct>\tilde{\mathrm{A}}<ot>"; // Latin capital letter A with tilde
+char/0x00C4/mathmode = "\ddot{A}";                   // Latin capital letter A with diaeresis
+char/0x00C4/textmode = "<ct>\ddot{\mathrm{A}}<ot>";  // Latin capital letter A with diaeresis
+char/0x00C5/mathmode = "{\AA}";                      // Latin capital letter A with ring above
+char/0x00C5/textmode = "{<ct>\mathrm{\AA}<ot>}";     // Latin capital letter A with ring above
+// char/0x00C6       = "{\AE}";                         // Latin capital ligature AE
+// char/0x00C7       = "\c{C}";                         // Latin capital letter C with cedilla
+char/0x00C8/mathmode = "\grave{E}";                  // Latin capital letter E with grave
+char/0x00C8/textmode = "<ct>\grave{\mathrm{E}}<ot>"; // Latin capital letter E with grave
+char/0x00C9/mathmode = "\acute{E}";                  // Latin capital letter E with acute
+char/0x00C9/textmode = "<ct>\acute{\mathrm{E}}<ot>"; // Latin capital letter E with acute
+char/0x00CA/mathmode = "\hat{E}";                    // Latin capital letter E with circumflex
+char/0x00CA/textmode = "<ct>\hat{\mathrm{E}}<ot>";   // Latin capital letter E with circumflex
+char/0x00CB/mathmode = "\ddot{E}";                   // Latin capital letter E with diaeresis
+char/0x00CB/textmode = "<ct>\ddot{\mathrm{E}}<ot>";  // Latin capital letter E with diaeresis
+char/0x00CC/mathmode = "\grave{I}";                  // Latin capital letter I with grave
+char/0x00CC/textmode = "<ct>\grave{\mathrm{I}}<ot>"; // Latin capital letter I with grave
+char/0x00CD/mathmode = "\acute{I}";                  // Latin capital letter I with acute
+char/0x00CD/textmode = "<ct>\acute{\mathrm{I}}<ot>"; // Latin capital letter I with acute
+char/0x00CE/mathmode = "\hat{I}";                    // Latin capital letter I with circumflex
+char/0x00CE/textmode = "<ct>\hat{\mathrm{I}}<ot>";   // Latin capital letter I with circumflex
+char/0x00CF/mathmode = "\ddot{I}";                   // Latin capital letter I with diaeresis
+char/0x00CF/textmode = "<ct>\ddot{\mathrm{I}}<ot>";  // Latin capital letter I with diaeresis
+// char/0x00D0  // Latin capital letter Eth
+char/0x00D1/mathmode = "\tilde{N}";                  // Latin capital letter N with tilde
+char/0x00D1/textmode = "<ct>\tilde{\mathrm{N}}<ot>"; // Latin capital letter N with tilde
+char/0x00D2/mathmode = "\grave{O}";                  // Latin capital letter O with grave
+char/0x00D2/textmode = "<ct>\grave{\mathrm{O}}<ot>"; // Latin capital letter O with grave
+char/0x00D3/mathmode = "\acute{O}";                  // Latin capital letter O with acute
+char/0x00D3/textmode = "<ct>\acute{\mathrm{O}}<ot>"; // Latin capital letter O with acute
+char/0x00D4/mathmode = "\hat{O}";                    // Latin capital letter O with circumflex
+char/0x00D4/textmode = "<ct>\hat{\mathrm{O}}<ot>";   // Latin capital letter O with circumflex
+char/0x00D5/mathmode = "\tilde{O}";                  // Latin capital letter O with tilde
+char/0x00D5/textmode = "<ct>\tilde{\mathrm{O}}<ot>"; // Latin capital letter O with tilde
+char/0x00D6/mathmode = "\ddot{O}";                   // Latin capital letter O with diaeresis
+char/0x00D6/textmode = "<ct>\ddot{\mathrm{O}}<ot>";  // Latin capital letter O with diaeresis
+char/0x00D7/mathmode = "\times ";                    // Multiplication sign
+char/0x00D7/textmode = "<ct>\times<ot>";             // Multiplication sign
+char/0x00D8/mathmode = "\O ";                        // Latin capital letter O with stroke
+char/0x00D8/textmode = "<ct>\O<ot>";                 // Latin capital letter O with stroke
+char/0x00D9/mathmode = "\grave{U}";                  // Latin capital letter U with grave
+char/0x00D9/textmode = "<ct>\grave{\mathrm{U}}<ot>"; // Latin capital letter U with grave
+char/0x00DA/mathmode = "\acute{U}";                  // Latin capital letter U with acute
+char/0x00DA/textmode = "<ct>\acute{\mathrm{U}}<ot>"; // Latin capital letter U with acute
+char/0x00DB/mathmode = "\hat{U}";                    // Latin capital letter U with circumflex
+char/0x00DB/textmode = "<ct>\hat{\mathrm{U}}<ot>";   // Latin capital letter U with circumflex
+char/0x00DC/mathmode = "\ddot{U}";                   // Latin capital letter U with diaeresis
+char/0x00DC/textmode = "<ct>\ddot{\mathrm{U}}<ot>";  // Latin capital letter U with diaeresis
+char/0x00DD/mathmode = "\acute{Y}";                  // Latin capital letter Y with acute
+char/0x00DD/textmode = "<ct>\acute{\mathrm{Y}}<ot>"; // Latin capital letter Y with acute
+// char/0x00DE
+// char/0x00DF       = "{\ss}";                         // Latin small letter sharp s
+char/0x00E0/mathmode = "\grave{a}";                  // Latin small letter a with grave
+char/0x00E0/textmode = "<ct>\grave{\mathrm{a}}<ot>"; // Latin small letter a with grave
+char/0x00E1/mathmode = "\acute{a}";                  // Latin small letter a with acute
+char/0x00E1/textmode = "<ct>\acute{\mathrm{a}}<ot>"; // Latin small letter a with acute
+char/0x00E2/mathmode = "\hat{a}";                    // Latin small letter a with circumflex
+char/0x00E2/textmode = "<ct>\hat{\mathrm{a}}<ot>";   // Latin small letter a with circumflex
+char/0x00E3/mathmode = "\tilde{a}";                  // Latin small letter a with tilde
+char/0x00E3/textmode = "<ct>\tilde{\mathrm{a}}<ot>"; // Latin small letter a with tilde
+char/0x00E4/mathmode = "\ddot{a}";                   // Latin small letter a with diaeresis
+char/0x00E4/textmode = "<ct>\ddot{\mathrm{a}}<ot>";  // Latin small letter a with diaeresis
+// char/0x00E5/mathmode = "{\aa}";                      // Latin small letter a with ring above
+// char/0x00E5/textmode = "{<ct>\mathrm{\aa}<ot>}";     // Latin small letter a with ring above
+// char/0x00E6       = "\ae ";                          // Latin small ligature ae
+// char/0x00E7       = "\c{c}";                         // Latin small letter c with cedilla
+char/0x00E8/mathmode = "\grave{e}";                  // Latin small letter e with grave
+char/0x00E8/textmode = "<ct>\grave{\mathrm{e}}<ot>"; // Latin small letter e with grave
+char/0x00E9/mathmode = "\acute{e}";                  // Latin small letter e with acute
+char/0x00E9/textmode = "<ct>\acute{\mathrm{e}}<ot>"; // Latin small letter e with acute
+char/0x00EA/mathmode = "\hat{e}";                    // Latin small letter e with circumflex
+char/0x00EA/textmode = "<ct>\hat{\mathrm{e}}<ot>";   // Latin small letter e with circumflex
+char/0x00EB/mathmode = "\ddot{e}";                   // Latin small letter e with diaeresis
+char/0x00EB/textmode = "<ct>\ddot{\mathrm{e}}<ot>";  // Latin small letter e with diaeresis
+char/0x00EC/mathmode = "\grave{i}";                  // Latin small letter i with grave
+char/0x00EC/textmode = "<ct>\grave{\mathrm{i}}<ot>"; // Latin small letter i with grave
+char/0x00ED/mathmode = "\acute{i}";                  // Latin small letter i with acute
+char/0x00ED/textmode = "<ct>\acute{\mathrm{i}}<ot>"; // Latin small letter i with acute
+char/0x00EE/mathmode = "\hat{i}";                    // Latin small letter i with circumflex
+char/0x00EE/textmode = "<ct>\hat{\mathrm{i}}<ot>";   // Latin small letter i with circumflex
+char/0x00EF/mathmode = "\ddot{i}";                   // Latin small letter i with diaeresis
+char/0x00EF/textmode = "<ct>\ddot{\mathrm{i}}<ot>";  // Latin small letter i with diaeresis
+char/0x00F0/mathmode = "\eth ";                      // Latin small letter eth
+char/0x00F0/textmode = "<ct>\eth<ot>";               // Latin small letter eth
+char/0x00F1/mathmode = "\tilde{n}";                  // Latin small letter n with tilde
+char/0x00F1/textmode = "<ct>\tilde{\mathrm{n}}<ot>"; // Latin small letter n with tilde
+char/0x00F2/mathmode = "\grave{o}";                  // Latin small letter o with grave
+char/0x00F2/textmode = "<ct>\grave{\mathrm{o}}<ot>"; // Latin small letter o with grave
+char/0x00F3/mathmode = "\acute{o}";                  // Latin small letter o with acute
+char/0x00F3/textmode = "<ct>\acute{\mathrm{o}}<ot>"; // Latin small letter o with acute
+char/0x00F4/mathmode = "\hat{o}";                    // Latin small letter o with circumflex
+char/0x00F4/textmode = "<ct>\hat{\mathrm{o}}<ot>";   // Latin small letter o with circumflex
+char/0x00F5/mathmode = "\tilde{o}";                  // Latin small letter o with tilde
+char/0x00F5/textmode = "<ct>\tilde{\mathrm{o}}<ot>"; // Latin small letter o with tilde
+char/0x00F6/mathmode = "\ddot{o}";                   // Latin small letter o with diaeresis
+char/0x00F6/textmode = "<ct>\ddot{\mathrm{o}}<ot>";  // Latin small letter o with diaeresis
+char/0x00F7/mathmode = "\div ";                      // Division sign
+char/0x00F7/textmode = "<ct>\div<ot>";               // Division sign
+// char/0x00F8/mathmode = "\o ";                        // Latin small letter o with stroke
+// char/0x00F8/textmode = "<ct>\o<ot>";                 // Latin small letter o with stroke
+char/0x00F9/mathmode = "\grave{u}";                  // Latin small letter u with grave
+char/0x00F9/textmode = "<ct>\grave{\mathrm{u}}<ot>"; // Latin small letter u with grave
+char/0x00FA/mathmode = "\acute{u}";                  // Latin small letter u with acute
+char/0x00FA/textmode = "<ct>\acute{\mathrm{u}}<ot>"; // Latin small letter u with acute
+char/0x00FB/mathmode = "\hat{u}";                    // Latin small letter u with circumflex
+char/0x00FB/textmode = "<ct>\hat{\mathrm{u}}<ot>";   // Latin small letter u with circumflex
+char/0x00FC/mathmode = "\ddot{u}";                   // Latin small letter u with diaeresis
+char/0x00FC/textmode = "<ct>\ddot{\mathrm{u}}<ot>";  // Latin small letter u with diaeresis
+char/0x00FD/mathmode = "\acute{y}";                  // Latin small letter y with acute
+char/0x00FD/textmode = "<ct>\acute{\mathrm{y}}<ot>"; // Latin small letter y with acute
+// char/0x00FE  // Latin small letter thorn
+char/0x00FF/mathmode = "\ddot{y}";                   // Latin small letter y with diaeresis
+char/0x00FF/textmode = "<ct>\ddot{\mathrm{y}}<ot>";  // Latin small letter y with diaeresis
+
+// =====================================================
+// Latin Extended - A
+// =====================================================
+
+char/0x0100/mathmode = "\bar{A}";                    // Latin capital letter A with macron
+char/0x0100/textmode = "<ct>\bar{\mathrm{A}}<ot>";   // Latin capital letter A with macron
+char/0x0101/mathmode = "\bar{a}";                    // Latin small letter a with macron
+char/0x0101/textmode = "<ct>\bar{\mathrm{a}}<ot>";   // Latin small letter a with macron
+char/0x0102/mathmode = "\breve{A}";                  // Latin capital letter A with breve
+char/0x0102/textmode = "<ct>\breve{\mathrm{A}}<ot>"; // Latin capital letter A with breve
+char/0x0103/mathmode = "\breve{a}";                  // Latin small letter a with breve
+char/0x0103/textmode = "<ct>\breve{\mathrm{a}}<ot>"; // Latin small letter a with breve
+// char/0x0104  // Latin capital letter A with stroke
+// char/0x0105  // Latin small letter a with stroke
+char/0x0106/mathmode = "\acute{C}";                  // Latin capital letter C with acute
+char/0x0106/textmode = "<ct>\acute{\mathrm{C}}<ot>"; // Latin capital letter C with acute
+char/0x0107/mathmode = "\acute{c}";                  // Latin small letter c with acute
+char/0x0107/textmode = "<ct>\acute{\mathrm{c}}<ot>"; // Latin small letter c with acute
+char/0x0108/mathmode = "\hat{C}";                    // Latin capital letter C with circumflex
+char/0x0108/textmode = "<ct>\hat{\mathrm{C}}<ot>";   // Latin capital letter C with circumflex
+char/0x0109/mathmode = "\hat{c}";                    // Latin small letter c with circumflex
+char/0x0109/textmode = "<ct>\hat{\mathrm{c}}<ot>";   // Latin small letter c with circumflex
+char/0x010A/mathmode = "\dot{C}";                    // Latin capital letter C with dot above
+char/0x010A/textmode = "<ct>\dot{\mathrm{C}}<ot>";   // Latin capital letter C with dot above
+char/0x010B/mathmode = "\dot{c}";                    // Latin small letter c with dot above
+char/0x010B/textmode = "<ct>\dot{\mathrm{c}}<ot>";   // Latin small letter c with dot above
+char/0x010C/mathmode = "\check{C}";                  // Latin capital letter C with caron
+char/0x010C/textmode = "<ct>\check{\mathrm{C}}<ot>"; // Latin capital letter C with caron
+char/0x010D/mathmode = "\check{c}";                  // Latin small letter c with caron
+char/0x010D/textmode = "<ct>\check{\mathrm{c}}<ot>"; // Latin small letter c with caron
+char/0x010E/mathmode = "\check{D}";                  // Latin capital letter D with caron
+char/0x010E/textmode = "<ct>\check{\mathrm{D}}<ot>"; // Latin capital letter D with caron
+char/0x010F/mathmode = "\check{d}";                  // Latin small letter d with caron
+char/0x010F/textmode = "<ct>\check{\mathrm{d}}<ot>"; // Latin small letter d with caron
+// char/0x0110  // Latin capital letter D with stroke
+// char/0x0111  // Latin small letter d with stroke
+char/0x0112/mathmode = "\bar{E}";                    // Latin capital letter E with macron
+char/0x0112/textmode = "<ct>\bar{\mathrm{E}}<ot>";   // Latin capital letter E with macron
+char/0x0113/mathmode = "\bar{e}";                    // Latin small letter e with macron
+char/0x0113/textmode = "<ct>\bar{\mathrm{e}}<ot>";   // Latin small letter e with macron
+char/0x0114/mathmode = "\breve{E}";                  // Latin capital letter E with breve
+char/0x0114/textmode = "<ct>\breve{\mathrm{E}}<ot>"; // Latin capital letter E with breve
+char/0x0115/mathmode = "\breve{e}";                  // Latin small letter e with breve
+char/0x0115/textmode = "<ct>\breve{\mathrm{e}}<ot>"; // Latin small letter e with breve
+char/0x0116/mathmode = "\dot{E}";                    // Latin capital letter E with dot above
+char/0x0116/textmode = "<ct>\dot{\mathrm{E}}<ot>";   // Latin capital letter E with dot above
+char/0x0117/mathmode = "\dot{e}";                    // Latin small letter e with dot above
+char/0x0117/textmode = "<ct>\dot{\mathrm{e}}<ot>";   // Latin small letter e with dot above
+// char/0x0118  // Latin capital letter E with ogoneck
+// char/0x0119  // Latin small letter e with ogoneck
+char/0x011A/mathmode = "\check{E}";                  // Latin capital letter E with caron
+char/0x011A/textmode = "<ct>\check{\mathrm{E}}<ot>"; // Latin capital letter E with caron
+char/0x011B/mathmode = "\check{e}";                  // Latin small letter e with caron
+char/0x011B/textmode = "<ct>\check{\mathrm{e}}<ot>"; // Latin small letter e with caron
+char/0x011C/mathmode = "\hat{G}";                    // Latin capital letter G with circumflex
+char/0x011C/textmode = "<ct>\hat{\mathrm{G}}<ot>";   // Latin capital letter G with circumflex
+char/0x011D/mathmode = "\hat{g}";                    // Latin small letter g with circumflex
+char/0x011D/textmode = "<ct>\hat{\mathrm{g}}<ot>";   // Latin small letter g with circumflex
+char/0x011E/mathmode = "\breve{G}";                  // Latin capital letter G with breve
+char/0x011E/textmode = "<ct>\breve{\mathrm{G}}<ot>"; // Latin capital letter G with breve
+char/0x011F/mathmode = "\breve{g}";                  // Latin small letter g with breve
+char/0x011F/textmode = "<ct>\breve{\mathrm{g}}<ot>"; // Latin small letter g with breve
+char/0x0120/mathmode = "\dot{G}";                    // Latin capital letter G with dot above
+char/0x0120/textmode = "<ct>\dot{\mathrm{G}}<ot>";   // Latin capital letter G with dot above
+char/0x0121/mathmode = "\dot{g}";                    // Latin small letter g with dot above
+char/0x0121/textmode = "<ct>\dot{\mathrm{g}}<ot>";   // Latin small letter g with dot above
+// char/0x0122  // Latin capital letter G with cedilla
+// char/0x0123  // Latin small letter g with cedilla
+char/0x0124/mathmode = "\hat{H}";                    // Latin capital letter H with circumflex
+char/0x0124/textmode = "<ct>\hat{\mathrm{H}}<ot>";   // Latin capital letter H with circumflex
+char/0x0125/mathmode = "\hat{h}";                    // Latin small letter h with circumflex
+char/0x0125/textmode = "<ct>\hat{\mathrm{h}}<ot>";   // Latin small letter h with circumflex
+// char/0x0126  // Latin capital letter H with stroke
+char/0x0127/mathmode = "\hbar ";                     // Latin small letter h with stroke
+char/0x0128/mathmode = "\tilde{I}";                  // Latin capital letter I with tilde
+char/0x0128/textmode = "<ct>\tilde{\mathrm{I}}<ot>"; // Latin capital letter I with tilde
+char/0x0129/mathmode = "\tilde{i}";                  // Latin small letter i with tilde
+char/0x0129/textmode = "<ct>\tilde{\mathrm{i}}<ot>"; // Latin small letter i with tilde
+char/0x012A/mathmode = "\bar{I}";                    // Latin capital letter I with macron
+char/0x012A/textmode = "<ct>\bar{\mathrm{I}}<ot>";   // Latin capital letter I with macron
+char/0x012B/mathmode = "\bar{i}";                    // Latin small letter i with macron
+char/0x012B/textmode = "<ct>\bar{\mathrm{i}}<ot>";   // Latin small letter i with macron
+char/0x012C/mathmode = "\breve{I}";                  // Latin capital letter I with breve
+char/0x012C/textmode = "<ct>\breve{\mathrm{I}}<ot>"; // Latin capital letter I with breve
+char/0x012D/mathmode = "\breve{i}";                  // Latin small letter i with breve
+char/0x012D/textmode = "<ct>\breve{\mathrm{i}}<ot>"; // Latin small letter i with breve
+// char/0x012E  // Latin capital letter I with ogoneck
+// char/0x012F  // Latin small letter i with ogoneck
+char/0x0130/mathmode = "\dot{I}";                    // Latin capital letter I with dot above
+char/0x0130/textmode = "<ct>\dot{\mathrm{I}}<ot>";   // Latin capital letter I with dot above
+char/0x0131/mathmode = "\imath ";                    // Latin small letter dotless i
+char/0x0131/textmode = "<ct>\imath<ot>";             // Latin small letter dotless i
+// char/0x0132  // Latin capital ligature IJ
+// char/0x0133  // Latin small ligature ij
+char/0x0134/mathmode = "\hat{J}";                    // Latin capital letter J with circumflex
+char/0x0134/textmode = "<ct>\hat{\mathrm{J}}<ot>";   // Latin capital letter J with circumflex
+char/0x0135/mathmode = "\hat{j}";                    // Latin small letter j with circumflex
+char/0x0135/textmode = "<ct>\hat{\mathrm{j}}<ot>";   // Latin small letter j with circumflex
+// char/0x0136  // Latin capital letter K with cedilla
+// char/0x0137  // Latin small letter k with cedilla
+// char/0x0138  // Latin small letter kra
+char/0x0139/mathmode = "\acute{L}";                  // Latin capital letter L with acute
+char/0x0139/textmode = "<ct>\acute{\mathrm{L}}<ot>"; // Latin capital letter L with acute
+char/0x013A/mathmode = "\acute{l}";                  // Latin small letter l with acute
+char/0x013A/textmode = "<ct>\acute{\mathrm{l}}<ot>"; // Latin small letter l with acute
+// char/0x013B  // Latin capital letter L with cedilla
+// char/0x013C  // Latin small letter l with cedilla
+char/0x013D/mathmode = "\check{L}";                  // Latin capital letter L with caron
+char/0x013D/textmode = "<ct>\check{\mathrm{L}}<ot>"; // Latin capital letter L with caron
+char/0x013E/mathmode = "\check{l}";                  // Latin small letter l with caron
+char/0x013E/textmode = "<ct>\check{\mathrm{l}}<ot>"; // Latin small letter l with caron
+char/0x013F/mathmode = "\mathrm{L}\!\!\cdot";        // Latin capital letter L with middle dot
+char/0x013F/textmode = "<ct>\mathrm{L}\!\!\cdot<ot>";// Latin capital letter L with middle dot
+char/0x0140/mathmode = "\mathrm{l}\cdot";            // Latin small letter l with middle dot
+char/0x0140/textmode = "<ct>\mathrm{l}\cdot<ot>";    // Latin small letter l with middle dot
+// char/0x0141  // Latin capital letter L with stroke
+// char/0x0142  // Latin small letter l with stroke
+char/0x0143/mathmode = "\acute{N}";                  // Latin capital letter N with acute
+char/0x0143/textmode = "<ct>\acute{\mathrm{N}}<ot>"; // Latin capital letter N with acute
+char/0x0144/mathmode = "\acute{n}";                  // Latin small letter n with acute
+char/0x0144/textmode = "<ct>\acute{\mathrm{n}}<ot>"; // Latin small letter n with acute
+// char/0x0145  // Latin capital letter N with cedilla
+// char/0x0146  // Latin small letter n with cedilla
+char/0x0147/mathmode = "\check{N}";                  // Latin capital letter N with caron
+char/0x0147/textmode = "<ct>\check{\mathrm{N}}<ot>"; // Latin capital letter N with caron
+char/0x0148/mathmode = "\check{n}";                  // Latin small letter n with caron
+char/0x0148/textmode = "<ct>\check{\mathrm{n}}<ot>"; // Latin small letter n with caron
+// char/0x0149  // Latin small letter n preceded by apostrophe
+// char/0x014A  // Latin capital letter Eng
+// char/0x014B  // Latin small letter eng
+char/0x014C/mathmode = "\bar{O}";                    // Latin capital letter O with macron
+char/0x014C/textmode = "<ct>\bar{\mathrm{O}}<ot>";   // Latin capital letter O with macron
+char/0x014D/mathmode = "\bar{o}";                    // Latin small letter o with macron
+char/0x014D/textmode = "<ct>\bar{\mathrm{o}}<ot>";   // Latin small letter o with macron
+char/0x014E/mathmode = "\breve{O}";                  // Latin capital letter O with breve
+char/0x014E/textmode = "<ct>\breve{\mathrm{O}}<ot>"; // Latin capital letter O with breve
+char/0x014F/mathmode = "\breve{o}";                  // Latin small letter o with breve
+char/0x014F/textmode = "<ct>\breve{\mathrm{o}}<ot>"; // Latin small letter o with breve
+// char/0x0150  // Latin capital letter O with double acute
+// char/0x0151  // Latin small letter o with double acute
+// char/0x0152   // Latin capital ligature OE
+// char/0x0153   // Latin small ligature oe
+char/0x0154/mathmode = "\acute{R}";                  // Latin capital letter R with acute
+char/0x0154/textmode = "<ct>\acute{\mathrm{R}}<ot>"; // Latin capital letter R with acute
+char/0x0155/mathmode = "\acute{r}";                  // Latin small letter r with acute
+char/0x0155/textmode = "<ct>\acute{\mathrm{r}}<ot>"; // Latin small letter r with acute
+// char/0x0156  // Latin capital letter R with cedilla
+// char/0x0157  // Latin small letter r with cedilla
+char/0x0158/mathmode = "\check{R}";                  // Latin capital letter R with caron
+char/0x0158/textmode = "<ct>\check{\mathrm{R}}<ot>"; // Latin capital letter R with caron
+char/0x0159/mathmode = "\check{r}";                  // Latin small letter r with caron
+char/0x0159/textmode = "<ct>\check{\mathrm{r}}<ot>"; // Latin small letter r with caron
+char/0x015A/mathmode = "\acute{S}";                  // Latin capital letter S with acute
+char/0x015A/textmode = "<ct>\acute{\mathrm{S}}<ot>"; // Latin capital letter S with acute
+char/0x015B/mathmode = "\acute{s}";                  // Latin small letter s with acute
+char/0x015B/textmode = "<ct>\acute{\mathrm{s}}<ot>"; // Latin small letter s with acute
+char/0x015C/mathmode = "\hat{S}";                    // Latin capital letter S with circumflex
+char/0x015C/textmode = "<ct>\hat{\mathrm{S}}<ot>";   // Latin capital letter S with circumflex
+char/0x015D/mathmode = "\hat{s}";                    // Latin small letter s with circumflex
+char/0x015D/textmode = "<ct>\hat{\mathrm{s}}<ot>";   // Latin small letter s with circumflex
+// char/0x015E  // Latin capital letter S with cedilla
+// char/0x015F  // Latin small letter s with cedilla
+char/0x0160/mathmode = "\check{S}";                  // Latin capital letter S with caron
+char/0x0160/textmode = "<ct>\check{\mathrm{S}}<ot>"; // Latin capital letter S with caron
+char/0x0161/mathmode = "\check{s}";                  // Latin small letter s with caron
+char/0x0161/textmode = "<ct>\check{\mathrm{s}}<ot>"; // Latin small letter s with caron
+// char/0x0162  // Latin capital letter T with cedilla
+// char/0x0163  // Latin small letter t with cedilla
+char/0x0164/mathmode = "\check{T}";                  // Latin capital letter T with caron
+char/0x0164/textmode = "<ct>\check{\mathrm{T}}<ot>"; // Latin capital letter T with caron
+char/0x0165/mathmode = "\check{t}";                  // Latin small letter t with caron
+char/0x0165/textmode = "<ct>\check{\mathrm{t}}<ot>"; // Latin small letter t with caron
+// char/0x0166  // Latin capital letter T with stroke
+// char/0x0167  // Latin small letter t with stroke
+char/0x0168/mathmode = "\tilde{U}";                  // Latin capital letter U with tilde
+char/0x0168/textmode = "<ct>\tilde{\mathrm{U}}<ot>"; // Latin capital letter U with tilde
+char/0x0169/mathmode = "\tilde{u}";                  // Latin small letter u with tilde
+char/0x0169/textmode = "<ct>\tilde{\mathrm{u}}<ot>"; // Latin small letter u with tilde
+char/0x016A/mathmode = "\bar{U}";                    // Latin capital letter U with macron
+char/0x016A/textmode = "<ct>\bar{\mathrm{U}}<ot>";   // Latin capital letter U with macron
+char/0x016B/mathmode = "\bar{u}";                    // Latin small letter u with macron
+char/0x016B/textmode = "<ct>\bar{\mathrm{u}}<ot>";   // Latin small letter u with macron
+char/0x016C/mathmode = "\breve{U}";                  // Latin capital letter U with breve
+char/0x016C/textmode = "<ct>\breve{\mathrm{U}}<ot>"; // Latin capital letter U with breve
+char/0x016D/mathmode = "\breve{u}";                  // Latin small letter u with breve
+char/0x016D/textmode = "<ct>\breve{\mathrm{u}}<ot>"; // Latin small letter u with breve
+char/0x016E/mathmode = "\overset{\circ}{U}";                  // Latin capital letter U with ring above
+char/0x016E/textmode = "<ct>\overset{\circ}{\mathrm{U}}<ot>"; // Latin capital letter U with ring above
+char/0x016F/mathmode = "\overset{\circ}{u}";                  // Latin small letter u with ring above
+char/0x016F/textmode = "<ct>\overset{\circ}{\mathrm{u}}<ot>"; // Latin small letter u with ring above
+// char/0x0170  // Latin capital letter U with double acute
+// char/0x0171  // Latin small letter u with double acute
+// char/0x0172  // Latin capital letter U with ogoneck
+// char/0x0173  // Latin small letter u with ogoneck
+char/0x0174/mathmode = "\hat{W}";                    // Latin capital letter W with circumflex
+char/0x0174/textmode = "<ct>\hat{\mathrm{W}}<ot>";   // Latin capital letter W with circumflex
+char/0x0175/mathmode = "\hat{w}";                    // Latin small letter w with circumflex
+char/0x0175/textmode = "<ct>\hat{\mathrm{w}}<ot>";   // Latin small letter w with circumflex
+char/0x0176/mathmode = "\hat{Y}";                    // Latin capital letter Y with circumflex
+char/0x0176/textmode = "<ct>\hat{\mathrm{Y}}<ot>";   // Latin capital letter Y with circumflex
+char/0x0177/mathmode = "\hat{y}";                    // Latin small letter y with circumflex
+char/0x0177/textmode = "<ct>\hat{\mathrm{y}}<ot>";   // Latin small letter y with circumflex
+char/0x0178/mathmode = "\ddot{Y}";                   // Latin capital letter Y with diaeresis
+char/0x0178/textmode = "<ct>\ddot{\mathrm{Y}}<ot>";  // Latin capital letter Y with diaeresis
+char/0x0179/mathmode = "\acute{Z}";                  // Latin capital letter Z with acute
+char/0x0179/textmode = "<ct>\acute{\mathrm{Z}}<ot>"; // Latin capital letter Z with acute
+char/0x017A/mathmode = "\acute{z}";                  // Latin small letter z with acute
+char/0x017A/textmode = "<ct>\acute{\mathrm{z}}<ot>"; // Latin small letter z with acute
+char/0x017B/mathmode = "\dot{Z}";                    // Latin capital letter Z with dot above
+char/0x017B/textmode = "<ct>\dot{\mathrm{Z}}<ot>";   // Latin capital letter Z with dot above
+char/0x017C/mathmode = "\dot{z}";                    // Latin small letter z with dot above
+char/0x017C/textmode = "<ct>\dot{\mathrm{z}}<ot>";   // Latin small letter z with dot above
+char/0x017D/mathmode = "\check{Z}";                  // Latin capital letter Z with caron
+char/0x017D/textmode = "<ct>\check{\mathrm{Z}}<ot>"; // Latin capital letter Z with caron
+char/0x017E/mathmode = "\check{z}";                  // Latin small letter z with caron
+char/0x017E/textmode = "<ct>\check{\mathrm{z}}<ot>"; // Latin small letter z with caron
+// char/0x017F  // Latin small letter long s
+
+// =====================================================
+// Greek Characters
+// =====================================================
+
+char/0x0391/mathmode = "\Alpha "; 		              // Greek capital letter Alpha
+char/0x0391/textmode = "<ct>\Alpha<ot>"; 		        // Greek capital letter Alpha
+char/0x0392/mathmode = "\Beta ";                     // Greek capital letter Beta
+char/0x0392/textmode = "<ct>\Beta<ot>";              // Greek capital letter Beta
+char/0x0393/mathmode = "\Gamma ";                    // Greek capital letter Gamma
+char/0x0393/textmode = "<ct>\Gamma<ot>";             // Greek capital letter Gamma
+char/0x0394/mathmode = "\Delta ";                    // Greek capital letter Delta
+char/0x0394/textmode = "<ct>\Delta<ot>";             // Greek capital letter Delta
+char/0x0395/mathmode = "\Epsilon ";                  // Greek capital letter Epsilon
+char/0x0395/textmode = "<ct>\Epsilon<ot>";           // Greek capital letter Epsilon
+char/0x0396/mathmode = "\Zeta ";                     // Greek capital letter Zeta
+char/0x0396/textmode = "<ct>\Zeta<ot>";              // Greek capital letter Zeta
+char/0x0397/mathmode = "\Eta ";                      // Greek capital letter Eta
+char/0x0397/textmode = "<ct>\Eta<ot>";               // Greek capital letter Eta
+char/0x0398/mathmode = "\Theta ";                    // Greek capital letter Theta
+char/0x0398/textmode = "<ct>\Theta<ot>";             // Greek capital letter Theta
+char/0x0399/mathmode = "\Iota ";                     // Greek capital letter Iota
+char/0x0399/textmode = "<ct>\Iota<ot>";              // Greek capital letter Iota
+char/0x039A/mathmode = "\Kappa ";                    // Greek capital letter Kappa
+char/0x039A/textmode = "<ct>\Kappa<ot>";             // Greek capital letter Kappa
+char/0x039B/mathmode = "\Lambda ";                   // Greek capital letter Lambda
+char/0x039B/textmode = "<ct>\Lambda<ot>";            // Greek capital letter Lambda
+char/0x039C/mathmode = "\Mu ";                       // Greek capital letter Mu
+char/0x039C/textmode = "<ct>\Mu<ot>";                // Greek capital letter Mu
+char/0x039D/mathmode = "\Nu ";                       // Greek capital letter Nu
+char/0x039D/textmode = "<ct>\Nu<ot>";                // Greek capital letter Nu
+char/0x039E/mathmode = "\Xi ";                       // Greek capital letter Xi
+char/0x039E/textmode = "<ct>\Xi<ot>";                // Greek capital letter Xi
+char/0x039F/mathmode = "{\mathrm O}";                // Greek capital letter Omicron
+char/0x039F/textmode = "O";                          // Greek capital letter Omicron
+char/0x03A0/mathmode = "\Pi ";                       // Greek capital letter Pi
+char/0x03A0/textmode = "<ct>\Pi<ot>";                // Greek capital letter Pi
+char/0x03A1/mathmode = "\Rho ";                      // Greek capital letter Rho
+char/0x03A1/textmode = "<ct>\Rho<ot>";               // Greek capital letter Rho
+char/0x03A3/mathmode = "\Sigma ";                    // Greek capital letter Sigma
+char/0x03A3/textmode = "<ct>\Sigma<ot>";             // Greek capital letter Sigma
+char/0x03A4/mathmode = "\Tau ";                      // Greek capital letter Tau
+char/0x03A4/textmode = "<ct>\Tau<ot>";               // Greek capital letter Tau
+char/0x03A5/mathmode = "\Upsilon ";                  // Greek capital letter Upsilon
+char/0x03A5/textmode = "<ct>\Upsilon<ot>";           // Greek capital letter Upsilon
+char/0x03A6/mathmode = "\Phi ";                      // Greek capital letter Phi
+char/0x03A6/textmode = "<ct>\Phi<ot>";               // Greek capital letter Phi
+char/0x03A7/mathmode = "\Chi ";                      // Greek capital letter Chi
+char/0x03A7/textmode = "<ct>\Chi<ot>";               // Greek capital letter Chi
+char/0x03A8/mathmode = "\Psi ";                      // Greek capital letter Psi
+char/0x03A8/textmode = "<ct>\Psi<ot>";               // Greek capital letter Psi
+char/0x03A9/mathmode = "\Omega ";                    // Greek capital letter Omega
+char/0x03A9/textmode = "<ct>\Omega<ot>";             // Greek capital letter Omega
+char/0x03B1/mathmode = "\alpha ";                    // Greek small letter alpha
+char/0x03B1/textmode = "<ct>\alpha<ot>";             // Greek small letter alpha
+char/0x03B2/mathmode = "\beta ";                     // Greek small letter beta
+char/0x03B2/textmode = "<ct>\beta<ot>";              // Greek small letter beta
+char/0x03B3/mathmode = "\gamma ";                    // Greek small letter gamma
+char/0x03B3/textmode = "<ct>\gamma<ot>";             // Greek small letter gamma
+char/0x03B4/mathmode = "\delta ";                    // Greek small letter delta
+char/0x03B4/textmode = "<ct>\delta<ot>";             // Greek small letter delta
+char/0x03B5/mathmode = "\varepsilon ";               // Greek small letter epsilon (curvy)
+char/0x03B5/textmode = "<ct>\varepsilon<ot>";        // Greek small letter epsilon (curvy)
+char/0x03B6/mathmode = "\zeta ";                     // Greek small letter zeta
+char/0x03B6/textmode = "<ct>\zeta<ot>";              // Greek small letter zeta
+char/0x03B7/mathmode = "\eta ";                      // Greek small letter eta
+char/0x03B7/textmode = "<ct>\eta<ot>";               // Greek small letter eta
+char/0x03B8/mathmode = "\theta ";                    // Greek small letter theta
+char/0x03B8/textmode = "<ct>\theta<ot>";             // Greek small letter theta
+char/0x03B9/mathmode = "\iota ";                     // Greek small letter iota
+char/0x03B9/textmode = "<ct>\iota<ot>";              // Greek small letter iota
+char/0x03BA/mathmode = "\kappa ";                    // Greek small letter kappa
+char/0x03BA/textmode = "<ct>\kappa<ot>";             // Greek small letter kappa
+char/0x03BB/mathmode = "\lambda ";                   // Greek small letter lamda
+char/0x03BB/textmode = "<ct>\lambda<ot>";            // Greek small letter lamda
+char/0x03BC/mathmode = "\mu ";                       // Greek small letter mu
+char/0x03BC/textmode = "<ct>\mu<ot>";                // Greek small letter mu
+char/0x03BD/mathmode = "\nu ";                       // Greek small letter nu
+char/0x03BD/textmode = "<ct>\nu<ot>";                // Greek small letter nu
+char/0x03BE/mathmode = "\xi ";                       // Greek small letter xi
+char/0x03BE/textmode = "<ct>\xi<ot>";                // Greek small letter xi
+char/0x03BF          = "o";                          // Greek small letter omicron
+char/0x03C0/mathmode = "\pi ";                       // Greek small letter pi
+char/0x03C0/textmode = "<ct>\pi<ot>";                // Greek small letter pi
+char/0x03C1/mathmode = "\rho ";                      // Greek small letter rho
+char/0x03C1/textmode = "<ct>\rho<ot>";               // Greek small letter rho
+char/0x03C2/mathmode = "\varsigma ";                 // Greek small letter final sigma
+char/0x03C2/textmode = "<ct>\varsigma<ot>";          // Greek small letter final sigma
+char/0x03C3/mathmode = "\sigma ";                    // Greek small letter sigma
+char/0x03C3/textmode = "<ct>\sigma<ot>";             // Greek small letter sigma
+char/0x03C4/mathmode = "\tau ";                      // Greek small letter tau
+char/0x03C4/textmode = "<ct>\tau<ot>";               // Greek small letter tau
+char/0x03C5/mathmode = "\upsilon ";                  // Greek small letter upsilon
+char/0x03C5/textmode = "<ct>\upsilon<ot>";           // Greek small letter upsilon
+char/0x03C6/mathmode = "\varphi ";                   // Greek small letter phi
+char/0x03C6/textmode = "<ct>\varphi<ot>";            // Greek small letter phi
+char/0x03C7/mathmode = "\chi ";                      // Greek small letter chi
+char/0x03C7/textmode = "<ct>\chi<ot>";               // Greek small letter chi
+char/0x03C8/mathmode = "\psi ";                      // Greek small letter psi
+char/0x03C8/textmode = "<ct>\psi<ot>";               // Greek small letter psi
+char/0x03C9/mathmode = "\omega ";                    // Greek small letter omega
+char/0x03C9/textmode = "<ct>\omega<ot>";             // Greek small letter omega
+char/0x03D1/mathmode = "\vartheta ";                 // Greek theta symbol
+char/0x03D1/textmode = "<ct>\vartheta<ot>";          // Greek theta symbol
+char/0x03D2/mathmode = "\Upsilon ";                  // Greek upsilon with hook symbol
+char/0x03D2/textmode = "<ct>\Upsilon<ot>";           // Greek upsilon with hook symbol
+char/0x03D5/mathmode = "\phi ";                      // Greek phi symbol
+char/0x03D5/textmode = "<ct>\phi<ot>";               // Greek phi symbol
+char/0x03D6/mathmode = "\varpi ";                    // Greek pi symbol
+char/0x03D6/textmode = "<ct>\varpi<ot>";             // Greek pi symbol
+char/0x03DB/mathmode = "\varsigma ";                 // Greek small letter stigma
+char/0x03DB/textmode = "<ct>\varsigma<ot>";          // Greek small letter stigma
+char/0x03DC/mathmode = "\digamma ";                  // Greek letter Digamma
+char/0x03DC/textmode = "<ct>\digamma<ot>";           // Greek letter Digamma
+char/0x03F0/mathmode = "\varkappa ";                 // Greek kappa symbol
+char/0x03F0/textmode = "<ct>\varkappa<ot>";          // Greek kappa symbol
+char/0x03F1/mathmode = "\varrho ";                   // Greek rho symbol
+char/0x03F1/textmode = "<ct>\varrho<ot>";            // Greek rho symbol
+char/0x03F5/mathmode = "\epsilon ";                  // Greek lunate epsilon symbol
+char/0x03F5/textmode = "<ct>\epsilon<ot>";           // Greek lunate epsilon symbol
+char/0x03F6/mathmode = "\backepsilon ";              // Greek reversed lunate epsilon symbol
+char/0x03F6/textmode = "<ct>\backepsilon<ot>";       // Greek reversed lunate epsilon symbol
+
+// =====================================================
+// space characters
+// =====================================================
+
+
+
+// =====================================================
+// Some Punctuation
+// =====================================================
+
+char/0x2010/textmode = "-";                          // dash
+char/0x2013/textmode = "--";                         // En dash
+char/0x2014/textmode = "---";                        // Em dash
+char/0x2016/mathmode = "\|";                         // Double vertical bar
+char/0x2020/mathmode = "\dagger ";                   // Dagger
+char/0x2021/mathmode = "\ddagger ";                  // Double dagger
+char/0x2022/mathmode = "\bullet ";                   // Bullet
+char/0x2026/mathmode = "\ldots ";                    // Horizontal ellipsis
+char/0x2032/mathmode = "\prime ";                    // Prime
+char/0x2033/mathmode = "\prime\prime ";              // Double prime
+char/0x2034/mathmode = "\prime\prime\prime ";        // Triple prime
+char/0x2035/mathmode = "\backprime ";                // Reversed prime
+char/0x2036/mathmode = "\backprime\backprime ";      // Reversed double prime
+char/0x2037/mathmode = "\backprime\backprime\backprime "; // Reversed triple prime
+// char/0x2039/mathmode = "\langle ";                // Single left-pointing angle quotation mark
+// char/0x203A/mathmode = "\rangle ";                // Single right-pointing angle quotation mark
+char/0x203E/mathmode = "\bar{\ }";                   // Spacing overline
+char/0x203F/mathmode = "{}_\smile ";                 // Undertie
+char/0x2040/mathmode = "{}^\frown ";                 // Character tie
+char/0x2044          = "/";                          // Fraction slash
+
+// =====================================================
+// Currency
+// =====================================================
+
+// most of these are not implemented in tex; some may be in special packages
+// and most of the characters are rather rare to find in fonts
+
+char/0x20A1/mathmode = "\Colon ";                   	// colon (Costa Rica)
+char/0x20A1/textmode = "<ct>\Colon<ot>";              	// colon (Costa Rica)
+char/0x20A2/mathmode = "\cruzeiro ";                   	// cruzeiro
+char/0x20A2/textmode = "<ct>\cruzeiro<ot>";             // cruzeiro
+char/0x20A3/mathmode = "\franc ";                   	// French franc
+char/0x20A3/textmode = "<ct>\franc<ot>";                // French franc
+char/0x20A4/mathmode = "\lira ";                   		// lira
+char/0x20A4/textmode = "<ct>\lira<ot>";                 // lira
+char/0x20A5/mathmode = "\mill ";                   		// mill (1/10 cent)
+char/0x20A5/textmode = "<ct>\mill<ot>";                 // mill (1/10 cent)
+char/0x20A6/mathmode = "\naira ";                   	// naira (Nigeria)
+char/0x20A6/textmode = "<ct>\naira<ot>";                // naira (Nigeria)
+char/0x20A7/mathmode = "\peseta ";                   	// peseta
+char/0x20A7/textmode = "<ct>\peseta<ot>";               // peseta
+char/0x20A8/mathmode = "\rupee ";                   	// rupee
+char/0x20A8/textmode = "<ct>\rupee<ot>";               	// rupee
+char/0x20A9/mathmode = "\won ";                     	// Won (Korea)
+char/0x20A9/textmode = "<ct>\won<ot>";                  // Won (Korea)
+char/0x20AA/mathmode = "\newsheqel ";                  	// Israel
+char/0x20AA/textmode = "<ct>\newsheqel<ot>";            // Israel
+char/0x20AB/mathmode = "\dong ";                 	  	// Vietnam
+char/0x20AB/textmode = "<ct>\dong<ot>";                 // Vietnam
+char/0x20AC/mathmode = "\euro ";                	   	// euro
+char/0x20AC/textmode = "<ct>\euro<ot>";                	// euro
+char/0x20AD/mathmode = "\kip ";                 	  	// Kip (Laos)
+char/0x20AD/textmode = "<ct>\kip<ot>";                 	// Kip (Laos)
+char/0x20AE/mathmode = "\tugrik ";                   	// tugrik
+char/0x20AE/textmode = "<ct>\tugrik<ot>";               // tugrik
+char/0x20AF/mathmode = "\drachma ";                   	// drachma (Greece)
+char/0x20AF/textmode = "<ct>\drachma<ot>";              // drachma (Greece)
+char/0x20B0/mathmode = "\germanpenny ";                	// German Penny
+char/0x20B0/textmode = "<ct>\germanpenny<ot>";          // German Penny
+char/0x20B1/mathmode = "\peso ";                 	  	// Phillipine's peso
+char/0x20B1/textmode = "<ct>\peso<ot>";                 // Phillipine's peso
+char/0x20B2/mathmode = "\guarani ";                   	// guarani
+char/0x20B2/textmode = "<ct>\guarani<ot>";              // guarani
+char/0x20B3/mathmode = "\austral ";                   	// austral
+char/0x20B3/textmode = "<ct>\austral<ot>";              // austral
+char/0x20B4/mathmode = "\hryvnia ";                   	// Ukraine
+char/0x20B4/textmode = "<ct>\hryvnia<ot>";              // Ukraine
+char/0x20B5/mathmode = "\cedi ";                  	 	// Ghana
+char/0x20B5/textmode = "<ct>\cedi<ot>";                 // Ghana
+
+// =====================================================
+// Letterlike symbols
+// =====================================================
+
+char/0x2102/mathmode = "\mathbb{C}";                 // Blackboard-bold capital C
+char/0x2107/mathmode = "\gamma ";                    // Euler constant
+char/0x210A          = "g";                          // Script small g
+char/0x210B/mathmode = "\mathcal{H}";                // Script capital H
+char/0x210C/mathmode = "\mathfrak{H}";               // Fraktur capital H
+char/0x210D/mathmode = "\mathbb{H}";                 // Blackboard-bold capital H
+char/0x210E/mathmode = "h";                          // Planck constant
+char/0x210E/textmode = "<ct>\mathit{h}<ot>";         // Planck constant
+char/0x210F/mathmode = "\hbar ";                     // Planck constant over two pi
+char/0x2110/mathmode = "\mathcal{I}";                // Script capital I
+char/0x2111/mathmode = "\Im ";                       // Fraktur capital I
+char/0x2112/mathmode = "\mathcal{L}";                // Script capital L
+char/0x2113/mathmode = "\ell ";                      // Script small l
+char/0x2115/mathmode = "\mathbb{N}";                 // Blackboard-bold capital N
+char/0x2118/mathmode = "\wp ";                       // Weierstrass elliptic symbol
+char/0x2119/mathmode = "\mathbb{P}";                 // Blackboard-bold capital P
+char/0x211A/mathmode = "\mathbb{Q}";                 // Blackboard-bold capital Q
+char/0x211B/mathmode = "\mathcal{R}";                // Script capital R
+char/0x211C/mathmode = "\Re ";                       // Fraktur capital R
+char/0x211D/mathmode = "\mathbb{R}";                 // Blackboard-bold capital R
+char/0x2124/mathmode = "\mathbb{Z}";                 // Blackboard-bold capital Z
+char/0x2126/mathmode = "\Omega ";                    // Ohm sign
+char/0x2127/mathmode = "\mho ";                      // Inverted ohm sign
+char/0x2128/mathmode = "\mathfrak{X}";               // Fraktur capital X
+char/0x212C/mathmode = "\mathcal{B}";                // Script capital B
+char/0x212D/mathmode = "\mathfrak{C}";               // Fraktur capital C
+char/0x2130/mathmode = "\mathcal{E}";                // Script capital E
+char/0x2131/mathmode = "\mathcal{F}";                // Script capital F
+char/0x2132/mathmode = "\Finv ";                     // Turned capital F
+char/0x2133/mathmode = "\mathcal{M}";                // Script capital M
+char/0x2135/mathmode = "\aleph ";                    // Alef symbol
+char/0x2136/mathmode = "\beth ";                     // Beth symbol
+char/0x2137/mathmode = "\gimel ";                    // Gimel symbol
+char/0x2138/mathmode = "\daleth ";                   // Daleth symbol
+
+// =====================================================
+// Arrows
+// =====================================================
+
+char/0x2190/mathmode = "\leftarrow ";                // Leftwards arrow
+char/0x2191/mathmode = "\uparrow ";                  // Upwards arrow
+char/0x2192/mathmode = "\to ";                       // Rightwards arrow
+char/0x2193/mathmode = "\downarrow ";                // Downwards arrow
+char/0x2194/mathmode = "\leftrightarrow ";           // Left right arrow
+char/0x2195/mathmode = "\updownarrow ";              // Up down arrow
+char/0x2196/mathmode = "\nwarrow ";                  // North west arrow
+char/0x2197/mathmode = "\nearrow ";                  // North east arrow
+char/0x2198/mathmode = "\searrow ";                  // South east arrow
+char/0x2199/mathmode = "\swarrow ";                  // South west arrow
+char/0x219A/mathmode = "\nleftarrow ";               // Leftwards arrow with stroke
+char/0x219B/mathmode = "\nrightarrow ";              // Rightwards arrow with stroke
+// char/0x219C/mathmode = "\leftsquigarrow ";           // Leftwards wave arrow
+char/0x219D/mathmode = "\rightsquigarrow ";         // Rightwards wave arrow
+char/0x219E/mathmode = "\twoheadleftarrow ";        // Leftwards two headed arrow
+char/0x21A0/mathmode = "\twoheadrightarrow ";       // Rightwards two headed arrow
+char/0x21A2/mathmode = "\leftarrowtail ";           // Leftwards arrow with tail
+char/0x21A3/mathmode = "\rightarrowtail ";          // Rightwards arrow with tail
+char/0x21A6/mathmode = "\mapsto ";                   // Rightwards arrow from bar
+char/0x21A9/mathmode = "\hookleftarrow ";            // Leftwards arrow with hook
+char/0x21AA/mathmode = "\hookrightarrow ";           // Rightwards arrow with hook
+char/0x21AB/mathmode = "\looparrowleft ";           // Leftwards arrow with loop
+char/0x21AC/mathmode = "\looparrowright ";          // Rightwards arrow with loop
+char/0x21AD/mathmode = "\leftrightsquigarrow ";     // Left right wave arrow
+char/0x21AE/mathmode = "\nleftrightarrow ";         // Left right arrow with stroke
+char/0x21B0/mathmode = "\Lsh ";                     // Upwards arrow with tip leftwards
+char/0x21B1/mathmode = "\Rsh ";                     // Upwards arrow with tip rightwards
+char/0x21B6/mathmode = "\curvearrowleft ";          // Anticlockwise top semicircle arrow
+char/0x21B7/mathmode = "\curvearrowright ";         // Clockwise top semicircle arrow
+char/0x21BA/mathmode = "\circlearrowleft ";         // Anticlockwise open circle arrow
+char/0x21BB/mathmode = "\circlearrowright ";        // Clockwise open circle arrow
+char/0x21BC/mathmode = "\leftharpoonup ";            // Left harpoon (barb up)
+char/0x21BD/mathmode = "\leftharpoondown ";          // Left harpoon (barb down)
+char/0x21BE/mathmode = "\upharpoonright ";          // Up harpoon (barb right)
+char/0x21BF/mathmode = "\upharpoonleft ";           // Up harpoon (barb left)
+char/0x21C0/mathmode = "\rightharpoonup ";           // Right harpoon (barb up)
+char/0x21C1/mathmode = "\rightharpoondown ";         // Right harpoon (barb down)
+char/0x21C2/mathmode = "\downharpoonright ";        // Down harpoon (barb right)
+char/0x21C3/mathmode = "\downharpoonleft ";         // Down harpoon (barb left)
+char/0x21C4/mathmode = "\rightleftarrows ";         // Rightwards arrow over leftwards arrow
+char/0x21C5/mathmode = "\uparrow\!\downarrow ";      // Upwards arrow leftwards of downwards arrow
+char/0x21C6/mathmode = "\leftrightarrows ";         // Leftwards arrow over rightwards arrow
+char/0x21C7/mathmode = "\leftleftarrows ";          // Leftwards paired arrows
+char/0x21C8/mathmode = "\upuparrows ";              // Upwards paired arrows
+char/0x21C9/mathmode = "\rightrightarrows ";        // Rightwards paired arrows
+char/0x21CA/mathmode = "\downdownarrows ";          // Downwards paired arrows
+char/0x21CB/mathmode = "\leftrightharpoons ";       // Left harpoon over right harpoon
+char/0x21CC/mathmode = "\rightleftharpoons ";       // Right harpoon over left harpoon
+char/0x21CD/mathmode = "\nLeftarrow ";              // Leftwards double arrow with stroke
+char/0x21CE/mathmode = "\nLeftrightarrow ";         // Left right double arrow with stroke
+char/0x21CF/mathmode = "\nRightarrow ";             // Rightwards double arrow with stroke
+char/0x21D0/mathmode = "\Leftarrow ";                // Leftwards double arrow
+char/0x21D1/mathmode = "\Uparrow ";                  // Upwards double arrow
+char/0x21D2/mathmode = "\Rightarrow ";               // Rightwards double arrow
+char/0x21D3/mathmode = "\Downarrow ";                // Downwards double arrow
+char/0x21D4/mathmode = "\Leftrightarrow ";           // Left right double arrow
+char/0x21D5/mathmode = "\Updownarrow ";              // Up down double arrow
+char/0x21DA/mathmode = "\Lleftarrow ";              // Leftwards triple arrow
+char/0x21DB/mathmode = "\Rrightarrow ";             // Rightwards triple arrow
+char/0x21DD/mathmode = "\rightsquigarrow ";         // Rightwards squiggle arrow
+char/0x21E4/mathmode = "\shortmid\!\leftarrow ";    // Leftwards arrow to bar
+char/0x21E5/mathmode = "\shortmid\!\rightarrow ";   // Rightwards arrow to bar
+
+// =====================================================
+// Other More Exotic Character Translations
+// =====================================================
+
+char/0x2200/mathmode = "\forall ";                   // For all
+char/0x2201/mathmode = "\complement ";               // Complement
+char/0x2202/mathmode = "\partial ";                  // Partial differential
+char/0x2203/mathmode = "\exists ";                   // There exists
+char/0x2204/mathmode = "\nexists ";                  // There does not exist
+char/0x2205/mathmode = "\varnothing ";               // Empty set (or \emptyset, the variant looks more like MT's)
+char/0x2206/mathmode = "\Delta ";                    // Increment
+char/0x2207/mathmode = "\nabla ";                    // Gradient (nabla)
+char/0x2208/mathmode = "\in ";                      // Element of
+char/0x2209/mathmode = "\notin ";                   // Not an element of
+// char/0x220A/mathmode = "\mathrel\epsilon ";         // Small element of
+char/0x220B/mathmode = "\ni ";                      // Contains as member
+char/0x220C/mathmode = "\not\ni ";                  // Does not contain as member
+char/0x220D/mathmode = "\backepsilon  ";            // Small contains as member
+char/0x220E/mathmode = "\blacksquare ";              // End of proof
+char/0x220F/mathmode = "\prod ";                     // N-ary product
+char/0x2210/mathmode = "\coprod ";                   // N-ary coproduct
+char/0x2211/mathmode = "\sum ";                      // N-ary summation
+char/0x2212          = "-";                        // Minus sign
+char/0x2213/mathmode = "\mp ";                      // Minus-or-plus sign
+char/0x2214/mathmode = "\dotplus ";                 // Dot plus
+char/0x2215          = "/";                          // Division slash
+char/0x2216/mathmode = "\setminus ";                 // Set minus
+char/0x2217          = "*";                          // Asterisk operator
+char/0x2218/mathmode = "\circ ";                     // Composition
+char/0x2219/mathmode = "\bullet ";                   // Bullet operator
+char/0x221A/mathmode = "\surd ";                     // Radical sign
+char/0x221B/mathmode = "\sqrt[3]{ } ";               // Cube root
+char/0x221C/mathmode = "\sqrt[4]{ } ";               // Fourth root
+char/0x221D/mathmode = "\propto ";                  // Proportional to
+char/0x221E/mathmode = "\infty ";                    // Infinity
+char/0x221F/mathmode = "\perp ";                     // Right angle
+char/0x2220/mathmode = "\angle ";                    // Angle
+char/0x2221/mathmode = "\measuredangle ";            // Measured angle
+char/0x2222/mathmode = "\sphericalangle ";           // Spherical angle
+char/0x2223/mathmode = "\mid ";                      // Divides
+char/0x2224/mathmode = "\nmid ";                     // Does not divide
+char/0x2225/mathmode = "\parallel ";                 // Parallel to
+char/0x2226/mathmode = "\nparallel ";                // Not parallel to
+char/0x2227/mathmode = "\wedge ";                   // Logical and
+char/0x2228/mathmode = "\vee ";                     // Logical or
+char/0x2229/mathmode = "\cap ";                     // Intersection
+char/0x2229/"extra_math" = "\bigcap ";              // Big Intersection
+char/0x222A/mathmode = "\cup ";                     // Union
+char/0x222A/"extra_math" = "\bigcup ";              // Big Union            // Union
+char/0x222B/mathmode = "\int ";                      // Integral
+char/0x222C/mathmode = "\iint ";                     // Double integral
+char/0x222D/mathmode = "\iiint ";                    // Triple integral
+char/0x222E/mathmode = "\oint ";                     // Contour integral
+char/0x222F/mathmode = "\mathop{{\int\!\!\!\!\!\int}\!\!\!\!\!\!\!\bigcirc}";                 // Surface integral
+char/0x2230/mathmode = "\mathop{{\int\!\!\!\!\!\int\!\!\!\!\!\int}\!\!\!\!\!\!\!\!\bigcirc}"; // Volume integral
+char/0x2231/mathmode = "\mathop{\int\!\!\!\!\!\!\!\curvearrowright}"; // Clockwise integral
+char/0x2232/mathmode = "\mathop{\int\!\!\!\!\!\!\!\circlearrowright}"; // Clockwise contour integral
+char/0x2233/mathmode = "\mathop{\int\!\!\!\!\!\!\!\circlearrowleft}";  // Anticlockwise contour integral
+char/0x2234/mathmode = "\therefore ";                // Therefore
+char/0x2235/mathmode = "\because ";                  // Because or since
+char/0x2236/mathmode = "\,\!:";                      // Ratio
+char/0x2236/textmode = ":";                          // Ratio
+char/0x2237/mathmode = "\,\!:\,:";                   // Proportion
+char/0x2237/textmode = "::";               				   // Proportion
+char/0x2238/mathmode = "\dot-";                      // Dot minus
+char/0x2239/mathmode = "\,-\!:";                     // Excess
+char/0x223A/mathmode = ":\!\!\!-\!\!\!:";            // Geometric proportion
+char/0x223B/mathmode = "\sim\!\!\!:\,";              // Homothetic
+char/0x223C/mathmode = "\sim ";                      // Tilde operator
+char/0x223D/mathmode = "\backsim ";                  // Reverse tilde
+// char/0x223E       = "  ";                            // Inverted lazy s
+// char/0x223F       = "  ";                            // Sine wave
+char/0x2240/mathmode = "\wr ";                       // Wreath product
+char/0x2241/mathmode = "\nsim ";                     // Not tilde
+char/0x2242/mathmode = "\eqsim ";                   // Minus tilde
+char/0x2243/mathmode = "\simeq ";                   // Asymptotically equal to
+char/0x2245/mathmode = "\cong ";                    // Approximately equal to
+char/0x2247/mathmode = "\ncong ";                   // Neither approximately nor actually equal to
+char/0x2248/mathmode = "\approx ";                  // Almost equal to
+char/0x2249/mathmode = "\not\approx ";              // Not almost equal to
+char/0x224A/mathmode = "\approxeq ";                // Almost equal or equal to
+// char/0x224B       = "  ";                            // Triple tilde
+// char/0x224C       = "  ";                            // All equal to
+char/0x224D/mathmode = "\asymp ";                   // Equivalent to
+char/0x224E/mathmode = "\Bumpeq ";                  // Geometrically equivalent to
+char/0x224F/mathmode = "\bumpeq ";                  // Difference between
+char/0x2250/mathmode = "\doteq ";                   // Approaches the limit
+char/0x2251/mathmode = "\doteqdot ";                // Geometrically equal to
+char/0x2252/mathmode = "\fallingdotseq ";           // Approximately equal to or the image of
+char/0x2253/mathmode = "\risingdotseq ";            // Image of or approximately equal to
+char/0x2254/mathmode = ":=\,\!";                    // Colon equals
+char/0x2254/textmode = ":=";                        // Colon equals
+char/0x2255/mathmode = "=:\,\!";                    // Equals colon
+char/0x2255/textmode = "=:";                        // Equals colon
+char/0x2256/mathmode = "\eqcirc ";                  // Ring in equal to
+char/0x2257/mathmode = "\circeq ";                  // Ring equal to
+char/0x2258/mathmode = "\overset{\frown}{=}";       // Corresponds to
+char/0x2259/mathmode = "\overset{\wedge}{=}";       // Estimates
+char/0x225A/mathmode = "\overset{\vee}{=}";         // Equiangular to
+char/0x225B/mathmode = "\overset{\star}{=}";        // Star equals
+char/0x225C/mathmode = "\triangleq ";               // Delta equal to
+char/0x225D/mathmode = "\overset{\underset{\mathrm{def}}{}}{=}";   // Equal to by definition
+char/0x225E/mathmode = "\overset{\underset{\mathrm{m}}{}}{=}";     // Measured by
+char/0x225F/mathmode = "\overset{?}{=}";            // Questioned equal to
+char/0x2260/mathmode = "\ne ";                      // Not equal to
+char/0x2261/mathmode = "\equiv ";                   // Identical to
+char/0x2262/mathmode = "\not\equiv ";               // Not identical to
+// char/0x2263       = "  ";                            // Strictly equivalent to
+char/0x2264/mathmode = "\le ";                      // Less-than or equal to
+char/0x2265/mathmode = "\ge ";                      // Greater-than or equal to
+char/0x2266/mathmode = "\leqq ";                    // Less-than over equal to
+char/0x2267/mathmode = "\geqq ";                    // Greater-than over equal to
+char/0x2268/mathmode = "\lneqq ";                   // Less-than but not equal to (could be \lvertneqq ***)
+char/0x2269/mathmode = "\gneqq ";                   // Greater-than but not equal to (could be \gvertneqq ***)
+char/0x226A/mathmode = "\ll ";                      // Much less-than
+char/0x226B/mathmode = "\gg ";                      // Much greater-than
+char/0x226C/mathmode = "\between ";                 // Between
+char/0x226D/mathmode = "\not\asymp ";               // Not equivalent to
+char/0x226E/mathmode = "\nless ";                   // Not less-than
+char/0x226F/mathmode = "\ngtr ";                    // Not greater-than
+char/0x2270/mathmode = "\nleqslant ";               // Neither less-than nor equal to
+char/0x2271/mathmode = "\ngeqslant ";               // Neither greater-than nor equal to
+char/0x2272/mathmode = "\lesssim ";                 // Less-than or equivalent to
+char/0x2273/mathmode = "\gtrsim ";                  // Greater-than or equivalent to
+char/0x2274/mathmode = "\not\lesssim ";             // Neither less-than nor equivalent to
+char/0x2275/mathmode = "\not\gtrsim ";              // Neither greater-than nor equivalent to
+char/0x2276/mathmode = "\lessgtr ";                 // Less-than or greater-than
+char/0x2277/mathmode = "\gtrless ";                 // Greater-than or less-than
+char/0x2278/mathmode = "\not\lessgtr ";             // Neither less-than nor greater-than
+char/0x2279/mathmode = "\not\gtrless ";             // Neither greater-than nor less-than
+char/0x227A/mathmode = "\prec ";                    // Precedes
+char/0x227B/mathmode = "\succ ";                    // Succeeds
+char/0x227C/mathmode = "\preccurlyeq ";             // Precedes or equal to
+char/0x227D/mathmode = "\succcurlyeq ";             // Succeeds or equal to
+char/0x227E/mathmode = "\precsim ";                 // Precedes or equivalent to
+char/0x227F/mathmode = "\succsim ";                 // Succeeds or equivalent to
+char/0x2280/mathmode = "\nprec ";                   // Does not precede
+char/0x2281/mathmode = "\nsucc ";                   // Does not succeed
+char/0x2282/mathmode = "\subset ";                  // Subset of
+char/0x2283/mathmode = "\supset ";                  // Superset of
+char/0x2284/mathmode = "\not\subset ";              // Not a subset of
+char/0x2285/mathmode = "\not\supset ";              // Not a superset of
+char/0x2286/mathmode = "\subseteq ";                // Subset of or equal to
+char/0x2287/mathmode = "\supseteq ";                // Superset of or equal to
+char/0x2288/mathmode = "\nsubseteq ";               // Neither a subset of nor equal to
+char/0x2289/mathmode = "\nsupseteq ";               // Neither a superset of nor equal to
+char/0x228A/mathmode = "\subsetneq ";               // Subset of with not equal to
+char/0x228B/mathmode = "\supsetneq ";               // Superset of with not equal to
+// char/0x228C       = "  ";                            // Multiset
+// char/0x228D       = "  ";                            // Multiset multiplication
+char/0x228E/mathmode = "\uplus ";                   // Multiset union
+char/0x228F/mathmode = "\sqsubset ";                // Square image of
+char/0x2290/mathmode = "\sqsupset ";                // Square original of
+char/0x2291/mathmode = "\sqsubseteq ";              // Square image of or equal to
+char/0x2292/mathmode = "\sqsupseteq ";              // Square original of or equal to
+char/0x2293/mathmode = "\sqcap ";                   // Square cap
+char/0x2294/mathmode = "\sqcup ";                   // Square cup
+char/0x2295/mathmode = "\oplus ";                   // Circled plus
+char/0x2296/mathmode = "\ominus ";                  // Circled minus
+char/0x2297/mathmode = "\otimes ";                  // Circled times
+char/0x2298/mathmode = "\oslash ";                  // Circled division slash
+char/0x2299/mathmode = "\odot ";                    // Circled dot operator
+char/0x229A/mathmode = "\circledcirc ";             // Circled ring operator
+char/0x229B/mathmode = "\circledast ";              // Circled asterisk operator
+char/0x229C/mathmode = "\,\bigcirc\!\!\!\!\!\!\!="; // Circled equals
+char/0x229D/mathmode = "\circleddash ";             // Circled dash
+char/0x229E/mathmode = "\boxplus ";                 // Squared plus
+char/0x229F/mathmode = "\boxminus ";                // Squared minus
+char/0x22A0/mathmode = "\boxtimes ";                // Squared times
+char/0x22A1/mathmode = "\boxdot ";                  // Squared dot operator
+char/0x22A2/mathmode = "\vdash ";                   // Right tack
+char/0x22A3/mathmode = "\dashv ";                   // Left tack
+char/0x22A4/mathmode = "\top ";                     // Down tack
+char/0x22A5/mathmode = "\bot ";                     // Perpendicular
+char/0x22A6/mathmode = "\vdash ";                   // Assertion
+char/0x22A7/mathmode = "\models ";                  // Models
+char/0x22A8/mathmode = "\vDash ";                   // True
+char/0x22A9/mathmode = "\Vdash ";                   // Forces
+char/0x22AA/mathmode = "\Vvdash ";                  // Triple vertical bar right turnstile
+char/0x22AB/mathmode = "\,\|\!\!\!=";               // Double vertical bar double right turnstile
+char/0x22AC/mathmode = "\nvdash ";                  // Does not prove
+char/0x22AD/mathmode = "\nvDash ";                  // Not true
+char/0x22AE/mathmode = "\nVdash ";                  // Does not force
+char/0x22AF/mathmode = "\nVDash ";                  // Negated double vertical bar double right turnstile
+// char/0x22B0/mathmode = " ";                    // Precedes under relation
+// char/0x22B1/mathmode = " ";                    // Succeeds under relation
+char/0x22B2/mathmode = "\triangleleft ";            // Normal subgroup of
+char/0x22B3/mathmode = "\triangleright ";           // Contains as normal subgroup
+char/0x22B4/mathmode = "\trianglelefteq ";          // Normal subgroup of or equal to
+char/0x22B5/mathmode = "\trianglerighteq ";         // Contains as normal subgroup or equal to
+// char/0x22B6       = "  ";                            // Original of
+// char/0x22B7       = "  ";                            // Image of
+char/0x22B8/mathmode = "\multimap ";                // Multimap
+// char/0x22B9       = "  ";                            // Hermitian conjugate matrix
+char/0x22BA/mathmode = "\intercal ";                // Intercalate
+char/0x22BB/mathmode = "\veebar ";                  // Xor
+char/0x22BC/mathmode = "\barwedge ";                // Nand
+char/0x22BD/mathmode = "\veebar ";                  // Nor
+// char/0x22BE       = "  ";                            // Right angle with arc
+// char/0x22BF       = "  ";                            // Right triangle
+char/0x22C0/mathmode = "\bigwedge ";                 // N-ary logical and
+char/0x22C1/mathmode = "\bigvee ";                   // N-ary logical or
+char/0x22C2/mathmode = "\bigcap ";                   // N-ary intersection
+char/0x22C3/mathmode = "\bigcup ";                   // N-ary union
+char/0x22C4/mathmode = "\diamond ";                 // Diamond operator
+char/0x22C5/mathmode = "\cdot ";                    // Dot operator
+char/0x22C6/mathmode = "\star ";                    // Star operator
+char/0x22C7/mathmode = "\divideontimes ";           // Division times
+char/0x22C8/mathmode = "\bowtie ";                  // Bowtie
+char/0x22C9/mathmode = "\ltimes ";                  // Left normal factor semidirect product
+char/0x22CA/mathmode = "\rtimes ";                  // Right normal factor semidirect product
+char/0x22CB/mathmode = "\leftthreetimes ";          // Left semidirect product
+char/0x22CC/mathmode = "\rightthreetimes ";         // Right semidirect product
+char/0x22CE/mathmode = "\curlyvee ";                // Curly logical or
+char/0x22CF/mathmode = "\curlywedge ";              // Curly logical and
+char/0x22D0/mathmode = "\Subset ";                  // Double subset
+char/0x22D1/mathmode = "\Supset ";                  // Double superset
+char/0x22D2/mathmode = "\Cap ";                     // Double intersection
+char/0x22D3/mathmode = "\Cup ";                     // Double union
+char/0x22D4/mathmode = "\pitchfork ";               // Pitchfork
+char/0x22D6/mathmode = "\lessdot ";                 // Less-than with dot
+char/0x22D7/mathmode = "\gtrdot ";                  // Greater-than with dot
+char/0x22D8/mathmode = "\lll ";                     // Very much less-than
+char/0x22D9/mathmode = "\ggg ";                     // Very much greater-than
+char/0x22DA/mathmode = "\lesseqgtr ";               // Less-than equal to or greater-than
+char/0x22DB/mathmode = "\gtreqless ";               // Greater-than equal to or less-than
+char/0x22DC/mathmode = "\eqslantless ";             // Equal to or less-than
+char/0x22DD/mathmode = "\eqslantgtr ";              // Equal to or greater-than
+char/0x22DE/mathmode = "\curlyeqprec ";             // Equal to or precedes
+char/0x22DF/mathmode = "\curlyeqsucc ";             // Equal to or succeeds
+char/0x22E0/mathmode = "\npreceq ";                 // Does not precede or equal
+char/0x22E1/mathmode = "\nsucceq ";                 // Does not succeed or equal
+char/0x22E6/mathmode = "\lnsim ";                   // Less-than but not equivalent to
+char/0x22E7/mathmode = "\gnsim ";                   // Greater-than but not equivalent to
+char/0x22E8/mathmode = "\precnsim ";                // Precedes but not equivalent to
+char/0x22E9/mathmode = "\succnsim ";                // Succeeds but not equivalent to
+char/0x22EA/mathmode = "\ntriangleleft ";           // Not normal subgroup of
+char/0x22EB/mathmode = "\ntriangleright ";          // Does not contain as normal subgroup
+char/0x22EC/mathmode = "\ntrianglelefteq ";         // Not normal subgroup of or equal to
+char/0x22ED/mathmode = "\ntrianglerighteq ";        // Does not contain as normal subgroup or equal
+char/0x22EE/mathmode = "\vdots ";                   // Vertical ellipsis
+char/0x22EF/mathmode = "\cdots ";                   // Math-axis ellipsis
+// char/0x22F0/mathmode = " ";                         // Up right diagonal ellipsis
+char/0x22F1/mathmode = "\ddots ";                   // Down right diagonal ellipsis
+char/0x2300/mathmode = "\varnothing ";							// Diameter sign
+char/0x2306/mathmode = "\doublebarwedge ";          // Perspective
+char/0x2308/mathmode = "\lceil ";                   // Left ceiling
+char/0x2309/mathmode = "\rceil ";                   // Right ceiling
+char/0x230A/mathmode = "\lfloor ";                  // Left floor
+char/0x230B/mathmode = "\rfloor ";                  // Right floor
+char/0x231C/mathmode = "\ulcorner ";                // Top left corner
+char/0x231D/mathmode = "\urcorner ";                // Top right corner
+char/0x231E/mathmode = "\llcorner ";                // Bottom left corner
+char/0x231F/mathmode = "\lrcorner ";                // Bottom right corner
+char/0x2322/mathmode = "\frown ";                    // Frown
+char/0x2323/mathmode = "\smile ";                    // Smile
+char/0x2329/mathmode = "\langle ";                   // Left-pointing angle bracket
+char/0x232A/mathmode = "\rangle ";                   // Right-pointing angle bracket
+char/0x2353/mathmode = "\Box\!\!\!\!\wedge";         // Boxed up caret
+char/0x2370/mathmode = "\Box\!\!\!\!?";              // Boxed question mark
+char/0x2423/mathmode = "\textvisiblespace ";         // Space indicator
+char/0x2423/textmode = "<ct>\textvisiblespace<ot>";  // Space indicator
+char/0x24C8/mathmode = "\circledS ";                 // Circled latin capital letter S
+char/0x25A0/mathmode = "\blacksquare ";              // Black square
+char/0x25A1/mathmode = "\square ";                   // White square
+char/0x25B2/mathmode = "\blacktriangle ";            // Black up-pointing triangle
+char/0x25B3/mathmode = "\vartriangle ";              // White up-pointing triangle
+char/0x25B6/mathmode = "\blacktriangleright ";       // Black right-pointing triangle
+char/0x25BC/mathmode = "\blacktriangledown ";        // Black down-pointing triangle
+char/0x25BD/mathmode = "\triangledown ";             // White down-pointing triangle
+char/0x25C0/mathmode = "\blacktriangleleft ";        // Black left-pointing triangle
+char/0x25CA/mathmode = "\lozenge ";                  // Lozenge
+char/0x25CB/mathmode = "\bigcirc ";                  // White circle
+char/0x2605/mathmode = "\bigstar ";                  // Black star
+char/0x2660/mathmode = "\spadesuit ";                // Black spade suit
+char/0x2661/mathmode = "\heartsuit ";                // White heart suit
+char/0x2662/mathmode = "\diamondsuit ";              // White diamond suit
+char/0x2663/mathmode = "\clubsuit ";                 // Black club suit
+char/0x2666/mathmode = "\blacklozenge ";             // Black diamond suit
+char/0x266D/mathmode = "\flat ";                     // Music flat sign
+char/0x266E/mathmode = "\natural ";                  // Music natural sign
+char/0x266F/mathmode = "\sharp ";                    // Music sharp sign
+char/0x2713/mathmode = "\checkmark ";                // Check mark
+char/0x2715/mathmode = "\times ";                    // Multiplication x
+// char/0x2720/mathmode = "\maltese ";                  // Maltese cross
+char/0x27E6/mathmode = "[\![";                       // Mathematical left white square bracket
+char/0x27E7/mathmode = "]\!]";                       // Mathematical right white square bracket
+char/0x27E8/mathmode = "\langle ";                   // Mathematical left angle bracket
+char/0x27E9/mathmode = "\rangle ";                   // Mathematical right angle bracket
+char/0x27F5/mathmode = "\longleftarrow ";            // Long leftwards arrow
+char/0x27F6/mathmode = "\longrightarrow ";           // Long rightwards arrow
+char/0x27F7/mathmode = "\longleftrightarrow ";       // Long left right arrow
+char/0x27F8/mathmode = "\Longleftarrow ";            // Long leftwards double arrow
+char/0x27F9/mathmode = "\Longrightarrow ";           // Long rightwards double arrow
+char/0x27FA/mathmode = "\Longleftrightarrow ";       // Long left right double arrow
+// char/0x27FB/mathmode = " ";       // Long leftwards arrow from bar
+char/0x27FC/mathmode = "\longmapsto ";               // Long rightwards arrow from bar
+char/0x29EB/mathmode = "\blacklozenge ";             // Filled lozenge
+char/0x29F8/mathmode = "\Big /";                     // Big solidus
+char/0x29F9/mathmode = "\Big\backslash ";             // Big reverse solidus
+char/0x2A00/mathmode = "\bigodot ";                  // n-ary circled dot operator
+char/0x2A01/mathmode = "\bigoplus ";                 // n-ary circled plus operator
+char/0x2A02/mathmode = "\bigotimes ";                // n-ary circled times operator
+char/0x2A04/mathmode = "\biguplus ";                 // n-ary union operator with plus
+char/0x2A06/mathmode = "\bigsqcup ";                 // n-ary square union operator
+char/0x2A0c/mathmode = "\iiiint ";                    // Quadruple integral operator
+char/0x3008/mathmode = "\langle ";                   // Left angle bracket
+char/0x3009/mathmode = "\rangle ";                   // Right angle bracket
+char/0x301A/mathmode = "[\![";                       // Left open bracket
+char/0x301B/mathmode = "]\!]";                       // Right open bracket
+
+char/0xE90B/mathmode = "\supseteqq ";               // Superset of or equal to
+char/0xE90C/mathmode = "\subseteqq ";               // Subset of or equal to
+char/0xE922/mathmode = "\lesseqqgtr ";              // Less-than equal to or greater-than
+char/0xE92D/mathmode = "\gtreqqless ";              // Greater-than equal to or less-than
+char/0xE92E/mathmode = "\shortmid ";                // Bar operator
+char/0xE92F/mathmode = "\shortparallel ";           // Double bar operator
+char/0xE930/mathmode = "\leqslant ";                // Less than or equal to
+char/0xE931/mathmode = "\geqslant ";                // Greater than or equal to
+char/0xE932/mathmode = "\lessapprox ";              // Less-than or approximately equal to
+char/0xE933/mathmode = "\gtrapprox ";               // Greater-than or approximately equal to
+char/0xE938/mathmode = "\preceq ";
+char/0xE939/mathmode = "\succeq ";
+char/0xE93A/mathmode = "\precapprox ";              // Precedes or equivalent to
+char/0xE93B/mathmode = "\succapprox ";              // Succeeds or equivalent to
+char/0xE981/mathmode = "\circleddash ";             // Double slash
+char/0xE98F/mathmode = "\centerdot ";               // Medium dot operator (free radical)
+char/0xEA06/mathmode = "\nleq ";                   // Not less-than or equal to
+char/0xEA07/mathmode = "\ngeq ";                   // Not greater-than or equal to
+char/0xEA0B/mathmode = "\nsupseteqq ";              // Neither superset of nor equal to
+char/0xEA0C/mathmode = "\nsubseteqq ";              // Neither subset of nor equal to
+char/0xEA0E/mathmode = "\not\eqslantgtr ";          // Neither equal to nor greater-than
+char/0xEA0F/mathmode = "\not\eqsim ";               // Neither equal to nor greater-than
+char/0xEA10/mathmode = "\not\eqslantless ";         // Neither equal to nor less-than
+char/0xEA11/mathmode = "\nsim ";                    // Small not tilde operator
+char/0xEA2E/mathmode = "\nshortmid ";               // Not bar operator
+char/0xEA2F/mathmode = "\nshortparallel ";          // Not double bar operator
+char/0xEA32/mathmode = "\lnapprox ";                // Less-than but not approximately equal to
+char/0xEA33/mathmode = "\gnapprox ";                // Greater-than but not approximately equal to
+char/0xEA34/mathmode = "\lneq ";                    // Less-than or not equal to
+char/0xEA35/mathmode = "\gneq ";                    // Greater-than or not equal to
+char/0xEA38/mathmode = "\npreceq ";                 // Not much less-than
+char/0xEA39/mathmode = "\nsucceq ";                 // Not much greater-than
+char/0xEA3A/mathmode = "\precnapprox ";             // Precedes but not equivalent to
+char/0xEA3B/mathmode = "\succnapprox ";             // Succeeds but not equivalent to
+char/0xEA40/mathmode = "\precneqq ";                // Precedes but not equal to
+char/0xEA41/mathmode = "\succneqq ";                // Succeeds but not equal to
+char/0xEA42/mathmode = "\varsubsetneq ";            // Not subset of nor equal to
+char/0xEA43/mathmode = "\varsupsetneq ";            // Not superset of nor equal to
+char/0xEA44/mathmode = "\subsetneqq ";              // Subset of or not equal to
+char/0xEA45/mathmode = "\supsetneqq ";              // Superset of or not equal to
+char/0xEA46/mathmode = "\varsubsetneqq ";           // Not subset of nor equal to
+char/0xEA47/mathmode = "\varsupsetneqq ";           // Not superset of nor equal to
+char/0xEB01/mathmode = "\overrightarrow{\scriptscriptstyle\leftarrow}"; // Arrow rightwards over small arrow leftwards
+char/0xEB02/mathmode = "\stackrel{\scriptscriptstyle\to}{\leftarrow}";  // Small arrow rightwards over arrow leftwards
+// char/0xEB03/mathmode = "\underset{\rightharpoonup}{\scriptscriptstyle\leftharpoondown}"; // Harpoon right over small harpoon left (this gives awful spacing)
+// char/0xEB04/mathmode = "\stackrel{\scriptscriptstyle\rightharpoonup}{\leftharpoondown}"; // Small harpoon right over harpoon left (this gives awful spacing)
+char/0xED01/mathmode = "\Game ";                     // Mirror G
+char/0xED02/mathmode = "\jmath ";                    // Latin small letter dotless j
+char/0xED10     = " d ";			// DifferentialD
+char/0xED11     = " e ";			// ExponentialE
+char/0xED12     = " i ";			// ImaginaryI
+char/0xED13     = " j ";			// ImaginaryJ
+char/0xED16     = " D ";			// CapitalDifferentialD
+
+// =====================================================
+// Spaces, etc.
+// =====================================================
+
+char/0xEF00/mathmode = " & ";                        // Alignment mark
+char/0xEF01          = "";                           // Zero width space
+char/0x200B 	     = "";     			     // Zero width space (Unicode 5)
+char/0xEF02/mathmode = "\,";                         // Thin space (1/6 EM)
+char/0x2009/mathmode = "\,";			     // Thin space (Unicode 5)
+char/0xEF03/mathmode = "\;";                         // Medium space
+char/0x205F/mathmode = "\;";                         // Medium space (Unicode 5)
+char/0xEF04/mathmode = "\ ";                         // Thick space (1/3 EM)
+char/0x2004/mathmode = "\ ";			     // Three-per-em space (Unicode 5)
+char/0xEF05/mathmode = "\quad ";                     // EM space
+char/0x2003/mathmode = "\quad ";                     // EM space (Unicode 5)
+char/0xEF06/mathmode = "\qquad ";                    // 2-EM space
+// char/0xEF07/mathmode = "{\mkern 1mu} ";                 // Inner space
+// char/0xEF08/mathmode = "{\kern 1pt} ";                  // 1-point space
+char/0xEF22/mathmode = "\!";                         // Negative thin space
+
+// =====================================================
+// Script, Fraktur, Blackboard Bold
+// =====================================================
+
+char/0xF000/mathmode = "\mathfrak{A}";               // Fraktur capital A
+char/0xF001/mathmode = "\mathfrak{B}";               // Fraktur capital B
+char/0xF002/mathmode = "\mathfrak{C}";               // Fraktur capital C
+char/0xF003/mathmode = "\mathfrak{D}";               // Fraktur capital D
+char/0xF004/mathmode = "\mathfrak{E}";               // Fraktur capital E
+char/0xF005/mathmode = "\mathfrak{F}";               // Fraktur capital F
+char/0xF006/mathmode = "\mathfrak{G}";               // Fraktur capital G
+char/0xF007/mathmode = "\mathfrak{H}";               // Fraktur capital H
+char/0xF008/mathmode = "\mathfrak{I}";               // Fraktur capital I
+char/0xF009/mathmode = "\mathfrak{J}";               // Fraktur capital J
+char/0xF00A/mathmode = "\mathfrak{K}";               // Fraktur capital K
+char/0xF00B/mathmode = "\mathfrak{L}";               // Fraktur capital L
+char/0xF00C/mathmode = "\mathfrak{M}";               // Fraktur capital M
+char/0xF00D/mathmode = "\mathfrak{N}";               // Fraktur capital N
+char/0xF00E/mathmode = "\mathfrak{O}";               // Fraktur capital O
+char/0xF00F/mathmode = "\mathfrak{P}";               // Fraktur capital P
+char/0xF010/mathmode = "\mathfrak{Q}";               // Fraktur capital Q
+char/0xF011/mathmode = "\mathfrak{R}";               // Fraktur capital R
+char/0xF012/mathmode = "\mathfrak{S}";               // Fraktur capital S
+char/0xF013/mathmode = "\mathfrak{T}";               // Fraktur capital T
+char/0xF014/mathmode = "\mathfrak{U}";               // Fraktur capital U
+char/0xF015/mathmode = "\mathfrak{V}";               // Fraktur capital V
+char/0xF016/mathmode = "\mathfrak{W}";               // Fraktur capital W
+char/0xF017/mathmode = "\mathfrak{X}";               // Fraktur capital X
+char/0xF018/mathmode = "\mathfrak{Y}";               // Fraktur capital Y
+char/0xF019/mathmode = "\mathfrak{Z}";               // Fraktur capital Z
+char/0xF01A/mathmode = "\mathfrak{a}";               // Fraktur small a
+char/0xF01B/mathmode = "\mathfrak{b}";               // Fraktur small b
+char/0xF01C/mathmode = "\mathfrak{c}";               // Fraktur small c
+char/0xF01D/mathmode = "\mathfrak{d}";               // Fraktur small d
+char/0xF01E/mathmode = "\mathfrak{e}";               // Fraktur small e
+char/0xF01F/mathmode = "\mathfrak{f}";               // Fraktur small f
+char/0xF020/mathmode = "\mathfrak{g}";               // Fraktur small g
+char/0xF021/mathmode = "\mathfrak{h}";               // Fraktur small h
+char/0xF022/mathmode = "\mathfrak{i}";               // Fraktur small i
+char/0xF023/mathmode = "\mathfrak{j}";               // Fraktur small j
+char/0xF024/mathmode = "\mathfrak{k}";               // Fraktur small k
+char/0xF025/mathmode = "\mathfrak{l}";               // Fraktur small l
+char/0xF026/mathmode = "\mathfrak{m}";               // Fraktur small m
+char/0xF027/mathmode = "\mathfrak{n}";               // Fraktur small n
+char/0xF028/mathmode = "\mathfrak{o}";               // Fraktur small o
+char/0xF029/mathmode = "\mathfrak{p}";               // Fraktur small p
+char/0xF02A/mathmode = "\mathfrak{q}";               // Fraktur small q
+char/0xF02B/mathmode = "\mathfrak{r}";               // Fraktur small r
+char/0xF02C/mathmode = "\mathfrak{s}";               // Fraktur small s
+char/0xF02D/mathmode = "\mathfrak{t}";               // Fraktur small t
+char/0xF02E/mathmode = "\mathfrak{u}";               // Fraktur small u
+char/0xF02F/mathmode = "\mathfrak{v}";               // Fraktur small v
+char/0xF030/mathmode = "\mathfrak{w}";               // Fraktur small w
+char/0xF031/mathmode = "\mathfrak{x}";               // Fraktur small x
+char/0xF032/mathmode = "\mathfrak{y}";               // Fraktur small y
+char/0xF033/mathmode = "\mathfrak{z}";               // Fraktur small z
+char/0xF080/mathmode = "\mathbb{A}";                 // Blackboard-bold capital A
+char/0xF081/mathmode = "\mathbb{B}";                 // Blackboard-bold capital B
+char/0xF082/mathmode = "\mathbb{C}";                 // Blackboard-bold capital C
+char/0xF083/mathmode = "\mathbb{D}";                 // Blackboard-bold capital D
+char/0xF084/mathmode = "\mathbb{E}";                 // Blackboard-bold capital E
+char/0xF085/mathmode = "\mathbb{F}";                 // Blackboard-bold capital F
+char/0xF086/mathmode = "\mathbb{G}";                 // Blackboard-bold capital G
+char/0xF087/mathmode = "\mathbb{H}";                 // Blackboard-bold capital H
+char/0xF088/mathmode = "\mathbb{I}";                 // Blackboard-bold capital I
+char/0xF089/mathmode = "\mathbb{J}";                 // Blackboard-bold capital J
+char/0xF08A/mathmode = "\mathbb{K}";                 // Blackboard-bold capital K
+char/0xF08B/mathmode = "\mathbb{L}";                 // Blackboard-bold capital L
+char/0xF08C/mathmode = "\mathbb{M}";                 // Blackboard-bold capital M
+char/0xF08D/mathmode = "\mathbb{N}";                 // Blackboard-bold capital N
+char/0xF08E/mathmode = "\mathbb{O}";                 // Blackboard-bold capital O
+char/0xF08F/mathmode = "\mathbb{P}";                 // Blackboard-bold capital P
+char/0xF090/mathmode = "\mathbb{Q}";                 // Blackboard-bold capital Q
+char/0xF091/mathmode = "\mathbb{R}";                 // Blackboard-bold capital R
+char/0xF092/mathmode = "\mathbb{S}";                 // Blackboard-bold capital S
+char/0xF093/mathmode = "\mathbb{T}";                 // Blackboard-bold capital T
+char/0xF094/mathmode = "\mathbb{U}";                 // Blackboard-bold capital U
+char/0xF095/mathmode = "\mathbb{V}";                 // Blackboard-bold capital V
+char/0xF096/mathmode = "\mathbb{W}";                 // Blackboard-bold capital W
+char/0xF097/mathmode = "\mathbb{X}";                 // Blackboard-bold capital X
+char/0xF098/mathmode = "\mathbb{Y}";                 // Blackboard-bold capital Y
+char/0xF099/mathmode = "\mathbb{Z}";                 // Blackboard-bold capital Z
+char/0xF0A4/mathmode = "\Bbbk ";                     // Blackboard-bold small k
+char/0xF100/mathmode = "\mathcal{A}";                // Script capital A
+char/0xF101/mathmode = "\mathcal{B}";                // Script capital B
+char/0xF102/mathmode = "\mathcal{C}";                // Script capital C
+char/0xF103/mathmode = "\mathcal{D}";                // Script capital D
+char/0xF104/mathmode = "\mathcal{E}";                // Script capital E
+char/0xF105/mathmode = "\mathcal{F}";                // Script capital F
+char/0xF106/mathmode = "\mathcal{G}";                // Script capital G
+char/0xF107/mathmode = "\mathcal{H}";                // Script capital H
+char/0xF108/mathmode = "\mathcal{I}";                // Script capital I
+char/0xF109/mathmode = "\mathcal{J}";                // Script capital J
+char/0xF10A/mathmode = "\mathcal{K}";                // Script capital K
+char/0xF10B/mathmode = "\mathcal{L}";                // Script capital L
+char/0xF10C/mathmode = "\mathcal{M}";                // Script capital M
+char/0xF10D/mathmode = "\mathcal{N}";                // Script capital N
+char/0xF10E/mathmode = "\mathcal{O}";                // Script capital O
+char/0xF10F/mathmode = "\mathcal{P}";                // Script capital P
+char/0xF110/mathmode = "\mathcal{Q}";                // Script capital Q
+char/0xF111/mathmode = "\mathcal{R}";                // Script capital R
+char/0xF112/mathmode = "\mathcal{S}";                // Script capital S
+char/0xF113/mathmode = "\mathcal{T}";                // Script capital T
+char/0xF114/mathmode = "\mathcal{U}";                // Script capital U
+char/0xF115/mathmode = "\mathcal{V}";                // Script capital V
+char/0xF116/mathmode = "\mathcal{W}";                // Script capital W
+char/0xF117/mathmode = "\mathcal{X}";                // Script capital X
+char/0xF118/mathmode = "\mathcal{Y}";                // Script capital Y
+char/0xF119/mathmode = "\mathcal{Z}";                // Script capital Z

@@ -1,0 +1,32 @@
+// AMS LaTeX (base vars).tdl
+
+// Copyright (c) 1999-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/AMS LaTeX (base vars).tdl 3     7/12/10 12:35p Eduardot $
+
+include "TeX (base vars).tdl";
+include "TeX (AMS base vars).tdl";
+
+// =====================================================
+// Default values for variables
+// (can be redefined in files using this base one)
+// =====================================================
+
+var/"TranslatorName" = "AMS LaTeX (base vars)";                   // names to use in error messages
+var/"TranslatorFileName" = "AMS LaTeX (base vars).tdl";
+
+var/"BeginMathDisplay" = "\[";
+var/"BeginMathInline" = "$";
+var/"EndMathDisplay" = "\]";
+var/"EndMathInline" = "$";
+var/"MatrixAlignGroup" = "{*{20}{c}}";
+var/"MatrixCenterAlignGroup" = "{*{20}{c}}";
+var/"MatrixLeftAlignGroup" = "{*{20}{l}}";
+var/"MatrixRightAlignGroup" = "{*{20}{r}}";
+var/"MatrixEnv" = "array";
+var/"NextRow" = "\\";
+var/"newline" = "@n"; // here we need @ for escaping

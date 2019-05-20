@@ -1,0 +1,28 @@
+MathType Output Translator 1.0: "Wikibooks", "Wikibooks translator v1.00 by Design Science, Inc.", website
+
+// Copyright (c) 2007-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Wikibooks.tdl 4     6/30/10 3:49p Eduardot $
+
+include "Texvc (base vars).tdl";
+// redefinitions of base variables
+
+var/"TranslatorName" = "Wikibooks";
+var/"TranslatorFileName" = "Wikibooks.tdl";
+
+var/"BeginMathDisplay" = "@n<math>"; 
+var/"BeginMathInline" = "<math>";
+var/"EndMathDisplay" = "</math>@n";
+var/"EndMathInline" = "</math>";
+
+// supress comments and MTEF data
+var/"EqnDataCmt"= "";
+var/"StdStartCmt"= "";
+var/"StdEndCmt"= "";
+
+include "Texvc (base rules).tdl";
+// redefinitions of base rules

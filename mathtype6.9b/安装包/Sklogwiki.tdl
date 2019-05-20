@@ -1,0 +1,36 @@
+MathType Output Translator 1.0: "Sklogwiki", "Sklogwiki translator v1.00 by Design Science, Inc.", application
+
+// Copyright (c) 1998-2012 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Sklogwiki.tdl 2     12/04/12 9:56a Eduardot $
+
+include "MathJax-LaTeX (base vars).tdl";
+// redefinitions of base variables
+var/"TranslatorName" = "Sklogwiki";
+var/"TranslatorFileName" = "Sklogwiki.tdl";
+
+include "MathJax-LaTeX (base rules).tdl";
+// redefinition of base rules
+eqn         = "<BeginMathDisplay>#@n<EqnDataCmt><EndMathDisplay>";     //  \[ <eqn> MTEF \]  -- display equation translation
+eqn/inline  = "<BeginMathInline>#@n<EqnDataCmt><EndMathInline>";       //  \( <eqn> MTEF \)       -- in-line equation translation
+
+// we have to be careful with the translation involving {}, since a {{chars}} is interpreted differently by the wiki software
+// (although it shouldn't be inside the math islands). So we add spaces around the problematic ones
+
+// Default slot translation
+slot       = " {#} ";              // default
+slot/0     = " {} ";               // empty (zero characters)
+slot/1/e   = " {#} ";              // one character with embellishment
+
+// Pile slot translation
+slot/p/1/e   = " {#} ";            // one character with embellishment
+
+// Limit slot translation
+slot/lim/1/e   = " {#} ";            // one character with embellishment
+
+sup/scan    = " {#1^#3} ";                  // superscript (scan)
+sub/scan    = " {#1_#2} ";                  // subscript (scan)

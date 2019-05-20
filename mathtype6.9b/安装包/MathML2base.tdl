@@ -1,0 +1,23 @@
+// MathML2base.tdl
+
+// Copyright (c) 2002-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/MathML2base.tdl 43    6/17/10 8:30p Eduardot $
+
+// This file is provided for backwards compatibility.
+// New translators should include the two vars and rules base files, with variable redefinitions between them:
+//
+// include "MathML2 (base vars).tdl";
+// // redefitions of variables follow
+// ...
+// include "MathML2 (base rules).tdl";
+// // redefitions of rules follow
+// ...
+
+include "MathML2 (base vars).tdl";
+// redefinitions of base variables
+include "MathML2 (base rules).tdl";

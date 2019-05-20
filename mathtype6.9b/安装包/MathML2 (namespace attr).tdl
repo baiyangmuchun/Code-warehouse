@@ -1,0 +1,25 @@
+MathType Output Translator 1.0: "MathML 2.0 (namespace attr)", "MathML 2.0 (namespace attr) translator v1.00 by Design Science, Inc.", language
+
+// Copyright (c) 2001-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/MathML2 (namespace attr).tdl 24    6/17/10 8:30p Eduardot $
+
+// The MathML definitions are contained in the file MathML2base.tdl, included below.
+// This file contains numeric entity references only. Although named entities are
+// more human-readable, many software programs do not yet understand named entities.
+// As a result, our default translator only generates numeric entities. If, for some
+// reason, you need to generate named entities, please contact our support dept. at
+// support@dessci.com and they will be able to help. 
+
+include "MathML2 (base vars).tdl";
+// redefinitions of base variables
+var/"TranslatorName" = "MathML 2.0 (namespace attr)";
+var/"TranslatorFileName" = "MathML2 (namespace attr).tdl";
+
+var/"MathMLNS" = " xmlns='http://www.w3.org/1998/Math/MathML'";
+
+include "MathML2 (base rules).tdl";

@@ -1,0 +1,364 @@
+// AMS LaTeX (base rules).tdl
+
+// Copyright (c) 1999-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/AMS LaTeX (base rules).tdl 4     9/22/10 8:14p Eduardot $
+
+// include TeXBase.tdl for common control sequences, etc.
+include "TeX (base rules).tdl";
+// include TeXChars.tdl for character defintions common to all dialects of TeX
+include "TeX (chars).tdl";
+// include some AMS translations
+include "TeX (AMS base rules).tdl";
+
+// =====================================================
+// Default Translation Strings
+// =====================================================
+ 
+deffunc     = "\operatorname{#} ";	//  default function translation 
+defchar     = error "@nNo translation available for <FullDesc>. @nPlease add a translation for  @"<Cmd>@"  in the file '<TranslatorFileName>'.";    //  default character translation 
+deftmpl     = error "@nNo translation available for <Desc>. @nPlease add a translation for  @"<Cmd>@"  in the file '<TranslatorFileName>.'";        //  default template translation 
+defemb      = error "@nNo translation available for <Desc>. @nPlease add a translation for  @"<Cmd>@"  in the file '<TranslatorFileName>.'";        //  default embellishment translation 
+
+run/text         = "{\text{#}}";      // run of Text style characters 
+run/vector       = "{\mathbf{#}}";    // run of Vector style characters 
+
+// =====================================================
+// Piles
+// =====================================================
+
+// Pile translation (default, embedded)
+pile      = "\begin{gathered}<newline>  # <NextRow> <newline>  # <NextRow> <newline>\end{gathered} ";                   // default
+pile/l    = "\begin{gathered}<newline>  # <hfill> <NextRow><newline>  # <hfill> <NextRow> <newline>\end{gathered} ";      // left justified
+pile/c    = "\begin{gathered}<newline>  # <NextRow> <newline>  # <NextRow> <newline>\end{gathered} ";                   // centered
+pile/r    = "\begin{gathered}<newline>  <hfill> # <NextRow><newline>  <hfill> # <NextRow> <newline>\end{gathered} ";      // right justified
+pile/al   = "\begin{aligned}<newline>  # <NextRow> <newline>  # <NextRow> <newline>\end{aligned} ";                     // aligned at alignment mark
+
+// Top level pile translation
+pile/t      = "\begin{gathered}<newline>  # <NextRow> <newline>  # <NextRow> <newline>\end{gathered} ";                   // default
+pile/t/l    = "\begin{gathered}<newline>  # <hfill> <NextRow><newline>  # <hfill> <NextRow> <newline>\end{gathered} ";      // left justified
+pile/t/c    = "\begin{gathered}<newline>  # <NextRow> <newline>  # <NextRow> <newline>\end{gathered} ";                   // centered
+pile/t/r    = "\begin{gathered}<newline>  <hfill> # <NextRow><newline>  <hfill> # <NextRow> <newline>\end{gathered} ";      // right justified
+pile/t/al   = "\begin{aligned}<newline>  # <NextRow> <newline>  # <NextRow> <newline>\end{aligned} ";                     // aligned at alignment mark
+
+// 2-line limit pile translation (as in limit of summation)
+pile/lim/2        = "\substack{ #1 <NextRow> #2 } ";                                              // default 
+pile/lim/2/l      = "\begin{subarray}{l} <newline>  #1 <NextRow> <newline>  #2 <newline>\end{subarray} ";              // left justified
+pile/lim/2/c      = "\substack{ #1 <NextRow> #2 } ";                                              // centered    
+pile/lim/2/r      = "\begin{subarray} <newline> <hfill> #1 <NextRow> <newline> <hfill> #2 <newline>\end{subarray} ";     // right justified
+
+// 3-line limit pile translation (as in limit of summation)
+pile/lim/3        = "\substack{ #1 <NextRow> #2 <NextRow> #3 } ";                                                         // default 
+pile/lim/3/l      = "\begin{subarray}{l} <newline>  #1 <NextRow> <newline>  #2 <NextRow> <newline>  #3 <newline>\end{subarray} ";                     // left justified
+pile/lim/3/c      = "\substack{ #1 <NextRow> #2 <NextRow> #3 } ";                                                         // centered
+pile/lim/3/r      = "\begin{subarray} <newline>  <hfill> #1 <NextRow> <newline>  <hfill> #2 <NextRow> <newline>  <hfill> #3 <newline>\end{subarray} ";   // right justified
+
+// =====================================================
+// Matrices and Matrix Elements
+// =====================================================
+
+// Matrix translation (not allowing for partition lines, but better spacing)
+// matrix      = "\begin{matrix}<newline>#<newline> \end{matrix} ";      
+
+// Matrix translation (allowing for partition lines, but worse spacing)
+matrix      = "\begin{<MatrixEnv>}<MatrixAlignGroup><newline>#\end{<MatrixEnv>} ";      
+matrix/c    = "\begin{<MatrixEnv>}<MatrixCenterAlignGroup><newline>#\end{<MatrixEnv>}";      
+matrix/l    = "\begin{<MatrixEnv>}<MatrixLeftAlignGroup><newline>#\end{<MatrixEnv>}";      
+matrix/r    = "\begin{<MatrixEnv>}<MatrixRightAlignGroup><newline>#\end{<MatrixEnv>}";      
+ 
+// Matrix row translation
+matrow   = "  # <NextRow> <newline>";
+
+// Matrix last row translation
+matrow/last   = "  # <newline>";
+
+// Matrix element translation (except for last element in row) 
+matelem/c   = "#&";           // Center justified 
+matelem/l   = "#&";           // Left justified
+matelem/r   = "#&";           // Right justified 
+
+// Matrix element translation (last element in row only) 
+matelem/last/l   = "#";       // Left justified
+matelem/last/c   = "#";       // Center justified 
+matelem/last/r   = "#";       // Right justified 
+
+// =====================================================
+// Partition Lines for Matrices & Tables
+// =====================================================
+
+//  Horizontal matrix partition lines (solid, dashed, dotted)
+//  Only solid lines are supported in TeX
+hline       = "\hline<newline>";           // Solid
+hline/dash  = "\hline<newline>";           // Dashed 
+hline/dot   = "\hline<newline>";           // Dotted
+
+//  Vertical matrix partition lines (solid, dashed, dotted)
+//  Only solid lines are supported in TeX
+vline       = "\vline & ";          // Solid
+vline/dash  = "\vline & ";          // Dashed
+vline/dot   = "\vline & ";          // Dotted
+
+// =====================================================
+// Strike-through templates
+// =====================================================
+// strike/m = "?"       // Mid-line strike-through 
+// strike = "?"         // Strike-through 
+// strike/up = "?"      // Strike-through (bottom-left to upper-right)
+// strike/dn = "?"      // Strike-through (top-left to bottom-right)
+
+// =====================================================
+// Roots and Long Division
+// =====================================================
+
+root/nth   = "\sqrt[#2]{#1}";       // higher root 
+
+// =====================================================
+// Arrows with Slots Above and Below
+// =====================================================
+
+arrow       = "\xrightarrow{#1}";                           // right arrow, box on top 
+arrow/l     = "\xleftarrow{#1}";                            // left arrow, box on top 
+arrow/lr    = "\overset #1 \longleftrightarrow ";           // both arrow, box on top 
+arrow/b     = "\xrightarrow[#2]{}";                         // right arrow, box on bottom 
+arrow/l/b   = "\xleftarrow[#2]{}";                          // left arrow, box on bottom 
+arrow/lr/b  = "\underset #2 \longleftrightarrow ";          // both arrow, box on bottom 
+
+arrow/tb      = "\xrightarrow[#2]{#1}";                                // Right arrow with upper & lower text slots 
+arrow/l/tb    = "\xleftarrow[#2]{#1}";                                 // Left arrow with upper & lower text slots 
+arrow/lr/tb   = "\underset{#2}{\overset{#1}{\longleftrightarrow}}";    // Double-headed arrow with upper & lower text slots 
+
+arrow/2       = "\overset #1 \leftrightarrows ";     // Double arrow with upper text slot 
+arrow/2/b     = "\underset #2 \leftrightarrows ";             // Double arrow with lower text slot 
+arrow/2/tb    = "\underset{#2}{\overset{#1}{\longleftrightarrow}}";            // Double arrow with upper & lower text slots 
+// arrow/2/los = "?"           // Large over small arrow with upper text slot 
+// arrow/2/los/b = "?"         // Large over small arrow with lower text slot 
+// arrow/2/los/tb = "?"        // Large over small arrow with upper & lower text slots 
+// arrow/2/sol = "?"           // Small over large arrow with upper text slot 
+// arrow/2/sol/b = "?"         // Small over large arrow with lower text slot 
+// arrow/2/sol/tb = "?"        // Small over large arrow with upper & lower text slots 
+// arrow/2/h = "?"             // Harpoons with upper text slot 
+// arrow/2/h/b = "?"           // Harpoons with lower text slot 
+// arrow/2/h/tb = "?"          // Harpoons with upper & lower text slots 
+// arrow/2/h/los = "?"         // Large over small harpoon with upper text slot 
+// arrow/2/h/los/b = "?"       // Large over small harpoon with lower text slot 
+// arrow/2/h/los/tb = "?"      // Large over small harpoon with upper & lower text slots 
+// arrow/2/h/sol = "?"         // Small over large harpoon with upper text slot 
+// arrow/2/h/sol/b = "?"       // Small over large harpoon with lower text slot 
+// arrow/2/h/sol/tb = "?"      // Small over large harpoon with upper & lower text slots 
+
+// =====================================================
+// Hats, Tildes, Smiles & Frowns (wide ones, over several characters)
+// =====================================================
+
+// arc = "?"                    // Arc 
+// jstat = "?"                  // Joint status 
+// vec/h = "?"                  // Right harpoon over-bar 
+// vec/u/h = "?"                // Right harpoon under-bar 
+
+// =====================================================
+// Embellishment Translations
+// =====================================================
+
+edot/3         = "\dddot #";       // three dot over
+edot/4         = "\ddddot #";      // four dots over
+edot/u        = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>\cdot}$}}{#} ";           // one dot under
+edot/u/2      = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>\cdot\cdot}$}}{#} ";      // two dots under
+edot/u/3      = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>\cdots}$}}{#} ";          // three dot under
+edot/u/4      = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>\cdot\cdot\cdot\cdot}$}}{#} ";  // four dots under
+etilde/u     = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>\thicksim}$}}{#} ";  // tilde under
+evec/l       = "\overset{\lower0.5em\hbox{$\smash{<scriptscriptstyle>\leftarrow}$}}{#} ";         // Left arrow above
+evec/lr      = "\overset{\lower0.5em\hbox{$\smash{<scriptscriptstyle>\leftrightarrow}$}} {#} ";   // Left-right arrow above
+evec/h       = "\overset{\lower0.5em\hbox{$\smash{<scriptscriptstyle>\rightharpoonup}$}} {#} ";   // Right harpoon above
+evec/h/l     = "\overset{\lower0.5em\hbox{$\smash{<scriptscriptstyle>\leftharpoonup}$}} {#} ";    // Left harpoon above
+evec/u       = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>\rightarrow}$}}{#} ";       // Right arrow above
+evec/u/l     = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>\leftarrow}$}}{#} ";        // Left arrow above
+evec/u/lr    = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>\leftrightarrow}$}} {#} ";  // Left-right arrow above
+evec/u/h     = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>\rightharpoonup}$}} {#} ";  // Right harpoon above
+evec/u/h/l   = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>\leftharpoonup}$}} {#} ";   // Left harpoon above
+eubar      = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>-}$}}{#} ";            // Under bar
+earc       = "\overset{\lower0.5em\hbox{$\smash{<scriptscriptstyle>\frown}$}}{#} ";        // Frown above
+earc/s     = "\overset{\lower0.5em\hbox{$\smash{<scriptscriptstyle>\smile}$}}{#} ";        // Smile above
+earc/u     = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>\frown}$}}{#} ";       // Frown below
+earc/u/s   = "\underset{\raise0.3em\hbox{$\smash{<scriptscriptstyle>\smile}$}}{#} ";       // Smile below
+
+
+// =====================================================
+// Script, Fraktur, Blackboard Bold, etc.
+// =====================================================
+
+char/0x2102     = "\mathbb{C}";            // Blackboard-bold capital C
+char/0x210B     = "\mathcal{H}";           // Script capital H
+char/0x210C     = "\mathfrak{H}";          // Fraktur capital H
+char/0x210D     = "\mathbb{H}";            // Blackboard-bold capital H
+char/0x2110     = "\mathcal{I}";           // Script capital I
+char/0x2112     = "\mathcal{L}";           // Script capital L
+char/0x2115     = "\mathbb{N}";            // Blackboard-bold capital N
+char/0x2119     = "\mathbb{P}";            // Blackboard-bold capital P
+char/0x211A     = "\mathbb{Q}";            // Blackboard-bold capital Q
+char/0x211B     = "\mathcal{R}";           // Script capital R
+char/0x211D     = "\mathbb{R}";            // Blackboard-bold capital R
+char/0x2124     = "\mathbb{Z}";            // Blackboard-bold capital Z
+char/0x2128     = "\mathfrak{Z}";          // Fraktur capital Z
+char/0x212C     = "\mathcal{B}";           // Script capital B
+char/0x212D     = "\mathfrak{C}";          // Fraktur capital C
+char/0x2130     = "\mathcal{E}";           // Script capital E
+char/0x2131     = "\mathcal{F}";           // Script capital F
+char/0x2133     = "\mathcal{M}";           // Script capital M
+
+
+// =====================================================
+// Other More Exotic Character Translations
+// =====================================================
+
+char/0x221B     = "\sqrt[3]{\mathstrut} ";       // Cube root
+char/0x221C     = "\sqrt[4]{\mathstrut} ";       // Fourth root
+//char/0x2237     = "  ";                          // Proportion
+//char/0x2239     = "  ";                          // Excess
+//char/0x223A     = "  ";                          // Geometric proportion
+//char/0x223B     = "  ";                          // Homothetic
+//char/0x223E     = "  ";                          // Inverted lazy s
+//char/0x223F     = "  ";                          // Sine wave
+//char/0x224B     = "  ";                          // Triple tilde
+char/0x2258     = " \overset{\lower1em\hbox{$<scriptstyle>\frown$}}{=} ";    // Corresponds to
+char/0x2259     = " \overset{\wedge}{=}";        // Estimates
+char/0x225A     = " \overset{\vee}{=}";          // Equiangular to
+char/0x225B     = " \overset{\lower1em\hbox{$<scriptstyle>\star$}}{=} ";                         // Star equals
+char/0x225D     = " \overset{\text{def}}{=}";    // Equal to by definition
+char/0x225E     = " \overset{\wedge}{=}";        // Measured by
+char/0x225F     = " \overset{?}{=}";             // Questioned equal to
+//char/0x2263     = "  ";                          // Strictly equivalent to
+//char/0x228C     = "  ";                          // Multiset
+//char/0x228D     = "  ";                          // Multiset multiplication
+//char/0x229C     = "  ";                          // Circled equals
+//char/0x22AB     = "  ";                          // Double vertical bar double right turnstile
+//char/0x22B0     = "  ";                          // Precedes under relation
+//char/0x22B1     = "  ";                          // Succeeds under relation
+//char/0x22B6     = "  ";                          // Original of
+//char/0x22B7     = "  ";                          // Image of
+//char/0x22B9     = "  ";                          // Hermitian conjugate matrix
+//char/0x22BE     = "  ";                          // Right angle with arc
+//char/0x22BF     = "  ";                          // Right triangle
+
+// =====================================================
+// Fraktur (black) letters
+// =====================================================
+
+char/0xF000     = "\mathfrak{A}";           // Fraktur capital A
+char/0xF001     = "\mathfrak{B}";           // Fraktur capital B
+char/0xF002     = "\mathfrak{C}";           // Fraktur capital C
+char/0xF003     = "\mathfrak{D}";           // Fraktur capital D
+char/0xF004     = "\mathfrak{E}";           // Fraktur capital E
+char/0xF005     = "\mathfrak{F}";           // Fraktur capital F
+char/0xF006     = "\mathfrak{G}";           // Fraktur capital G
+char/0xF007     = "\mathfrak{H}";           // Fraktur capital H
+char/0xF008     = "\mathfrak{I}";           // Fraktur capital I
+char/0xF009     = "\mathfrak{J}";           // Fraktur capital J
+char/0xF00A     = "\mathfrak{K}";           // Fraktur capital K
+char/0xF00B     = "\mathfrak{L}";           // Fraktur capital L
+char/0xF00C     = "\mathfrak{M}";           // Fraktur capital M
+char/0xF00D     = "\mathfrak{N}";           // Fraktur capital N
+char/0xF00E     = "\mathfrak{O}";           // Fraktur capital O
+char/0xF00F     = "\mathfrak{P}";           // Fraktur capital P
+char/0xF010     = "\mathfrak{Q}";           // Fraktur capital Q
+char/0xF011     = "\mathfrak{R}";           // Fraktur capital R
+char/0xF012     = "\mathfrak{S}";           // Fraktur capital S
+char/0xF013     = "\mathfrak{T}";           // Fraktur capital T
+char/0xF014     = "\mathfrak{U}";           // Fraktur capital U
+char/0xF015     = "\mathfrak{V}";           // Fraktur capital V
+char/0xF016     = "\mathfrak{W}";           // Fraktur capital W
+char/0xF017     = "\mathfrak{X}";           // Fraktur capital X
+char/0xF018     = "\mathfrak{Y}";           // Fraktur capital Y
+char/0xF019     = "\mathfrak{Z}";           // Fraktur capital Z
+char/0xF01A     = "\mathfrak{a}";           // Fraktur small a
+char/0xF01B     = "\mathfrak{b}";           // Fraktur small b
+char/0xF01C     = "\mathfrak{c}";           // Fraktur small c
+char/0xF01D     = "\mathfrak{d}";           // Fraktur small d
+char/0xF01E     = "\mathfrak{e}";           // Fraktur small e
+char/0xF01F     = "\mathfrak{f}";           // Fraktur small f
+char/0xF020     = "\mathfrak{g}";           // Fraktur small g
+char/0xF021     = "\mathfrak{h}";           // Fraktur small h
+char/0xF022     = "\mathfrak{i}";           // Fraktur small i
+char/0xF023     = "\mathfrak{j}";           // Fraktur small j
+char/0xF024     = "\mathfrak{k}";           // Fraktur small k
+char/0xF025     = "\mathfrak{l}";           // Fraktur small l
+char/0xF026     = "\mathfrak{m}";           // Fraktur small m
+char/0xF027     = "\mathfrak{n}";           // Fraktur small n
+char/0xF028     = "\mathfrak{o}";           // Fraktur small o
+char/0xF029     = "\mathfrak{p}";           // Fraktur small p
+char/0xF02A     = "\mathfrak{q}";           // Fraktur small q
+char/0xF02B     = "\mathfrak{r}";           // Fraktur small r
+char/0xF02C     = "\mathfrak{s}";           // Fraktur small s
+char/0xF02D     = "\mathfrak{t}";           // Fraktur small t
+char/0xF02E     = "\mathfrak{u}";           // Fraktur small u
+char/0xF02F     = "\mathfrak{v}";           // Fraktur small v
+char/0xF030     = "\mathfrak{w}";           // Fraktur small w
+char/0xF031     = "\mathfrak{x}";           // Fraktur small x
+char/0xF032     = "\mathfrak{y}";           // Fraktur small y
+char/0xF033     = "\mathfrak{z}";           // Fraktur small z
+
+// =====================================================
+// Double-struck (Blackboard bold) characters
+// =====================================================
+
+char/0xF080     = "\mathbb{A}";             // Blackboard-bold capital A
+char/0xF081     = "\mathbb{B}";             // Blackboard-bold capital B
+char/0xF082     = "\mathbb{C}";             // Blackboard-bold capital C
+char/0xF083     = "\mathbb{D}";             // Blackboard-bold capital D
+char/0xF084     = "\mathbb{E}";             // Blackboard-bold capital E
+char/0xF085     = "\mathbb{F}";             // Blackboard-bold capital F
+char/0xF086     = "\mathbb{G}";             // Blackboard-bold capital G
+char/0xF087     = "\mathbb{H}";             // Blackboard-bold capital H
+char/0xF088     = "\mathbb{I}";             // Blackboard-bold capital I
+char/0xF089     = "\mathbb{J}";             // Blackboard-bold capital J
+char/0xF08A     = "\mathbb{K}";             // Blackboard-bold capital K
+char/0xF08B     = "\mathbb{L}";             // Blackboard-bold capital L
+char/0xF08C     = "\mathbb{M}";             // Blackboard-bold capital M
+char/0xF08D     = "\mathbb{N}";             // Blackboard-bold capital N
+char/0xF08E     = "\mathbb{O}";             // Blackboard-bold capital O
+char/0xF08F     = "\mathbb{P}";             // Blackboard-bold capital P
+char/0xF090     = "\mathbb{Q}";             // Blackboard-bold capital Q
+char/0xF091     = "\mathbb{R}";             // Blackboard-bold capital R
+char/0xF092     = "\mathbb{S}";             // Blackboard-bold capital S
+char/0xF093     = "\mathbb{T}";             // Blackboard-bold capital T
+char/0xF094     = "\mathbb{U}";             // Blackboard-bold capital U
+char/0xF095     = "\mathbb{V}";             // Blackboard-bold capital V
+char/0xF096     = "\mathbb{W}";             // Blackboard-bold capital W
+char/0xF097     = "\mathbb{X}";             // Blackboard-bold capital X
+char/0xF098     = "\mathbb{Y}";             // Blackboard-bold capital Y
+char/0xF099     = "\mathbb{Z}";             // Blackboard-bold capital Z
+char/0xF0A4     = "\Bbbk ";                 // Blackboard-bold small k
+
+// =====================================================
+// Script (calligraphic) characters
+// =====================================================
+
+char/0xF100     = "\mathcal{A}";            // Script capital A
+char/0xF101     = "\mathcal{B}";            // Script capital B
+char/0xF102     = "\mathcal{C}";            // Script capital C
+char/0xF103     = "\mathcal{D}";            // Script capital D
+char/0xF104     = "\mathcal{E}";            // Script capital E
+char/0xF105     = "\mathcal{F}";            // Script capital F
+char/0xF106     = "\mathcal{G}";            // Script capital G
+char/0xF107     = "\mathcal{H}";            // Script capital H
+char/0xF108     = "\mathcal{I}";            // Script capital I
+char/0xF109     = "\mathcal{J}";            // Script capital J
+char/0xF10A     = "\mathcal{K}";            // Script capital K
+char/0xF10B     = "\mathcal{L}";            // Script capital L
+char/0xF10C     = "\mathcal{M}";            // Script capital M
+char/0xF10D     = "\mathcal{N}";            // Script capital N
+char/0xF10E     = "\mathcal{O}";            // Script capital O
+char/0xF10F     = "\mathcal{P}";            // Script capital P
+char/0xF110     = "\mathcal{Q}";            // Script capital Q
+char/0xF111     = "\mathcal{R}";            // Script capital R
+char/0xF112     = "\mathcal{S}";            // Script capital S
+char/0xF113     = "\mathcal{T}";            // Script capital T
+char/0xF114     = "\mathcal{U}";            // Script capital U
+char/0xF115     = "\mathcal{V}";            // Script capital V
+char/0xF116     = "\mathcal{W}";            // Script capital W
+char/0xF117     = "\mathcal{X}";            // Script capital X
+char/0xF118     = "\mathcal{Y}";            // Script capital Y
+char/0xF119     = "\mathcal{Z}";            // Script capital Z

@@ -1,0 +1,1682 @@
+; setup.inf --- Copyright (c) 1987-2011 by Design Science, Inc.
+; Purpose: Information file - drives the installation process.
+; mtdl.cfg - configuration for MT download release
+; $Header: /MathType/Windows/Setup/mtdl.cfg 16    9/04/12 2:49p Jimm $
+
+[startup]
+; These vars are needed to properly open the config file.
+ShortAppKey = MT
+MajVersion = 6
+MinVersion = 9
+; set configurable items
+; cfgInstallPDF: 1 = install PDF manual
+cfgInstallPDF = 0
+; cfgDLLReg: 1 = register DLLs
+cfgDLLReg = 1
+; cfgForeign: 1 = support foreign languages
+cfgForeign = 0
+; --- Copyright (c) 2015 by Design Science, Inc.
+; start of [Startup] section is in .cfg file
+&logical_disks =
+&enable_remove =
+&set_remove_ops =
+; 'no_*' set to True will prevent the indicated window from being shown.
+no_background = 1
+;no_prog_meter = 0
+; 'InstallNoDlg' set to ANY value will cause the main selection dlg to operate as if the user had just hit
+; 'OK' (equivalent to '-I' on cmd line).
+;InstallNoDlg = 1
+; We need this to offer the user the chance to overwrite MT3
+; 'get_ini_var' requires 4 parameters:
+;		1) name of the value to store (once we get it)
+;		2) location of the ini source
+;		3) section where the value is to be found
+;		4) name of the value to read
+$get_ini_var = OldAppDir, <WinDir>\Mathtype.ini, Directories, MathTypeDir
+; 'lock_ProgDir' set to ANY value will prevent the user from modifying the destination text box in the main selection dlg.
+; Equivalent to '-DL' on command line.
+;lock_ProgDir = 0
+
+[shutdown]
+;; The 'overwrite_old_app_files' section is run here, rather than in the bulk of the installation sections, so that
+;; we're sure that all tasks (such as migrating the settings) that require the files that are removed have been run and
+;; no longer need these files.
+&overwrite_old_app_files? =
+&remove_shutdown_del_files? =
+&remove_dirs? =
+
+[remove_shutdown_del_files]
+; *************  LOCALIZATION  *************
+; This line is to make sure that the localized language libraries get deleted on a remove. If the DLL is loaded/linked,
+;  it can't be removed in the normal way.
+$file_sys = delete,<LangDir>\<ShortAppKey>su5XXX.dll
+
+[remove_dirs]
+; This section called by the [shutdown] section.
+; We'll try to delete these dirs to keep things clean, but if any files are in them, they won't be
+; deleted. We try to delete these here (from the 'shutdown' phase), because there will still be
+; files in them if we try to do them in remove's 'check sizes' or 'install' phases.
+$dir_del = <TranslatorDir>
+$dir_del = <MathPageDir>
+$dir_del = <LangDir>
+$dir_del = <AppSystemDir>
+$dir_del = <OfficeSuppDir>
+$dir_del = <TTAppDir>
+$dir_del = <PSAppDir>
+$dir_del = <FontsDir>
+$dir_del = <PrefsDir>
+$dir_del = <ProgDir>
+$dir_del = <AppDataRoot>
+
+[logical_disks]
+; This section called by the [startup] section. These values init'ed every time.
+; Expect most installs to be single-disk so use disk = 1, setup asserts that (disk>0)
+ExeDisk = 1
+HelpDisk = 1
+DllDisk = 1
+LangDllDisk = 1
+XlatorDisk = 1
+MacroDisk = 1
+TTDisk = 1
+PSDisk = 1
+PfmDisk = 1
+AfmDisk = 1
+PDFDisk = 1
+PrefsDisk = 1
+
+[enable_remove]
+; This section called by the [startup] section. These values init'ed every time.
+; enable_<SectionName> set to 1 will enable that checkbox in the remove dlg
+; no checkboxes in remove groupbox
+enable_remove_keep_fonts = 0
+enable_remove_keep_prefs = 0
+
+
+[easy_install]
+; marks certain sections for execution, and then run the master list.
+&easy_install_list =
+&master =
+
+[easy_install_list]
+do_application = 1
+do_fontinfo_files = 1
+do_toolbar_files = 1
+do_remove_old_version_files = 1
+do_setup_app = 1
+do_easy_setup_app_tasks = 1
+do_help = 1
+do_translator_files = 1
+do_ps1fonts = 1
+do_ttfonts = 1
+do_add_trusted_publisher_cert = 1
+do_word_macros = 1
+do_power_point_macros = 1
+do_preferences = 1
+do_readme = 0
+do_rem_icons = 1
+do_stub_ole_registrations = 1
+do_all_ole_autoconverts = 1
+do_convert_old_prefs = 1
+do_manual = <cfgInstallPDF>
+;do_typelib = 0
+
+[wkstation_install]
+; Takes the place of the "easy_install" group.
+do_readme = 0
+do_workstation_setup_app_tasks = 1
+; do_ps1fonts is activated here, but we don't call the "ps1fonts" section. This is so that the user
+; will see the "do_ps1fonts" message on a workstation install.
+do_ps1fonts = 1
+&manual_tasks =
+&fixup_old_betas =
+&application_tasks =
+&app_lang_libs_tasks =
+&dll_reg? =
+&ole_reg? =
+&setup_app_tasks =
+&help_tasks =
+&ps1fonts_tasks =
+&ttfonts_tasks =
+&choose_lang? =
+&add_trusted_publisher_cert =
+&word_macros_tasks =
+&power_point_macros_tasks =
+&readme_tasks =
+&rem_icons =
+&icons? =
+&convert_old_prefs =
+&stub_ole_registrations =
+&all_ole_autoconverts =
+&install_completion_notify =
+;&typelib =
+
+[remove_old_version_files]
+; This section will remove files that may be left around by a 3.x installation. These files will not be overwritten
+; by files from this (4.0) install, and need to be deleted.
+$file_sys = delete,<ProgDir>\Factory.eqp
+$file_sys = delete,<ProgDir>\Mathtype.cnt
+$file_sys = delete,<ProgDir>\Mathtype.hlp
+$file_sys = delete,<ProgDir>\Mathtype.gid
+$file_sys = delete,<ProgDir>\Mtsetup.exe
+$file_sys = delete,<ProgDir>\cmdmsw2.doc
+$file_sys = delete,<ProgDir>\cmdmsw6.doc
+$file_sys = delete,<ProgDir>\cmdmsw95.doc
+$file_sys = delete,<ProgDir>\cmdmsw97.doc
+$file_sys = delete,<ProgDir>\alte.wpm
+$file_sys = delete,<ProgDir>\mtmanual.pdf
+$file_sys = delete,<ProgDir>\readme.wri
+; Now remove files that an old 1.1 installation will have left around.
+$file_sys = delete,<ProgDir>\Setup.exe
+$file_sys = delete,<ProgDir>\Mt.hlp
+$file_sys = delete,<ProgDir>\Mt.gid
+$test_overwrite_old_app = do_overwrite_old_app_files
+
+[overwrite_old_app_files]
+; If we're in the state of overwriting an old application (MT 3.x or 1.1) then we need to remove the following files, as they are
+; not in the <ProgDir> folder.
+$file_sys = delete,<WinDir>\mathtype.ini
+$file_sys = delete,<WinDir>\mt.dll
+$file_sys = delete,<WinDir>\mt32.dll
+$file_sys = delete,<WinDir>\mtfonts.ini
+; We're not removing the "mtmacros.pre" file because this data doesn't get migrated.
+
+[fixup_old_betas]
+;currently nothing to fixup
+
+[application]
+; *************  LOCALIZATION  *************
+; Set the value of "do_app_lang_libs" to "1" (the number "one")
+do_app_lang_libs = <cfgForeign>
+&application_files =
+&application_tasks =
+
+[application_files]
+f_MTApiDLL =
+f_MTApiDLL_x86 =
+f_MTApiDLL_x64 =
+f_App =
+
+[application_tasks]
+do_dll_reg = <cfgDLLReg>
+do_ole_reg = 1
+&extensions =
+; 'add_icon' will put the particular icon in a list, and when 'add_icon_group' is called, all the icons in the list
+; will be added to the program group. The 'add_icon' task can have up to 5 parameters:
+;	- name for the icon/link,
+;	- description for the icon/link,
+;	- path to file
+;	- command-line args (opt.)
+;	- path to file who's icon will be shown, if different than arg3 (opt.)
+;	- icon index for file in arg5 (opt.)
+; Unused args must be at least one space (' ') char.
+$add_icon = <AppName>,<AppLinkDesc>,<ProgDir>\<AppProgName>.exe
+$add_icon = <ServerName>,<ServerLinkDesc>,<ProgDir>\<AppProgName>.exe,-server,<ProgDir>\<AppProgName>.exe,1
+do_icons = 1
++HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\App Paths\<AppProgName>.exe\ = <ProgDir>\<AppProgName>.exe
++HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\App Paths\<AppProgName>.exe\Path = <ProgDir>
+;These keys are removed to unflag the MathType executable from being handled by the PCA dialog on Vista/Win7.  See MT-2276.
+-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers\"<ProgDir>\<AppProgName>.exe" =
+-HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers\"<ProgDir>\<AppProgName>.exe" =
+
+[fontinfo_files]
+f_FontInfo =
+
+[app_lang_libs]
+; This section is a list of all the app's language libraries that will be copied
+; to the "Language" directory.
+&app_lang_libs_files =
+&app_lang_libs_tasks =
+
+[app_lang_libs_tasks]
+; *************  LOCALIZATION  *************
+; "1" turns on foreign lang. support
+do_choose_lang = <cfgForeign>
+
+[app_lang_libs_files]
+; *************  LOCALIZATION  *************
+; Localized version of MathType's DLL should be added here.
+;f_AppXXXLangLib =
+
+[toolbar_files]
+f_TBEqnLib =
+
+[setup_app]
+&setup_app_files =
+&setup_app_tasks =
+
+[setup_app_files]
+f_SetupApp =
+f_InfoFile =
+
+[setup_app_tasks]
+$add_icon = <EqnConvMgr>,<EqnConvMgrLinkDesc>,<ProgDir>\<ProgName>.exe,-OLEMGR,<ProgDir>\<ProgName>.exe,1
+do_icons = 1
+; *************  LOCALIZATION  *************
+; "1" turns on foreign lang. support
+do_setup_lang_libs = <cfgForeign>
+; Set up the "Add/Remove Programs" (Windows Control Panel). The UninstallString is set up in the separate "tasks" section below.
++HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\<AppKey>\DisplayName = <AppName> <MajVersion>
++HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\<AppKey>\DisplayVersion = <MajVersion>.<MinVersion>
++HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\<AppKey>\Publisher = Design Science, Inc.
++HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\<AppKey>\HelpLink = http://www.dessci.com/support
++HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\<AppKey>\URLInfoAbout = http://www.dessci.com
++HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\<AppKey>\DisplayIcon = <ProgDir>\<AppProgName>.exe
+&easy_setup_app_tasks? =
+&workstation_setup_app_tasks? =
+
+[easy_setup_app_tasks]
+$add_icon = <RemoveName>,<RemoveName>,<ProgDir>\<ProgName>.exe,-R
++HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\<AppKey>\UninstallString = "<ProgDir>\<ProgName>.exe" -R
+
+[workstation_setup_app_tasks]
+$add_icon = <RemoveWkstnName>,<RemoveWkstnName>,<ProgDir>\<ProgName>.exe,-R -W
++HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\<AppKey>\UninstallString = "<ProgDir>\<ProgName>.exe" -R -W
+
+[setup_lang_libs]
+; This section is a list of all the setup app's language libraries that will be copied
+; to the "Language" directory.
+&setup_lang_libs_files =
+; *************  LOCALIZATION  *************
+; "1" turns on foreign lang. support
+do_choose_lang = <cfgForeign>
+
+[setup_lang_libs_files]
+; *************  LOCALIZATION  *************
+; Localized versions of Setup's DLL should be added here.
+;f_SetupXXXLangLib =
+
+[help]
+&help_files =
+&help_tasks =
+
+[help_files]
+f_Help =
+; *************  LOCALIZATION  *************
+; Localized versions of the help files should be added here.
+;f_HelpXXX =
+
+[help_tasks]
++HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Help\<ShortAppKey><MajVersion>enu.chm = <ProgDir>
+; *************  LOCALIZATION  *************
+; Localized versions of the help files should be added here.
+;+HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Help\<ShortAppKey><MajVersion>XXX.chm = <ProgDir>
+$add_icon = <HelpName>,<HelpName>,<HelpDir>\<HelpFile>
+do_icons = 1
+
+[remove_help]
+&help_files =
+
+[manual]
+&manual_files =
+&manual_tasks =
+
+[manual_files]
+f_PDFManual =
+
+[manual_tasks]
+$add_icon = <UserManualName>,<UserManualName>,<ProgDir>\<AppName> User Manual.pdf
+do_icons = 1
+
+[translator_files]
+f_AccordLMS=
+f_ActivInspire=
+f_Acuity=
+f_Alfresco=
+f_Alpha=
+f_AMSLaTeXBase=
+f_AMSLaTeXBaseRules=
+f_AMSLaTeXBaseVars=
+f_AMSTeXXlator=
+f_AmsXlator=
+f_AngelLearning=
+f_ArtofProblemSolving=
+f_ASKBOT=
+f_ATutor=
+f_Authorea=
+f_BetterLesson=
+f_BlackBoard=
+f_Blendspace=
+f_BlendspaceQuiz=
+f_Bloomfire=
+f_BooRoo=
+f_BrainHoney=
+f_BSCW=
+f_Chamilo=
+f_Cinderella=
+f_CMS Made Simple=
+f_Cobocards=
+f_Coggle=
+f_Collaborize=
+f_Colwiz=
+f_Concrete=
+f_Confluence=
+f_Connexions=
+f_Contao=
+f_Coursera=
+f_CourseSites=
+f_Cramberry=
+f_cueFlash=
+f_Desire2LearnLaTeX=
+f_Desire2LearnMathML=
+f_DigitalChalk=
+f_Docebo=
+f_Dokeos=
+f_Draft=
+f_Ecto=
+f_ed2go=
+f_Ediscio=
+f_Edmodo=
+f_edu20=
+f_Edublogs Pro=
+f_Edublogs=
+f_Edubrite=
+f_Edufy=
+f_Edusite=
+f_edX=
+f_ELMS=
+f_Elxis=
+f_EncyclopediaOfMathematics=
+f_eNLVM=
+f_ePals=
+f_eQuizzer=
+f_Etomite=
+f_eTouchSamePage=
+f_eTrainCenter=
+f_EudoraOSE=
+f_Evernote=
+f_ExamTime=
+f_Experts123=
+f_EZLCMS=
+f_FengOffice=
+f_Fidus Writer=
+f_FluidSurveys=
+f_FreeWebClass=
+f_Fronter=
+f_Geek Central=
+f_Gmail=
+f_GmailChatTeX=
+f_GmailTeX=
+f_Google Presentations=
+f_GoogleChartAPIRules=
+f_GoogleChartAPIVars=
+f_GoogleDocs=
+f_GoogleGroups=
+f_GoogleSites=
+f_Groupsitecom=
+f_Haiku=
+f_Hotmail=
+f_HTMLInput=
+f_HTMLInputChars=
+f_HyperOffice=
+f_ILIAS=
+f_itslearning=
+f_Jaws CMS=
+f_JoomlaLMS=
+f_Kidblogorg=
+f_Knotebooks=
+f_KwikSurveys=
+f_LabArchives-LaTeX=
+f_LabArchives-MathML=
+f_LAMS=
+f_LaTeXBase=
+f_LaTeXBaseRules=
+f_LaTeXBaseVars=
+f_LatexXlator=
+f_LeaderTask=
+f_Leanpub=
+f_LearnHub=
+f_LifeType=
+f_LimeService=
+f_LiveText=
+f_Lore=
+f_Magnolia=
+f_Mahara=
+f_mail_ru=
+f_Mambo=
+f_MangoSpring=
+f_Math2org=
+f_MathBin.net=
+f_MathHelpBoards=
+f_MathJax-LaTeX(baserules)=
+f_MathJax-LaTeX(basevars)=
+f_MathJax-MathML(baserules)=
+f_MathJax-MathML(basevars)=
+f_MathJaxLaTeX=
+f_MathJaxMathML=
+f_MathML2Base=
+f_MathML2BaseRules=
+f_MathML2BaseVars=
+f_MathML2Clipboard=
+f_MathML2DataObject=
+f_MathML2Maple=
+f_MathML2Mathematica=
+f_MathML2MNamespace=
+f_MathML2NamespaceAttr=
+f_MathML2NoNamespace=
+f_MathOverflow=
+f_MentorMob=
+f_MHForum=
+f_Mind42=
+f_Mobomath=
+f_MoodleTeX=
+f_My Big Campus=
+f_MyiCourse=
+f_Naiku=
+f_Ning=
+f_Notepag.es=
+f_Novachi=
+f_NovellGroupWise=
+f_Nukeviet=
+f_Numbas=
+f_Nuvvo=
+f_Obsurvey=
+f_OERPUB=
+f_OER_Commons=
+f_OmniUpdate=
+f_OpenStudy=
+f_OpenTextFirstClass=
+f_OpenTextSocialWorkplace=
+f_OpenTrack=
+f_ORExchange=
+f_Outlook=
+f_OutlookExpress=
+f_Outlook_com=
+f_Pathwright=
+f_PBworks=
+f_Penzu=
+f_PHForum=
+f_Piazza=
+f_PlainTexXlator=
+f_Pollmo=
+f_Poll_Everywhere=
+f_Postagon=
+f_PresentationMathMLInput=
+f_Presentation_MathML_input_chars=
+f_Prezi=
+f_ProofWiki=
+f_ProProfs=
+f_Purplemath=
+f_Question Writer HTML5=
+f_QuiaWeb=
+f_Quora=
+f_Qute=
+f_RCampus=
+f_rootmath=
+f_RStudio=
+f_Ruzuku=
+f_Scholarpedia=
+f_SchoolFusion=
+f_Schoology=
+f_Scribblar=
+f_Sidevibe=
+f_SimpleBooklet=
+f_SiSSurvey=
+f_Skillshare=
+f_Sklogwiki=
+f_SmartCloud=
+f_sNews=
+f_Sophia=
+f_SOSMath=
+f_Spruz=
+f_StackEdit=
+f_StackExchange-EE=
+f_StackExchange-M=
+f_StackExchange-P=
+f_StackExchange-QF=
+f_StackExchange-SA=
+f_StackExchange-TCS=
+f_StudyBlue Pro=
+f_StudySync=
+f_SurveyGizmo=
+f_TalentLMS=
+f_Teachbook=
+f_TeacherSites=
+f_TeXAMSBaseXlator=
+f_TeXAMSBaseXlatorRules=
+f_TeXAMSBaseXlatorVars=
+f_TeXBaseXlator=
+f_TeXBaseXlatorRules=
+f_TeXBaseXlatorVars=
+f_TeXCharsXlator=
+f_TeXchat=
+f_Texify=
+f_Texvc=
+f_TexvcBase=
+f_TexvcBaseRules=
+f_TexvcBaseVars=
+f_TexvcChars=
+f_TexvcDataObject=
+f_TexvcInput=
+f_TexvcInputChars=
+f_TexvcLaTeXdelimiters=
+f_TexvcPhysicsForum=
+f_Thunderbird=
+f_TinyLetter=
+f_TOPYX=
+f_Top_Hat=
+f_Tumblr=
+f_Tutorsbox=
+f_TYPO3=
+f_UberNote=
+f_Udacity=
+f_Udemy=
+f_Udutu=
+f_UnivTorontoMathWiki=
+f_Vital=
+f_Votations=
+f_we=
+f_WebAssign=
+f_webATall=
+f_WebsiteBaker=
+f_WeCollaborate=
+f_widgEditor=
+f_Wikia=
+f_Wikibooks=
+f_Wikidot=
+f_Wikispaces=
+f_WindowsLiveWriter=
+f_WindowsMail=
+f_Winksite=
+f_WiZDOM=
+f_WordPress=
+f_WorldWideWhiteboard=
+f_YahooContributorNetwork=
+f_YahooMail=
+f_ZCubes=
+f_Zeppelin=
+f_Zimbra=
+f_ZohoDiscussions=
+f_ZohoWriter=
+f_Zotero=
+f_ZunalWebQuestMaker=
+
+[dll_reg]
+; This task will perform the application's DLL's COM registration
+$check_64bit_os =
+$register_dll = <MathPageDir>\32\MathPage.wll
+$register_dll = <MathPageDir>\64\MathPage.wll
+
+[ole_reg]
+; This task will perform the application's OLE registration
+$register =
+
+[all_ole_autoconverts]
+; True is used to convert all the recommended objects to this app.
+$set_all_autoconverts = True
+
+[ole_reg_mgr_all]
+; 'run_ole_mgr' will display the dialog that allows the user to select the equation types to autoconvert to the
+; main application. 'True' indicates that all the detected equation types will be listed. 'False' will cause the
+; dialog to only list the recommended types.
+$run_ole_mgr = True
+
+[ole_reg_mgr_recommended]
+$run_ole_mgr = False
+
+[stub_ole_registrations]
+; $stub_reg = <ProgID>, <ClassID>, <OLEClassName>
+$stub_reg = Equation,       {0003000B-0000-0000-C000-000000000046}, MathType Equation 3.0
+$stub_reg = Equation.2,     {00021700-0000-0000-C000-000000000046}, Microsoft Equation 2.0
+$stub_reg = Equation.3,     {0002CE02-0000-0000-C000-000000000046}, Microsoft Equation 3.0
+$stub_reg = Equation.COEE2, {0002CE01-0000-0000-C000-000000000046}, Corel Equation! 2.0
+$stub_reg = Equation.SAEE2, {0002CE07-0000-0000-C000-000000000046}, Sakhr Software Equation 2.1
+$stub_reg = Equation.AXEE2, {0002CE09-0000-0000-C000-000000000046}, Axum Equation
+$stub_reg = Equation.DGEE2, {0002CE0A-0000-0000-C000-000000000046}, DeltaGraph Equation 2.1
+$stub_reg = Equation.SSEE2, {0002CE0B-0000-0000-C000-000000000046}, Samsung Equation 2.1
+$stub_reg = Equation.IPEE1, {0002CE0C-0000-0000-C000-000000000046}, ips Publishing Equation 1.3
+$stub_reg = Equation.GAEE2, {0002CE0D-0000-0000-C000-000000000046}, GRAMS Equation 2.1
+$stub_reg = Equation.XPEE2, {0002CE0F-0000-0000-C000-000000000046}, XP Tech Equation 2
+$stub_reg = Equation.QTEE2, {0002CE10-0000-0000-C000-000000000046}, QText Equation 2
+$stub_reg = Equation.BREE2, {0002CE11-0000-0000-C000-000000000046}, Diploma Equation 2
+$stub_reg = Equation.IPEE3, {0002CE12-0000-0000-C000-000000000046}, ips Publishing Equation 3.5
+$stub_reg = Equation.DSMT36,{0002CE13-0000-0000-C000-000000000046}, MathType Equation 3.6+
+$stub_reg = Equation.IPEE3, {0002CE14-0000-0000-C000-000000000046}, ips Publishing Equation 3
+$stub_reg = Equation.QZEE2, {0002CE15-0000-0000-C000-000000000046}, Qwizdom Equation 2
+$stub_reg = Equation.EDEE2, {0002CE16-0000-0000-C000-000000000046}, Wizard Test Maker Equation 2
+$stub_reg = Equation.PWEE2, {0002CE17-0000-0000-C000-000000000046}, Pascal Write Equation 2
+$stub_reg = Equation.SMEE2, {0002CE18-0000-0000-C000-000000000046}, TestMaker Equation 2
+$stub_reg = Equation.MVEE4, {0002CE19-0000-0000-C000-000000000046}, MediaVision Equation 4
+$stub_reg = Equation.ACEE4, {0002CE1A-0000-0000-C000-000000000046}, Acme Equation 4
+$stub_reg = Equation.ESEE4, {0002CE1B-0000-0000-C000-000000000046}, ESATEST Equation 4
+$stub_reg = Equation.BOEE4, {0002CE1C-0000-0000-C000-000000000046}, eMOD Equation 4
+$stub_reg = Equation.RSEE4, {0002CE1D-0000-0000-C000-000000000046}, Respondus Equation 4
+
+[convert_old_prefs]
+; 'convert_pref' takes no parameters.
+$convert_pref =
+
+[choose_lang]
+$ask_choose_lang = <MachRegKey>\Config\AppLang
+
+[add_trusted_publisher_cert]
+; This task will add the DSI cert to the Trusted Publisher Store
+$add_trusted_publisher_cert =
+
+[word_macros]
+&word_macros_files =
+&word_macros_tasks =
+
+[word_macros_files]
+f_WordCmds_x86 =
+f_WordCmds_x64 =
+f_WordUICmds =
+f_Word2007UICmds =
+f_Word2010_x86UICmds =
+f_Word2010_x64UICmds =
+f_Word2013_x86UICmds =
+f_Word2013_x64UICmds =
+f_Word2016_x86UICmds =
+f_Word2016_x64UICmds =
+f_MathPageWLL_x86 =
+f_MathPageWLL_x64 =
+f_MathPageJS =
+f_MathPagePMathML =
+f_MathPagePMathMLCSS =
+f_MathPageEmptyGIF =
+f_WordUIDLL =
+f_BlankEqnDoc =
+;f_WordUIDLLXXX =
+; *************  LOCALIZATION  *************
+; Localized versions of the language DLLs for use with MS Word
+f_MSWordENULangLib =
+f_MSWordFRALangLib =
+f_MSWordSBNLangLib =
+f_MSWordDEULangLib =
+f_MSWordESPLangLib =
+f_MSWordDANLangLib =
+f_MSWordELLLangLib =
+f_MSWordJPNLangLib =
+;f_OfficeReadMeENU =
+; *************  LOCALIZATION  *************
+; Localized versions of the Word readme should be added here.
+;f_OfficeReadMeXXX
+
+[word_macros_tasks]
+; 'set_word_macro' takes 6 params:
+;		1) major version of Word that the following data is intended for
+;		2) bitness of the Word version being targeted
+;		3) filename of the macro file that will be installed
+;		4) the source location where the macro will be installed from
+;		OBSOLETE	5) filename of the WLL file that will be installed
+;		OBSOLETE	6) the source location where the WLL will be installed from
+$set_word_macro =  9, 32, MathType Commands 6 For Word.dot,			<OfficeSuppDir>\32
+$set_word_macro = 10, 32, MathType Commands 6 For Word.dot,			<OfficeSuppDir>\32
+$set_word_macro = 11, 32, MathType Commands 6 For Word.dot,			<OfficeSuppDir>\32
+$set_word_macro = 12, 32, MathType Commands 6 For Word.dotm,		<OfficeSuppDir>\32
+$set_word_macro = 14, 32, MathType Commands 6 For Word 2010.dotm,	<OfficeSuppDir>\32
+$set_word_macro = 14, 64, MathType Commands 6 For Word 2010.dotm, <OfficeSuppDir>\64
+$set_word_macro = 15, 32, MathType Commands 6 For Word 2013.dotm, <OfficeSuppDir>\32
+$set_word_macro = 15, 64, MathType Commands 6 For Word 2013.dotm, <OfficeSuppDir>\64
+$set_word_macro = 16, 32, MathType Commands 6 For Word 2016.dotm, <OfficeSuppDir>\32
+$set_word_macro = 16, 64, MathType Commands 6 For Word 2016.dotm, <OfficeSuppDir>\64
+
+; 'fixup_wordNN_migration' takes 2 params:
+;		a string to match in a filename
+;		(optional) extension of the file to match (default is any exension)
+; If a file exists in the Word 2000 & newer startup folder that contains the string in arg1,
+; and also matches the extension (if provided) in arg2, then the file will be removed.
+$fixup_word_migration = MathType Commands for, .dot
+$fixup_word_migration = MathType Commands 5 for Word, .dot
+$fixup_word_migration = MathType Commands 6 for Word, .dotm
+; check_unsupported_office_version takes an initial unsupported version# and a count
+; as new versions of Office are supported, the initial unsupported version should be incremented
+$check_unsupported_office_version = 17, 3
+; run_word_macro can be modified by changing its args:
+;	'True' = dialog to ask the user if it's ok to install the macros
+;	'False' = don't ask the user (no dialog), just do it. Default is 'True'.
+$run_word_macro = False
+-<UserRegKey>\WordCommands\NoLanuageDLLError =
+
+[remove_word_macros]
+$set_word_macro =  9, 32, MathType Commands 6 For Word.dot, <OfficeSuppDir>\32
+$set_word_macro = 10, 32, MathType Commands 6 For Word.dot, <OfficeSuppDir>\32
+$set_word_macro = 11, 32, MathType Commands 6 For Word.dot, <OfficeSuppDir>\32
+$set_word_macro = 12, 32, MathType Commands 6 For Word.dotm, <OfficeSuppDir>\32
+$set_word_macro = 14, 32, MathType Commands 6 For Word 2010.dotm, <OfficeSuppDir>\32
+$set_word_macro = 14, 64, MathType Commands 6 For Word 2010.dotm, <OfficeSuppDir>\64
+$set_word_macro = 15, 32, MathType Commands 6 For Word 2013.dotm, <OfficeSuppDir>\32
+$set_word_macro = 15, 64, MathType Commands 6 For Word 2013.dotm, <OfficeSuppDir>\64
+$set_word_macro = 16, 32, MathType Commands 6 For Word 2016.dotm, <OfficeSuppDir>\32
+$set_word_macro = 16, 64, MathType Commands 6 For Word 2016.dotm, <OfficeSuppDir>\64
+$remove_word_macro =
+
+[power_point_macros]
+&power_point_macros_files =
+&power_point_macros_tasks =
+
+[power_point_macros_files]
+f_PowerPtHelperApp =
+;f_PowerPt9AddIn =
+f_PowerPt10AddIn =
+f_PowerPt11AddIn =
+f_PowerPt12AddIn =
+f_PowerPt14_x86AddIn =
+f_PowerPt14_x64AddIn =
+f_PowerPt15_x86AddIn =
+f_PowerPt15_x64AddIn =
+f_PowerPt16_x86AddIn =
+f_PowerPt16_x64AddIn =
+
+[power_point_macros_tasks]
+; 'set_ppt_macro' takes 3 params: 1) major version of PowerPoint that the following data is intended for, 2) filename of the
+; macro file that will be installed, 3) the location where the add-in is located.
+$set_ppt_macro =  9, 32, MathType AddIn (PowerPoint 2000).ppa, <OfficeSuppDir>\32
+$set_ppt_macro = 10, 32, MathType AddIn (PowerPoint 2002).ppa, <OfficeSuppDir>\32
+$set_ppt_macro = 11, 32, MathType AddIn (PowerPoint 2003).ppa, <OfficeSuppDir>\32
+$set_ppt_macro = 12, 32, MathType AddIn (PowerPoint 2007).ppam, <OfficeSuppDir>\32
+$set_ppt_macro = 14, 32, MathType AddIn (PowerPoint 2010).ppam, <OfficeSuppDir>\32
+$set_ppt_macro = 14, 64, MathType AddIn (PowerPoint 2010).ppam, <OfficeSuppDir>\64
+$set_ppt_macro = 15, 32, MathType AddIn (PowerPoint 2013).ppam, <OfficeSuppDir>\32
+$set_ppt_macro = 15, 64, MathType AddIn (PowerPoint 2013).ppam, <OfficeSuppDir>\64
+$set_ppt_macro = 16, 32, MathType AddIn (PowerPoint 2016).ppam, <OfficeSuppDir>\32
+$set_ppt_macro = 16, 64, MathType AddIn (PowerPoint 2016).ppam, <OfficeSuppDir>\64
+; run_ppt_macro can be modified by changing its args: 'True' = dialog to ask the user if it's ok to install the
+; macros; 'False' = don't ask the user (no dialog), just do it. Default is 'True'.
+$run_ppt_macro = False
+
+[remove_power_point_macros]
+$set_ppt_macro =  9, 32, MathType AddIn (PowerPoint 2000).ppa, <OfficeSuppDir>\32
+$set_ppt_macro = 10, 32, MathType AddIn (PowerPoint 2002).ppa, <OfficeSuppDir>\32
+$set_ppt_macro = 11, 32, MathType AddIn (PowerPoint 2003).ppa, <OfficeSuppDir>\32
+$set_ppt_macro = 12, 32, MathType AddIn (PowerPoint 2007).ppam, <OfficeSuppDir>\32
+$set_ppt_macro = 14, 32, MathType AddIn (PowerPoint 2010).ppam, <OfficeSuppDir>\32
+$set_ppt_macro = 14, 64, MathType AddIn (PowerPoint 2010).ppam, <OfficeSuppDir>\64
+$set_ppt_macro = 15, 32, MathType AddIn (PowerPoint 2013).ppam, <OfficeSuppDir>\32
+$set_ppt_macro = 15, 64, MathType AddIn (PowerPoint 2013).ppam, <OfficeSuppDir>\64
+$set_ppt_macro = 16, 32, MathType AddIn (PowerPoint 2016).ppam, <OfficeSuppDir>\32
+$set_ppt_macro = 16, 64, MathType AddIn (PowerPoint 2016).ppam, <OfficeSuppDir>\64
+$remove_ppt_macro =
+
+[readme]
+; 'create_link' task will make a link (shortcut) file.
+;		Arg1 is the location to create the shortcut file
+;		Arg2 is the name of the link
+;		Arg3 is the description of the link
+;		Arg4 is the program the shortcut will execute
+;		Arg5 is the arguments to pass to the program in arg3
+;		Arg6 (optional) is the path of the executable whose icon we'll use
+;		Arg7 (opt.) is the index of the icon in executable in arg5.
+$create_link = <ProgDir>,<ReadMeName>,<ReadMeName>,hh.exe,-mapid <ReadMeHelpID> <HelpDir>\<HelpFile>
+; *************  LOCALIZATION  *************
+; Each help file should have a link to its "Read Me" topic.
+;$create_link = <ProgDir>,Read Me (<Language Name>),Read Me (<Language Name>),hh.exe,-mapid <ReadMeHelpID> <HelpDir>\<ShortAppKey><MajVersion>XXX.chm
+&readme_tasks =
+
+[readme_tasks]
+$add_icon = <ReadMeName>,<ReadMeName>,hh.exe,-mapid <ReadMeHelpID> <HelpDir>\<HelpFile>
+do_icons = 1
+
+[icons]
+; '*_icon_group' takes the name of the program group to manipulate. The add and remove tasks should use the same string.
+$add_icon_group = <AppName> <MajVersion>
+
+[rem_icons]
+$remove_icon_group = <AppName> <MajVersion>
+; Internet Explorer 4 (w/desktop update) causes problems when we delete, and then re-create the program group.
+
+;[typelib]
+;&typelib_files =
+;&typelib_tasks =
+
+;[typelib_files]
+;f_DSIWinUtils =
+
+;[typelib_tasks]
+;+HKEY_CLASSES_ROOT\TypeLib\{0002CE84-0000-0000-C000-000000000046}\1.0\ = "Design Science Inc. Windows Utilities"
+;+HKEY_CLASSES_ROOT\TypeLib\{0002CE84-0000-0000-C000-000000000046}\1.0\HELPDIR\ =
+;+HKEY_CLASSES_ROOT\TypeLib\{0002CE84-0000-0000-C000-000000000046}\1.0\Flags\ = 0
+;+HKEY_CLASSES_ROOT\TypeLib\{0002CE84-0000-0000-C000-000000000046}\1.0\0\Win32\ = <AppSystemDir>\DSIWinUtils.tlb
+
+;[remove_typelib]
+;-HKEY_CLASSES_ROOT\TypeLib\{0002CE84-0000-0000-C000-000000000046}\ =
+
+[install_completion_notify]
+; 'ask_view_readme' will cause Setup to pop up the successful completion dialog that allows the user to launch the ReadMe
+; file for viewing. The first arg is the variable that will trigger this dialog; the second arg is the path of the file to open.
+$ask_view_readme = do_readme,hh.exe,-mapid <ReadMeHelpID> <HelpDir>\<HelpFile>
+
+[extensions]
+; 'clean_old_winini_ext_reg' will remove old 16-bit/Win3.1 extension registrations. If the extension is assigned to our app, or an older
+; version of our app, then it will be removed. This is because it will override the extension registration we do in 'add_reg_chk_exist'.
+$clean_old_winini_ext_reg = EQP
+$clean_old_winini_ext_reg = EPS
+$clean_old_winini_ext_reg = WMF
+$clean_old_winini_ext_reg = GIF
+; 'add_reg_chk_exist' will add/modify the registry value in Arg1, only if the string in Arg2 is found as part of the data. If this
+; is the case, the string in Arg3 will be set to that value's data. (Arg1: reg key/value to examine & modify; Arg2: search str;
+; Arg3: new string for Arg1's data if Arg2 found)
++HKEY_CLASSES_ROOT\.EQP\ = Equation.PrefsFile
+; We remove file extension associations for EPS, WMF, and GIF. This is because MT is not a general editor/viewer for these types.
+; Users will have to make these associations themselves.
+$remove_reg_chk_exist = HKEY_CLASSES_ROOT\.EPS\, Equation
+$remove_reg_chk_exist = HKEY_CLASSES_ROOT\.WMF\, Equation
+$remove_reg_chk_exist = HKEY_CLASSES_ROOT\.GIF\, Equation
+; 'clean_others_ext_reg' will clean up other app's (non DSI) exension registrations. Arg1 is the extension whose registry key we're
+; starting our check with. Arg2 is the search string that identifies an extension as "ours" (if found, we ignore the extension).
+$clean_others_ext_reg = eqp,Equation
+$clean_others_ext_reg = eps,Equation
+$clean_others_ext_reg = wmf,Equation
+$clean_others_ext_reg = gif,Equation
+; 'add_openwith_support' adds support for ME/2000 & newer's OpenWith command in Windows Explorer
+$add_openwith_support = eps, <AppName>.exe
+$add_openwith_support = wmf, <AppName>.exe
+$add_openwith_support = gif, <AppName>.exe
+
+[remove_extensions]
+-HKEY_CLASSES_ROOT\.EQP\ =
+
+[preferences]
+&prefs_files =
+
+[prefs_files]
+f_CalSym11 =
+f_CalSym12 =
+f_CalSym32 =
+f_TeXPrefs =
+f_TmsSym10 =
+f_TmsSym12 =
+f_TmsSym48 =
+f_Euclid10 =
+f_Euclid12 =
+f_Euclid48 =
+f_TigerPrefs =
+f_TigerExpPrefs =
+
+[ttfonts]
+&ttfonts_files =
+&ttfonts_tasks =
+
+[ttfonts_files]
+f_MTExtraTT =
+f_EuclidTT =
+f_EuclidBoldTT =
+f_EuclidBoldItTT =
+f_EuclidItTT =
+f_EuclidSymbolTT =
+f_EuclidSymbolBoldTT =
+f_EuclidSymbolBoldItTT =
+f_EuclidSymbolItTT =
+f_EuclidExtraTT =
+f_EuclidExtraBoldTT =
+f_EuclidFracTT =
+f_EuclidFracBoldTT =
+f_EuclidMathOneTT =
+f_EuclidMathOneBoldTT =
+f_EuclidMathTwoTT =
+f_EuclidMathTwoBoldTT =
+f_FencesTT =
+f_TigerTT =
+f_TigerMTExtraTT =
+f_TigerSymbolTT =
+f_TigerExpTT =
+f_TigerExpSymbolTT =
+
+[ttfonts_tasks]
+; 'remove_soft_fonts' will remove old soft fonts installed into printer drivers.
+$remove_soft_fonts =
+; 'remove_font_name' will remove the font based on its windows name (not the filename), and its type ('raster', 'bitmap', or 'TrueType')
+$remove_font_name = MT Extra Plain,TrueType
+$remove_font_name = MT Extra Regular,TrueType
+$remove_font_name = Fences,TrueType
+$remove_font_name = MT Extra,raster
+; Remove screen fonts from older (1.1 and 3.x) vesions of MathType.
+$remove_font_name = "MT Extra 5,7,10,12,14,18,24,36 (VGA res)",bitmap
+$remove_font_name = "MT Symbol 5,7,10,12,14,18,24,36 (VGA res)",bitmap
+$remove_font_name = "MT Symbol Italic 5,7,10,12,14,18,24,36 (VGA res)",bitmap
+$remove_font_name = "Fences 5,7,10,12,14,18,24,36 (VGA res)",bitmap
+$remove_font_name = "Fences 10,14,20,24,28,36,48,72 (VGA res)",bitmap
+$remove_font_name = "MT Extra 5,7,10,12,14,18,24,36 (EGA res)",bitmap
+$remove_font_name = "MT Symbol 5,7,10,12,14,18,24,36 (EGA res)",bitmap
+$remove_font_name = "MT Symbol Italic 5,7,10,12,14,18,24,36 (EGA res)",bitmap
+$remove_font_name = "Fences 5,7,10,12,14,18,24,36 (EGA res)",bitmap
+$remove_font_name = "Fences 10,14,20,24,28,36,48,72 (EGA res)",bitmap
+$remove_font_name = "MT Extra 5,7,10,12,14,18,24,36 (8514/a res)",bitmap
+$remove_font_name = "MT Symbol 5,7,10,12,14,18,24,36 (8514/a res)",bitmap
+$remove_font_name = "MT Symbol Italic 5,7,10,12,14,18,24,36 (8514/a res)",bitmap
+$remove_font_name = "Fences 5,7,10,12,14,18,24,36 (8514/a res)",bitmap
+$remove_font_name = "Fences 10,14,20,24,28,36,48,72 (8514/a res)",bitmap
+
+; 'install_tt_font' takes a source path, and a destination path.
+$install_tt_font = <TTAppDir>\mtextra.ttf, <TTSysDir>\mtextra.ttf
+$install_tt_font = <TTAppDir>\euclid.ttf, <TTSysDir>\euclid.ttf
+$install_tt_font = <TTAppDir>\euclidb.ttf, <TTSysDir>\euclidb.ttf
+$install_tt_font = <TTAppDir>\euclidbi.ttf, <TTSysDir>\euclidbi.ttf
+$install_tt_font = <TTAppDir>\euclidi.ttf, <TTSysDir>\euclidi.ttf
+$install_tt_font = <TTAppDir>\eucsym.ttf, <TTSysDir>\eucsym.ttf
+$install_tt_font = <TTAppDir>\eucsymb.ttf, <TTSysDir>\eucsymb.ttf
+$install_tt_font = <TTAppDir>\eucsymbi.ttf, <TTSysDir>\eucsymbi.ttf
+$install_tt_font = <TTAppDir>\eucsymi.ttf, <TTSysDir>\eucsymi.ttf
+$install_tt_font = <TTAppDir>\euextra.ttf, <TTSysDir>\euextra.ttf
+$install_tt_font = <TTAppDir>\euextrab.ttf, <TTSysDir>\euextrab.ttf
+$install_tt_font = <TTAppDir>\eufrak.ttf, <TTSysDir>\eufrak.ttf
+$install_tt_font = <TTAppDir>\eufrakb.ttf, <TTSysDir>\eufrakb.ttf
+$install_tt_font = <TTAppDir>\eumat1.ttf, <TTSysDir>\eumat1.ttf
+$install_tt_font = <TTAppDir>\eumat1b.ttf, <TTSysDir>\eumat1b.ttf
+$install_tt_font = <TTAppDir>\eumat2.ttf, <TTSysDir>\eumat2.ttf
+$install_tt_font = <TTAppDir>\eumat2b.ttf, <TTSysDir>\eumat2b.ttf
+$install_tt_font = <TTAppDir>\fences.ttf, <TTSysDir>\fences.ttf
+$install_tt_font = <TTAppDir>\Tiger.ttf, <TTSysDir>\Tiger.ttf
+$install_tt_font = <TTAppDir>\Mt Extra Tiger.ttf, <TTSysDir>\Mt Extra Tiger.ttf
+$install_tt_font = <TTAppDir>\Symbol Tiger.ttf, <TTSysDir>\Symbol Tiger.ttf
+$install_tt_font = <TTAppDir>\Tiger Expert.ttf, <TTSysDir>\Tiger Expert.ttf
+$install_tt_font = <TTAppDir>\Symbol Tiger Expert.ttf, <TTSysDir>\Symbol Tiger Expert.ttf
+$tt_fontchange_notify =
+
+[ps1fonts]
+&ps1fonts_files =
+&ps1fonts_tasks =
+
+[ps1fonts_files]
+f_EuclidPS =
+f_EuclidPSafm =
+f_EuclidPSpfm =
+f_EuclidBoldPS =
+f_EuclidBoldPSafm =
+f_EuclidBoldPSpfm =
+f_EuclidBoldItPS =
+f_EuclidBoldItPSafm =
+f_EuclidBoldItPSpfm =
+f_EuclidItPS =
+f_EuclidItPSafm =
+f_EuclidItPSpfm =
+f_EuclidSymbolPS =
+f_EuclidSymbolPSafm =
+f_EuclidSymbolPSpfm =
+f_EuclidSymbolBoldPS =
+f_EuclidSymbolBoldPSafm =
+f_EuclidSymbolBoldPSpfm =
+f_EuclidSymbolBoldItPS =
+f_EuclidSymbolBoldItPSafm =
+f_EuclidSymbolBoldItPSpfm =
+f_EuclidSymbolItPS =
+f_EuclidSymbolItPSafm =
+f_EuclidSymbolItPSpfm =
+f_EuclidExtraPS =
+f_EuclidExtraPSafm =
+f_EuclidExtraPSpfm =
+f_EuclidExtraBoldPS =
+f_EuclidExtraBoldPSafm =
+f_EuclidExtraBoldPSpfm =
+f_EuclidFracPS =
+f_EuclidFracPSafm =
+f_EuclidFracPSpfm =
+f_EuclidFracBoldPS =
+f_EuclidFracBoldPSafm =
+f_EuclidFracBoldPSpfm =
+f_EuclidMathOnePS =
+f_EuclidMathOnePSafm =
+f_EuclidMathOnePSpfm =
+f_EuclidMathOneBoldPS =
+f_EuclidMathOneBoldPSafm =
+f_EuclidMathOneBoldPSpfm =
+f_EuclidMathTwoPS =
+f_EuclidMathTwoPSafm =
+f_EuclidMathTwoPSpfm =
+f_EuclidMathTwoBoldPS =
+f_EuclidMathTwoBoldPSafm =
+f_EuclidMathTwoBoldPSpfm =
+f_MTExtraPS =
+f_MTExtraPSafm =
+f_MTExtraPSpfm =
+f_FencesPS =
+f_FencesPSafm =
+f_FencesPSpfm =
+
+[ps1fonts_tasks]
+&remove_atm_fonts =
+
+[remove_atm_fonts]
+; 'remove_old_atm_font' will remove a font installed into ATM, only if it's older than the given font (arg1).
+$remove_old_atm_font = <PSAppDir>\mtextra.pfb, <PSAppDir>\mtextra.pfm
+$remove_old_atm_font = <PSAppDir>\euclid.pfb, <PSAppDir>\euclid.pfm
+$remove_old_atm_font = <PSAppDir>\euclidb.pfb, <PSAppDir>\euclidb.pfm
+$remove_old_atm_font = <PSAppDir>\euclidbi.pfb, <PSAppDir>\euclidbi.pfm
+$remove_old_atm_font = <PSAppDir>\euclidi.pfb, <PSAppDir>\euclidi.pfm
+$remove_old_atm_font = <PSAppDir>\eucsym.pfb, <PSAppDir>\eucsym.pfm
+$remove_old_atm_font = <PSAppDir>\eucsymb.pfb, <PSAppDir>\eucsymb.pfm
+$remove_old_atm_font = <PSAppDir>\eucsymbi.pfb, <PSAppDir>\eucsymbi.pfm
+$remove_old_atm_font = <PSAppDir>\eucsymi.pfb, <PSAppDir>\eucsymi.pfm
+$remove_old_atm_font = <PSAppDir>\euextra.pfb, <PSAppDir>\euextra.pfm
+$remove_old_atm_font = <PSAppDir>\euextrab.pfb, <PSAppDir>\euextrab.pfm
+$remove_old_atm_font = <PSAppDir>\eufrak.pfb, <PSAppDir>\eufrak.pfm
+$remove_old_atm_font = <PSAppDir>\eufrakb.pfb, <PSAppDir>\eufrakb.pfm
+$remove_old_atm_font = <PSAppDir>\eumat1.pfb, <PSAppDir>\eumat1.pfm
+$remove_old_atm_font = <PSAppDir>\eumat1b.pfb, <PSAppDir>\eumat1b.pfm
+$remove_old_atm_font = <PSAppDir>\eumat2.pfb, <PSAppDir>\eumat2.pfm
+$remove_old_atm_font = <PSAppDir>\eumat2b.pfb, <PSAppDir>\eumat2b.pfm
+$atm_fontchange_notify =
+
+[files]
+; item name, source name, destination name, file length in bytes
+f_App=<ExeDisk>, <AppProgName>.ex_, <ProgDir>\<AppProgName>.exe,2120000
+f_TBEqnLib=<ExeDisk>,toolbar.eql,<AppSystemDir>\Toolbar.eql,140000
+f_SetupApp=<ExeDisk>, <ProgName>.exe, <ProgDir>\<ProgName>.exe,490000
+f_InfoFile=<ExeDisk>, Setup.inf, <ProgDir>\Setup.inf,47000,hidden
+; Leading '?' indicates that the file will be installed only if it doesn't exist already.
+f_FontInfo=<ExeDisk>, FontInfo.ini, ?<FontInfoFilePath>,3000
+
+; If foreign languages aren't enabled, 'LangDllDisk' will be 0 (verify will skip it).
+; *************  LOCALIZATION  *************
+; The following 2 lines are templates for foreign language files. Copy these lines, uncomment them, and replace 'XXX' by
+; the 3-letter language code. The file placeholders are used elsewhere in this file. The same should be done for where
+; they are used.
+;f_AppXXXLangLib=<LangDllDisk>, <ShortAppKey><MajVersion>XXX.dll, <LangDir>\<ShortAppKey><MajVersion>XXX.dll,129536
+;f_SetupXXXLangLib=<LangDllDisk>, <ShortAppKey>su4XXX.dll, <LangDir>\<ShortAppKey>su4XXX.dll,90624
+
+f_PDFManual=<PDFDisk>, manual.pdf, <ProgDir>\<AppName> User Manual.pdf,2000000
+f_MTApiDLL=<DllDisk>, mt6x86.dll, <AppSystemDir>\MT6.dll,475000
+f_MTApiDLL_x86=<DllDisk>, mt6x86.dll, <AppSystemDir>\32\MT6.dll,475000
+f_MTApiDLL_x64=<DllDisk>, mt6x64.dll, <AppSystemDir>\64\MT6.dll,485000
+
+; Help files
+f_Help=<HelpDisk>, <ShortAppKey><MajVersion>enu.chm, <HelpDir>\<ShortAppKey><MajVersion>enu.chm,1185000
+; *************  LOCALIZATION  *************
+; Localized versions of the help files should be added here.
+;f_HelpXXX=<HelpDisk>, <ShortAppKey><MajVersion>XXX.chm, <HelpDir>\<ShortAppKey><MajVersion>XXX.chm,21410
+
+; Translator files
+f_AccordLMS=<XlatorDisk>, Accord LMS.tdl, <TranslatorDir>\Accord LMS.tdl,1024
+f_ActivInspire=<XlatorDisk>, ActivInspire.tdl, <TranslatorDir>\ActivInspire.tdl, 4200
+f_Acuity=<XlatorDisk>, Acuity.tdl, <TranslatorDir>\Acuity.tdl,1200 
+f_Alfresco=<XlatorDisk>, Alfresco.tdl, <TranslatorDir>\Alfresco.tdl,1200
+f_Alpha=<XlatorDisk>, Alpha.tdl, <TranslatorDir>\Alpha.tdl,17000
+f_AMSLaTeXBase=<XlatorDisk>, AMS LaTeX (base).tdl, <TranslatorDir>\AMS LaTeX (base).tdl,1200
+f_AMSLaTeXBaseRules=<XlatorDisk>, AMS LaTeX (base rules).tdl, <TranslatorDir>\AMS LaTeX (base rules).tdl,23000
+f_AMSLaTeXBaseVars=<XlatorDisk>, AMS LaTeX (base vars).tdl, <TranslatorDir>\AMS LaTeX (base vars).tdl,1300
+f_AMSTeXXlator=<XlatorDisk>, AMSTeX.tdl, <TranslatorDir>\AMSTeX.tdl,14000
+f_AmsXlator=<XlatorDisk>, AMS LaTeX.tdl, <TranslatorDir>\AMS LaTeX.tdl,23000
+f_AngelLearning=<XlatorDisk>, ANGEL Learning.tdl, <TranslatorDir>\ANGEL Learning.tdl,5000
+f_ArtofProblemSolving=<XlatorDisk>, Art of Problem Solving.tdl, <TranslatorDir>\Art of Problem Solving.tdl,2400
+f_ASKBOT=<XlatorDisk>, ASKBOT.tdl, <TranslatorDir>\ASKBOT.tdl, 2048
+f_ATutor=<XlatorDisk>, ATutor.tdl, <TranslatorDir>\ATutor.tdl, 1200
+f_Authorea=<XlatorDisk>, Authorea.tdl, <TranslatorDir>\Authorea.tdl,1024
+f_BetterLesson=<XlatorDisk>, BetterLesson.tdl, <TranslatorDir>\BetterLesson.tdl,1200
+f_BlackBoard=<XlatorDisk>, Blackboard.tdl, <TranslatorDir>\Blackboard.tdl,5000
+f_Blendspace=<XlatorDisk>, Blendspace.tdl, <TranslatorDir>\Blendspace.tdl,1024
+f_BlendspaceQuiz=<XlatorDisk>, Blendspace Quiz.tdl, <TranslatorDir>\Blendspace Quiz.tdl,1024
+f_Bloomfire=<XlatorDisk>, Bloomfire.tdl, <TranslatorDir>\Bloomfire.tdl,1024
+f_BooRoo=<XlatorDisk>, BooRoo.tdl, <TranslatorDir>\BooRoo.tdl,1200
+f_BrainHoney=<XlatorDisk>, BrainHoney.tdl, <TranslatorDir>\BrainHoney.tdl,4096
+f_BSCW=<XlatorDisk>, BSCW.tdl, <TranslatorDir>\BSCW.tdl,1024
+f_Chamilo=<XlatorDisk>, Chamilo.tdl, <TranslatorDir>\Chamilo.tdl,2048
+f_Cinderella=<XlatorDisk>, Cinderella.tdl, <TranslatorDir>\Cinderella.tdl,2048
+f_CMS Made Simple=<XlatorDisk>, CMS Made Simple.tdl, <TranslatorDir>\CMS Made Simple.tdl,1024
+f_Cobocards=<XlatorDisk>, Cobocards.tdl, <TranslatorDir>\Cobocards.tdl,2400
+f_Coggle=<XlatorDisk>, Coggle.tdl, <TranslatorDir>\Coggle.tdl,3072
+f_Collaborize=<XlatorDisk>, Collaborize.tdl, <TranslatorDir>\Collaborize.tdl,1200
+f_Colwiz=<XlatorDisk>, Colwiz.tdl, <TranslatorDir>\Colwiz.tdl,1024
+f_Concrete=<XlatorDisk>, Concrete.tdl, <TranslatorDir>\Concrete.tdl,1024
+f_Confluence=<XlatorDisk>, Confluence.tdl, <TranslatorDir>\Confluence.tdl,2048
+f_Connexions=<XlatorDisk>, Connexions.tdl, <TranslatorDir>\Connexions.tdl, 2048
+f_Contao=<XlatorDisk>, Contao.tdl, <TranslatorDir>\Contao.tdl,1024
+f_Coursera=<XlatorDisk>, Coursera.tdl, <TranslatorDir>\Coursera.tdl, 2048
+f_CourseSites=<XlatorDisk>, CourseSites.tdl, <TranslatorDir>\CourseSites.tdl,1200
+f_Cramberry=<XlatorDisk>, Cramberry.tdl, <TranslatorDir>\Cramberry.tdl,2400
+f_cueFlash=<XlatorDisk>, cueFlash.tdl, <TranslatorDir>\cueFlash.tdl,2400
+f_Desire2LearnLaTeX=<XlatorDisk>, Desire2Learn-LaTeX.tdl, <TranslatorDir>\Desire2Learn-LaTeX.tdl,17000
+f_Desire2LearnMathML=<XlatorDisk>, Desire2Learn-MathML.tdl, <TranslatorDir>\Desire2Learn-MathML.tdl,2400
+f_DigitalChalk=<XlatorDisk>, DigitalChalk.tdl, <TranslatorDir>\DigitalChalk.tdl,1200 
+f_Docebo=<XlatorDisk>, Docebo.tdl, <TranslatorDir>\Docebo.tdl,1024
+f_Dokeos=<XlatorDisk>, Dokeos.tdl, <TranslatorDir>\Dokeos.tdl,1200
+f_Draft=<XlatorDisk>, Draft.tdl, <TranslatorDir>\Draft.tdl,4096
+f_Ecto=<XlatorDisk>, Ecto.tdl, <TranslatorDir>\Ecto.tdl,1024
+f_ed2go=<XlatorDisk>, ed2go.tdl, <TranslatorDir>\ed2go.tdl,1200
+f_Ediscio=<XlatorDisk>, Ediscio.tdl, <TranslatorDir>\Ediscio.tdl,2048
+f_Edmodo=<XlatorDisk>, Edmodo.tdl, <TranslatorDir>\Edmodo.tdl,2048
+f_edu20=<XlatorDisk>, edu2.0.tdl, <TranslatorDir>\edu2.0.tdl,1200
+f_Edublogs Pro=<XlatorDisk>, Edublogs Pro.tdl, <TranslatorDir>\Edublogs Pro.tdl,5120
+f_Edublogs=<XlatorDisk>, Edublogs.tdl, <TranslatorDir>\Edublogs.tdl,1200
+f_Edubrite=<XlatorDisk>, Edubrite.tdl, <TranslatorDir>\Edubrite.tdl,1024
+f_Edufy=<XlatorDisk>, Edufy.tdl, <TranslatorDir>\Edufy.tdl,1200
+f_Edusite=<XlatorDisk>, Edusite.tdl, <TranslatorDir>\Edusite.tdl,1200
+f_edX=<XlatorDisk>, edX.tdl, <TranslatorDir>\edX.tdl,9216
+f_ELMS=<XlatorDisk>, ELMS.tdl, <TranslatorDir>\ELMS.tdl,1024
+f_Elxis=<XlatorDisk>, Elxis.tdl, <TranslatorDir>\Elxis.tdl,1024
+f_EncyclopediaOfMathematics=<XlatorDisk>, EncyclopediaOfMathematics.tdl, <TranslatorDir>\EncyclopediaOfMathematics.tdl, 2048
+f_eNLVM=<XlatorDisk>, eNLVM.tdl, <TranslatorDir>\eNLVM.tdl,1024
+f_ePals=<XlatorDisk>, ePals.tdl, <TranslatorDir>\ePals.tdl,1200
+f_eQuizzer=<XlatorDisk>, eQuizzer.tdl, <TranslatorDir>\eQuizzer.tdl,1200
+f_Etomite=<XlatorDisk>, Etomite.tdl, <TranslatorDir>\Etomite.tdl,4096
+f_eTouchSamePage=<XlatorDisk>, eTouchSamePage.tdl, <TranslatorDir>\eTouchSamePage.tdl,1200
+f_eTrainCenter=<XlatorDisk>, eTrainCenter.tdl, <TranslatorDir>\eTrainCenter.tdl,1200
+f_EudoraOSE=<XlatorDisk>, EudoraOSE.tdl, <TranslatorDir>\EudoraOSE.tdl,1200
+f_Evernote=<XlatorDisk>, Evernote.tdl, <TranslatorDir>\Evernote.tdl,1900
+f_ExamTime=<XlatorDisk>, ExamTime.tdl, <TranslatorDir>\ExamTime.tdl,1024
+f_Experts123=<XlatorDisk>, Experts123.tdl, <TranslatorDir>\Experts123.tdl,1200
+f_EZLCMS=<XlatorDisk>, EZ LCMS.tdl, <TranslatorDir>\EZ LCMS.tdl,1200
+f_FengOffice=<XlatorDisk>, Feng Office.tdl, <TranslatorDir>\Feng Office.tdl,1200
+f_Fidus Writer=<XlatorDisk>, Fidus Writer.tdl, <TranslatorDir>\Fidus Writer.tdl,2048
+f_FluidSurveys=<XlatorDisk>, FluidSurveys.tdl, <TranslatorDir>\FluidSurveys.tdl,1200
+f_FreeWebClass=<XlatorDisk>, FreeWebClass.tdl, <TranslatorDir>\FreeWebClass.tdl,1200
+f_Fronter=<XlatorDisk>, Fronter.tdl, <TranslatorDir>\Fronter.tdl,1024
+f_Geek Central=<XlatorDisk>, Geek Central.tdl, <TranslatorDir>\Geek Central.tdl,2048
+f_Gmail=<XlatorDisk>, Gmail.tdl, <TranslatorDir>\Gmail.tdl,1900
+f_GmailChatTeX=<XlatorDisk>, GmailChatTeX.tdl, <TranslatorDir>\GmailChatTeX.tdl, 2048
+f_GmailTeX=<XlatorDisk>, GmailTeX.tdl, <TranslatorDir>\GmailTeX.tdl, 2048
+f_Google Presentations=<XlatorDisk>, Google Presentations.tdl, <TranslatorDir>\Google Presentations.tdl,2048
+f_GoogleChartAPIRules=<XlatorDisk>, Google (chart api rules).tdl, <TranslatorDir>\Google (chart api rules).tdl,9600
+f_GoogleChartAPIVars=<XlatorDisk>, Google (chart api vars).tdl, <TranslatorDir>\Google (chart api vars).tdl,1200
+f_GoogleDocs=<XlatorDisk>, Google Docs.tdl, <TranslatorDir>\Google Docs.tdl,1200
+f_GoogleGroups=<XlatorDisk>, Google Groups.tdl, <TranslatorDir>\Google Groups.tdl,1200
+f_GoogleSites=<XlatorDisk>, Google Sites.tdl, <TranslatorDir>\Google Sites.tdl,1200
+f_Groupsitecom=<XlatorDisk>, Groupsite.com.tdl, <TranslatorDir>\Groupsite.com.tdl,1200
+f_Haiku=<XlatorDisk>, Haiku.tdl, <TranslatorDir>\Haiku.tdl,1024
+f_Hotmail=<XlatorDisk>, Hotmail.tdl, <TranslatorDir>\Hotmail.tdl,1900
+f_HTMLInput=<XlatorDisk>, HTML Input.tdl, <TranslatorDir>\HTML Input.tdl,5000
+f_HTMLInputChars=<XlatorDisk>, HTML Input (chars).tdl, <TranslatorDir>\HTML Input (chars).tdl,51000
+f_HyperOffice=<XlatorDisk>, HyperOffice.tdl, <TranslatorDir>\HyperOffice.tdl,1200
+f_ILIAS=<XlatorDisk>, ILIAS.tdl, <TranslatorDir>\ILIAS.tdl,2048
+f_itslearning=<XlatorDisk>, itslearning.tdl, <TranslatorDir>\itslearning.tdl,1024
+f_Jaws CMS=<XlatorDisk>, Jaws CMS.tdl, <TranslatorDir>\Jaws CMS.tdl,1024
+f_JoomlaLMS=<XlatorDisk>, JoomlaLMS.tdl, <TranslatorDir>\JoomlaLMS.tdl,1200
+f_Kidblogorg=<XlatorDisk>, Kidblog.org.tdl, <TranslatorDir>\Kidblog.org.tdl,1200
+f_Knotebooks=<XlatorDisk>, Knotebooks.tdl, <TranslatorDir>\Knotebooks.tdl,1200 
+f_KwikSurveys=<XlatorDisk>, KwikSurveys.tdl, <TranslatorDir>\KwikSurveys.tdl,1200
+f_LabArchives-LaTeX=<XlatorDisk>, LabArchives-LaTeX.tdl, <TranslatorDir>\LabArchives-LaTeX.tdl, 2048
+f_LabArchives-MathML=<XlatorDisk>, LabArchives-MathML.tdl, <TranslatorDir>\LabArchives-MathML.tdl, 2048
+f_LAMS=<XlatorDisk>, LAMS.tdl, <TranslatorDir>\LAMS.tdl,2048
+f_LaTeXBase=<XlatorDisk>, LaTeX (base).tdl, <TranslatorDir>\LaTeX (base).tdl,1200
+f_LaTeXBaseRules=<XlatorDisk>, LaTeX (base rules).tdl, <TranslatorDir>\LaTeX (base rules).tdl,29000
+f_LaTeXBaseVars=<XlatorDisk>, LaTeX (base vars).tdl, <TranslatorDir>\LaTeX (base vars).tdl,1200
+f_LatexXlator=<XlatorDisk>, LaTeX.tdl, <TranslatorDir>\LaTeX.tdl,39000
+f_LeaderTask=<XlatorDisk>, LeaderTask.tdl, <TranslatorDir>\LeaderTask.tdl,1200
+f_Leanpub=<XlatorDisk>, Leanpub.tdl, <TranslatorDir>\Leanpub.tdl,2048
+f_LearnHub=<XlatorDisk>, LearnHub.tdl, <TranslatorDir>\LearnHub.tdl,5000
+f_LifeType=<XlatorDisk>, LifeType.tdl, <TranslatorDir>\LifeType.tdl,1024
+f_LimeService=<XlatorDisk>, LimeService.tdl, <TranslatorDir>\LimeService.tdl,1200
+f_LiveText=<XlatorDisk>, LiveText.tdl, <TranslatorDir>\LiveText.tdl,1200
+f_Lore=<XlatorDisk>, Lore.tdl, <TranslatorDir>\Lore.tdl,1024
+f_Magnolia=<XlatorDisk>, Magnolia.tdl, <TranslatorDir>\Magnolia.tdl,1024
+f_Mahara=<XlatorDisk>, Mahara.tdl, <TranslatorDir>\Mahara.tdl,1024
+f_mail_ru=<XlatorDisk>, mail.ru.tdl, <TranslatorDir>\mail.ru.tdl,1024
+f_Mambo=<XlatorDisk>, Mambo.tdl, <TranslatorDir>\Mambo.tdl,1024
+f_MangoSpring=<XlatorDisk>, MangoSpring.tdl, <TranslatorDir>\MangoSpring.tdl,1200 
+f_Math2org=<XlatorDisk>, Math2.org.tdl, <TranslatorDir>\Math2.org.tdl,1200
+f_MathBin.net=<XlatorDisk>, MathBin.net.tdl, <TranslatorDir>\MathBin.net.tdl, 2048
+f_MathHelpBoards=<XlatorDisk>, MathHelpBoards.tdl, <TranslatorDir>\MathHelpBoards.tdl, 2048
+f_MathJax-LaTeX(baserules)=<XlatorDisk>, MathJax-LaTeX (base rules).tdl, <TranslatorDir>\MathJax-LaTeX (base rules).tdl, 16384 
+f_MathJax-LaTeX(basevars)=<XlatorDisk>, MathJax-LaTeX (base vars).tdl, <TranslatorDir>\MathJax-LaTeX (base vars).tdl, 2048
+f_MathJax-MathML(baserules)=<XlatorDisk>, MathJax-MathML (base rules).tdl, <TranslatorDir>\MathJax-MathML (base rules).tdl, 2048
+f_MathJax-MathML(basevars)=<XlatorDisk>, MathJax-MathML (base vars).tdl, <TranslatorDir>\MathJax-MathML (base vars).tdl, 2048
+f_MathJaxLaTeX=<XlatorDisk>, MathJax-LaTeX.tdl, <TranslatorDir>\MathJax-LaTeX.tdl,17000
+f_MathJaxMathML=<XlatorDisk>, MathJax-MathML.tdl, <TranslatorDir>\MathJax-MathML.tdl,2400
+f_MathML2Base=<XlatorDisk>, MathML2Base.tdl, <TranslatorDir>\MathML2Base.tdl,1100
+f_MathML2BaseRules=<XlatorDisk>, MathML2 (base rules).tdl, <TranslatorDir>\MathML2 (base rules).tdl,110000
+f_MathML2BaseVars=<XlatorDisk>, MathML2 (base vars).tdl, <TranslatorDir>\MathML2 (base vars).tdl,2400
+f_MathML2Clipboard=<XlatorDisk>, MathML2 (Clipboard).tdl, <TranslatorDir>\MathML2 (Clipboard).tdl,2400
+f_MathML2DataObject=<XlatorDisk>, MathML2 (DataObject).tdl, <TranslatorDir>\MathML2 (DataObject).tdl,2900
+f_MathML2Maple=<XlatorDisk>, MathML2 (Maple).tdl, <TranslatorDir>\MathML2 (Maple).tdl,2400
+f_MathML2Mathematica=<XlatorDisk>, MathML2 (Mathematica).tdl, <TranslatorDir>\MathML2 (Mathematica).tdl,2500
+f_MathML2MNamespace=<XlatorDisk>, MathML2 (m namespace).tdl, <TranslatorDir>\MathML2 (m namespace).tdl,2000
+f_MathML2NamespaceAttr=<XlatorDisk>, MathML2 (namespace attr).tdl, <TranslatorDir>\MathML2 (namespace attr).tdl,2000
+f_MathML2NoNamespace=<XlatorDisk>, MathML2 (no namespace).tdl, <TranslatorDir>\MathML2 (no namespace).tdl,2000
+f_MathOverflow=<XlatorDisk>, MathOverflow.tdl, <TranslatorDir>\MathOverflow.tdl, 2048
+f_MentorMob=<XlatorDisk>, MentorMob.tdl, <TranslatorDir>\MentorMob.tdl,1024
+f_MHForum=<XlatorDisk>, MHForum.tdl, <TranslatorDir>\MHForum.tdl,2200
+f_Mind42=<XlatorDisk>, Mind42.tdl, <TranslatorDir>\Mind42.tdl,1024
+f_Mobomath=<XlatorDisk>, Mobomath.tdl, <TranslatorDir>\Mobomath.tdl,3100
+f_MoodleTeX=<XlatorDisk>, Moodle-TeX filter.tdl, <TranslatorDir>\Moodle-TeX filter.tdl,1400
+f_My Big Campus=<XlatorDisk>, My Big Campus.tdl, <TranslatorDir>\My Big Campus.tdl,1024
+f_MyiCourse=<XlatorDisk>, MyiCourse.tdl, <TranslatorDir>\MyiCourse.tdl,1024
+f_Naiku=<XlatorDisk>, Naiku.tdl, <TranslatorDir>\Naiku.tdl, 2048
+f_Ning=<XlatorDisk>, Ning.tdl, <TranslatorDir>\Ning.tdl,1900
+f_Notepag.es=<XlatorDisk>, Notepag.es.tdl, <TranslatorDir>\Notepag.es.tdl, 2048
+f_Novachi=<XlatorDisk>, Novachi.tdl, <TranslatorDir>\Novachi.tdl,1024
+f_NovellGroupWise=<XlatorDisk>, NovellGroupWise.tdl, <TranslatorDir>\NovellGroupWise.tdl,1200
+f_Nukeviet=<XlatorDisk>, Nukeviet.tdl, <TranslatorDir>\Nukeviet.tdl,1024
+f_Numbas=<XlatorDisk>, Numbas.tdl, <TranslatorDir>\Numbas.tdl,2048
+f_Nuvvo=<XlatorDisk>, Nuvvo.tdl, <TranslatorDir>\Nuvvo.tdl,2400
+f_Obsurvey=<XlatorDisk>, Obsurvey.tdl, <TranslatorDir>\Obsurvey.tdl,1200
+f_OERPUB=<XlatorDisk>, OERPUB.tdl, <TranslatorDir>\OERPUB.tdl,2048
+f_OER_Commons=<XlatorDisk>, OER Commons.tdl, <TranslatorDir>\OER Commons.tdl,17000
+f_OmniUpdate=<XlatorDisk>, OmniUpdate.tdl, <TranslatorDir>\OmniUpdate.tdl,1200
+f_OpenStudy=<XlatorDisk>, OpenStudy.tdl, <TranslatorDir>\OpenStudy.tdl, 2048
+f_OpenTextFirstClass=<XlatorDisk>, Open Text FirstClass.tdl, <TranslatorDir>\Open Text FirstClass.tdl,1200
+f_OpenTextSocialWorkplace=<XlatorDisk>, Open Text Social Workplace.tdl, <TranslatorDir>\Open Text Social Workplace.tdl,1200
+f_OpenTrack=<XlatorDisk>, OpenTrack.tdl, <TranslatorDir>\OpenTrack.tdl,17000
+f_ORExchange=<XlatorDisk>, ORExchange.tdl, <TranslatorDir>\ORExchange.tdl, 12288
+f_Outlook=<XlatorDisk>, Outlook.tdl, <TranslatorDir>\Outlook.tdl,1900
+f_OutlookExpress=<XlatorDisk>, Outlook Express.tdl, <TranslatorDir>\Outlook Express.tdl,1900
+f_Outlook_com=<XlatorDisk>, Outlook.com.tdl, <TranslatorDir>\Outlook.com.tdl,1024
+f_Pathwright=<XlatorDisk>, Pathwright.tdl, <TranslatorDir>\Pathwright.tdl,1024
+f_PBworks=<XlatorDisk>, PBworks.tdl, <TranslatorDir>\PBworks.tdl,2400
+f_Penzu=<XlatorDisk>, Penzu.tdl, <TranslatorDir>\Penzu.tdl,1024
+f_PHForum=<XlatorDisk>, PHForum.tdl, <TranslatorDir>\PHForum.tdl,2200
+f_Piazza=<XlatorDisk>, Piazza.tdl, <TranslatorDir>\Piazza.tdl,2048
+f_PlainTexXlator=<XlatorDisk>, Plain TeX.tdl, <TranslatorDir>\Plain TeX.tdl,41000
+f_Pollmo=<XlatorDisk>, Pollmo.tdl, <TranslatorDir>\Pollmo.tdl,1200
+f_Poll_Everywhere=<XlatorDisk>, Poll Everywhere.tdl, <TranslatorDir>\Poll Everywhere.tdl,2048
+f_Postagon=<XlatorDisk>, Postagon.tdl, <TranslatorDir>\Postagon.tdl,2048
+f_PresentationMathMLInput=<XlatorDisk>, Presentation MathML input.tdl, <TranslatorDir>\Presentation MathML input.tdl,81000
+f_Presentation_MathML_input_chars=<XlatorDisk>, Presentation MathML input (chars).tdl, <TranslatorDir>\Presentation MathML input (chars).tdl,225000
+f_Prezi=<XlatorDisk>, Prezi.tdl, <TranslatorDir>\Prezi.tdl,1200
+f_ProofWiki=<XlatorDisk>, ProofWiki.tdl, <TranslatorDir>\ProofWiki.tdl, 2048
+f_ProProfs=<XlatorDisk>, ProProfs.tdl, <TranslatorDir>\ProProfs.tdl,1200
+f_Purplemath=<XlatorDisk>, Purplemath.tdl, <TranslatorDir>\Purplemath.tdl,2400 
+f_Question Writer HTML5=<XlatorDisk>, Question Writer HTML5.tdl, <TranslatorDir>\Question Writer HTML5.tdl,2048
+f_QuiaWeb=<XlatorDisk>, Quia Web.tdl, <TranslatorDir>\Quia Web.tdl,5000
+f_Quora=<XlatorDisk>, Quora.tdl, <TranslatorDir>\Quora.tdl,2200
+f_Qute=<XlatorDisk>, Qute.tdl, <TranslatorDir>\Qute.tdl, 2048
+f_RCampus=<XlatorDisk>, RCampus.tdl, <TranslatorDir>\RCampus.tdl,1024
+f_rootmath=<XlatorDisk>, rootmath.tdl, <TranslatorDir>\rootmath.tdl, 2048
+f_RStudio=<XlatorDisk>, RStudio.tdl, <TranslatorDir>\RStudio.tdl, 2048
+f_Ruzuku=<XlatorDisk>, Ruzuku.tdl, <TranslatorDir>\Ruzuku.tdl,1200
+f_Scholarpedia=<XlatorDisk>, Scholarpedia.tdl, <TranslatorDir>\Scholarpedia.tdl, 2048
+f_SchoolFusion=<XlatorDisk>, SchoolFusion.tdl, <TranslatorDir>\SchoolFusion.tdl,1200
+f_Schoology=<XlatorDisk>, Schoology.tdl, <TranslatorDir>\Schoology.tdl,1200
+f_Scribblar=<XlatorDisk>, Scribblar.tdl, <TranslatorDir>\Scribblar.tdl,1200 
+f_Sidevibe=<XlatorDisk>, Sidevibe.tdl, <TranslatorDir>\Sidevibe.tdl,1200
+f_SimpleBooklet=<XlatorDisk>, SimpleBooklet.tdl, <TranslatorDir>\SimpleBooklet.tdl,1200
+f_SiSSurvey=<XlatorDisk>, SIS Survey.tdl, <TranslatorDir>\SIS Survey.tdl,1200
+f_Skillshare=<XlatorDisk>, Skillshare.tdl, <TranslatorDir>\Skillshare.tdl,1024
+f_Sklogwiki=<XlatorDisk>, Sklogwiki.tdl, <TranslatorDir>\Sklogwiki.tdl, 2048
+f_SmartCloud=<XlatorDisk>, SmartCloud.tdl, <TranslatorDir>\SmartCloud.tdl,1024
+f_sNews=<XlatorDisk>, sNews.tdl, <TranslatorDir>\sNews.tdl,1024
+f_Sophia=<XlatorDisk>, Sophia.tdl, <TranslatorDir>\Sophia.tdl,1024
+f_SOSMath=<XlatorDisk>, S.O.S Math.tdl, <TranslatorDir>\S.O.S Math.tdl,5000
+f_Spruz=<XlatorDisk>, Spruz.tdl, <TranslatorDir>\Spruz.tdl,1200
+f_StackEdit=<XlatorDisk>, StackEdit.tdl, <TranslatorDir>\StackEdit.tdl,1024
+f_StackExchange-EE=<XlatorDisk>, StackExchange-EE.tdl, <TranslatorDir>\StackExchange-EE.tdl, 2048
+f_StackExchange-M=<XlatorDisk>, StackExchange-M.tdl, <TranslatorDir>\StackExchange-M.tdl, 2048
+f_StackExchange-P=<XlatorDisk>, StackExchange-P.tdl, <TranslatorDir>\StackExchange-P.tdl, 2048
+f_StackExchange-QF=<XlatorDisk>, StackExchange-QF.tdl, <TranslatorDir>\StackExchange-QF.tdl, 2048
+f_StackExchange-SA=<XlatorDisk>, StackExchange-SA.tdl, <TranslatorDir>\StackExchange-SA.tdl, 2048
+f_StackExchange-TCS=<XlatorDisk>, StackExchange-TCS.tdl, <TranslatorDir>\StackExchange-TCS.tdl, 2048
+f_StudyBlue Pro=<XlatorDisk>, StudyBlue Pro.tdl, <TranslatorDir>\StudyBlue Pro.tdl,1024
+f_StudySync=<XlatorDisk>, StudySync.tdl, <TranslatorDir>\StudySync.tdl,1200
+f_SurveyGizmo=<XlatorDisk>, SurveyGizmo.tdl, <TranslatorDir>\SurveyGizmo.tdl,1200
+f_TalentLMS=<XlatorDisk>, TalentLMS.tdl, <TranslatorDir>\TalentLMS.tdl,1024
+f_Teachbook=<XlatorDisk>, Teachbook.tdl, <TranslatorDir>\Teachbook.tdl,1200
+f_TeacherSites=<XlatorDisk>, TeacherSites.tdl, <TranslatorDir>\TeacherSites.tdl,1024
+f_TeXAMSBaseXlator=<XlatorDisk>, TeX (AMS base).tdl, <TranslatorDir>\TeX (AMS base).tdl,1200
+f_TeXAMSBaseXlatorRules=<XlatorDisk>, TeX (AMS base rules).tdl, <TranslatorDir>\TeX (AMS base rules).tdl,22000
+f_TeXAMSBaseXlatorVars=<XlatorDisk>, TeX (AMS base vars).tdl, <TranslatorDir>\TeX (AMS base vars).tdl,1300
+f_TeXBaseXlator=<XlatorDisk>, TeX (base).tdl, <TranslatorDir>\TeX (base).tdl,1200
+f_TeXBaseXlatorRules=<XlatorDisk>, TeX (base rules).tdl, <TranslatorDir>\TeX (base rules).tdl,29000
+f_TeXBaseXlatorVars=<XlatorDisk>, TeX (base vars).tdl, <TranslatorDir>\TeX (base vars).tdl,1300
+f_TeXCharsXlator=<XlatorDisk>, TeX (chars).tdl, <TranslatorDir>\TeX (chars).tdl,19000
+f_TeXchat=<XlatorDisk>, TeXchat.tdl, <TranslatorDir>\TeXchat.tdl, 2048
+f_Texify=<XlatorDisk>, Texify.tdl, <TranslatorDir>\Texify.tdl,2400
+f_Texvc=<XlatorDisk>, Texvc.tdl, <TranslatorDir>\Texvc.tdl,32000
+f_TexvcBase=<XlatorDisk>, TexvcBase.tdl, <TranslatorDir>\TexvcBase.tdl,1200
+f_TexvcBaseRules=<XlatorDisk>, Texvc (base rules).tdl, <TranslatorDir>\Texvc (base rules).tdl,30500
+f_TexvcBaseVars=<XlatorDisk>, Texvc (base vars).tdl, <TranslatorDir>\Texvc (base vars).tdl,1300
+f_TexvcChars=<XlatorDisk>, Texvc (chars).tdl, <TranslatorDir>\Texvc (chars).tdl,94000
+f_TexvcDataObject=<XlatorDisk>, Texvc (DataObject).tdl, <TranslatorDir>\Texvc (DataObject).tdl,1900
+f_TexvcInput=<XlatorDisk>, Texvc input.tdl, <TranslatorDir>\Texvc input.tdl,80000
+f_TexvcInputChars=<XlatorDisk>, Texvc input (chars).tdl, <TranslatorDir>\Texvc input (chars).tdl,133000
+f_TexvcLaTeXdelimiters=<XlatorDisk>, Texvc (LaTeX delimiters).tdl, <TranslatorDir>\Texvc (LaTeX delimiters).tdl,1900
+f_TexvcPhysicsForum=<XlatorDisk>, Texvc (Physics Forum).tdl, <TranslatorDir>\Texvc (Physics Forum).tdl,38300
+f_Thunderbird=<XlatorDisk>, Thunderbird.tdl, <TranslatorDir>\Thunderbird.tdl,1200
+f_TinyLetter=<XlatorDisk>, TinyLetter.tdl, <TranslatorDir>\TinyLetter.tdl,1024
+f_TOPYX=<XlatorDisk>, TOPYX.tdl, <TranslatorDir>\TOPYX.tdl,1200
+f_Top_Hat=<XlatorDisk>, Top Hat.tdl, <TranslatorDir>\Top Hat.tdl,2048
+f_Tumblr=<XlatorDisk>, Tumblr.tdl, <TranslatorDir>\Tumblr.tdl,1200
+f_Tutorsbox=<XlatorDisk>, Tutorsbox.tdl, <TranslatorDir>\Tutorsbox.tdl,3072
+f_TYPO3=<XlatorDisk>, TYPO3.tdl, <TranslatorDir>\TYPO3.tdl,1024
+f_UberNote=<XlatorDisk>, UberNote.tdl, <TranslatorDir>\UberNote.tdl,1024
+f_Udacity=<XlatorDisk>, Udacity.tdl, <TranslatorDir>\Udacity.tdl,17000
+f_Udemy=<XlatorDisk>, Udemy.tdl, <TranslatorDir>\Udemy.tdl,1200
+f_Udutu=<XlatorDisk>, Udutu.tdl, <TranslatorDir>\Udutu.tdl,1024
+f_UnivTorontoMathWiki=<XlatorDisk>, UnivTorontoMathWiki.tdl, <TranslatorDir>\UnivTorontoMathWiki.tdl, 2048
+f_Vital=<XlatorDisk>, Vital.tdl, <TranslatorDir>\Vital.tdl,1200
+f_Votations=<XlatorDisk>, Votations.tdl, <TranslatorDir>\Votations.tdl,1200
+f_we=<XlatorDisk>, we+.tdl, <TranslatorDir>\we+.tdl,1200
+f_WebAssign=<XlatorDisk>, WebAssign.tdl, <TranslatorDir>\WebAssign.tdl,5000
+f_webATall=<XlatorDisk>, webATall.tdl, <TranslatorDir>\webATall.tdl,1024
+f_WebsiteBaker=<XlatorDisk>, WebsiteBaker.tdl, <TranslatorDir>\WebsiteBaker.tdl,1024
+f_WeCollaborate=<XlatorDisk>, WeCollaborate.tdl, <TranslatorDir>\WeCollaborate.tdl,1200
+f_widgEditor=<XlatorDisk>, widgEditor.tdl, <TranslatorDir>\widgEditor.tdl,1200
+f_Wikia=<XlatorDisk>, Wikia.tdl, <TranslatorDir>\Wikia.tdl,2400
+f_Wikibooks=<XlatorDisk>, Wikibooks.tdl, <TranslatorDir>\Wikibooks.tdl,2400
+f_Wikidot=<XlatorDisk>, Wikidot.tdl, <TranslatorDir>\Wikidot.tdl,5000
+f_Wikispaces=<XlatorDisk>, Wikispaces.tdl, <TranslatorDir>\Wikispaces.tdl,5000
+f_WindowsLiveWriter=<XlatorDisk>, Windows Live Writer.tdl, <TranslatorDir>\Windows Live Writer.tdl,1200
+f_WindowsMail=<XlatorDisk>, Windows Mail.tdl, <TranslatorDir>\Windows Mail.tdl,1900
+f_Winksite=<XlatorDisk>, Winksite.tdl, <TranslatorDir>\Winksite.tdl,1200
+f_WiZDOM=<XlatorDisk>, WiZDOM.tdl, <TranslatorDir>\WiZDOM.tdl,1024
+f_WordPress=<XlatorDisk>, WordPress.tdl, <TranslatorDir>\WordPress.tdl,2400
+f_WorldWideWhiteboard=<XlatorDisk>, WorldWideWhiteboard.tdl, <TranslatorDir>\WorldWideWhiteboard.tdl, 2048
+f_YahooContributorNetwork=<XlatorDisk>, Yahoo Contributor Network.tdl, <TranslatorDir>\Yahoo Contributor Network.tdl,1200
+f_YahooMail=<XlatorDisk>, Yahoo Mail.tdl, <TranslatorDir>\Yahoo Mail.tdl,1900
+f_ZCubes=<XlatorDisk>, ZCubes.tdl, <TranslatorDir>\ZCubes.tdl,1200
+f_Zeppelin=<XlatorDisk>, Zeppelin.tdl, <TranslatorDir>\Zeppelin.tdl,1024
+f_Zimbra=<XlatorDisk>, Zimbra.tdl, <TranslatorDir>\Zimbra.tdl,1200
+f_ZohoDiscussions=<XlatorDisk>, Zoho Discussions.tdl, <TranslatorDir>\Zoho Discussions.tdl,1200
+f_ZohoWriter=<XlatorDisk>, Zoho Writer.tdl, <TranslatorDir>\Zoho Writer.tdl,5000
+f_Zotero=<XlatorDisk>, Zotero.tdl, <TranslatorDir>\Zotero.tdl,1024
+f_ZunalWebQuestMaker=<XlatorDisk>, Zunal WebQuest Maker.tdl, <TranslatorDir>\Zunal WebQuest Maker.tdl,1200
+
+; MS Word Commands files
+f_WordCmds_x86=<MacroDisk>, wordcmdsx86.dot, <OfficeSuppDir>\32\WordCmds.dot,1419000
+f_WordCmds_x64=<MacroDisk>, wordcmdsx64.dot, <OfficeSuppDir>\64\WordCmds.dot,1419000
+f_WordUICmds=<MacroDisk>, wordui2003.dot, <OfficeSuppDir>\32\MathType Commands 6 For Word.dot,351000
+f_Word2007UICmds=<MacroDisk>, wordui2007.dotm, <OfficeSuppDir>\32\MathType Commands 6 For Word.dotm,375000,read-only
+f_Word2010_x86UICmds=<MacroDisk>, wordui2010x86.dotm, <OfficeSuppDir>\32\MathType Commands 6 For Word 2010.dotm,375000,read-only
+f_Word2010_x64UICmds=<MacroDisk>, wordui2010x64.dotm, <OfficeSuppDir>\64\MathType Commands 6 For Word 2010.dotm,375000,read-only
+f_Word2013_x86UICmds=<MacroDisk>, wordui2013x86.dotm, <OfficeSuppDir>\32\MathType Commands 6 For Word 2013.dotm,375000,read-only
+f_Word2013_x64UICmds=<MacroDisk>, wordui2013x64.dotm, <OfficeSuppDir>\64\MathType Commands 6 For Word 2013.dotm,375000,read-only
+f_Word2016_x86UICmds=<MacroDisk>, wordui2013x86.dotm, <OfficeSuppDir>\32\MathType Commands 6 For Word 2016.dotm,375000,read-only
+f_Word2016_x64UICmds=<MacroDisk>, wordui2013x64.dotm, <OfficeSuppDir>\64\MathType Commands 6 For Word 2016.dotm,375000,read-only
+f_MathPageWLL_x86=<MacroDisk>, mathpagex86.wll, <MathPageDir>\32\MathPage.wll,1200000
+f_MathPageWLL_x64=<MacroDisk>, mathpagex64.wll, <MathPageDir>\64\MathPage.wll,1725000
+f_MathPageJS=<MacroDisk>, mathpage.js, <MathPageDir>\MathPage.js,15000
+f_MathPageEmptyGIF=<MacroDisk>, empty.gif, <MathPageDir>\Empty.gif,100
+f_MathPagePMathML=<MacroDisk>, pmathml.xsl, <MathPageDir>\pmathml.xsl,22000
+f_MathPagePMathMLCSS=<MacroDisk>, pmathmlcss.xsl, <MathPageDir>\pmathmlcss.xsl,26000
+;f_OfficeReadMeENU=<MacroDisk>, Office Support ReadMe.wri, <OfficeSuppDir>\Office Support ReadMe.wri,13000
+; *************  LOCALIZATION  *************
+; Localized versions of the Word readme should be added here. "<Language Name>" should be replaced by the localized language's name.
+;f_OfficeReadMeXXX=<MacroDisk>, Office Support ReadMe (<Language Name>).wri, <OfficeSuppDir>\Office Support ReadMe (<Language Name>).wri,768
+f_WordUIDLL=<MacroDisk>, mswuienu.dll, <LangDir>\mswuienu.dll,60000
+f_BlankEqnDoc=<MacroDisk>, BlankEqn.doc, <OfficeSuppDir>\BlankEqn.doc,16400
+
+; *************  LOCALIZATION  *************
+; Localized versions of the Word UI language DLL should be added here (these files match the language of the App).
+;f_WordUIDLLXXX=<MacroDisk>, mswuiXXX.dll, <LangDir>\mswuiXXX.dll,41000
+
+; MS PowerPoint support files
+f_PowerPtHelperApp=<ExeDisk>, copybtn.exe, <AppSystemDir>\copybtn.exe,55000
+f_PowerPt9AddIn=<MacroDisk>, cmdmsppt97.ppa, <OfficeSuppDir>\32\MathType AddIn (PowerPoint 2000).ppa,355000
+f_PowerPt10AddIn=<MacroDisk>, pptcmds2002.ppa, <OfficeSuppDir>\32\MathType AddIn (PowerPoint 2002).ppa,355000
+f_PowerPt11AddIn=<MacroDisk>, pptcmds2003.ppa, <OfficeSuppDir>\32\MathType AddIn (PowerPoint 2003).ppa,355000
+f_PowerPt12AddIn=<MacroDisk>, pptcmds2007.ppam, <OfficeSuppDir>\32\MathType AddIn (PowerPoint 2007).ppam,156000
+f_PowerPt14_x86AddIn=<MacroDisk>, pptcmds2010x86.ppam, <OfficeSuppDir>\32\MathType AddIn (PowerPoint 2010).ppam,156000
+f_PowerPt14_x64AddIn=<MacroDisk>, pptcmds2010x64.ppam, <OfficeSuppDir>\64\MathType AddIn (PowerPoint 2010).ppam,156000
+f_PowerPt15_x86AddIn=<MacroDisk>, pptcmds2013x86.ppam, <OfficeSuppDir>\32\MathType AddIn (PowerPoint 2013).ppam,156000
+f_PowerPt15_x64AddIn=<MacroDisk>, pptcmds2013x64.ppam, <OfficeSuppDir>\64\MathType AddIn (PowerPoint 2013).ppam,156000
+f_PowerPt16_x86AddIn=<MacroDisk>, pptcmds2013x86.ppam, <OfficeSuppDir>\32\MathType AddIn (PowerPoint 2016).ppam,156000
+f_PowerPt16_x64AddIn=<MacroDisk>, pptcmds2013x64.ppam, <OfficeSuppDir>\64\MathType AddIn (PowerPoint 2016).ppam,156000
+
+; Language DLLs for use with MS Word (these files match the language of Word).
+f_MSWordENULangLib=<MacroDisk>, mswenu.dll, <LangDir>\mswenu.dll,17000
+f_MSWordFRALangLib=<MacroDisk>, mswfra.dll, <LangDir>\mswfra.dll,11000
+f_MSWordSBNLangLib=<MacroDisk>, mswsbn.dll, <LangDir>\mswsbn.dll,11000
+f_MSWordDEULangLib=<MacroDisk>, mswdeu.dll, <LangDir>\mswdeu.dll,11000
+f_MSWordESPLangLib=<MacroDisk>, mswesp.dll, <LangDir>\mswesp.dll,11000
+f_MSWordDANLangLib=<MacroDisk>, mswdan.dll, <LangDir>\mswdan.dll,11000
+f_MSWordELLLangLib=<MacroDisk>, mswell.dll, <LangDir>\mswell.dll,11000
+f_MSWordJPNLangLib=<MacroDisk>, mswjpn.dll, <LangDir>\mswjpn.dll,11000
+
+; Preference files
+f_CalSym11=<PrefsDisk>, Calibri+Symbol 11.eqp, <PrefsDir>\Calibri+Symbol 11.eqp,1000
+f_CalSym12=<PrefsDisk>, Calibri+Symbol 12.eqp, <PrefsDir>\Calibri+Symbol 12.eqp,1000
+f_CalSym32=<PrefsDisk>, Calibri+Symbol 32.eqp, <PrefsDir>\Calibri+Symbol 32.eqp,1000
+f_TeXPrefs=<PrefsDisk>, TeX Look.eqp, <PrefsDir>\TeX Look.eqp,1000
+f_TmsSym10=<PrefsDisk>, Times+Symbol 10.eqp, <PrefsDir>\Times+Symbol 10.eqp,1000
+f_TmsSym12=<PrefsDisk>, Times+Symbol 12.eqp, <PrefsDir>\Times+Symbol 12.eqp,1000
+f_TmsSym48=<PrefsDisk>, Times+Symbol 48.eqp, <PrefsDir>\Times+Symbol 48.eqp,1000
+f_Euclid10=<PrefsDisk>, Euclid 10.eqp, <PrefsDir>\Euclid 10.eqp,1000
+f_Euclid12=<PrefsDisk>, Euclid 12.eqp, <PrefsDir>\Euclid 12.eqp,1000
+f_Euclid48=<PrefsDisk>, Euclid 48.eqp, <PrefsDir>\Euclid 48.eqp,1000
+f_TigerPrefs=<PrefsDisk>, Tiger.eqp, <PrefsDir>\Tiger.eqp,1000
+f_TigerExpPrefs=<PrefsDisk>, TigerExpert.eqp, <PrefsDir>\TigerExpert.eqp,1000
+
+; Fonts
+f_EuclidTT=<TTDisk>, euclid.ttf, <TTAppDir>\euclid.ttf,61000
+f_EuclidPS=<PSDisk>, euclid.pfb, <PSAppDir>\euclid.pfb,47000
+f_EuclidPSafm=<AfmDisk>, euclid.afm, <PSAppDir>\euclid.afm,34000
+f_EuclidPSpfm=<PfmDisk>, euclid.pfm, <PSAppDir>\euclid.pfm,6000
+
+f_EuclidBoldTT=<TTDisk>, euclidb.ttf, <TTAppDir>\euclidb.ttf,59000
+f_EuclidBoldPS=<PSDisk>, euclidb.pfb, <PSAppDir>\euclidb.pfb,45000
+f_EuclidBoldPSafm=<AfmDisk>, euclidb.afm, <PSAppDir>\euclidb.afm,34000
+f_EuclidBoldPSpfm=<PfmDisk>, euclidb.pfm, <PSAppDir>\euclidb.pfm,6000
+
+f_EuclidBoldItTT=<TTDisk>, euclidbi.ttf, <TTAppDir>\euclidbi.ttf,71000
+f_EuclidBoldItPS=<PSDisk>, euclidbi.pfb, <PSAppDir>\euclidbi.pfb,57000
+f_EuclidBoldItPSafm=<AfmDisk>, euclidbi.afm, <PSAppDir>\euclidbi.afm,43000
+f_EuclidBoldItPSpfm=<PfmDisk>, euclidbi.pfm, <PSAppDir>\euclidbi.pfm,7000
+
+f_EuclidItTT=<TTDisk>, euclidi.ttf, <TTAppDir>\euclidi.ttf,69000
+f_EuclidItPS=<PSDisk>, euclidi.pfb, <PSAppDir>\euclidi.pfb,55000
+f_EuclidItPSafm=<AfmDisk>, euclidi.afm, <PSAppDir>\euclidi.afm,43000
+f_EuclidItPSpfm=<PfmDisk>, euclidi.pfm, <PSAppDir>\euclidi.pfm,7000
+
+f_EuclidSymbolTT=<TTDisk>, eucsym.ttf, <TTAppDir>\eucsym.ttf,43000
+f_EuclidSymbolPS=<PSDisk>, eucsym.pfb, <PSAppDir>\eucsym.pfb,37000
+f_EuclidSymbolPSafm=<AfmDisk>, eucsym.afm, <PSAppDir>\eucsym.afm,10000
+f_EuclidSymbolPSpfm=<PfmDisk>, eucsym.pfm, <PSAppDir>\eucsym.pfm,1000
+
+f_EuclidSymbolBoldTT=<TTDisk>, eucsymb.ttf, <TTAppDir>\eucsymb.ttf,41000
+f_EuclidSymbolBoldPS=<PSDisk>, eucsymb.pfb, <PSAppDir>\eucsymb.pfb,36000
+f_EuclidSymbolBoldPSafm=<AfmDisk>, eucsymb.afm, <PSAppDir>\eucsymb.afm,10000
+f_EuclidSymbolBoldPSpfm=<PfmDisk>, eucsymb.pfm, <PSAppDir>\eucsymb.pfm,1000
+
+f_EuclidSymbolBoldItTT=<TTDisk>, eucsymbi.ttf, <TTAppDir>\eucsymbi.ttf,42000
+f_EuclidSymbolBoldItPS=<PSDisk>, eucsymbi.pfb, <PSAppDir>\eucsymbi.pfb,37000
+f_EuclidSymbolBoldItPSafm=<AfmDisk>, eucsymbi.afm, <PSAppDir>\eucsymbi.afm,10000
+f_EuclidSymbolBoldItPSpfm=<PfmDisk>, eucsymbi.pfm, <PSAppDir>\eucsymbi.pfm,1000
+
+f_EuclidSymbolItTT=<TTDisk>, eucsymi.ttf, <TTAppDir>\eucsymi.ttf,44000
+f_EuclidSymbolItPS=<PSDisk>, eucsymi.pfb, <PSAppDir>\eucsymi.pfb,39000
+f_EuclidSymbolItPSafm=<AfmDisk>, eucsymi.afm, <PSAppDir>\eucsymi.afm,10000
+f_EuclidSymbolItPSpfm=<PfmDisk>, eucsymi.pfm, <PSAppDir>\eucsymi.pfm,1000
+
+f_EuclidExtraTT=<TTDisk>, euextra.ttf, <TTAppDir>\euextra.ttf,30000
+f_EuclidExtraPS=<PSDisk>, euextra.pfb, <PSAppDir>\euextra.pfb,27000
+f_EuclidExtraPSafm=<AfmDisk>, euextra.afm, <PSAppDir>\euextra.afm,9000
+f_EuclidExtraPSpfm=<PfmDisk>, euextra.pfm, <PSAppDir>\euextra.pfm,1000
+
+f_EuclidExtraBoldTT=<TTDisk>, euextrab.ttf, <TTAppDir>\euextrab.ttf,29000
+f_EuclidExtraBoldPS=<PSDisk>, euextrab.pfb, <PSAppDir>\euextrab.pfb,26000
+f_EuclidExtraBoldPSafm=<AfmDisk>, euextrab.afm, <PSAppDir>\euextrab.afm,9000
+f_EuclidExtraBoldPSpfm=<PfmDisk>, euextrab.pfm, <PSAppDir>\euextrab.pfm,1000
+
+f_EuclidFracTT=<TTDisk>, eufrak.ttf, <TTAppDir>\eufrak.ttf,30000
+f_EuclidFracPS=<PSDisk>, eufrak.pfb, <PSAppDir>\eufrak.pfb,26000
+f_EuclidFracPSafm=<AfmDisk>, eufrak.afm, <PSAppDir>\eufrak.afm,6000
+f_EuclidFracPSpfm=<PfmDisk>, eufrak.pfm, <PSAppDir>\eufrak.pfm,1000
+
+f_EuclidFracBoldTT=<TTDisk>, eufrakb.ttf, <TTAppDir>\eufrakb.ttf,30000
+f_EuclidFracBoldPS=<PSDisk>, eufrakb.pfb, <PSAppDir>\eufrakb.pfb,26000
+f_EuclidFracBoldPSafm=<AfmDisk>, eufrakb.afm, <PSAppDir>\eufrakb.afm,6000
+f_EuclidFracBoldPSpfm=<PfmDisk>, eufrakb.pfm, <PSAppDir>\eufrakb.pfm,1000
+
+f_EuclidMathOneTT=<TTDisk>, eumat1.ttf, <TTAppDir>\eumat1.ttf,37000
+f_EuclidMathOnePS=<PSDisk>, eumat1.pfb, <PSAppDir>\eumat1.pfb,33000
+f_EuclidMathOnePSafm=<AfmDisk>, eumat1.afm, <PSAppDir>\eumat1.afm,9000
+f_EuclidMathOnePSpfm=<PfmDisk>, eumat1.pfm, <PSAppDir>\eumat1.pfm,1000
+
+f_EuclidMathOneBoldTT=<TTDisk>, eumat1b.ttf, <TTAppDir>\eumat1b.ttf,37000
+f_EuclidMathOneBoldPS=<PSDisk>, eumat1b.pfb, <PSAppDir>\eumat1b.pfb,32000
+f_EuclidMathOneBoldPSafm=<AfmDisk>, eumat1b.afm, <PSAppDir>\eumat1b.afm,9000
+f_EuclidMathOneBoldPSpfm=<PfmDisk>, eumat1b.pfm, <PSAppDir>\eumat1b.pfm,1000
+
+f_EuclidMathTwoTT=<TTDisk>, eumat2.ttf, <TTAppDir>\eumat2.ttf,43000
+f_EuclidMathTwoPS=<PSDisk>, eumat2.pfb, <PSAppDir>\eumat2.pfb,37000
+f_EuclidMathTwoPSafm=<AfmDisk>, eumat2.afm, <PSAppDir>\eumat2.afm,9000
+f_EuclidMathTwoPSpfm=<PfmDisk>, eumat2.pfm, <PSAppDir>\eumat2.pfm,1000
+
+f_EuclidMathTwoBoldTT=<TTDisk>, eumat2b.ttf, <TTAppDir>\eumat2b.ttf,43000
+f_EuclidMathTwoBoldPS=<PSDisk>, eumat2b.pfb, <PSAppDir>\eumat2b.pfb,34000
+f_EuclidMathTwoBoldPSafm=<AfmDisk>, eumat2b.afm, <PSAppDir>\eumat2b.afm,9000
+f_EuclidMathTwoBoldPSpfm=<PfmDisk>, eumat2b.pfm, <PSAppDir>\eumat2b.pfm,1000
+
+f_FencesTT=<TTDisk>, fences.ttf, <TTAppDir>\fences.ttf,15000
+f_FencesPS=<PSDisk>, fences.pfb, <PSAppDir>\fences.pfb,14000
+f_FencesPSafm=<AfmDisk>, fences.afm, <PSAppDir>\fences.afm,4000
+f_FencesPSpfm=<PfmDisk>, fences.pfm, <PSAppDir>\fences.pfm,1000
+
+f_MTExtraTT=<TTDisk>, mtextra.ttf, <TTAppDir>\mtextra.ttf,28000
+f_MTExtraPS=<PSDisk>, mtextra.pfb, <PSAppDir>\mtextra.pfb,25000
+f_MTExtraPSafm=<AfmDisk>, mtextra.afm, <PSAppDir>\mtextra.afm,9000
+f_MTExtraPSpfm=<PfmDisk>, mtextra.pfm, <PSAppDir>\mtextra.pfm,1000
+
+f_TigerTT=<TTDisk>, Tiger.ttf, <TTAppDir>\Tiger.ttf,197000
+f_TigerMTExtraTT=<TTDisk>, Mt Extra Tiger.ttf, <TTAppDir>\Mt Extra Tiger.ttf,35000
+f_TigerSymbolTT=<TTDisk>, Symbol Tiger.ttf, <TTAppDir>\Symbol Tiger.ttf,58000
+f_TigerExpTT=<TTDisk>, Tiger Expert.ttf, <TTAppDir>\Tiger Expert.ttf,181000
+f_TigerExpSymbolTT=<TTDisk>, Symbol Tiger Expert.ttf, <TTAppDir>\Symbol Tiger Expert.ttf,57000
+
+; Typelib files
+;f_DSIWinUtils=<ExeDisk>,DSIWinUtils.tlb,<AppSystemDir>\DSIWinUtils.tlb,5300
+
+; Files in list for removal. -1 is a valid disk#, its tested for >0 but then ignored during removal!
+; Also, Arg2 (source path) isn't used during removal.
+rem_HelpGidENU=-1, notused, <HelpDir>\<ShortAppKey><MajVersion>enu.gid,0
+rem_HelpFullTextSearchENU=-1, notused, <HelpDir>\<ShortAppKey><MajVersion>enu.fts,0
+; Any localized help files may have been used, generating a .gid file.
+;rem_HelpGidXXX=-1, notused, <HelpDir>\<ShortAppKey><MajVersion>XXX.gid,0
+;rem_HelpFullTextSearchXXX=-1, notused, <HelpDir>\<ShortAppKey><MajVersion>XXX.fts,0
+rem_DebugOut=-1, notused, <ProgDir>\debug.out,0
+rem_ReadmeLink=-1, notused, <ProgDir>\<ReadMeName>.lnk,0
+rem_Readme=-1, notused, <ProgDir>\ReadMe.wri,0
+rem_DefEqnPrefs=-1, notused, <ProgDir>\Factory.eqp,0
+rem_MathMLOldName=-1, notused, <TranslatorDir>\MathML.tdl,0
+
+[master]
+&remove_old_version_files? =
+&fixup_old_betas =
+&setup_app? =
+&setup_lang_libs? =
+&application? =
+&fontinfo_files? =
+&toolbar_files? =
+&app_lang_libs? =
+&help? =
+&manual? =
+&readme? =
+&translator_files? =
+&add_trusted_publisher_cert? = 
+&word_macros? =
+&power_point_macros? =
+&preferences? =
+&ps1fonts? =
+&ttfonts? =
+&choose_lang? =
+&dll_reg? =
+&ole_reg? =
+&rem_icons? =
+&icons? =
+&stub_ole_registrations? =
+&all_ole_autoconverts? =
+&ole_reg_mgr_recommended? =
+&ole_reg_mgr_all? =
+&convert_old_prefs? =
+&install_completion_notify =
+;&typelib? =
+
+[remove_master]
+-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\<AppKey>\ =
+-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\App Paths\<AppProgName>.exe\ =
+-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Help\<ShortAppKey><MajVersion>enu.chm =
+; *************  LOCALIZATION  *************
+; Add all localized help files (and contents pages) here.
+;-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Help\<ShortAppKey><MajVersion>XXX.chm =
+; If anything from an old beta has changed, we need to make the change before we really get into the remove.
+&fixup_old_betas =
+; remove_keep_fonts section is only called if this checkbox is enabled in the remove dlg, and the user checks it
+&remove_keep_fonts? =
+; remove_keep_fonts section is only called if this checkbox is enabled in the remove dlg, and the user checks it
+&remove_tt_fonts? =
+&remove_keep_prefs? =
+&remove_prefs? =
+&remove_extensions =
+; must complete the ole registration before we remove the files
+&ole_reg =
+&dll_reg =
+&remove_word_macros =
+&remove_power_point_macros =
+&remove_files? =
+&rem_icons =
+;&remove_typelib =
+; False indicates to reset the autoconverts to their prev. state
+$set_all_autoconverts = False
+
+[remove]
+; This section called directly by the code on a non-wkstation remove.
+; Make sure to remove all files - this is a normal remove.
+do_remove_files = 1
+do_remove_shutdown_del_files = <cfgForeign>
+; remove_dirs section is done in the "shutdown" phase.
+do_remove_dirs = 1
+; We'll only remove the equation library (toolbar) for non-workstation removes
+&toolbar_files =
+&remove_master =
+
+[wkstation_remove]
+; This section called directly by the code on a wkstation remove.
+; Don't remove in the "shutdown" phase for wkstation removes.
+do_remove_dirs = 0
+; Don't remove files as in [remove] section. Just the tasks...
+&remove_master =
+
+[set_remove_ops]
+; This section called from [startup] section. These values init'ed every time.
+; none of these sections can be used on the master list
+do_remove_tt_fonts = 0
+do_remove_prefs = 1
+
+[remove_prefs]
+; 'remove_ini_path' will determine what sort of ini source the param indicates (file or reg), and will remove/delete it.
+; 2nd parameter is 'Remove' to always delete, 'Keep' to keep if we're leaving user settings around
+$remove_ini_path = <MachRegKey>,Remove
+$remove_ini_path = <UserRegKey>,Keep
+
+[remove_files]
+; The following sections and files will always be removed on any "remove" operation.
+; Don't remove FontInfo.ini
+&application_files =
+&setup_app_files =
+&app_lang_libs_files =
+&setup_lang_libs_files =
+&manual_files =
+&remove_help =
+&translator_files =
+&word_macros_files =
+&power_point_macros_files =
+&prefs_files =
+&ttfonts_files =
+&ps1fonts_files =
+&remove_openwith =
+;&typelib_files =
+; remove some files that weren't installed (created by app or setup, etc.)
+rem_HelpGidENU =
+rem_HelpFullTextSearchENU =
+;rem_HelpGidXXX =
+;rem_HelpFullTextSearchXXX =
+rem_DebugOut =
+rem_ReadmeLink =
+rem_Readme =
+rem_DefEqnPrefs =
+; rem_MathMLOldName is the old name for this file. It's been renamed, but probably will still exist on systems w/previous beta versions.
+rem_MathMLOldName =
+
+[remove_openwith]
+; 'remove_openwith_support' removes support for ME/2000 & newer's OpenWith command in Windows Explorer
+$remove_openwith_support = eps, <AppName>.exe
+$remove_openwith_support = wmf, <AppName>.exe
+$remove_openwith_support = gif, <AppName>.exe
+
+[remove_keep_fonts]
+; if this section is performed, the remove fonts sections will be turned off (not removed).
+do_remove_tt_fonts = 0
+
+[remove_keep_prefs]
+; if this section is performed, the remove prefs section will be turned off (not removed).
+do_remove_prefs = 0
+
+[remove_tt_fonts]
+; 'remove_tt_font' will remove a TrueType font, based on the font file, rather than the font name.
+$remove_tt_font = <TTSysDir>\mtextra.ttf
+$remove_tt_font = <TTSysDir>\euclid.ttf
+$remove_tt_font = <TTSysDir>\euclidb.ttf
+$remove_tt_font = <TTSysDir>\euclidbi.ttf
+$remove_tt_font = <TTSysDir>\euclidi.ttf
+$remove_tt_font = <TTSysDir>\eucsym.ttf
+$remove_tt_font = <TTSysDir>\eucsymb.ttf
+$remove_tt_font = <TTSysDir>\eucsymbi.ttf
+$remove_tt_font = <TTSysDir>\eucsymi.ttf
+$remove_tt_font = <TTSysDir>\euextra.ttf
+$remove_tt_font = <TTSysDir>\euextrab.ttf
+$remove_tt_font = <TTSysDir>\eufrak.ttf
+$remove_tt_font = <TTSysDir>\eufrakb.ttf
+$remove_tt_font = <TTSysDir>\eumat1.ttf
+$remove_tt_font = <TTSysDir>\eumat1b.ttf
+$remove_tt_font = <TTSysDir>\eumat2.ttf
+$remove_tt_font = <TTSysDir>\eumat2b.ttf
+$remove_tt_font = <TTSysDir>\fences.ttf
+; notifies windows that the font changes are complete
+$tt_fontchange_notify =
+

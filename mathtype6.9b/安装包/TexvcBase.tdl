@@ -1,0 +1,35 @@
+// "TeX (base).tdl"
+
+// Copyright (c) 1999-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/TexvcBase.tdl 8     6/30/10 3:49p Eduardot $
+
+// include file for translations common to main dialects of TeX
+
+// This file is provided for backwards compatibility.
+// New translators should include the two vars and rules base files, with variable redefinitions between them:
+//
+// include "Texvc (base vars).tdl";
+// // redefitions of variables follow
+// ...
+// include "Texvc (base rules).tdl";
+// // redefitions of rules follow
+// ...
+
+include "Texvc (base vars).tdl";
+// redefinitions of base variables
+
+var/"BeginMathDisplay" = "@n<math>"; 
+var/"BeginMathInline" = "<math>";
+var/"EndMathDisplay" = "</math>@n";
+var/"EndMathInline" = "</math>";
+// supress comments and MTEF data
+var/"EqnDataCmt"= "";
+var/"StdStartCmt"= "";
+var/"StdEndCmt"= "";
+
+include "Texvc (base rules).tdl";

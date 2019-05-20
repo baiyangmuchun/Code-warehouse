@@ -1,0 +1,20 @@
+MathType Output Translator 1.0: "Postagon", "Postagon translator v1.00 by Design Science, Inc.", website, text, public
+
+// Copyright (c) 1998-2013 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Postagon.tdl 1     12/04/13 11:46a Jimm $
+
+include "Google (chart api vars).tdl";
+// redefinitions of base variables
+
+var/"TranslatorName" = "Postagon";
+var/"TranslatorFileName" = "Postagon.tdl";
+
+include "Google (chart api rules).tdl";
+
+// build the img tag by wrapping 
+wrapper = "http://chart.apis.google.com/chart?cht=tx&amp;chs=1x0&amp;chf=bg,s,FFFFFF00&amp;chco=000000&amp;chl=<EqnPercentEncoded>";

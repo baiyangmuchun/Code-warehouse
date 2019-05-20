@@ -1,0 +1,49 @@
+// MathML2 (base vars).tdl
+
+// Copyright (c) 2002-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/MathML2 (base vars).tdl 4     7/22/11 2:15p Pault $
+
+// This file contains the basic set of variables to be used in the 
+// MathML2 (base rules).tdl file
+// For MathML 2.0 (http://www.w3.org/TR/MathML2/)
+//
+// Note:Numeric entities are used in this file instead of named entities for greater support in various MathML renderers.
+
+// =====================================================
+// Default values for variables
+// (can be redefined in files using this base one)
+// =====================================================
+
+var/"TranslatorName" = "MathML base";                   // names to use in error messages
+var/"TranslatorFileName" = "MathML2base.tdl";
+
+mathextnamespaces = "all";	// output data from all math extension namespaces
+
+vardelims = "()"; 		                        // <> are needed for MathML tags
+var/"ns" = "";			                        // usually m: or mml:
+var/"MathMLNS" = ""; 		                        // MathML namespace declaration: " xmlns(ns)='http://www.w3.org/1998/Math/MathML'"
+var/"xmlPI" = "";	                        	// xml pi for clipboard: "<?xml version=$"1.0$"?>$n"
+var/"BeginMathDisplay" = "<(ns)math display='block'(MathMLNS)>";    // opening display tag
+var/"BeginMathInline" = "<(ns)math(MathMLNS)>";                     // opening inline tag
+var/"TransAndData" = "<(ns)semantics>$+$n#$n<(ns)annotation encoding='MathType-MTEF'>(EqnData)</(ns)annotation>$-$n</(ns)semantics>";
+var/"EndMath" = "</(ns)math>";
+
+// By default, there is nothing between a function name and its argument: <mi>sin</mi><mi>x</mi>
+// If an applyfunction is desired between them set the "appfunc" variable as 
+// var/"appfunc"="<(ns)mo>&$#x2061;</(ns)mo>";
+var/"appfunc"="";
+
+// in HMTL documents, self-closing empty tags are to be avoided, so we set their closing
+// as variables making it possible to be changed to an empty open-close pair
+var/"mspaceclose" = "/>";          // or "></(ns)mspace>"
+var/"mprescriptsclose" = "/>";     // or "></(ns)mprescripts>"
+var/"noneclose" = "/>";            // or "></(ns)none>"
+var/"maligngroupclose" = "/>";     // or "></(ns)maligngroup>"
+var/"malignmarkclose" = "/>";      // or "></(ns)malignmark>"
+var/"mglyphclose" = "/>";          // or "></(ns)mglyph>"
+

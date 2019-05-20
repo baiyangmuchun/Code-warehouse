@@ -1,0 +1,68 @@
+MathType Output Translator 1.0: "MoboMath", "MoboMath translator v1.00 by Design Science, Inc.", application, text
+
+// Copyright (c) 2001-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/MoboMath.tdl 6     9/24/10 1:44p Eduardot $
+
+// The MathML definitions are contained in the files MathML2 (base xxx).tdl, included below.
+// This file contains numeric entity references only. Although named entities are
+// more human-readable, many software programs do not yet understand named entities.
+// As a result, our default translator only generates numeric entities. If, for some
+// reason, you need to generate named entities, please contact our support dept. at
+// support@dessci.com and they will be able to help. 
+
+include "MathML2 (base vars).tdl";
+// redefinitions of base variables
+var/"TranslatorName" = "MoboMath";
+var/"TranslatorFileName" = "MoboMath.tdl";
+
+var/"TransAndData" = "#"; // we change it here so MTEF never shows up
+// supress name of translator in comments
+var/"StdStartCmt"= "";
+var/"StdEndCmt"= "";
+
+// we treat all as math, since mtext give trouble in MoboMath
+styletype/user1  = mathmode;    
+styletype/user2  = mathmode;    
+run/user1style   = "<(ns)mstyle style='normal'>#</(ns)mstyle>";    // run of User1 style characters 
+run/user2style   = "<(ns)mstyle style='normal'>#</(ns)mstyle>";    // run of User2 style characters 
+
+// run of Text style characters 
+run/text         = "<(ns)mstyle style='normal'><(ns)mi>#</(ns)mi></(ns)mstyle>"; 
+
+include "MathML2 (base rules).tdl";
+
+// MoboMath will not process any MathML with a space, either by numerical ref or literal char
+char/0x0020/mathmode = "<mspace width='1en'/>";
+char/0x0020/textmode = "";
+
+// mtext causes trouble in MoboMath; so redefine all uses within mathmode
+char/0x0009/mathmode = "<(ns)mspace width='1em'/>"; // HORIZONTAL TABULATION
+char/0x000A/mathmode = "<(ns)mspace linebreak='newline'/>"; // LINE FEED
+char/0x2000/0x200B/mathmode = "<(ns)mtext>&$#x(CharHex);</(ns)mtext>";  // range: Spaces
+char/0x2000/mathmode = "<(ns)mspace width='0.5em'/>";           // EN QUAD
+char/0x2001/mathmode = "<(ns)mspace width='1em'/>";             // EM QUAD
+char/0x2002/mathmode = "<(ns)mspace width='0.5em'/>";           // EN SPACE
+char/0x2003/mathmode = "<(ns)mspace width='1em'/>";             // EM SPACE
+char/0x2004/mathmode = "<(ns)mspace width='0.33em'/>";          // THREE-PER-EM SPACE
+char/0x2005/mathmode = "<(ns)mspace width='0.25em'/>";          // FOUR-PER-EM SPACE
+char/0x2006/mathmode = "<(ns)mspace width='0.16em'/>";          // SIX-PER-EM SPACE
+char/0x2007/mathmode = "<(ns)mspace width='0.5em' linebreak='nobreak'/>"; // FIGURE SPACE
+char/0x2008/mathmode = "<(ns)mphantom>.</(ns)mphantom>";        // PUNCTUATION SPACE
+char/0x2009/mathmode = "<(ns)mspace width='0.2em'/>";           // THIN SPACE
+char/0x200A/mathmode = "<(ns)mspace width='0.1em'/>";           // HAIR SPACE
+char/0x200B/mathmode = "<(ns)mspace/>";                         // ZERO WIDTH SPACE
+
+char/0xEF01/mathmode = "<(ns)mspace/>";				// MT ZERO SPACE
+char/0xEF02/mathmode = "<(ns)mspace width='0.2em'/>";		// MT THIN SPACE
+char/0xEF03/mathmode = "<(ns)mspace width='0.22em'/>";		// MT MEDIUM SPACE
+char/0xEF04/mathmode = "<(ns)mspace width='0.33em'/>";		// MT THICK SPACE
+char/0xEF05/mathmode = "<(ns)mspace width='1em'/>";		// MT EM SPACE
+char/0xEF06/mathmode = "<(ns)mspace width='2em'/>"; 		// MT 2 EM SPACE
+char/0xEF08/mathmode = "<(ns)mspace width='1pt'/>";		// MT 1 POINT SPACE
+char/0xFB00/0xFB4F/mathmode = "<(ns)mi>&$#x(CharHex);</(ns)mi>";  // range: Alphabetic Presentation Forms
+char/0xFEFF/mathmode = "<(ns)mspace linebreak='nobreak'/>";     // ZERO WIDTH NO-BREAK SPACE

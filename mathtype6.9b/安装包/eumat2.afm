@@ -1,0 +1,164 @@
+StartFontMetrics 2.0
+Comment UniqueID 5111508
+Comment Panose 2 5 6 1 1 1 1 1 1 1
+FullName Euclid Math Two
+FontName EuclidMathTwo
+FamilyName Euclid Math Two
+Weight Regular
+Notice Copyright (c) Design Science, Inc, 1999. (v2.0)
+Version 002.000
+IsFixedPitch false
+ItalicAngle 0.00
+FontBBox 0 -469 1282 1009
+Ascender 1005
+Descender -200
+XHeight 500
+CapHeight 700
+UnderlinePosition -100
+UnderlineThickness 50
+StdHW 35
+StdVW 28
+EncodingScheme AdobeStandardEncoding
+StartCharMetrics 140
+C 33 ; WX 722 ; N triangle ; B 83 -20 637 576 ;
+C 34 ; WX 722 ; N triangleinv ; B 83 -21 637 576 ;
+C 35 ; WX 722 ; N triagup ; B 83 -20 637 576 ;
+C 36 ; WX 722 ; N triagdn ; B 83 -21 637 576 ;
+C 37 ; WX 778 ; N trianglerightsld1 ; B 83 -41 693 539 ;
+C 38 ; WX 778 ; N triangleleftsld1 ; B 85 -41 696 539 ;
+C 39 ; WX 778 ; N triangrightequal ; B 83 -139 693 636 ;
+C 40 ; WX 778 ; N triangleftequal ; B 83 -139 694 636 ;
+C 41 ; WX 778 ; N nottriangleright ; B 83 -209 693 709 ;
+C 42 ; WX 778 ; N nottriangleleft ; B 83 -209 692 709 ;
+C 43 ; WX 778 ; N nottrianglerightequal ; B 83 -305 693 805 ;
+C 44 ; WX 778 ; N nottriangleleftequal ; B 83 -305 692 805 ;
+C 65 ; WX 722 ; N A ; B 17 0 704 704 ;
+C 66 ; WX 667 ; N B ; B 9 0 620 685 ;
+C 67 ; WX 722 ; N C ; B 37 -19 687 704 ;
+C 68 ; WX 722 ; N D ; B 94 0 691 685 ;
+C 69 ; WX 667 ; N E ; B 14 0 640 685 ;
+C 70 ; WX 611 ; N F ; B 14 0 583 685 ;
+C 71 ; WX 778 ; N G ; B 37 -19 750 704 ;
+C 72 ; WX 778 ; N H ; B 16 0 762 685 ;
+C 73 ; WX 389 ; N I ; B 20 0 369 685 ;
+C 74 ; WX 500 ; N J ; B 6 -75 477 685 ;
+C 75 ; WX 778 ; N K ; B 23 0 769 685 ;
+C 76 ; WX 667 ; N L ; B 14 0 640 685 ;
+C 77 ; WX 944 ; N M ; B 17 -1 926 685 ;
+C 78 ; WX 722 ; N N ; B 24 -19 702 685 ;
+C 79 ; WX 778 ; N O ; B 33 -19 744 704 ;
+C 80 ; WX 611 ; N P ; B 15 0 599 685 ;
+C 81 ; WX 778 ; N Q ; B 33 -179 744 704 ;
+C 82 ; WX 722 ; N R ; B 16 0 704 685 ;
+C 83 ; WX 556 ; N S ; B 29 -12 530 704 ;
+C 84 ; WX 667 ; N T ; B 32 0 634 685 ;
+C 85 ; WX 722 ; N U ; B 15 -19 708 685 ;
+C 86 ; WX 722 ; N V ; B 0 -19 720 685 ;
+C 87 ; WX 1000 ; N W ; B 7 -19 993 685 ;
+C 88 ; WX 722 ; N X ; B 18 0 706 685 ;
+C 89 ; WX 722 ; N Y ; B 19 0 704 685 ;
+C 90 ; WX 667 ; N Z ; B 28 0 636 685 ;
+C 107 ; WX 556 ; N k ; B 19 0 537 685 ;
+C 128 ; WX 778 ; N lessdot ; B 85 -43 699 543 ;
+C 129 ; WX 778 ; N greaterdot ; B 85 -43 699 543 ;
+C 130 ; WX 778 ; N equalless ; B 85 -142 700 639 ;
+C 131 ; WX 778 ; N equalgreater ; B 85 -142 700 639 ;
+C 132 ; WX 778 ; N lessthanorequalangled ; B 85 -142 700 639 ;
+C 133 ; WX 778 ; N greaterthanorequalangled ; B 85 -142 700 639 ;
+C 134 ; WX 778 ; N lessdblequal ; B 83 -177 696 756 ;
+C 135 ; WX 778 ; N greaterdblequal ; B 83 -177 696 756 ;
+C 136 ; WX 778 ; N lessequivlnt ; B 55 -228 720 735 ;
+C 137 ; WX 778 ; N greaterequivlnt ; B 55 -228 720 735 ;
+C 138 ; WX 778 ; N lessorapproxeql ; B 55 -288 720 764 ;
+C 139 ; WX 778 ; N greaterorapproxeql ; B 55 -288 720 764 ;
+C 140 ; WX 1333 ; N verymuchless ; B 55 -70 1279 570 ;
+C 141 ; WX 1333 ; N verymuchgreater ; B 58 -70 1282 570 ;
+C 142 ; WX 778 ; N notless ; B 83 -210 695 710 ;
+C 143 ; WX 778 ; N notgreater ; B 85 -210 697 710 ;
+C 144 ; WX 778 ; N lessornoteql ; B 83 -239 695 639 ;
+C 145 ; WX 778 ; N greaterornoteql ; B 83 -239 695 639 ;
+C 146 ; WX 778 ; N notlessequal ; B 83 -305 695 805 ;
+C 147 ; WX 778 ; N notgreaterequal ; B 83 -305 695 805 ;
+C 148 ; WX 778 ; N notequalnorless ; B 85 -305 699 805 ;
+C 149 ; WX 778 ; N notequalnorgreater ; B 83 -305 697 805 ;
+C 150 ; WX 778 ; N notlessorslnteql ; B 83 -305 697 805 ;
+C 151 ; WX 778 ; N notgreaterorslnteql ; B 85 -305 699 805 ;
+C 152 ; WX 778 ; N lessnotdblequal ; B 83 -282 695 756 ;
+C 153 ; WX 778 ; N greaternotdblequal ; B 83 -282 695 756 ;
+C 154 ; WX 778 ; N lessornotequalvetical ; B 83 -280 695 756 ;
+C 155 ; WX 778 ; N greaterornotequalvertical ; B 83 -280 695 756 ;
+C 156 ; WX 778 ; N notlessdblequal ; B 83 -422 695 922 ;
+C 157 ; WX 778 ; N notgreaterdblequal ; B 83 -422 695 922 ;
+C 158 ; WX 778 ; N lessnotequivlnt ; B 56 -352 720 735 ;
+C 159 ; WX 778 ; N greaternotequivlnt ; B 56 -352 720 735 ;
+C 160 ; WX 333 ; N nbspace ; B 0 0 0 0 ;
+C 161 ; WX 778 ; N lessbutnotapproxequal ; B 56 -384 720 764 ;
+C 162 ; WX 778 ; N greaterbutnotapproxequal ; B 56 -384 720 764 ;
+C 163 ; WX 778 ; N lessorgreater ; B 44 -254 739 684 ;
+C 164 ; WX 778 ; N greaterorless ; B 83 -254 698 684 ;
+C 165 ; WX 778 ; N lessequalgreater ; B 83 -394 678 888 ;
+C 166 ; WX 778 ; N greaterequalless ; B 83 -394 678 888 ;
+C 167 ; WX 778 ; N HV11373 ; B 83 -469 697 1009 ;
+C 168 ; WX 778 ; N greaterdbleqlorless ; B 83 -469 697 1009 ;
+C 169 ; WX 611 ; N xor ; B 55 0 560 719 ;
+C 170 ; WX 611 ; N nand ; B 55 -3 560 717 ;
+C 171 ; WX 611 ; N perspcorrespond ; B 55 -100 560 814 ;
+C 176 ; WX 778 ; N precedesequal ; B 83 -139 693 637 ;
+C 177 ; WX 778 ; N succeedsequal ; B 83 -139 693 637 ;
+C 178 ; WX 778 ; N equalprecedes ; B 83 -118 694 619 ;
+C 179 ; WX 778 ; N equalfollows ; B 83 -118 694 619 ;
+C 180 ; WX 778 ; N precedesequalcurly ; B 83 -118 694 619 ;
+C 181 ; WX 778 ; N followsequalcurly ; B 83 -118 694 619 ;
+C 182 ; WX 778 ; N precedequivlnt ; B 55 -228 720 733 ;
+C 183 ; WX 778 ; N followsequivlnt ; B 55 -228 720 733 ;
+C 184 ; WX 778 ; N precedsordblequivalent ; B 55 -288 720 763 ;
+C 185 ; WX 778 ; N succeedsordblequivalent ; B 55 -288 720 763 ;
+C 186 ; WX 778 ; N notpreceeds ; B 83 -209 693 709 ;
+C 187 ; WX 778 ; N notfollows ; B 83 -209 693 709 ;
+C 188 ; WX 778 ; N precedsnotequal ; B 83 -239 693 637 ;
+C 189 ; WX 778 ; N succeedsnotequal ; B 83 -239 693 637 ;
+C 190 ; WX 778 ; N notprecedsorequal ; B 83 -305 693 805 ;
+C 191 ; WX 778 ; N notsucceedsoreql ; B 83 -305 693 805 ;
+C 192 ; WX 778 ; N noteqlorprecede ; B 83 -204 694 704 ;
+C 193 ; WX 778 ; N noteqlorsucceed ; B 83 -204 694 704 ;
+C 194 ; WX 778 ; N preceedsnotequal ; B 83 -204 694 704 ;
+C 195 ; WX 778 ; N followsnotequal ; B 83 -204 694 704 ;
+C 196 ; WX 778 ; N precedesnotdbleql ; B 83 -282 693 754 ;
+C 197 ; WX 778 ; N succeedsnotdbleql ; B 83 -282 693 754 ;
+C 198 ; WX 778 ; N preceedsnotsimilar ; B 56 -352 720 733 ;
+C 199 ; WX 778 ; N followsnotequivlnt ; B 56 -352 720 733 ;
+C 200 ; WX 778 ; N precedsnotdblequivalent ; B 56 -333 720 763 ;
+C 201 ; WX 778 ; N succeedsnotdblequivalent ; B 56 -333 720 763 ;
+C 202 ; WX 760 ; N curland ; B 83 -23 677 578 ;
+C 203 ; WX 760 ; N curlor ; B 83 -22 677 579 ;
+C 208 ; WX 778 ; N subsetdbl ; B 83 -40 693 540 ;
+C 209 ; WX 778 ; N supersetdbl ; B 83 -40 693 540 ;
+C 210 ; WX 667 ; N intersectiondbl ; B 55 -22 609 598 ;
+C 211 ; WX 667 ; N uniondbl ; B 55 -22 609 598 ;
+C 212 ; WX 778 ; N subsetdblequal ; B 83 -217 693 753 ;
+C 213 ; WX 778 ; N supersetdblequal ; B 83 -217 693 753 ;
+C 214 ; WX 778 ; N subsetnotequal ; B 83 -239 692 636 ;
+C 215 ; WX 778 ; N supersetnotequal ; B 83 -239 692 636 ;
+C 216 ; WX 778 ; N notsubsetoreql ; B 83 -253 692 636 ;
+C 217 ; WX 778 ; N notsupersetoreql ; B 83 -253 694 636 ;
+C 218 ; WX 778 ; N notreflexsubset ; B 83 -305 692 805 ;
+C 219 ; WX 778 ; N notreflexsuperset ; B 83 -305 692 805 ;
+C 220 ; WX 778 ; N subsetornotdbleql ; B 83 -381 692 785 ;
+C 221 ; WX 778 ; N supersetornotdbleql ; B 83 -381 692 785 ;
+C 222 ; WX 778 ; N notsubsetordblequal ; B 83 -331 692 753 ;
+C 223 ; WX 778 ; N notsupersetordblequal ; B 83 -331 692 753 ;
+C 224 ; WX 778 ; N notreflexsubsetdbl ; B 83 -331 692 831 ;
+C 225 ; WX 778 ; N notreflexsupersetdbl ; B 83 -331 692 831 ;
+C 226 ; WX 667 ; N unionmulti ; B 56 -22 609 598 ;
+C 227 ; WX 667 ; N fork ; B 55 -22 609 737 ;
+C 228 ; WX 667 ; N element ; B 83 -40 581 540 ;
+C 229 ; WX 667 ; N owner ; B 83 -40 581 540 ;
+C 240 ; WX 778 ; N squareimage ; B 83 -41 693 539 ;
+C 241 ; WX 778 ; N squareoriginal ; B 63 -41 713 539 ;
+C 242 ; WX 667 ; N unionsq ; B 61 0 604 598 ;
+C 243 ; WX 667 ; N intersectionsq ; B 61 0 604 598 ;
+C 244 ; WX 778 ; N subsetsqequal ; B 83 -139 713 636 ;
+C 245 ; WX 778 ; N supersetsqequal ; B 63 -139 692 636 ;
+C 32 ; WX 333 ; N space ; B 0 0 0 0 ;
+EndCharMetrics
+EndFontMetrics

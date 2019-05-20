@@ -1,0 +1,204 @@
+MathType Output Translator 1.0: "AMSTeX", "AMSTeX translator v1.00 by Design Science, Inc.", language
+
+// Copyright (c) 1998-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/AMSTeX.tdl 15    6/18/10 3:16p Eduardot $
+
+include "TeX (base vars).tdl";
+include "TeX (AMS base vars).tdl";
+// redefintion of base vars
+
+var/"TranslatorName" = "TeX (AMS base vars)";                   // names to use in error messages
+var/"TranslatorFileName" = "TeX (AMS base vars).tdl";
+
+include "TeX (base rules).tdl";
+include "TeX (chars).tdl";
+include "TeX (AMS base rules).tdl";
+// redefinition of base rules
+
+// =====================================================
+// Default Translation Strings
+// =====================================================
+ 
+deffunc     = "\operatorname{#} ";	//  default function translation 
+defchar     = error "@nNo translation available for <FullDesc>. @nPlease add a translation for  @"<Cmd>@"  in the file 'AMSTeX.tdl'.";    //  default character translation 
+deftmpl     = error "@nNo translation available for <Desc>. @nPlease add a translation for  @"<Cmd>@"  in the file 'AMSTeX.tdl'.";        //  default template translation 
+defemb      = error "@nNo translation available for <Desc>. @nPlease add a translation for  @"<Cmd>@"  in the file 'AMSTeX.tdl'.";        //  default embellishment translation 
+run/text         = "{\text{#}}";		// run of Text style characters 
+run/vector       = "{\bf{#}}";		// run of Vector style characters 
+
+// =====================================================
+// Piles
+// =====================================================
+
+// Pile translation (default, embedded)
+pile      = "\matrix @n  # \cr @n  # \cr @n \endmatrix ";                    // default
+pile/l    = "\matrix @n  # \hfill \cr @n  # \hfill \cr @n \endmatrix ";      // left justified
+pile/c    = "\matrix @n  # \cr @n  # \cr @n \endmatrix ";                    // centered
+pile/r    = "\matrix @n  \hfill # \cr @n  \hfill # \cr @n \endmatrix ";      // right justified 
+pile/al   = "\eqalign{@n  # \cr @n  # \cr} ";                   // aligned at alignment mark
+
+// Top level pile translation
+pile/t      = "\displaylines{@n  # \cr @n  # \cr} ";            // default
+pile/t/l    = "\eqalign{@n  & #  \cr @n  & # \cr} ";            // left justified
+pile/t/c    = "\displaylines{@n  # \cr @n  # \cr} ";            // centered
+pile/t/r    = "\eqalign{@n  # &\cr @n  # &\cr} ";               // right justified
+pile/t/al   = "\eqalign{@n  # \cr @n  # \cr} ";                 // aligned at alignment mark
+
+// 2-line limit pile translation (as in limit of summation)
+pile/lim/2        = "{\scriptstyle #1 \atop @n  \scriptstyle #2} ";                   // default 
+pile/lim/2/l      = "{\scriptstyle #1 \hfill \atop @n  \scriptstyle #2 \hfill} ";     // left justified
+pile/lim/2/c      = "{\scriptstyle #1 \atop @n  \scriptstyle #2} ";                   // centered    
+pile/lim/2/r      = "{\scriptstyle \hfill #1 \atop @n  \scriptstyle \hfill #2} ";     // right justified
+
+// 3-line limit pile translation (as in limit of summation)
+pile/lim/3        = "{\scriptstyle #1 \atop @n  {\scriptstyle #2 \atop @n  \scriptstyle #3}} ";                         // default 
+pile/lim/3/l      = "{\scriptstyle #1 \hfill \atop @n  {\scriptstyle #2 \hfill \atop @n  \scriptstyle #3 \hfill}} ";    // left justified
+pile/lim/3/c      = "{\scriptstyle #1 \atop @n  {\scriptstyle #2 \atop @n  \scriptstyle #3}} ";                         // centered
+pile/lim/3/r      = "{\scriptstyle \hfill #1 \atop @n  {\scriptstyle \hfill #2 \atop @n  \scriptstyle \hfill #3}} ";    // right justified
+
+// =====================================================
+// Matrices and Matrix Elements
+// =====================================================
+
+// Matrix translation (not allowing for partition lines)
+matrix = "\matrix@n#@n \endmatrix ";      
+ 
+// Matrix row translation
+matrow   = "  # \\ @n";
+
+
+// =====================================================
+// Roots and Long Division
+// =====================================================
+
+root/nth   = "\root #2 \of #1 ";     // higher root 
+
+// =====================================================
+// Embellishment Translations
+// =====================================================
+
+edot/3         = "\dddot #";       // three dot over
+edot/4         = "\ddddot #";      // four dots over
+edot/u        = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\cdot}$}}\to@n {#} ";           // one dot under
+edot/u/2      = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\cdot\cdot}$}}\to@n {#} ";      // two dots under
+edot/u/3      = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\cdots}$}}\to@n {#} ";          // three dot under
+edot/u/4      = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\cdot\cdot\cdot\cdot}$}}\to@n {#} ";  // four dots under
+etilde/u     = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\thicksim}$}}\to@n {#} ";  // tilde under
+evec/l       = "\overset{\lower0.5em\hbox{$\smash{\scriptscriptstyle\leftarrow}$}}\to@n {#} ";         // Left arrow above
+evec/lr      = "\overset{\lower0.5em\hbox{$\smash{\scriptscriptstyle\leftrightarrow}$}}\to@n {#} ";   // Left-right arrow above
+evec/h       = "\overset{\lower0.5em\hbox{$\smash{\scriptscriptstyle\rightharpoonup}$}}\to@n {#} ";   // Right harpoon above
+evec/h/l     = "\overset{\lower0.5em\hbox{$\smash{\scriptscriptstyle\leftharpoonup}$}}\to@n {#} ";    // Left harpoon above
+evec/u       = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\rightarrow}$}}\to@n {#} ";       // Right arrow above
+evec/u/l     = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\leftarrow}$}}\to@n {#} ";        // Left arrow above
+evec/u/lr    = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\leftrightarrow}$}}\to@n {#} ";  // Left-right arrow above
+evec/u/h     = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\rightharpoonup}$}}\to@n {#} ";  // Right harpoon above
+evec/u/h/l   = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\leftharpoonup}$}}\to@n {#} ";   // Left harpoon above
+eubar      = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle-}$}}\to@n {#} ";            // Under bar
+earc       = "\overset{\lower0.5em\hbox{$\smash{\scriptscriptstyle\frown}$}}\to@n {#} ";        // Frown above
+earc/s     = "\overset{\lower0.5em\hbox{$\smash{\scriptscriptstyle\smile}$}}\to@n {#} ";        // Smile above
+earc/u     = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\frown}$}}\to@n {#} ";       // Frown below
+earc/u/s   = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\smile}$}}\to@n {#} ";       // Smile below
+
+// =====================================================
+// Script, Fraktur, Blackboard Bold, etc.
+// =====================================================
+
+char/0x2102     = "{\Bbb C}";            // Blackboard-bold capital C
+char/0x210B     = "{\Cal H}";           // Script capital H
+char/0x210D     = "{\Bbb H}";            // Blackboard-bold capital H
+char/0x2110     = "{\Cal I}";           // Script capital I
+char/0x2112     = "{\Cal L}";           // Script capital L
+char/0x2115     = "{\Bbb N}";            // Blackboard-bold capital N
+char/0x2119     = "{\Bbb P}";            // Blackboard-bold capital P
+char/0x211A     = "{\Bbb Q}";            // Blackboard-bold capital Q
+char/0x211B     = "{\Cal R}";           // Script capital R
+char/0x211D     = "{\Cal R}";            // Blackboard-bold capital R
+char/0x2124     = "{\Bbb Z}";            // Blackboard-bold capital Z
+char/0x212C     = "{\Cal B}";           // Script capital B
+char/0x2130     = "{\Cal E}";           // Script capital E
+char/0x2131     = "{\Cal F}";           // Script capital F
+char/0x2133     = "{\Cal M}";           // Script capital M
+
+// =====================================================
+// Other More Exotic Character Translations
+// =====================================================
+
+char/0x221B     = "\root3\of{\mathstrut} ";       // Cube root
+char/0x221C     = "\root4\of{\mathstrut} ";       // Fourth root
+char/0x2258     = " \overset{\lower1em\hbox{$\scriptstyle\frown$}}\to{=} ";    // Corresponds to
+char/0x2259     = " \overset{\wedge}\to{=} ";        // Estimates
+char/0x225A     = " \overset{\vee}\to{=} ";          // Equiangular to
+char/0x225B     = " \overset{\lower1em\hbox{$\scriptstyle\star$}}\to{=} ";                         // Star equals
+char/0x225D     = " \overset{\text{def}}\to{=} ";    // Equal to by definition
+char/0x225E     = " \overset{\wedge}\to{=} ";        // Measured by
+char/0x225F     = " \overset{?}\to{=} ";             // Questioned equal to
+
+// =====================================================
+// Double-struck (Blackboard bold) characters
+// =====================================================
+
+char/0xF080     = "{\Bbb A}";             // Blackboard-bold capital A
+char/0xF081     = "{\Bbb B}";             // Blackboard-bold capital B
+char/0xF082     = "{\Bbb C}";             // Blackboard-bold capital C
+char/0xF083     = "{\Bbb D}";             // Blackboard-bold capital D
+char/0xF084     = "{\Bbb E}";             // Blackboard-bold capital E
+char/0xF085     = "{\Bbb F}";             // Blackboard-bold capital F
+char/0xF086     = "{\Bbb G}";             // Blackboard-bold capital G
+char/0xF087     = "{\Bbb H}";             // Blackboard-bold capital H
+char/0xF088     = "{\Bbb I}";             // Blackboard-bold capital I
+char/0xF089     = "{\Bbb J}";             // Blackboard-bold capital J
+char/0xF08A     = "{\Bbb K}";             // Blackboard-bold capital K
+char/0xF08B     = "{\Bbb L}";             // Blackboard-bold capital L
+char/0xF08C     = "{\Bbb M}";             // Blackboard-bold capital M
+char/0xF08D     = "{\Bbb N}";             // Blackboard-bold capital N
+char/0xF08E     = "{\Bbb O}";             // Blackboard-bold capital O
+char/0xF08F     = "{\Bbb P}";             // Blackboard-bold capital P
+char/0xF090     = "{\Bbb Q}";             // Blackboard-bold capital Q
+char/0xF091     = "{\Bbb R}";             // Blackboard-bold capital R
+char/0xF092     = "{\Bbb S}";             // Blackboard-bold capital S
+char/0xF093     = "{\Bbb T}";             // Blackboard-bold capital T
+char/0xF094     = "{\Bbb U}";             // Blackboard-bold capital U
+char/0xF095     = "{\Bbb V}";             // Blackboard-bold capital V
+char/0xF096     = "{\Bbb W}";             // Blackboard-bold capital W
+char/0xF097     = "{\Bbb X}";             // Blackboard-bold capital X
+char/0xF098     = "{\Bbb Y}";             // Blackboard-bold capital Y
+char/0xF099     = "{\Bbb Z}";             // Blackboard-bold capital Z
+char/0xF0A4     = "\Bbbk ";                 // Blackboard-bold small k
+
+// =====================================================
+// Script (calligraphic) characters
+// =====================================================
+
+char/0xF100     = "{\Cal A}";            // Script capital A
+char/0xF101     = "{\Cal B}";            // Script capital B
+char/0xF102     = "{\Cal C}";            // Script capital C
+char/0xF103     = "{\Cal D}";            // Script capital D
+char/0xF104     = "{\Cal E}";            // Script capital E
+char/0xF105     = "{\Cal F}";            // Script capital F
+char/0xF106     = "{\Cal G}";            // Script capital G
+char/0xF107     = "{\Cal H}";            // Script capital H
+char/0xF108     = "{\Cal I}";            // Script capital I
+char/0xF109     = "{\Cal J}";            // Script capital J
+char/0xF10A     = "{\Cal K}";            // Script capital K
+char/0xF10B     = "{\Cal L}";            // Script capital L
+char/0xF10C     = "{\Cal M}";            // Script capital M
+char/0xF10D     = "{\Cal N}";            // Script capital N
+char/0xF10E     = "{\Cal O}";            // Script capital O
+char/0xF10F     = "{\Cal P}";            // Script capital P
+char/0xF110     = "{\Cal Q}";            // Script capital Q
+char/0xF111     = "{\Cal R}";            // Script capital R
+char/0xF112     = "{\Cal S}";            // Script capital S
+char/0xF113     = "{\Cal T}";            // Script capital T
+char/0xF114     = "{\Cal U}";            // Script capital U
+char/0xF115     = "{\Cal V}";            // Script capital V
+char/0xF116     = "{\Cal W}";            // Script capital W
+char/0xF117     = "{\Cal X}";            // Script capital X
+char/0xF118     = "{\Cal Y}";            // Script capital Y
+char/0xF119     = "{\Cal Z}";            // Script capital Z
+
+

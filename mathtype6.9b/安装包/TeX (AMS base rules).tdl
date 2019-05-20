@@ -1,0 +1,305 @@
+// TeX (AMS base rules).tdl
+
+// Copyright (c) 1999-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/TeX (AMS base rules).tdl 1     6/20/10 4:48a Eduardot $
+
+// include file for translations common to AMS-LaTeX and AMSTeX
+
+// =====================================================
+// Fractions
+// =====================================================
+
+frac         = "\frac{#1}{#2}";       // fraction 
+frac/sm      = "\tfrac{#1}{#2}";      // piece fraction 
+
+// =====================================================
+// Integrals 
+// =====================================================
+
+int/2/nol     = "\iint #1";                // double integral, no limits 
+int/2/sum     = "\iint\limits_#2 #1";      // double summation-style integral, lower limit 
+int/2         = "\iint_#2 #1";             // double integral, lower limit 
+int/3/nol     = "\iiint #1";               // triple integral, no limits 
+int/3/sum     = "\iiint\limits_#2 #1";     // triple summation-style integral, lower limit 
+int/3         = "\iiint_#2 #1";            // triple integral, lower limit 
+
+// =====================================================
+// Contour, Area and Volume Integrals
+// =====================================================
+
+int/ccw/nol  = "<mathop>{\int\mkern-20.8mu \circlearrowleft}  #1 ";                // Integral with counter-clockwise loop without limits 
+int/ccw/sum  = "<mathop>{\int\mkern-20.8mu \circlearrowleft}\limits_#2  #1 ";      // Integral with counter-clockwise loop with underscript limit 
+int/ccw      = "<mathop>{\int\mkern-20.8mu \circlearrowleft}\nolimits_#2  #1 ";    // Integral with counter-clockwise loop with subscript limit 
+int/cw/nol   = "<mathop>{\int\mkern-20.8mu \circlearrowright}  #1 ";               // Integral with clockwise loop without limits 
+int/cw/sum   = "<mathop>{\int\mkern-20.8mu \circlearrowright}\limits_#2  #1 ";     // Integral with clockwise loop with underscript limit 
+int/cw       = "<mathop>{\int\mkern-20.8mu \circlearrowright}\nolimits_#2  #1 ";   // Integral with clockwise loop with subscript limit 
+
+// =====================================================
+// Arrows Under and Over Several Characters
+// =====================================================
+
+vec/lr     = "\overleftrightarrow #1";     // Double arrow over-bar 
+vec/u/l    = "\underleftarrow #1";         // Left arrow under-bar 
+vec/u      = "\underrightarrow #1";        // Right arrow under-bar 
+vec/u/lr   = "\underleftrightarrow #1";    // Double arrow under-bar 
+
+// =====================================================
+// Boxes
+// =====================================================
+
+box = "\boxed#1";    // Box 
+// box/r = "?"       // Box with rounded corners 
+
+// =====================================================
+// Function Translations
+// =====================================================
+
+func/"Re"       = "\operatorname{Re} ";
+func/"Im"       = "\operatorname{Im} ";
+func/"cov"      = "\operatorname{cov} ";
+func/"glb"      = "\operatorname{glb} ";
+func/"int"      = "\operatorname{int} ";
+func/"lub"      = "\operatorname{lub} ";
+func/"sgn"      = "\operatorname{sgn} ";
+func/"var"      = "\operatorname{var} ";
+
+// =====================================================
+// Script, Fraktur, Blackboard Bold, etc.
+// =====================================================
+
+char/0x2127     = "\mho ";                 // Inverted ohm sign
+char/0x2132     = "\Finv ";                // Turned capital F
+char/0x2136     = "\beth ";                // Bet symbol
+char/0x2137     = "\gimel ";               // Gimel symbol
+char/0x2138     = "\daleth ";              // Dalet symbol
+
+// =====================================================
+// Arrows
+// =====================================================
+
+char/0x219A           = " \nleftarrow ";                 // Leftwards arrow with stroke
+char/0x219B           = " \nrightarrow ";                // Rightwards arrow with stroke
+//char/0x219C           = " \leftsquigarrow ";             // Leftwards wave arrow
+char/0x219D           = " \rightsquigarrow ";            // Rightwards wave arrow
+char/0x219E           = " \twoheadleftarrow ";           // Leftwards two headed arrow
+char/0x21A0           = " \twoheadrightarrow ";          // Rightwards two headed arrow
+char/0x21A2           = " \leftarrowtail ";              // Leftwards arrow with tail
+char/0x21A3           = " \rightarrowtail ";             // Rightwards arrow with tail
+char/0x21AB           = " \looparrowleft ";              // Leftwards arrow with loop
+char/0x21AC           = " \looparrowright ";             // Rightwards arrow with loop
+char/0x21AD           = " \leftrightsquigarrow ";        // Left right wave arrow
+char/0x21AE           = " \nleftrightarrow ";            // Left right arrow with stroke
+char/0x21B0           = " \Lsh ";                        // Upwards arrow with tip leftwards
+char/0x21B1           = " \Rsh ";                        // Upwards arrow with tip rightwards
+char/0x21B6           = " \curvearrowleft ";             // Anticlockwise top semicircle arrow
+char/0x21B7           = " \curvearrowright ";            // Clockwise top semicircle arrow
+char/0x21BA           = " \circlearrowleft ";            // Anticlockwise open circle arrow
+char/0x21BB           = " \circlearrowright ";           // Clockwise open circle arrow
+char/0x21BE           = " \upharpoonright ";             // Up harpoon (barb right)
+char/0x21BF           = " \upharpoonleft ";              // Up harpoon (barb left)
+char/0x21C2           = " \downharpoonright ";           // Down harpoon (barb right)
+char/0x21C3           = " \downharpoonleft ";            // Down harpoon (barb left)
+char/0x21C4           = " \rightleftarrows ";            // Rightwards arrow over leftwards arrow
+char/0x21C6           = " \leftrightarrows ";            // Leftwards arrow over rightwards arrow
+char/0x21C7           = " \leftleftarrows ";             // Leftwards paired arrows
+char/0x21C8           = " \upuparrows ";                 // Upwards paired arrows
+char/0x21C9           = " \rightrightarrows ";           // Rightwards paired arrows
+char/0x21CA           = " \downdownarrows ";             // Downwards paired arrows
+char/0x21CB           = " \leftrightharpoons ";          // Left harpoon over right harpoon
+char/0x21CC           = " \rightleftharpoons ";          // Right harpoon over left harpoon
+char/0x21CD           = " \nLeftarrow ";                 // Leftwards double arrow with stroke
+char/0x21CE           = " \nLeftrightarrow ";            // Left right double arrow with stroke
+char/0x21CF           = " \nRightarrow ";                // Rightwards double arrow with stroke
+char/0x21DA           = " \Lleftarrow ";                 // Leftwards triple arrow
+char/0x21DB           = " \Rrightarrow ";                // Rightwards triple arrow
+char/0x21DD           = " \rightsquigarrow ";            // Rightwards squiggle arrow
+char/0x21E4        = "\raise0.5pt\hbox{$\shortmid$} \mkern-8mu \leftarrow ";       // Leftwards arrow to bar
+char/0x21E5        = "\rightarrow \mkern-8mu \raise0.5pt\hbox{$\shortmid$} ";       // Rightwards arrow to bar
+
+// =====================================================
+// Embellishment Translations
+// =====================================================
+
+eprime/b     = "{}^\backprime #";   // back prime
+
+// =====================================================
+// Other More Exotic Character Translations
+// =====================================================
+
+char/0x2201     = "\complement ";                // Complement
+char/0x2204     = "\nexists ";                   // There does not exist
+char/0x220D     = " \mathrel\backepsilon  ";     // Small contains as member
+char/0x220E     = "\blacksquare ";               // End of proof
+char/0x2214     = " \dotplus ";                  // Dot plus
+char/0x2221     = "\measuredangle ";             // Measured angle
+char/0x2222     = "\sphericalangle ";            // Spherical angle
+char/0x2224     = "\nmid ";                      // Does not divide
+char/0x2226     = "\nparallel ";                 // Not parallel to
+char/0x222C     = "\iint ";                      // Double integral
+char/0x222D     = "\iiint ";                     // Triple integral
+char/0x2231     = "<mathop>{\int\mkern-20.8mu \circlearrowright} ";                           // Clockwise integral
+char/0x2233     = "<mathop>{\int\mkern-20.8mu \circlearrowleft} ";                            // Anticlockwise contour integral
+char/0x2234     = "\therefore ";                 // Therefore
+char/0x2235     = "\because ";                   // Because or since
+char/0x2241     = "\nsim ";                      // Not tilde
+char/0x2242     = " \eqsim ";                          // Minus tilde
+char/0x2247     = " \ncong ";                    // Neither approximately nor actually equal to
+char/0x224A     = " \approxeq ";                 // Almost equal or equal to
+char/0x224E     = " \Bumpeq ";                   // Geometrically equivalent to
+char/0x224F     = " \bumpeq ";                   // Difference between
+char/0x2250     = " \doteq ";                    // Approaches the limit
+char/0x2251     = " \doteqdot ";                 // Geometrically equal to
+char/0x2252     = " \fallingdotseq ";            // Approximately equal to or the image of
+char/0x2253     = " \risingdotseq ";             // Image of or approximately equal to
+char/0x2256     = " \eqcirc ";                   // Ring in equal to
+char/0x2257     = " \circeq ";                   // Ring equal to
+char/0x225C     = " \triangleq ";                // Delta equal to
+char/0x2264     = " \leqslant ";                 // Less-than or equal to
+char/0x2265     = " \geqslant ";                 // Greater-than or equal to
+char/0x2266     = " \leqq ";                     // Less-than over equal to
+char/0x2267     = " \geqq ";                     // Greater-than over equal to
+char/0x2268     = " \lvertneqq ";                // Less-than but not equal to (could be \lneqq ***)
+char/0x2269     = " \gvertneqq ";                // Greater-than but not equal to (could be \gneqq ***)
+char/0x226C     = " \between ";                  // Between
+char/0x226E     = " \nless ";                    // Not less-than
+char/0x226F     = " \ngtr ";                     // Not greater-than
+char/0x2270     = " \nleqslant ";                // Neither less-than nor equal to
+char/0x2271     = " \ngeqslant ";                // Neither greater-than nor equal to
+char/0x2272     = " \lesssim ";                  // Less-than or equivalent to
+char/0x2273     = " \gtrsim ";                   // Greater-than or equivalent to
+char/0x2274     = " \not\lesssim ";              // Neither less-than nor equivalent to
+char/0x2275     = " \not\gtrsim ";               // Neither greater-than nor equivalent to
+char/0x2276     = " \lessgtr ";                  // Less-than or greater-than
+char/0x2277     = " \gtrless ";                  // Greater-than or less-than
+char/0x2278     = " \not\lessgtr ";              // Neither less-than nor greater-than
+char/0x2279     = " \not\gtrless ";              // Neither greater-than nor less-than
+char/0x227C     = " \preccurlyeq ";              // Precedes or equal to
+char/0x227D     = " \succcurlyeq ";              // Succeeds or equal to
+char/0x227E     = " \precsim ";                  // Precedes or equivalent to
+char/0x227F     = " \succsim ";                  // Succeeds or equivalent to
+char/0x2280     = " \nprec ";                    // Does not precede
+char/0x2281     = " \nsucc ";                    // Does not succeed
+char/0x2288     = " \nsubseteq ";                // Neither a subset of nor equal to
+char/0x2289     = " \nsupseteq ";                // Neither a superset of nor equal to
+char/0x228A     = " \subsetneq ";                // Subset of with not equal to
+char/0x228B     = " \supsetneq ";                // Superset of with not equal to
+char/0x228F     = " \sqsubset ";                 // Square image of
+char/0x2290     = " \sqsupset ";                 // Square original of
+char/0x229A     = " \circledcirc ";              // Circled ring operator
+char/0x229B     = " \circledast ";               // Circled asterisk operator
+char/0x229D     = " \circleddash ";              // Circled dash
+char/0x229E     = " \boxplus ";                  // Squared plus
+char/0x229F     = " \boxminus ";                 // Squared minus
+char/0x22A0     = " \boxtimes ";                 // Squared times
+char/0x22A1     = " \boxdot ";                   // Squared dot operator
+char/0x22A7     = " \vDash ";                    // Models
+char/0x22A8     = " \vDash ";                    // True
+char/0x22A9     = " \Vdash ";                    // Forces
+char/0x22AA     = " \Vvdash ";                   // Triple vertical bar right turnstile
+char/0x22AC     = " \nvdash ";                   // Does not prove
+char/0x22AD     = " \nvDash ";                   // Not true
+char/0x22AE     = " \nVdash ";                   // Does not force
+char/0x22AF     = " \nVDash ";                   // Negated double vertical bar double right turnstile
+char/0x22B4     = " \trianglelefteq ";           // Normal subgroup of or equal to
+char/0x22B5     = " \trianglerighteq ";          // Contains as normal subgroup or equal to
+char/0x22B8     = " \multimap ";                 // Multimap
+char/0x22BA     = " \intercal ";                 // Intercalate
+char/0x22BB     = " \veebar ";                   // Xor
+char/0x22BC     = " \barwedge ";                 // Nand
+char/0x22BD     = " \veebar ";                   // Nor
+char/0x22C7     = " \divideontimes ";            // Division times
+char/0x22C9     = " \ltimes ";                   // Left normal factor semidirect product
+char/0x22CA     = " \rtimes ";                   // Right normal factor semidirect product
+char/0x22CB     = " \leftthreetimes ";           // Left semidirect product
+char/0x22CC     = " \rightthreetimes ";          // Right semidirect product
+char/0x22CE     = " \curlyvee ";                 // Curly logical or
+char/0x22CF     = " \curlywedge ";               // Curly logical and
+char/0x22D0     = " \Subset ";                   // Double subset
+char/0x22D1     = " \Supset ";                   // Double superset
+char/0x22D2     = " \Cap ";                      // Double intersection
+char/0x22D3     = " \Cup ";                      // Double union
+char/0x22D4     = " \pitchfork ";                // Pitchfork
+char/0x22D6     = " \lessdot ";                  // Less-than with dot
+char/0x22D7     = " \gtrdot ";                   // Greater-than with dot
+char/0x22D8     = " \lll ";                      // Very much less-than
+char/0x22D9     = " \ggg ";                      // Very much greater-than
+char/0x22DA     = " \lesseqgtr ";                // Less-than equal to or greater-than
+char/0x22DB     = " \gtreqless ";                // Greater-than equal to or less-than
+char/0x22DC     = " \eqslantless ";              // Equal to or less-than
+char/0x22DD     = " \eqslantgtr ";               // Equal to or greater-than
+char/0x22DE     = " \curlyeqprec ";              // Equal to or precedes
+char/0x22DF     = " \curlyeqsucc ";              // Equal to or succeeds
+char/0x22E0     = " \npreceq ";                  // Does not precede or equal
+char/0x22E1     = " \nsucceq ";                  // Does not succeed or equal
+char/0x22E6     = " \lnsim ";                    // Less-than but not equivalent to
+char/0x22E7     = " \gnsim ";                    // Greater-than but not equivalent to
+char/0x22E8     = " \precnsim ";                 // Precedes but not equivalent to
+char/0x22E9     = " \succnsim ";                 // Succeeds but not equivalent to
+char/0x22EA     = " \ntriangleleft ";            // Not normal subgroup of
+char/0x22EB     = " \ntriangleright ";           // Does not contain as normal subgroup
+char/0x22EC     = " \ntrianglelefteq ";          // Not normal subgroup of or equal to
+char/0x22ED     = " \ntrianglerighteq ";         // Does not contain as normal subgroup or equal
+char/0x2306     = " \doublebarwedge ";           // Perspective
+char/0x231C     = " \ulcorner ";                 // Top left corner
+char/0x231D     = " \urcorner ";                 // Top right corner
+char/0x231E     = " \llcorner ";                 // Bottom left corner
+char/0x231F     = " \lrcorner ";                 // Bottom right corner
+char/0x2353     = " \boxed{\wedge} ";            // Boxed up caret
+char/0x2370     = " \boxed{?} ";                 // Boxed question mark
+char/0x24C8     = "\circledS ";                  // Circled latin capital letter S
+char/0x25A0     = "\blacksquare ";               // Black square
+char/0x25A1     = "\square ";                    // White square
+char/0x25B2     = "\blacktriangle ";             // Black up-pointing triangle
+char/0x25B3     = "\vartriangle ";               // White up-pointing triangle
+char/0x25B6     = "\blacktriangleright ";        // Black right-pointing triangle
+char/0x25BC     = "\blacktriangledown ";         // Black down-pointing triangle
+char/0x25BD     = "\triangledown ";              // White down-pointing triangle
+char/0x25C0     = "\blacktriangleleft ";         // Black left-pointing triangle
+char/0x2720     = "\maltese ";                   // Maltese cross
+char/0xE90B     = " \supseteqq ";                // Superset of or equal to
+char/0xE90C     = " \subseteqq ";                // Subset of or equal to
+char/0xE922     = " \lesseqqgtr ";               // Less-than equal to or greater-than
+char/0xE92D     = " \gtreqqless ";               // Greater-than equal to or less-than
+char/0xE92E     = " \shortmid ";                 // Bar operator
+char/0xE92F     = " \shortparallel ";            // Double bar operator
+char/0xE930     = " \leqslant ";                 // Less than or equal to
+char/0xE931     = " \geqslant ";                 // Greater than or equal to
+char/0xE932     = " \lessapprox ";               // Less-than or approximately equal to
+char/0xE933     = " \gtrapprox ";                // Greater-than or approximately equal to
+char/0xE93A     = " \precapprox ";               // Precedes or equivalent to
+char/0xE93B     = " \succapprox ";               // Succeeds or equivalent to
+char/0xE981     = " \circleddash ";              // Double slash
+char/0xEA06     = " \nleqq ";                    // Not less-than or equal to
+char/0xEA07     = " \ngeqq ";                    // Not greater-than or equal to
+char/0xEA0B     = " \nsupseteqq ";               // Neither superset of nor equal to
+char/0xEA0C     = " \nsubseteqq ";               // Neither subset of nor equal to
+char/0xEA0E     = " \not\eqslantgtr ";           // Neither equal to nor greater-than
+char/0xEA10     = " \not\eqslantless ";          // Neither equal to nor less-than
+char/0xEA11     = " \nsim ";                     // Small not tilde operator
+char/0xEA2E     = " \nmid ";                     // Not bar operator
+char/0xEA2F     = " \nparallel ";                // Not double bar operator
+char/0xEA30     = " \not\leqslant ";             // Not triple bar operator
+char/0xEA31     = " \not\geqslant ";
+char/0xEA32     = " \lnapprox ";                 // Less-than but not approximately equal to
+char/0xEA33     = " \gnapprox ";                 // Greater-than but not approximately equal to
+char/0xEA34     = " \lneq ";                     // Less-than or not equal to
+char/0xEA35     = " \gneq ";                     // Greater-than or not equal to
+char/0xEA38     = " \npreceq ";                  // Not much less-than
+char/0xEA39     = " \nsucceq ";                  // Not much greater-than
+char/0xEA3A     = " \precnapprox ";              // Precedes but not equivalent to
+char/0xEA3B     = " \succnapprox ";              // Succeeds but not equivalent to
+char/0xEA40     = " \precneqq ";                 // Precedes but not equal to
+char/0xEA41     = " \succneqq ";                 // Succeeds but not equal to
+char/0xEA42     = " \varsubsetneq ";             // Not subset of nor equal to
+char/0xEA43     = " \varsupsetneq ";             // Not superset of nor equal to
+char/0xEA44     = " \subsetneqq ";               // Subset of or not equal to
+char/0xEA45     = " \supsetneqq ";                // Superset of or not equal to
+char/0xEA46     = " \varsubsetneqq ";            // Not subset of nor equal to
+char/0xEA47     = " \varsupsetneqq ";            // Not superset of nor equal to
+
+char/0xED01     = "\Game ";              // Mirror g

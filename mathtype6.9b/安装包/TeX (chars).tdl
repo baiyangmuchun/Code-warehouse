@@ -1,0 +1,303 @@
+// "TeX (chars).tdl"
+
+// Copyright (c) 1999-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/TeX (chars).tdl 12    7/09/10 10:17a Eduardot $
+
+// Character translations (default)
+
+char/0x0009       = " & ";                  // Tab
+char/0x0020       = " ";                    // Space
+char/0x0021       = "!";                    // Exclamation mark
+char/0x0023       = "\@# ";                 // Number sign (# is separator char so needs escaping)
+char/0x0024       = "\$ ";                  // Dollar sign
+char/0x0025       = "\% ";                  // Percent sign
+char/0x0026       = "\& ";                  // Ampersand
+char/0x0027       = "'";                    // Apostrophe
+char/0x0028       = "(";                    // Left parenthesis
+char/0x0029       = ")";                    // Right parenthesis
+char/0x002A       = "*";                    // Asterisk
+char/0x002B       = " + ";                  // Plus sign
+char/0x002C       = ",";                    // Comma
+char/0x002D       = " - ";                  // Hyphen-minus
+char/0x002E       = ".";                    // Full stop
+char/0x002F       = "/";                    // Forward slash (solidus)
+char/0x0030       = "0";                    // Digit zero
+char/0x0031       = "1";                    // Digit one
+char/0x0032       = "2";                    // Digit two
+char/0x0033       = "3";                    // Digit three
+char/0x0034       = "4";                    // Digit four
+char/0x0035       = "5";                    // Digit five
+char/0x0036       = "6";                    // Digit six
+char/0x0037       = "7";                    // Digit seven
+char/0x0038       = "8";                    // Digit eight
+char/0x0039       = "9";                    // Digit nine
+char/0x003A       = ":";                    // Colon
+char/0x003B       = ";";                    // Semicolon
+char/0x003C       = " < ";                  // Less-than sign
+char/0x003D       = " = ";                  // Equals sign
+char/0x003E       = " > ";                  // Greater-than sign
+char/0x003F       = "?";                    // Question mark
+char/0x0040       = "@$";                   // Commercial at (@ is escape char so needs escaping)
+
+char/0x0041       = "A";                    // Latin capital letter A
+char/0x0042       = "B";                    // Latin capital letter B
+char/0x0043       = "C";                    // Latin capital letter C
+char/0x0044       = "D";                    // Latin capital letter D
+char/0x0045       = "E";                    // Latin capital letter E
+char/0x0046       = "F";                    // Latin capital letter F
+char/0x0047       = "G";                    // Latin capital letter G
+char/0x0048       = "H";                    // Latin capital letter H
+char/0x0049       = "I";                    // Latin capital letter I
+char/0x004A       = "J";                    // Latin capital letter J
+char/0x004B       = "K";                    // Latin capital letter K
+char/0x004C       = "L";                    // Latin capital letter L
+char/0x004D       = "M";                    // Latin capital letter M
+char/0x004E       = "N";                    // Latin capital letter N
+char/0x004F       = "O";                    // Latin capital letter O
+char/0x0050       = "P";                    // Latin capital letter P
+char/0x0051       = "Q";                    // Latin capital letter Q
+char/0x0052       = "R";                    // Latin capital letter R
+char/0x0053       = "S";                    // Latin capital letter S
+char/0x0054       = "T";                    // Latin capital letter T
+char/0x0055       = "U";                    // Latin capital letter U
+char/0x0056       = "V";                    // Latin capital letter V
+char/0x0057       = "W";                    // Latin capital letter W
+char/0x0058       = "X";                    // Latin capital letter X
+char/0x0059       = "Y";                    // Latin capital letter Y
+char/0x005A       = "Z";                    // Latin capital letter Z
+char/0x005B       = "[";                    // Left square bracket
+char/0x005C       = "\backslash ";           // Backward slash (reverse solidus)
+char/0x005D       = "]";                    // Right square bracket
+char/0x005E       = "\^";                   // Circumflex accent
+char/0x005F       = "\_";                   // Low line
+char/0x0060       = "`";                    // Grave accent
+char/0x0061       = "a";                    // Latin small letter a
+char/0x0062       = "b";                    // Latin small letter b
+char/0x0063       = "c";                    // Latin small letter c
+char/0x0064       = "d";                    // Latin small letter d
+char/0x0065       = "e";                    // Latin small letter e
+char/0x0066       = "f";                    // Latin small letter f
+char/0x0067       = "g";                    // Latin small letter g
+char/0x0068       = "h";                    // Latin small letter h
+char/0x0069       = "i";                    // Latin small letter i
+char/0x006A       = "j";                    // Latin small letter j
+char/0x006B       = "k";                    // Latin small letter k
+char/0x006C       = "l";                    // Latin small letter l
+char/0x006D       = "m";                    // Latin small letter m
+char/0x006E       = "n";                    // Latin small letter n
+char/0x006F       = "o";                    // Latin small letter o
+char/0x0070       = "p";                    // Latin small letter p
+char/0x0071       = "q";                    // Latin small letter q
+char/0x0072       = "r";                    // Latin small letter r
+char/0x0073       = "s";                    // Latin small letter s
+char/0x0074       = "t";                    // Latin small letter t
+char/0x0075       = "u";                    // Latin small letter u
+char/0x0076       = "v";                    // Latin small letter v
+char/0x0077       = "w";                    // Latin small letter w
+char/0x0078       = "x";                    // Latin small letter x
+char/0x0079       = "y";                    // Latin small letter y
+char/0x007A       = "z";                    // Latin small letter z
+char/0x007B       = "\{ ";                  // Left curly bracket
+char/0x007C       = "|";                    // Vertical line
+char/0x007D       = "\} ";                  // Right curly bracket
+char/0x007E       = "\~";                   // Tilde
+
+char/0x00A7        = "\S";                  // Section sign
+char/0x00A9        = "\copyright";          // Copyright sign
+char/0x00AB        = "\ll ";                // Left-pointing double angle quotation mark
+char/0x00AC        = "\neg ";               // Not sign
+char/0x00B0        = "^\circ ";             // Degree sign
+char/0x00B1        = " \pm ";                // Plus-minus sign
+char/0x00B5        = "\mu ";                // Micro sign
+char/0x00B6        = "\P";                  // Paragraph sign (pilcrow)
+char/0x00B7        = "\cdot";               // Middle dot
+char/0x00BB        = "\gg ";                // Right-pointing double angle quotation mark
+char/0x00BC     = "\raise.5ex\hbox{$<scriptstyle> 1$}\kern-.1em/@n \kern-.15em\lower.25ex\hbox{$<scriptstyle> 4$} ";      // Vulgar fraction one quarter
+char/0x00BD     = "\raise.5ex\hbox{$<scriptstyle> 1$}\kern-.1em/@n \kern-.15em\lower.25ex\hbox{$<scriptstyle> 2$} ";      // Vulgar fraction one half
+char/0x00BE     = "\raise.5ex\hbox{$<scriptstyle> 3$}\kern-.1em/@n \kern-.15em\lower.25ex\hbox{$<scriptstyle> 3$} ";      // Vulgar fraction three quarters
+
+// =====================================================
+// Accented Characters (mostly)
+// =====================================================
+
+char/0x00C0       = "\`A";                  // Latin capital letter A with grave
+char/0x00C1       = "\'A";                  // Latin capital letter A with acute
+char/0x00C2       = "\^A";                  // Latin capital letter A with circumflex
+char/0x00C3       = "\~A";                  // Latin capital letter A with tilde
+char/0x00C4       = "\@"A";                 // Latin capital letter A with diaeresis
+char/0x00C5       = "{\AA}";                // Latin capital letter A with ring above
+char/0x00C6       = "{\AE}";                // Latin capital ligature AE
+char/0x00C7       = "\c{C}";                // Latin capital letter C with cedilla
+char/0x00C8       = "\`E ";                 // Latin capital letter E with grave
+char/0x00C9       = "\'E ";                 // Latin capital letter E with acute
+char/0x00CA       = "\^E ";                 // Latin capital letter E with circumflex
+char/0x00CB       = "\@"E";                 // Latin capital letter E with diaeresis
+char/0x00CC       = "\`I ";                 // Latin capital letter I with grave
+char/0x00CD       = "\'I ";                 // Latin capital letter I with acute
+char/0x00CE       = "\^I ";                 // Latin capital letter I with circumflex
+char/0x00CF       = "\@"I ";                // Latin capital letter I with diaeresis
+char/0x00D1       = "\~N ";                 // Latin capital letter N with tilde
+char/0x00D2       = "\`O ";                 // Latin capital letter O with grave
+char/0x00D3       = "\'O ";                 // Latin capital letter O with acute
+char/0x00D4       = "\^O ";                 // Latin capital letter O with circumflex
+char/0x00D5       = "\~O ";                 // Latin capital letter O with tilde
+char/0x00D6       = "\@"O ";                // Latin capital letter O with diaeresis
+char/0x00D7       = " \times ";             // Multiplication sign
+char/0x00D8       = "\O ";                  // Latin capital letter O with stroke
+char/0x00D9       = "\`U ";                 // Latin capital letter U with grave
+char/0x00DA       = "\'U ";                 // Latin capital letter U with acute
+char/0x00DB       = "\^U ";                 // Latin capital letter U with circumflex
+char/0x00DC       = "\@"U ";                // Latin capital letter U with diaeresis
+char/0x00DD       = "\'Y ";                 // Latin capital letter Y with acute
+char/0x00DF       = "{\ss}";                // Latin small letter sharp s
+char/0x00E0       = "\`a ";                 // Latin small letter a with grave
+char/0x00E1       = "\'a ";                 // Latin small letter a with acute
+char/0x00E2       = "\^a ";                 // Latin small letter a with circumflex
+char/0x00E3       = "\~a ";                 // Latin small letter a with tilde
+char/0x00E4       = "\@"a ";                // Latin small letter a with diaeresis
+char/0x00E5       = "{\aa}";                // Latin small letter a with ring above
+char/0x00E6       = "\ae ";                 // Latin small ligature ae
+char/0x00E7       = "\c{c}";                // Latin small letter c with cedilla
+char/0x00E8       = "\`e ";                 // Latin small letter e with grave
+char/0x00E9       = "\'e ";                 // Latin small letter e with acute
+char/0x00EA       = "\^e ";                 // Latin small letter e with circumflex
+char/0x00EB       = "\@"e ";                // Latin small letter e with diaeresis
+char/0x00EC       = "\`i ";                 // Latin small letter i with grave
+char/0x00ED       = "\'i ";                 // Latin small letter i with acute
+char/0x00EE       = "\^i ";                 // Latin small letter i with circumflex
+char/0x00EF       = "\@"i ";                // Latin small letter i with diaeresis
+char/0x00F1       = "\~n ";                 // Latin small letter n with tilde
+char/0x00F2       = "\`o ";                 // Latin small letter o with grave
+char/0x00F3       = "\'o ";                 // Latin small letter o with acute
+char/0x00F4       = "\^o ";                 // Latin small letter o with circumflex
+char/0x00F5       = "\~o ";                 // Latin small letter o with tilde
+char/0x00F6       = "\@"o ";                // Latin small letter o with diaeresis
+char/0x00F7       = " \div ";               // Division sign
+char/0x00F8       = "{\o}";                 // Latin small letter o with stroke
+char/0x00F9       = "\`u ";                 // Latin small letter u with grave
+char/0x00FA       = "\'u ";                 // Latin small letter u with acute
+char/0x00FB       = "\^u ";                 // Latin small letter u with circumflex
+char/0x00FC       = "\@"u ";                // Latin small letter u with diaeresis
+char/0x00FD       = "\'y ";                 // Latin small letter y with acute
+char/0x00FF       = "\@"y ";                // Latin small letter y with diaeresis
+char/0x0131       = "\imath ";              // Latin small letter dotless i
+char/0x0152       = "\OE ";                 // Latin capital ligature OE
+char/0x0153       = "\oe ";                 // Latin small ligature oe
+char/0x0160       = "\v{S}";                // Latin capital letter S with caron
+char/0x0161       = "\v{s}";                // Latin small letter s with caron
+char/0x0178       = "\@"Y ";                // Latin capital letter Y with diaeresis
+char/0x0192       = "f";                    // Latin small letter f with hook
+char/0x019A       = "{\l}";                 // Latin small letter l with bar
+char/0x019B       = "\mathchar'26\mkern-10mu\lambda ";      // Latin small letter lambda with stroke
+
+// =====================================================
+// Greek Characters
+// =====================================================
+
+char/0x0391     = "{\rm A}";               // Greek capital letter Alpha
+char/0x0392     = "{\rm B}";               // Greek capital letter Beta
+char/0x0393     = "\Gamma ";               // Greek capital letter Gamma
+char/0x0394     = "\Delta ";               // Greek capital letter Delta
+char/0x0395     = "{\rm E}";               // Greek capital letter Epsilon
+char/0x0396     = "{\rm Z}";               // Greek capital letter Zeta
+char/0x0397     = "{\rm H}";               // Greek capital letter Eta
+char/0x0398     = "\Theta ";               // Greek capital letter Theta
+char/0x0399     = "{\rm I}";               // Greek capital letter Iota
+char/0x039A     = "{\rm K}";               // Greek capital letter Kappa
+char/0x039B     = "\Lambda ";              // Greek capital letter Lambda
+char/0x039C     = "{\rm M}";               // Greek capital letter Mu
+char/0x039D     = "{\rm N}";               // Greek capital letter Nu
+char/0x039E     = "\Xi ";                  // Greek capital letter Xi
+char/0x039F     = "{\rm O}";               // Greek capital letter Omicron
+char/0x03A0     = "\Pi ";                  // Greek capital letter Pi
+char/0x03A1     = "{\rm P}";               // Greek capital letter Rho
+char/0x03A3     = "\Sigma ";               // Greek capital letter Sigma
+char/0x03A4     = "{\rm T}";               // Greek capital letter Tau
+char/0x03A5     = "\Upsilon ";             // Greek capital letter Upsilon
+char/0x03A6     = "\Phi ";                 // Greek capital letter Phi
+char/0x03A7     = "{\rm X}";               // Greek capital letter Chi
+char/0x03A8     = "\Psi ";                 // Greek capital letter Psi
+char/0x03A9     = "\Omega ";               // Greek capital letter Omega
+
+char/0x03B1     = "\alpha ";               // Greek small letter alpha
+char/0x03B2     = "\beta ";                // Greek small letter beta
+char/0x03B3     = "\gamma ";               // Greek small letter gamma
+char/0x03B4     = "\delta ";               // Greek small letter delta
+char/0x03B5     = "\varepsilon ";          // Greek small letter epsilon
+char/0x03B6     = "\zeta ";                // Greek small letter zeta
+char/0x03B7     = "\eta ";                 // Greek small letter eta
+char/0x03B8     = "\theta ";               // Greek small letter theta
+char/0x03B9     = "\iota ";                // Greek small letter iota
+char/0x03BA     = "\kappa ";               // Greek small letter kappa
+char/0x03BB     = "\lambda ";              // Greek small letter lamda
+char/0x03BC     = "\mu ";                  // Greek small letter mu
+char/0x03BD     = "\nu ";                  // Greek small letter nu
+char/0x03BE     = "\xi ";                  // Greek small letter xi
+char/0x03BF     = "o";                     // Greek small letter omicron
+char/0x03C0     = "\pi ";                  // Greek small letter pi
+char/0x03C1     = "\rho ";                 // Greek small letter rho
+char/0x03C2     = "\varsigma ";            // Greek small letter final sigma
+char/0x03C3     = "\sigma ";               // Greek small letter sigma
+char/0x03C4     = "\tau ";                 // Greek small letter tau
+char/0x03C5     = "\upsilon ";             // Greek small letter upsilon
+char/0x03C6     = "\varphi ";              // Greek small letter phi
+char/0x03C7     = "\chi ";                 // Greek small letter chi
+char/0x03C8     = "\psi ";                 // Greek small letter psi
+char/0x03C9     = "\omega ";               // Greek small letter omega
+char/0x03D1     = "\vartheta ";            // Greek theta symbol
+char/0x03D2     = "\Upsilon ";             // Greek upsilon with hook symbol
+char/0x03D5     = "\phi ";                 // Greek phi symbol
+char/0x03D6     = "\varpi ";               // Greek pi symbol
+char/0x03DA     = "\varsigma ";            // Greek letter sigma
+char/0x03F1     = "\varrho ";              // Greek rho symbol
+
+// =====================================================
+// Some Punctuation
+// =====================================================
+
+char/0x2013 = "--";                        // En dash
+char/0x2014 = "---";                       // Em dash
+char/0x2020 = "\dag ";                     // Dagger
+char/0x2021 = "\ddag ";                    // Double dagger
+char/0x2022 = " \bullet ";                 // Bullet
+char/0x2026 = " \ldots ";                  // Horizontal ellipsis
+char/0x2032 = "\prime ";                   // Prime
+char/0x2044 = " / ";                       // Fraction slash
+
+// =====================================================
+// Currency
+// =====================================================
+
+// most of these are not implemented in tex; some may be in special packages
+// and most of the characters are rather rare to find in fonts
+
+char/0x00A2	= "\cent";						// cent sign
+char/0x00A3 = "\pounds";             		// Pound sign
+char/0x00A4	= "\yen";						// yen sign
+char/0x00A5	= "\currency";					// currency sign
+char/0x20A1 = "\Colon ";                   	// colon (Costa Rica)
+char/0x20A2	= "\cruzeiro ";                 // cruzeiro
+char/0x20A3 = "\franc ";                   	// French franc
+char/0x20A4 = "\lira ";                   	// lira
+char/0x20A5 = "\mill ";                   	// mill (1/10 cent)
+char/0x20A6 = "\naira ";                   	// naira (Nigeria)
+char/0x20A7 = "\peseta ";                   // peseta
+char/0x20A8 = "\rupee ";                   	// rupee
+char/0x20A9 = "\won ";                     	// Won (Korea)
+char/0x20AA = "\newsheqel ";                // Israel
+char/0x20AB = "\dong ";                 	// Vietnam
+char/0x20AC = "\euro ";                	   	// euro
+char/0x20AD = "\kip ";                 	  	// Kip (Laos)
+char/0x20AE = "\tugrik ";                   // tugrik
+char/0x20AF = "\drachma ";                  // drachma (Greece)
+char/0x20B0 = "\germanpenny ";              // German Penny
+char/0x20B1 = "\peso ";                 	// Phillipine's peso
+char/0x20B2 = "\guarani ";                  // guarani
+char/0x20B3 = "\austral ";                  // austral
+char/0x20B4 = "\hryvnia ";                  // Ukraine
+char/0x20B5 = "\cedi ";                  	// Ghana                

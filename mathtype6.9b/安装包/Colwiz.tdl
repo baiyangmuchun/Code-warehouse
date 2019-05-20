@@ -1,0 +1,37 @@
+MathType Output Translator 1.0: "Colwiz", "Colwiz translator v1.1 by Design Science, Inc.", website
+
+// Copyright (c) 1998-2014 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the file name, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+//
+// Colwiz formerly allowed pasting Google API equations, but no longer. This translator creates
+// LaTeX to paste into the Colwiz EE.
+
+// $Header: /MathType/Translators/Colwiz.tdl 2     5/09/14 11:03a Jimm $
+
+include "Texvc (base vars).tdl";
+// redefinitions of base variables
+
+var/"TranslatorName" = "Colwiz";
+var/"TranslatorFileName" = "Colwiz.tdl";
+
+var/"BeginMathDisplay" = "";
+var/"BeginMathInline" = "";
+var/"EndMathDisplay" = "";
+var/"EndMathInline" = "";
+
+// supress comments and MTEF data
+var/"EqnDataCmt"= "";
+var/"StdStartCmt"= "";
+var/"StdEndCmt"= "";
+
+include "Texvc (base rules).tdl";
+// redefinitions of base rules
+
+sup/scan    = "{#1}^{#3}";                  // superscript (scan)
+sub/scan    = "{#1}_{#2}";                  // subscript (scan)
+
+// Matrix translation (not allowing for partition lines, but better spacing)
+matrix      = "\begin{matrix}{@n#}\end{matrix}";

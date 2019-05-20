@@ -1,0 +1,64 @@
+MathType Output Translator 1.0: "Tutorsbox", "Tutorsbox translator v1.00 by Design Science, Inc.", website
+// Copyright (c) 1998-2011 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Tutorsbox.tdl 1     12/04/13 11:46a Jimm $
+
+include "LaTeX (base vars).tdl";
+// redefinitions of base variables
+
+var/"TranslatorName" = "Tutorsbox";
+var/"TranslatorFileName" = "Tutorsbox.tdl";
+
+// no delimiters
+var/"BeginMathDisplay" = "";
+var/"BeginMathInline" = "";
+var/"EndMathDisplay" = "";
+var/"EndMathInline" = "";
+
+// supress comments and MTEF data
+var/"EqnDataCmt"= "";
+var/"StdStartCmt"= "";
+var/"StdEndCmt"= "";
+var/"newline" = "";
+
+include "LaTeX (base rules).tdl";
+// the Plain TeX matrix command gives a little better spacing for piles
+// Pile translation (default, embedded)
+pile      = "\matrix{# \cr #}";                    // default
+pile/l    = "\matrix{#\hfill \cr #\hfill}";        // left justified
+pile/c    = "\matrix{# \cr #}";                    // centered
+pile/r    = "\matrix{\hfill # \cr \hfill #}";      // right justified 
+
+// Top level pile translation
+pile/t      = "\matrix{# \cr #}";                    // default
+pile/t/l    = "\matrix{#\hfill \cr #\hfill}";        // left justified
+pile/t/c    = "\matrix{# \cr #}";                    // centered
+pile/t/r    = "\matrix{\hfill # \cr \hfill #}";      // right justified 
+
+// =====================================================
+// Matrices and Matrix Elements
+// =====================================================
+
+// Matrix translation (not allowing for partition lines)
+matrix = "\matrix{#}";      
+matrix/l = "\matrix{#}";      
+matrix/c = "\matrix{#}";      
+matrix/r = "\matrix{#}";      
+ 
+// Matrix row translation
+matrow   = "# \cr";
+matrow/last   = "#";
+
+// Matrix element translation (except for last element in row) 
+matelem/l   = " #\hfill &";           // Left justified
+matelem/c   = " # &";                  // Center justified 
+matelem/r   = " \hfill # &";           // Right justified 
+
+// Matrix element translation (last element in row only) 
+matelem/last/l   = " # \hfill";       // Left justified
+matelem/last/c   = " #";              // Center justified 
+matelem/last/r   = " \hfill #";        // Right justified 

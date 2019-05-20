@@ -1,0 +1,261 @@
+MathType Output Translator 1.0: "OER Commons", "OER Commons translator v1.00 by Design Science, Inc.", application
+
+// Copyright (c) 1998-2012 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/OER Commons.tdl 1     9/28/12 8:34a Eduardot $
+
+include "LaTeX (base vars).tdl";
+// redefinitions of base variables
+var/"TranslatorName" = "OER Commons";
+var/"TranslatorFileName" = "OER Commons.tdl";
+
+// the usual TeX $$ and $ will work, but collide with some translations where
+// we have math expressions inside a text box (see evec/l in LaTeX (base rules), for instance)
+var/"BeginMathDisplay" = "";
+var/"BeginMathInline" = "";
+var/"EndMathDisplay" = "";
+var/"EndMathInline" = "";
+
+var/"newline"    = ""; // here we need @ for escaping: @n for a newline
+var/"hfill"      = "";
+
+var/"StdStartCmt"= "";
+var/"StdEndCmt"  = "";
+
+include "LaTeX (base rules).tdl";
+// redefinition of base rules
+
+// error "@n<TranslatorName> does not support <FullDesc>";
+// MathJax does not recognize relbar, joinrel,
+char/0x21C8     = "\mathrel{\uparrow\!\uparrow}";                 // Upwards paired arrows
+char/0x21CA     = "\mathrel{\downarrow\!\downarrow}";             // Downwards paired arrows
+char/0x224A     = "\mathbin{\underline{\approx}}";                // Almost equal or equal to
+char/0x22A9     = error "@n<TranslatorName> does not support <FullDesc>";   // Forces, Vdash
+char/0x22AA     = error "@n<TranslatorName> does not support <FullDesc>";   // Triple vertical bar right turnstile
+char/0x22AE     = error "@n<TranslatorName> does not support <FullDesc>";   // Does not force
+char/0x22AF     = error "@n<TranslatorName> does not support <FullDesc>";   // Negated double vertical bar double right turnstile
+char/0x22B4     = error "@n<TranslatorName> does not support <FullDesc>";   // Normal subgroup of or equal to
+char/0x22B5     = error "@n<TranslatorName> does not support <FullDesc>";   // Contains as normal subgroup or equal to
+char/0x22B8     = error "@n<TranslatorName> does not support <FullDesc>";   // Multimap
+char/0x22BB     = error "@n<TranslatorName> does not support <FullDesc>";   // Xor
+char/0x22BC     = error "@n<TranslatorName> does not support <FullDesc>";   // Nand
+char/0x22BD     = error "@n<TranslatorName> does not support <FullDesc>";   // Nor
+char/0x22DA     = error "@n<TranslatorName> does not support <FullDesc>";   // Less-than equal to or greater-than
+char/0x22DB     = error "@n<TranslatorName> does not support <FullDesc>";   // Greater-than equal to or less-than
+char/0x22EC     = error "@n<TranslatorName> does not support <FullDesc>";   // Not normal subgroup of or equal to
+char/0x22ED     = error "@n<TranslatorName> does not support <FullDesc>";   // Does not contain as normal subgroup or equal
+
+// vline is not supported (although hline is)
+vline       = error "@n<TranslatorName> does not support vertical lines";          // Solid
+vline/dash  = error "@n<TranslatorName> does not support vertical lines";          // Dashed
+vline/dot   = error "@n<TranslatorName> does not support vertical lines";          // Dotted
+
+// Chars that are supported (even if not in LaTeX)
+
+char/0x2102     = "\mathbb{C}";            // Blackboard-bold capital C
+char/0x210A     = "\mathcal{g}";           // Script small letter g
+char/0x210B     = "\mathcal{H}";           // Script capital H
+char/0x210C     = "\mathfrak{H}";          // Fraktur capital H
+char/0x210D     = "\mathbb{H}";            // Blackboard-bold capital H
+char/0x2110     = "\mathcal{I}";           // Script capital I
+char/0x2112     = "\mathcal{L}";           // Script capital L
+char/0x2115     = "\mathbb{N}";            // Blackboard-bold capital N
+char/0x2119     = "\mathbb{P}";            // Blackboard-bold capital P
+char/0x211A     = "\mathbb{Q}";            // Blackboard-bold capital Q
+char/0x211B     = "\mathcal{R}";           // Script capital R
+char/0x211D     = "\mathbb{R}";            // Blackboard-bold capital R
+char/0x2124     = "\mathbb{Z}";            // Blackboard-bold capital Z
+char/0x2128     = "\mathfrak{Z}";          // Fraktur capital Z
+char/0x212C     = "\mathcal{B}";           // Script capital B
+char/0x212D     = "\mathfrak{C}";          // Fraktur capital C
+char/0x2130     = "\mathcal{E}";           // Script capital E
+char/0x2131     = "\mathcal{F}";           // Script capital F
+char/0x2133     = "\mathcal{M}";           // Script capital M
+
+// =====================================================
+// Fraktur (black) letters
+// =====================================================
+
+char/0xF000     = "\mathfrak{A}";           // Fraktur capital A
+char/0xF001     = "\mathfrak{B}";           // Fraktur capital B
+char/0xF002     = "\mathfrak{C}";           // Fraktur capital C
+char/0xF003     = "\mathfrak{D}";           // Fraktur capital D
+char/0xF004     = "\mathfrak{E}";           // Fraktur capital E
+char/0xF005     = "\mathfrak{F}";           // Fraktur capital F
+char/0xF006     = "\mathfrak{G}";           // Fraktur capital G
+char/0xF007     = "\mathfrak{H}";           // Fraktur capital H
+char/0xF008     = "\mathfrak{I}";           // Fraktur capital I
+char/0xF009     = "\mathfrak{J}";           // Fraktur capital J
+char/0xF00A     = "\mathfrak{K}";           // Fraktur capital K
+char/0xF00B     = "\mathfrak{L}";           // Fraktur capital L
+char/0xF00C     = "\mathfrak{M}";           // Fraktur capital M
+char/0xF00D     = "\mathfrak{N}";           // Fraktur capital N
+char/0xF00E     = "\mathfrak{O}";           // Fraktur capital O
+char/0xF00F     = "\mathfrak{P}";           // Fraktur capital P
+char/0xF010     = "\mathfrak{Q}";           // Fraktur capital Q
+char/0xF011     = "\mathfrak{R}";           // Fraktur capital R
+char/0xF012     = "\mathfrak{S}";           // Fraktur capital S
+char/0xF013     = "\mathfrak{T}";           // Fraktur capital T
+char/0xF014     = "\mathfrak{U}";           // Fraktur capital U
+char/0xF015     = "\mathfrak{V}";           // Fraktur capital V
+char/0xF016     = "\mathfrak{W}";           // Fraktur capital W
+char/0xF017     = "\mathfrak{X}";           // Fraktur capital X
+char/0xF018     = "\mathfrak{Y}";           // Fraktur capital Y
+char/0xF019     = "\mathfrak{Z}";           // Fraktur capital Z
+char/0xF01A     = "\mathfrak{a}";           // Fraktur small a
+char/0xF01B     = "\mathfrak{b}";           // Fraktur small b
+char/0xF01C     = "\mathfrak{c}";           // Fraktur small c
+char/0xF01D     = "\mathfrak{d}";           // Fraktur small d
+char/0xF01E     = "\mathfrak{e}";           // Fraktur small e
+char/0xF01F     = "\mathfrak{f}";           // Fraktur small f
+char/0xF020     = "\mathfrak{g}";           // Fraktur small g
+char/0xF021     = "\mathfrak{h}";           // Fraktur small h
+char/0xF022     = "\mathfrak{i}";           // Fraktur small i
+char/0xF023     = "\mathfrak{j}";           // Fraktur small j
+char/0xF024     = "\mathfrak{k}";           // Fraktur small k
+char/0xF025     = "\mathfrak{l}";           // Fraktur small l
+char/0xF026     = "\mathfrak{m}";           // Fraktur small m
+char/0xF027     = "\mathfrak{n}";           // Fraktur small n
+char/0xF028     = "\mathfrak{o}";           // Fraktur small o
+char/0xF029     = "\mathfrak{p}";           // Fraktur small p
+char/0xF02A     = "\mathfrak{q}";           // Fraktur small q
+char/0xF02B     = "\mathfrak{r}";           // Fraktur small r
+char/0xF02C     = "\mathfrak{s}";           // Fraktur small s
+char/0xF02D     = "\mathfrak{t}";           // Fraktur small t
+char/0xF02E     = "\mathfrak{u}";           // Fraktur small u
+char/0xF02F     = "\mathfrak{v}";           // Fraktur small v
+char/0xF030     = "\mathfrak{w}";           // Fraktur small w
+char/0xF031     = "\mathfrak{x}";           // Fraktur small x
+char/0xF032     = "\mathfrak{y}";           // Fraktur small y
+char/0xF033     = "\mathfrak{z}";           // Fraktur small z
+
+// =====================================================
+// Double-struck (Blackboard bold) characters
+// =====================================================
+
+char/0xF080     = "\mathbb{A}";             // Blackboard-bold capital A
+char/0xF081     = "\mathbb{B}";             // Blackboard-bold capital B
+char/0xF082     = "\mathbb{C}";             // Blackboard-bold capital C
+char/0xF083     = "\mathbb{D}";             // Blackboard-bold capital D
+char/0xF084     = "\mathbb{E}";             // Blackboard-bold capital E
+char/0xF085     = "\mathbb{F}";             // Blackboard-bold capital F
+char/0xF086     = "\mathbb{G}";             // Blackboard-bold capital G
+char/0xF087     = "\mathbb{H}";             // Blackboard-bold capital H
+char/0xF088     = "\mathbb{I}";             // Blackboard-bold capital I
+char/0xF089     = "\mathbb{J}";             // Blackboard-bold capital J
+char/0xF08A     = "\mathbb{K}";             // Blackboard-bold capital K
+char/0xF08B     = "\mathbb{L}";             // Blackboard-bold capital L
+char/0xF08C     = "\mathbb{M}";             // Blackboard-bold capital M
+char/0xF08D     = "\mathbb{N}";             // Blackboard-bold capital N
+char/0xF08E     = "\mathbb{O}";             // Blackboard-bold capital O
+char/0xF08F     = "\mathbb{P}";             // Blackboard-bold capital P
+char/0xF090     = "\mathbb{Q}";             // Blackboard-bold capital Q
+char/0xF091     = "\mathbb{R}";             // Blackboard-bold capital R
+char/0xF092     = "\mathbb{S}";             // Blackboard-bold capital S
+char/0xF093     = "\mathbb{T}";             // Blackboard-bold capital T
+char/0xF094     = "\mathbb{U}";             // Blackboard-bold capital U
+char/0xF095     = "\mathbb{V}";             // Blackboard-bold capital V
+char/0xF096     = "\mathbb{W}";             // Blackboard-bold capital W
+char/0xF097     = "\mathbb{X}";             // Blackboard-bold capital X
+char/0xF098     = "\mathbb{Y}";             // Blackboard-bold capital Y
+char/0xF099     = "\mathbb{Z}";             // Blackboard-bold capital Z
+char/0xF09A     = "\mathbb{a}";             // Blackboard-bold small a
+char/0xF09B     = "\mathbb{b}";             // Blackboard-bold small b
+char/0xF09C     = "\mathbb{c}";             // Blackboard-bold small c
+char/0xF09D     = "\mathbb{d}";             // Blackboard-bold small d
+char/0xF09E     = "\mathbb{e}";             // Blackboard-bold small e
+char/0xF09F     = "\mathbb{f}";             // Blackboard-bold small f
+char/0xF0A0     = "\mathbb{g}";             // Blackboard-bold small g
+char/0xF0A1     = "\mathbb{h}";             // Blackboard-bold small h
+char/0xF0A2     = "\mathbb{i}";             // Blackboard-bold small i
+char/0xF0A3     = "\mathbb{j}";             // Blackboard-bold small j
+char/0xF0A4     = "\mathbb{k}";             // Blackboard-bold small k
+char/0xF0A5     = "\mathbb{l}";             // Blackboard-bold small l
+char/0xF0A6     = "\mathbb{m}";             // Blackboard-bold small m
+char/0xF0A7     = "\mathbb{n}";             // Blackboard-bold small n
+char/0xF0A8     = "\mathbb{o}";             // Blackboard-bold small o
+char/0xF0A9     = "\mathbb{p}";             // Blackboard-bold small p
+char/0xF0AA     = "\mathbb{q}";             // Blackboard-bold small q
+char/0xF0AB     = "\mathbb{r}";             // Blackboard-bold small r
+char/0xF0AC     = "\mathbb{s}";             // Blackboard-bold small s
+char/0xF0AD     = "\mathbb{t}";             // Blackboard-bold small t
+char/0xF0AE     = "\mathbb{u}";             // Blackboard-bold small u
+char/0xF0AF     = "\mathbb{v}";             // Blackboard-bold small v
+char/0xF0B0     = "\mathbb{w}";             // Blackboard-bold small w
+char/0xF0B1     = "\mathbb{x}";             // Blackboard-bold small x
+char/0xF0B2     = "\mathbb{y}";             // Blackboard-bold small y
+char/0xF0B3     = "\mathbb{z}";             // Blackboard-bold small z
+
+char/0xF0C0     = "\mathbb{0}";             // Blackboard-bold digit 0
+char/0xF0C1     = "\mathbb{1}";             // Blackboard-bold digit 1
+char/0xF0C2     = "\mathbb{2}";             // Blackboard-bold digit 2
+char/0xF0C3     = "\mathbb{3}";             // Blackboard-bold digit 3
+char/0xF0C4     = "\mathbb{4}";             // Blackboard-bold digit 4
+char/0xF0C5     = "\mathbb{5}";             // Blackboard-bold digit 5
+char/0xF0C6     = "\mathbb{6}";             // Blackboard-bold digit 6
+char/0xF0C7     = "\mathbb{7}";             // Blackboard-bold digit 7
+char/0xF0C8     = "\mathbb{8}";             // Blackboard-bold digit 8
+char/0xF0C9     = "\mathbb{9}";             // Blackboard-bold digit 9
+                                                           
+                                                                 
+// =====================================================
+// Script (calligraphic) characters
+// =====================================================
+
+char/0xF100     = "\mathcal{A}";            // Script capital A
+char/0xF101     = "\mathcal{B}";            // Script capital B
+char/0xF102     = "\mathcal{C}";            // Script capital C
+char/0xF103     = "\mathcal{D}";            // Script capital D
+char/0xF104     = "\mathcal{E}";            // Script capital E
+char/0xF105     = "\mathcal{F}";            // Script capital F
+char/0xF106     = "\mathcal{G}";            // Script capital G
+char/0xF107     = "\mathcal{H}";            // Script capital H
+char/0xF108     = "\mathcal{I}";            // Script capital I
+char/0xF109     = "\mathcal{J}";            // Script capital J
+char/0xF10A     = "\mathcal{K}";            // Script capital K
+char/0xF10B     = "\mathcal{L}";            // Script capital L
+char/0xF10C     = "\mathcal{M}";            // Script capital M
+char/0xF10D     = "\mathcal{N}";            // Script capital N
+char/0xF10E     = "\mathcal{O}";            // Script capital O
+char/0xF10F     = "\mathcal{P}";            // Script capital P
+char/0xF110     = "\mathcal{Q}";            // Script capital Q
+char/0xF111     = "\mathcal{R}";            // Script capital R
+char/0xF112     = "\mathcal{S}";            // Script capital S
+char/0xF113     = "\mathcal{T}";            // Script capital T
+char/0xF114     = "\mathcal{U}";            // Script capital U
+char/0xF115     = "\mathcal{V}";            // Script capital V
+char/0xF116     = "\mathcal{W}";            // Script capital W
+char/0xF117     = "\mathcal{X}";            // Script capital X
+char/0xF118     = "\mathcal{Y}";            // Script capital Y
+char/0xF119     = "\mathcal{Z}";            // Script capital Z
+char/0xF11A     = "\mathcal{a}";            // Script small a
+char/0xF11B     = "\mathcal{b}";            // Script small b
+char/0xF11C     = "\mathcal{c}";            // Script small c
+char/0xF11D     = "\mathcal{d}";            // Script small d
+char/0xF11E     = "\mathcal{e}";            // Script small e
+char/0xF11F     = "\mathcal{f}";            // Script small f
+char/0xF120     = "\mathcal{g}";            // Script small g
+char/0xF121     = "\mathcal{h}";            // Script small h
+char/0xF122     = "\mathcal{i}";            // Script small i
+char/0xF123     = "\mathcal{j}";            // Script small j
+char/0xF124     = "\mathcal{k}";            // Script small k
+char/0xF125     = "\mathcal{l}";            // Script small l
+char/0xF126     = "\mathcal{m}";            // Script small m
+char/0xF127     = "\mathcal{n}";            // Script small n
+char/0xF128     = "\mathcal{o}";            // Script small o
+char/0xF129     = "\mathcal{p}";            // Script small p
+char/0xF12A     = "\mathcal{q}";            // Script small q
+char/0xF12B     = "\mathcal{r}";            // Script small r
+char/0xF12C     = "\mathcal{s}";            // Script small s
+char/0xF12D     = "\mathcal{t}";            // Script small t
+char/0xF12E     = "\mathcal{u}";            // Script small u
+char/0xF12F     = "\mathcal{v}";            // Script small v
+char/0xF130     = "\mathcal{w}";            // Script small w
+char/0xF131     = "\mathcal{x}";            // Script small x
+char/0xF132     = "\mathcal{y}";            // Script small y
+char/0xF133     = "\mathcal{z}";            // Script small z
+                         

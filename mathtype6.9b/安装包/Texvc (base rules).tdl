@@ -1,0 +1,546 @@
+// TeX (base rules).tdl
+
+// Copyright (c) 1999-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Texvc (base rules).tdl 9     5/12/14 10:09a Jimm $
+
+// =====================================================
+// Top Level Translation Strings
+// =====================================================
+
+eqndatachars = "@$+=";  // characters used to delimit and encode MTEF
+                        // in comments (must be 3 chars exactly; the first two here are @ (escaped))
+
+comment = "<!-- # -->@n";
+eqn         = "<StdStartCmt><EqnDataCmt><BeginMathDisplay>#<EndMathDisplay><StdEndCmt>";     //  <math> <eqn> </math>  -- display equation translation
+eqn/inline  = "<StdStartCmt><EqnDataCmt><BeginMathInline>#<EndMathInline><StdEndCmt>";         //  <eqn>      -- in-line equation translation
+
+// =====================================================
+// Default Translation Strings
+// =====================================================
+
+deffunc     = "\operatorname{#}";	//  default function translation
+defchar     = error "@nNo translation available for <FullDesc>. @nPlease add a translation for  @"<Cmd>@"  in the file 'texvc.tdl'.";    //  default character translation
+deftmpl     = error "@nNo translation available for <Desc>. @nPlease add a translation for  @"<Cmd>@"  in the file 'texvc.tdl.'";        //  default template translation
+defemb      = error "@nNo translation available for <Desc>. @nPlease add a translation for  @"<Cmd>@"  in the file 'texvc.tdl.'";        //  default embellishment translation
+
+// =====================================================
+// Styles and runs
+// =====================================================
+
+styletype/user1   = mathmode;           // User1 style is treated as math or text
+styletype/user2   = textmode;           // User2 style is treated as math or text
+run/user1style   = "\mathsf{#}";        // run of User1 style characters
+run/user2style   = "\mathrm{#}";        // run of User2 style characters
+run/text         = "\text{#}";          // run of Text style characters
+run/vector       = "\mathbf{#}";        // run of Vector style characters
+
+// =====================================================
+// Slots
+// =====================================================
+
+// Default slot translation
+slot       = "#";              // default
+slot/0     = "{}";               // empty (zero characters)
+slot/1     = "#";                // one character
+slot/1/e   = "{#}";              // one character with embellishment
+
+// Top-most slot translation
+slot/t      = "#";               // default
+
+// Pile slot translation
+slot/p       = "#";              // default
+slot/p/1     = "#";              // one character
+slot/p/1/e   = "{#}";            // one character with embellishment
+
+// Limit slot translation
+slot/lim       = "#";              // default
+slot/lim/1     = "#";              // one character
+slot/lim/1/e   = "{#}";            // one character with embellishment
+
+// =====================================================
+// Matrices and Matrix Elements
+// =====================================================
+
+// Matrix element translation (except for last element in row)
+// matelem/l   = " # \hfill &";           // Left justified
+// matelem/c   = " # &";                  // Center justified
+// matelem/r   = " \hfill # &";           // Right justified
+
+// Matrix element translation (last element in row only)
+// matelem/last/l   = " # \hfill ";       // Left justified
+// matelem/last/c   = " # ";              // Center justified
+// matelem/last/r   = " \hfill #";        // Right justified
+
+// =====================================================
+// Fences, Intervals, etc.
+// =====================================================
+
+paren         = "\left( #1 \right)";                // parentheses (both)
+brack         = "\left[ #1 \right]";                // brackets (both)
+brace         = "\left\{ #1 \right\}";              // braces (both)
+abrack        = "\left\langle #1 \right\rangle ";   // angle brackets (both)
+bar           = "\left| #1 \right|";                // bars (both)
+dbar          = "\left\| #1 \right\|";              // double bars (both)
+floor         = "\left\lfloor #1 \right\rfloor ";   // floor
+ceil          = "\left\lceil #1 \right\rceil ";     // ceiling
+intval/lblb   = "\left[ #1 \right[";                // left bracket, left bracket interval
+intval/rbrb   = "\left] #1 \right]";                // right bracket, right bracket interval
+intval/rblb   = "\left] #1 \right[";                // right bracket, left bracket interval
+intval/lbrp   = "\left[ #1 \right)";                // left bracket, right paren interval
+intval/lprb   = "\left( #1 \right]";                // left paren, right bracket interval
+paren/l       = "\left( #1 \right.";                // parentheses (left)
+paren/r       = "\left. #1 \right)";                // parentheses (right)
+brack/l       = "\left[ #1 \right.";                // brackets (left)
+brack/r       = "\left. #1 \right]";                // brackets (right)
+brace/l       = "\left\{ #1 \right.";               // braces (left)
+brace/r       = "\left. #1 \right\}";               // braces (right)
+abrack/l      = "\left\langle #1 \right.";          // angle brackets (left)
+abrack/r      = "\left. #1 \right\rangle ";         // angle brackets (right)
+bar/l         = "\left| #1 \right.";                // bars (left)
+bar/r         = "\left. #1 \right|";                // bars (right)
+dbar/l        = "\left\| #1 \right.";               // double bars (left)
+dbar/r        = "\left. #1 \right\|";               // double bars (right)
+braket/r      = "\left| #2 \right\rangle ";           // dirac (right)
+braket/l      = "\left\langle  #1 \right|";           // dirac (left)
+braket        = "\left\langle  #1 | #2 \right\rangle "; // dirac bra-ket
+obrack        = "\left[\!\left[ #1 \right]\!\right]";  // Open brackets (both)
+obrack/l      = "\left[\!\left[ #1 \right.";           // Left open bracket
+obrack/r      = "\left. #1 \right]\!\right]";          // Right open bracket
+
+// =====================================================
+// Horizontal Braces
+// =====================================================
+
+hbrace        = "\underbrace{#1}_{#2}";      // horizontal brace (lower)
+hbrace/t      = "\overbrace{#1}^{#2}";       // horizontal brace (top)
+// hbrack      = "\underbrace{#1}^{#2}";     // horizontal bracket (lower)
+// hbrack/t    = "\overbrace{#1}_{#2}";      // horizontal bracket (upper)
+
+// =====================================================
+// Fractions
+// =====================================================
+
+frac         = "\frac{#1}{#2}";      				 // fraction
+frac/sm      = "\tfrac{#1}{#2}";             // piece fraction
+frac/sl      = "{}^{#1}\!\!\diagup\!\!{}_{#2}\;";  // diagonal fraction (normal)
+frac/sl/sm   = "{\scriptstyle{}^{#1}\!\!\diagup\!\!{}_{#2}\;}";      // diagonal fraction (subscript-size)
+frac/sl/base = "{#1}/{#2}\;";      // diagonal fraction (baseline)
+
+// =====================================================
+// Roots and Long Division
+// =====================================================
+
+root       = "\sqrt{#1}";            // square root
+root/nth   = "\sqrt[#2]{#1}";          // higher root
+ldiv/nq    = "\overline{\left){#1}\right.}";      // long division (without upper slot)
+ldiv       = "\overset{#2}{\overline{\left){#1}\right.}}";      // long division (with upper slot)
+
+// =====================================================
+// Subscripts, Superscripts, Limit-Like Structures
+// =====================================================
+
+sup         = "^{#2}";                        // superscript (normal, trailing)
+sub         = "_{#1}";                        // subscript (normal, trailing)
+sup/scan    = "{{#1}^{#3}}";                  // superscript (scan)
+sub/scan    = "{{#1}_{#2}}";                  // subscript (scan)
+subsup      = "_{#1}^{#2}";                   // both super- and subscripts (normal, trailing)
+sup/pre     = "{}^{#2}" ;                     // superscript (leading)
+sub/pre     = "{}_{#1}" ;                     // subscript (leading)
+subsup/pre  = "{}_{#1}^{#2}";                 // both super- and subscripts (leading)
+// when/if texvc supports \limits for mathops, we can use this commented contructions
+// lim         = "\mathop#1\limits_{#2}";     // small slot under large slot
+// lim/t       = "\mathop#1\limits^{#3}";     // small slot over large slot
+// lim/tb      = "\mathop#1\limits_{#2}^{#3}";// small slots over/under large slot
+lim         = "\underset{#2}{\mathop{#1}}\,"; // small slot under large slot
+lim/t       = "\overset{#3}{\mathop{#1}}\,";  // small slot over large slot
+lim/tb      = "\underset{#2}{\overset{#3}{\mathop{#1}}}\,";  // small slots over/under large slot
+
+// =====================================================
+// General Large Operators (like Integrals and Summations)
+// =====================================================
+
+intop/t   = "\mathop{#4}^{#3}";             // big sub/superscript operator (upper limit)
+intop/b   = "\mathop{#4}_{#2}";             // big sub/superscript operator (lower limit)
+intop     = "\mathop{#4}_{#2}^{#3}";          // big sub/superscript operator (both limits)
+// when/if texvc supports \limits for mathops, we can use this commented contructions
+// sumop/t   = "\mathop{#4}\limits^{#3}";               // big under/overscript operator (upper limit)
+// sumop/b   = "\mathop{#4}\limits_{#2}";               // big under/overscript operator (lower limit)
+// sumop     = "\mathop{#4}\limits_{#2}^{#3}";            // big under/overscript operator (both limits)
+sumop/t   = "\overset{#3}{\mathop #4}\,";                // big under/overscript operator (upper limit)
+sumop/b   = "\underset{#2}{\mathop #4}\,";               // big under/overscript operator (lower limit)
+sumop     = "\underset{#2}{\overset{#3}{\mathop #4}}\,"; // big under/overscript operator (both limits)
+
+// =====================================================
+// Summations
+// =====================================================
+
+sum/nol     = "\sum{#1}";                   // sum, no limits
+sum/b       = "\sum\limits_{#2}{#1}";         // sum, lower limit only
+sum         = "\sum\limits_{#2}^{#3}{#1}";      // sum, both limits
+sum/int/b   = "\sum\nolimits_{#2}{#1}";       // sum, lower limit only (sub/superscript)
+sum/int     = "\sum\nolimits_{#2}^{#3}{#1}";    // sum, both limits (sub/superscript)
+
+// =====================================================
+// Products and Coproducts
+// =====================================================
+
+prod/nol       = "\prod{#1}";                     // product, no limits
+prod/b         = "\prod\limits_{#2}{#1}";           // product, lower limit only
+prod           = "\prod\limits_{#2}^{#3}{#1}";        // product, both limits
+prod/int/b     = "\prod\nolimits_{#2}{#1}";         // product (sub/superscript), lower limit only
+prod/int       = "\prod\nolimits_{#2}^{#3}{#1}";      // product (sub/superscript), both limits
+coprod/nol     = "\coprod{#1}";                   // coproduct, no limits
+coprod/b       = "\coprod\limits_{#2}{#1}";         // coproduct, lower limit only
+coprod         = "\coprod\limits_{#2}^{#3}{#1}";      // coproduct, both limits
+coprod/int/b   = "\coprod\nolimits_{#2}{#1}";       // coproduct (sub/superscript), lower limit only
+coprod/int     = "\coprod\nolimits_{#2}^{#3}{#1}";    // coproduct (sub/superscript), both limits
+
+// =====================================================
+// Unions and Intersections
+// =====================================================
+
+inter/nol    = "\bigcap{#1}";                   // intersection, no limits
+inter/b      = "\bigcap\limits_{#2}{#1}";         // intersection, lower limit only
+inter        = "\bigcap\limits_{#2}^{#3}{#1}";      // intersection, both limits
+inter/int/b  = "\bigcap\nolimits_{#2}{#1}";       // intersection (sub/superscript), lower limit only
+inter/int    = "\bigcap\nolimits_{#2}^{#3}{#1}";    // intersection (sub/superscript), both limits
+union/nol    = "\bigcup{#1}";                   // union, no limits
+union/b      = "\bigcup\limits_{#2}{#1}";         // union, lower limit only
+union        = "\bigcup\limits_{#2}^{#3}{#1}";      // union, both limits
+union/int/b  = "\bigcup\nolimits_{#2}{#1}";       // union (sub/superscript), lower limit only
+union/int    = "\bigcup\nolimits_{#2}^{#3}{#1}";    // union (sub/superscript), both limits
+
+// =====================================================
+// Integrals
+// =====================================================
+
+int/nol       = "\int{#1}";                   // single integral, no limits
+int/sum       = "\int\limits_{#2}^{#3}{#1}";  // single under/overscript integral, both limits
+int           = "\int_{#2}^{#3}{#1}";         // single integral, both limits
+int/sum/b     = "\int\limits_{#2}{#1}";       // single under/overscript integral, lower limit
+int/b         = "\int_{#2}{#1}";              // single integral, lower limit
+int/ex/nol	  = "\int{#1}";                   // single expanding integral, no limits
+int/ex/sum    = "\int\limits_{#2}^{#3}{#1}";  // single expanding under/overscript integral, both limits
+int/ex        = "\int_{#2}^{#3}{#1}";         // single expanding integral, both limits
+int/ex/sum/b  = "\int\limits_{#2}{#1}";       // single expanding under/overscript integral, lower limit
+int/ex/b      = "\int_{#2}{#1}";              // single expanding integral, lower limit
+
+// =====================================================
+// Contour, Area and Volume Integrals
+// =====================================================
+
+int/c/nol     = "\oint{#1}";                // contour integral, no limits
+int/c/sum     = "\oint\limits_{#2}{#1}";      // contour under/overscript integral, lower limit
+int/c         = "\oint_{#2}{#1}";             // contour integral, lower limit
+int/2/c/nol   = "\mathop{{\int\!\!\!\!\!\int}\mkern-21mu \bigcirc} @n #1 ";                               // area integral, no limits
+int/2/c/sum   = "\mathop{{\int\!\!\!\!\!\int}\mkern-21mu \bigcirc}\limits_#2 @n #1 ";                     // area under/overscript integral, lower limit
+int/2/c       = "\mathop{{\int\!\!\!\!\!\int}\mkern-21mu \bigcirc}\nolimits_#2 @n #1 ";                   // area integral, lower limit
+int/3/c/nol   = "\mathop{{\int\!\!\!\!\!\int\!\!\!\!\!\int}\mkern-31.2mu \bigodot} @n #1 ";               // volume integral, no limits
+int/3/c/sum   = "\mathop{{\int\!\!\!\!\!\int\!\!\!\!\!\int}\mkern-31.2mu \bigodot}\limits_#2 @n #1 ";     // volume under/overscript integral, lower limit
+int/3/c       = "\mathop{{\int\!\!\!\!\!\int\!\!\!\!\!\int}\mkern-31.2mu \bigodot}\nolimits_#2 @n #1 ";   // volume integral, lower limit
+
+
+// =====================================================
+// Bars Under and Over Multiple Characters
+// =====================================================
+
+obar        = "\overline{#1}";                               // over-bar
+obar/2      = "\overline{\overline{#1}}";                    // double over-bar
+ubar        = "\underline{#1}";                              // under-bar
+ubar/2      = "\underline{\underline{#1}}";                  // double under-bar
+
+// =====================================================
+// Arrows Under and Over Several Characters
+// =====================================================
+
+vec/l      = "\overleftarrow{#1}";          // Left arrow over-bar
+vec        = "\overrightarrow{#1}";         // Right arrow over-bar
+vec/lr     = "\overleftrightarrow{#1}";     // Double headed arrow over-bar
+
+// =====================================================
+// Boxes
+// =====================================================
+
+box/tl   =   "\left| \!{\overline {\, @n #1 \,}} \right. ";       // Box (top & left sides)
+box/tr   =   "\left. {\overline {\, @n #1 \,}}\! \right| ";       // Box (top & right sides)
+box/bl   =   "\left| \!{\nderline {\,@n  #1 \,}} \right. ";      // Box (bottom & left sides)
+box/br   =   "\left. {\underline {\, @n #1 \,}}\! \right| ";      // Box (bottom & right sides)
+
+// =====================================================
+// Hats, Tildes, Smiles & Frowns (wide ones, over several characters)
+// =====================================================
+
+tilde = "\widetilde{#1}";      // Tilde
+hat   = "\widehat{#1}";        // Hat
+arc   = "\overset\frown{#1}";   // Frown, does not stretch over several characters
+
+
+// =====================================================
+// Function Translations
+// =====================================================
+
+func/"Pr"       = "\Pr ";
+func/"arccos"   = "\arccos ";
+func/"arcsin"   = "\arcsin ";
+func/"arctan"   = "\arctan ";
+func/"arccot"   = "\arccot ";
+func/"arccsc"   = "\arccsc ";
+func/"arcsec"   = "\arcsec ";
+func/"arg"      = "\arg ";
+func/"cos"      = "\cos ";
+func/"cosh"     = "\cosh ";
+func/"cot"      = "\cot ";
+func/"coth"     = "\coth ";
+func/"csc"      = "\csc ";
+func/"deg"      = "\deg ";
+func/"det"      = "\det ";
+func/"dim"      = "\dim";
+func/"exp"      = "\exp ";
+func/"gcd"      = "\gcd ";
+func/"hom"      = "\hom ";
+func/"inf"      = "\inf ";
+func/"ker"      = "\ker ";
+func/"lg"       = "\lg ";
+func/"lim"      = "\lim ";
+func/"liminf"   = "\liminf ";
+func/"limsup"   = "\limsup ";
+func/"ln"       = "\ln ";
+func/"log"      = "\log ";
+func/"max"      = "\max ";
+func/"min"      = "\min ";
+func/"mod"      = "\bmod ";
+func/"sec"      = "\sec ";
+func/"sgn"      = "\sgn ";
+func/"sin"      = "\sin ";
+func/"sinh"     = "\sinh ";
+func/"sup"      = "\sup ";
+func/"tan"      = "\tan ";
+func/"tanh"     = "\tanh ";
+
+// =====================================================
+// Embellishment Translations
+// =====================================================
+
+earc          = "\overset{\lower0.5em\hbox{$\smash{\scriptscriptstyle\frown}$}}{#}";          // Frown above
+earc/s        = "\overset{\lower0.5em\hbox{$\smash{\scriptscriptstyle\smile}$}}{#}";          // Smile above
+earc/u        = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\frown}$}}{#}";         // Frown below
+earc/u/s      = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\smile}$}}{#}";         // Smile below
+edot          = "\dot{#}";                                                                // one dot over
+edot/2        = "\ddot{#}";                                                               // two dots over
+// edot/3       = "\dddot{#}";                                                           // three dot over
+// edot/4       = "\ddddot{#}";                                                          // four dots over
+edot/u        = "\underset{\scriptscriptstyle\centerdot}{#}";                              // one dot under
+edot/u/2      = "\underset{\scriptscriptstyle\centerdot\centerdot}{#}";                    // two dots under
+edot/u/3      = "\underset{\cdots}{#}";                                                    // three dot under
+edot/u/4      = "\underset{\scriptscriptstyle\centerdot\centerdot\centerdot\centerdot}{#}";// four dots under
+ehat          = "\hat{#}";        // hat over
+enot          = "\not{#}";        // not (diagonal strikethrough)
+eobar         = "\bar{#}";
+eprime        = "{#}'";            // one prime
+eprime/2      = "{#}''";           // two primes
+eprime/3      = "{#}'''";          // three primes
+eprime/b      = "{}^\backprime{#}";   // back prime
+// estrike/m    = "\rlap{--}{#}";
+etilde        = "\tilde{#}";      // tilde over
+etilde/u      = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\thicksim}$}}{#}";  // tilde under
+eubar         = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle-}$}}{#}";            // Under bar
+evec          = "\vec{#}";
+evec/h        = "\overset{\lower0.5em\hbox{$\smash{\scriptscriptstyle\rightharpoonup}$}} {#}";   // Right harpoon above
+evec/h/l      = "\overset{\lower0.5em\hbox{$\smash{\scriptscriptstyle\leftharpoonup}$}} {#}";    // Left harpoon above
+evec/l        = "\overset{\lower0.5em\hbox{$\smash{\scriptscriptstyle\leftarrow}$}}{#}";         // Left arrow above
+evec/lr       = "\overset{\lower0.5em\hbox{$\smash{\scriptscriptstyle\leftrightarrow}$}} {#}";   // Left-right arrow above
+evec/u        = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\rightarrow}$}}{#}";       // Right arrow above
+evec/u/h      = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\rightharpoonup}$}} {#}";  // Right harpoon above
+evec/u/h/l    = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\leftharpoonup}$}} {#}";   // Left harpoon above
+evec/u/l      = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\leftarrow}$}}{#}";        // Left arrow above
+evec/u/lr     = "\underset{\raise0.3em\hbox{$\smash{\scriptscriptstyle\leftrightarrow}$}} {#}";  // Left-right arrow above
+
+// =====================================================
+// Integrals
+// =====================================================
+
+int/2/nol     = "\iint{#1}";                // double integral, no limits
+int/2/sum     = "\iint\limits_{#2}{#1}";      // double under/overscript integral, lower limit
+int/2         = "\iint_{#2}{#1}";             // double integral, lower limit
+int/3/nol     = "\iiint{#1}";               // triple integral, no limits
+int/3/sum     = "\iiint\limits_{#2}{#1}";     // triple under/overscript integral, lower limit
+int/3         = "\iiint_{#2}{#1}";            // triple integral, lower limit
+int/2/ex/nol  = "\iint{#1}";                // double expanding integral, no limits
+int/2/ex/sum  = "\iint\limits_{#2}{#1}";      // double expanding under/overscript integral, lower limit
+int/2/ex      = "\iint_{#2}{#1}";             // double expanding integral, lower limit
+int/3/ex/nol  = "\iiint{#1}";               // triple expanding integral, no limits
+int/3/ex/sum  = "\iiint\limits_{#2}{#1}";     // triple expanding under/overscript integral, lower limit
+int/3/ex      = "\iiint_{#2}{#1}";            // triple expanding integral, lower limit
+
+// =====================================================
+// Contour, Area and Volume Integrals
+// =====================================================
+
+int/ccw/nol  = "\mathop{\int\mkern-20.8mu \circlearrowleft} @n #1 ";                // Integral with counter-clockwise loop without limits
+int/ccw/sum  = "\mathop{\int\mkern-20.8mu \circlearrowleft}\limits_#2 @n #1 ";      // Integral with counter-clockwise loop with underscript limit
+int/ccw      = "\mathop{\int\mkern-20.8mu \circlearrowleft}\nolimits_#2 @n #1 ";    // Integral with counter-clockwise loop with subscript limit
+int/cw/nol   = "\mathop{\int\mkern-20.8mu \circlearrowright} @n #1 ";               // Integral with clockwise loop without limits
+int/cw/sum   = "\mathop{\int\mkern-20.8mu \circlearrowright}\limits_#2 @n #1 ";     // Integral with clockwise loop with underscript limit
+int/cw       = "\mathop{\int\mkern-20.8mu \circlearrowright}\nolimits_#2 @n #1 ";   // Integral with clockwise loop with subscript limit
+
+// =====================================================
+// Arrows Under and Over Several Characters
+// =====================================================
+
+// vec/lr     = "\overleftrightarrow #1";     // Double arrow over-bar
+vec/u/l    = "\underleftarrow{#1}";         // Left arrow under-bar
+vec/u      = "\underrightarrow{#1}";        // Right arrow under-bar
+// vec/u/lr   = "\underleftrightarrow #1";    // Double arrow under-bar
+
+// =====================================================
+// Boxes
+// =====================================================
+
+// box = "\boxed#1";    // Box
+// box/r = "?"       // Box with rounded corners
+
+// =====================================================
+// Embellishment Translations
+// =====================================================
+
+
+// ======================================================
+// end of TeX (AMS base)
+// ======================================================
+
+
+// =====================================================
+// Piles
+// =====================================================
+
+// Pile translation (default, embedded)
+pile      = "\begin{align}@n  & # \\ @n & #  @n\end{align}";                   // default
+pile/l    = "\begin{align}@n  & # \\ @n & # \\ @n\end{align}";      // left justified
+pile/c    = "\begin{matrix}@n  # \\ @n  # \\ @n\end{matrix}";                   // centered
+pile/r    = "\begin{align}@n  # & \\@n  # & \\ @n\end{align}";      // right justified
+// pile/al   = "\begin{aligned}@n  # \\ @n  # \\ @n\end{aligned}";                     // aligned at alignment mark
+
+// Top level pile translation
+pile/t      = "\begin{align}@n  & # \\ @n & #  @n\end{align}";                   // default
+pile/t/l    = "\begin{align}@n  & # \\ @n & # \\ @n\end{align}";      // left justified
+pile/t/c    = "\begin{matrix}@n  # \\ @n  # \\ @n\end{matrix}";                   // centered
+pile/t/r    = "\begin{align}@n  # & \\@n  # & \\ @n\end{align}";      // right justified
+// pile/t/al   = "\begin{aligned}@n  # \\ @n  # \\ @n\end{aligned}";                     // aligned at alignment mark
+
+// 2-line limit pile translation (as in limit of summation)
+pile/lim/2        = "\begin{smallmatrix} @n #1 \\ @n #2 @n\end{smallmatrix}";                                              // default
+// pile/lim/2/l      = "\begin{subarray}{l} @n  #1 \\ @n  #2 @n\end{subarray}";              // left justified
+// pile/lim/2/c      = "\substack{ #1 \\ #2 }";                                              // centered
+// pile/lim/2/r      = "\begin{subarray} @n \hfill #1 \\ @n \hfill #2 @n\end{subarray}";     // right justified
+
+// 3-line limit pile translation (as in limit of summation)
+pile/lim/3        = "\begin{smallmatrix} @n #1 \\ @n #2 @n \\ @n #3 @n\end{smallmatrix}";                                              // default
+// pile/lim/3/l      = "\begin{subarray}{l} @n  #1 \\ @n  #2 \\ @n  #3 @n\end{subarray}";                     // left justified
+// pile/lim/3/c      = "\substack{ #1 \\ #2 \\ #3 }";                                                         // centered
+// pile/lim/3/r      = "\begin{subarray} @n  \hfill #1 \\ @n  \hfill #2 \\ @n  \hfill #3 @n\end{subarray}";   // right justified
+
+// =====================================================
+// Matrices and Matrix Elements
+// =====================================================
+
+// Matrix translation (not allowing for partition lines, but better spacing)
+matrix      = "\begin{matrix}@n#\end{matrix}";
+
+// Matrix translation (allowing for partition lines, but worse spacing)
+// matrix      = "\begin{array}{*{200}{c}}@n#\end{array}";
+
+// for texvc (no blahtex)
+matrix/l = "\begin{array}{*{35}{l}}@n#\end{array}";  //	left-aligned
+matrix/r = "\begin{array}{*{35}{r}}@n#\end{array}";  //   right-aligned
+// matrix/c // centered (default)
+// matrix/eq	equals-aligned (actually, any relational operator)
+// matrix/dec
+
+// Matrix row translation
+matrow   = "  # \\@n";
+
+// Matrix element translation (except for last element in row) (override Tex (base))
+matelem     = " # &";									 // default
+// matelem/l   = " # \hfill &";           // Left justified
+// matelem/c   = " # &";                  // Center justified
+// matelem/r   = " \hfill # &";           // Right justified
+
+// Matrix element translation (last element in row only)
+matelem/last     = " # ";              // default
+// matelem/last/l   = " # \hfill ";       // Left justified
+// matelem/last/c   = " # ";              // Center justified
+// matelem/last/r   = " \hfill #";        // Right justified
+
+// =====================================================
+// Partition Lines for Matrices & Tables
+// =====================================================
+
+//  Horizontal matrix partition lines (solid, dashed, dotted)
+//  Only solid lines are supported in TeX
+// hline       = "\hline@n";           // Solid
+// hline/dash  = "\hline@n";           // Dashed
+// hline/dot   = "\hline@n";           // Dotted
+
+//  Vertical matrix partition lines (solid, dashed, dotted)
+//  Only solid lines are supported in TeX
+// vline       = "\vline & ";          // Solid
+// vline/dash  = "\vline & ";          // Dashed
+// vline/dot   = "\vline & ";          // Dotted
+
+// =====================================================
+// Strike-through templates
+// =====================================================
+// strike/m = "?"       // Mid-line strike-through
+strike    = "\xcancel{#1}";          // Strike-through
+strike/up = "\cancel{#1}";           // Strike-through (bottom-left to upper-right)
+strike/dn = "\bcancel{#1}";          // Strike-through (top-left to bottom-right)
+
+// =====================================================
+// Arrows with Slots Above and Below
+// =====================================================
+
+arrow       = "\xrightarrow{#1}";                           // right arrow, box on top
+arrow/l     = "\xleftarrow{#1}";                            // left arrow, box on top
+arrow/lr    = "\overset{#1}{\longleftrightarrow}";           // both arrow, box on top
+arrow/b     = "\xrightarrow[#2]{}";                         // right arrow, box on bottom
+arrow/l/b   = "\xleftarrow[#2]{}";                          // left arrow, box on bottom
+arrow/lr/b  = "\underset{#2}{\longleftrightarrow}";          // both arrow, box on bottom
+
+arrow/tb      = "\xrightarrow[#2]{#1}";                                // Right arrow with upper & lower text slots
+arrow/l/tb    = "\xleftarrow[#2]{#1}";                                 // Left arrow with upper & lower text slots
+arrow/lr/tb   = "\underset{#2}{\overset{#1}{\longleftrightarrow}}";    // Double-headed arrow with upper & lower text slots
+
+arrow/2       = "\overset{#1}{leftrightarrows}";     // Double arrow with upper text slot
+arrow/2/b     = "\underset{#2}{\leftrightarrows}";             // Double arrow with lower text slot
+arrow/2/tb    = "\underset{#2}{\overset{#1}{\longleftrightarrow}}";            // Double arrow with upper & lower text slots
+// arrow/2/los = "?"           // Large over small arrow with upper text slot
+// arrow/2/los/b = "?"         // Large over small arrow with lower text slot
+// arrow/2/los/tb = "?"        // Large over small arrow with upper & lower text slots
+// arrow/2/sol = "?"           // Small over large arrow with upper text slot
+// arrow/2/sol/b = "?"         // Small over large arrow with lower text slot
+// arrow/2/sol/tb = "?"        // Small over large arrow with upper & lower text slots
+// arrow/2/h = "?"             // Harpoons with upper text slot
+// arrow/2/h/b = "?"           // Harpoons with lower text slot
+// arrow/2/h/tb = "?"          // Harpoons with upper & lower text slots
+// arrow/2/h/los = "?"         // Large over small harpoon with upper text slot
+// arrow/2/h/los/b = "?"       // Large over small harpoon with lower text slot
+// arrow/2/h/los/tb = "?"      // Large over small harpoon with upper & lower text slots
+// arrow/2/h/sol = "?"         // Small over large harpoon with upper text slot
+// arrow/2/h/sol/b = "?"       // Small over large harpoon with lower text slot
+// arrow/2/h/sol/tb = "?"      // Small over large harpoon with upper & lower text slots
+
+// =====================================================
+// Hats, Tildes, Smiles & Frowns (wide ones, over several characters)
+// =====================================================
+
+// arc = "?"                    // Arc
+// jstat = "?"                  // Joint status
+// vec/h = "?"                  // Right harpoon over-bar
+// vec/u/h = "?"                // Right harpoon under-bar
+
+include "Texvc (chars).tdl";

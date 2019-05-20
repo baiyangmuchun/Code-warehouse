@@ -1,0 +1,50 @@
+MathType Output Translator 1.0: "Texify", "Texify v2.00 by Design Science, Inc.", website
+
+// Copyright (c) 1998-2013 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the file name, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Texify.tdl 7     10/31/13 7:54a Jimm $
+
+include "AMS LaTeX (base vars).tdl";
+// redefinitions of base variables
+
+var/"TranslatorName" = "Texify";
+var/"TranslatorFileName" = "Texify.tdl";
+
+var/"BeginMathDisplay" = "";
+var/"BeginMathInline" = "";
+var/"EndMathDisplay" = "";
+var/"EndMathInline" = "";
+
+// supress comments and MTEF data
+var/"EqnDataCmt"= "";
+var/"StdStartCmt"= "";
+var/"StdEndCmt"= "";
+
+var/"MatrixAlignGroup" = "{c}";
+var/"MatrixCenterAlignGroup" = "{ccccccccccccccc}";
+var/"MatrixLeftAlignGroup" =   "{lllllllllllllll}";
+var/"MatrixRightAlignGroup" =  "{rrrrrrrrrrrrrrr}";
+
+include "AMS LaTeX (base rules).tdl";
+// redefinitions of base file rules
+
+char/0xF0A4     = "\mathbb{k} ";                 // Blackboard-bold small k
+frac/sm      = "\frac{#1}{#2}";      // piece fraction
+
+// no gathered for Texify (also, note it likes having two alignment markers &)
+pile      = "\begin{align}&&#<NextRow>&&#\end{align}";      // default
+pile/l    = "\begin{align}&&#<NextRow>&&#\end{align}";      // left justified
+pile/c    = "\begin{align}&#&<NextRow>&#&\end{align}";      // centered
+pile/r    = "\begin{align}#&&<NextRow>#&&\end{align}";      // right justified
+pile/al   = error "<newline>No translation available for aligned piles for Texify."; // align at marker (cannot do it)
+
+// Top level pile translation
+pile/t      = "\begin{align}&&#<NextRow>&&#\end{align}";      // default
+pile/t/l    = "\begin{align}&&#<NextRow>&&#\end{align}";      // left justified
+pile/t/c    = "\begin{align}&#&<NextRow>&#&\end{align}";      // centered
+pile/t/r    = "\begin{align}#&&<NextRow>#&&\end{align}";      // right justified
+pile/t/al   = error "<newline>No translation available for aligned piles for Texify.";      // align at marker (cannot do it)

@@ -1,0 +1,18 @@
+MathType Output Translator 1.0: "TalentLMS", "TalentLMS translator v1.00 by Design Science, Inc.", website, html, public
+
+// Copyright (c) 1998-2012 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/TalentLMS.tdl 1     9/28/12 8:34a Eduardot $
+
+include "Google (chart api vars).tdl";
+// redefinitions of base variables
+
+var/"TranslatorName" = "TalentLMS";
+var/"TranslatorFileName" = "TalentLMS.tdl";
+
+include "Google (chart api rules).tdl";
+

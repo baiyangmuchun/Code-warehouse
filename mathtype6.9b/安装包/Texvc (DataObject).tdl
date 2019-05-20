@@ -1,0 +1,67 @@
+MathType Output Translator 1.0: "Texvc (DataObject)", "Texvc for DataObject translator v1.00 by Design Science, Inc.", hidden
+
+// Copyright (c) 2007-2010 by Design Science, Inc.
+// License: You are allowed to create your own translators based on the contents of this file
+// solely for use with MathType. It is recommended that you change the filename, title, and description
+// in the first line of this file so as to reflect your modifications and the change of author and purpose.
+// Design Science, Inc. is not responsible for any damages caused by the use of this file or derived works.
+
+// $Header: /MathType/Translators/Texvc (DataObject).tdl 9     1/24/12 8:59a Eduardot $
+
+include "Texvc (base vars).tdl";
+// redefinitions of base variables
+
+var/"TranslatorName" = "Texvc (DataObject)";
+var/"TranslatorFileName" = "Texvc (DataObject).tdl";
+
+// supress comments and MTEF data
+var/"EqnDataCmt"= "";
+var/"StdStartCmt"= "";
+var/"StdEndCmt"= "";
+
+include "Texvc (base rules).tdl";
+// redefinitions of base rules
+
+// taking out some hack in hte base rules that do not roundtrip well
+
+frac/sl      = "{}^{#1}/{}_{#2}";  // diagonal fraction (normal)
+frac/sl/sm   = "{\scriptstyle{}^{#1}/{}_{#2}}";      // diagonal fraction (subscript-size)
+
+earc          = "\overset{\scriptscriptstyle\frown}{#}";          // Frown above
+earc/s        = "\overset{\scriptscriptstyle\smile}{#}";          // Smile above
+earc/u        = "\underset{\scriptscriptstyle\frown}{#}";         // Frown below
+earc/u/s      = "\underset{\scriptscriptstyle\smile}{#}";         // Smile below
+
+etilde/u      = "\underset{\scriptscriptstyle\thicksim}{#}";      // tilde under
+eubar         = "\underset{\scriptscriptstyle-}{#}";              // Under bar
+evec/h        = "\overset{\scriptscriptstyle\rightharpoonup}{#}"; // Right harpoon above
+evec/h/l      = "\overset{\scriptscriptstyle\leftharpoonup}{#}";  // Left harpoon above
+evec/l        = "\overset{\scriptscriptstyle\leftarrow}{#}";      // Left arrow above
+evec/lr       = "\overset{\scriptscriptstyle\leftrightarrow}{#}"; // Left-right arrow above
+evec/u        = "\underset{\scriptscriptstyle\rightarrow}{#}";    // Right arrow above
+evec/u/h      = "\underset{\scriptscriptstyle\rightharpoonup}{#}";// Right harpoon above
+evec/u/h/l    = "\underset{\scriptscriptstyle\leftharpoonup}{#}"; // Left harpoon above
+evec/u/l      = "\underset{\scriptscriptstyle\leftarrow}{#}";     // Left arrow above
+evec/u/lr     = "\underset{\scriptscriptstyle\leftrightarrow}{#}";// Left-right arrow above
+
+// There are no good alternatives to these, but could be modified here for TeX-toggle if desired
+
+//int/2/c/nol   = "\mathop{{\int\!\!\!\!\!\int}\mkern-21mu \bigcirc} @n #1 ";                               // area integral, no limits
+//int/2/c/sum   = "\mathop{{\int\!\!\!\!\!\int}\mkern-21mu \bigcirc}\limits_#2 @n #1 ";                     // area under/overscript integral, lower limit
+//int/2/c       = "\mathop{{\int\!\!\!\!\!\int}\mkern-21mu \bigcirc}\nolimits_#2 @n #1 ";                   // area integral, lower limit
+//int/3/c/nol   = "\mathop{{\int\!\!\!\!\!\int\!\!\!\!\!\int}\mkern-31.2mu \bigodot} @n #1 ";               // volume integral, no limits
+//int/3/c/sum   = "\mathop{{\int\!\!\!\!\!\int\!\!\!\!\!\int}\mkern-31.2mu \bigodot}\limits_#2 @n #1 ";     // volume under/overscript integral, lower limit
+//int/3/c       = "\mathop{{\int\!\!\!\!\!\int\!\!\!\!\!\int}\mkern-31.2mu \bigodot}\nolimits_#2 @n #1 ";   // volume integral, lower limit
+
+//int/ccw/nol  = "\mathop{\int\mkern-20.8mu \circlearrowleft} @n #1 ";                // Integral with counter-clockwise loop without limits
+//int/ccw/sum  = "\mathop{\int\mkern-20.8mu \circlearrowleft}\limits_#2 @n #1 ";      // Integral with counter-clockwise loop with underscript limit
+//int/ccw      = "\mathop{\int\mkern-20.8mu \circlearrowleft}\nolimits_#2 @n #1 ";    // Integral with counter-clockwise loop with subscript limit
+//int/cw/nol   = "\mathop{\int\mkern-20.8mu \circlearrowright} @n #1 ";               // Integral with clockwise loop without limits
+//int/cw/sum   = "\mathop{\int\mkern-20.8mu \circlearrowright}\limits_#2 @n #1 ";     // Integral with clockwise loop with underscript limit
+//int/cw       = "\mathop{\int\mkern-20.8mu \circlearrowright}\nolimits_#2 @n #1 ";   // Integral with clockwise loop with subscript limit
+
+//box/tl   =   "\left| \!{\overline {\, @n #1 \,}} \right. ";     // Box (top & left sides)
+//box/tr   =   "\left. {\overline {\, @n #1 \,}}\! \right| ";     // Box (top & right sides)
+//box/bl   =   "\left| \!{\nderline {\,@n  #1 \,}} \right. ";     // Box (bottom & left sides)
+//box/br   =   "\left. {\underline {\, @n #1 \,}}\! \right| ";    // Box (bottom & right sides)
+
