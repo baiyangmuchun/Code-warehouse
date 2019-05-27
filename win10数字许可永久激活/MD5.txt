@@ -1,0 +1,90 @@
+﻿Name: DigitalLicense.exe
+Size: 1.94 MB (2,039,744 byte)
+Version: 2.7.9.0
+
+MD5: 0AE3873B40565387C8978CB7F097D5CC
+SHA1: AC72A1A9AA8B5A30F05EF952C89FB32148C8BE3F
+SHA256: 700845D0B7FC5B1ED5AFE08E317B932F1AE322AA158498DB2AA24936E3E1BCAF
+
+Virustotal
+https://www.virustotal.com/#/file/700845d0b7fc5b1ed5afe08e317b932f1ae322aa158498db2aa24936e3e1bcaf/detection
+
+v2.7.9
+添加保存门票功能，添加德语。
+由Rambin精简slshim.c源代码，重编译slc.dll（大小仅6.5KB）。
+修复专业教育版(N)检测的SKU值不正确的问题。
+Add save tickets checkbox, add german language.
+Streamlining the slshim.c source code and recompile slc.dll by Rambin.  (size is only 6.5KB).
+Fix the problem that professionalEducation(N) SKU value detected is incorrect.
+v2.7.8
+为语言选择下拉菜单添加滚动条。
+添加罗马尼亚语、荷兰语、阿尔巴尼亚语；修正阿拉伯语言。
+Add scrollbar for Language selection drop-down menu.
+Add Romanian, Dutch, Albanian language；Fixed Arabic language.
+v2.7.7
+更新系统检测代码，加快检测速度。
+添加捷克语；修正繁体中文和希腊语翻译。
+Update system detection code to speed up inspection
+Add Czech language; Fixed translation errors in chinese(traditional)  and Greek.
+v2.7.6
+所有过程都修改为异步执行，程序将实现秒开。
+添加繁体中文、波斯尼亚语；修正意大利语翻译错误的地方。
+All processes are modified for asynchronous execution and the program will open within 1 second.
+Add Traditional Chinese, Bosnian; Fixed translation errors in Italian.
+v2.7.5
+修复LTSB 2015 N版不能激活的问题。
+添加越南语
+添加西班牙语(国际)
+添加塞尔维亚语
+Fix issue where LTSB 2015 N cannot be activated.
+Add Vietnamese language.
+Add Spanish language. (International)
+Add Serbian language. 
+v2.7.3
+添加ServerRdsh版本。
+Add ServerRdsh edition.
+v2.7.2
+添加意大利语
+Add Italian language.
+
+v2.7.1
+添加波兰语
+Add Polish language.
+
+v2.7
+高分屏下，禁用DPI缩放。(待测试)
+添加葡萄牙语(巴西)
+添加西班牙语(厄瓜多尔)
+Disable DPI scaling in high resolution monitor. (To be tested)
+Add Portuguese Language. (Brazil)
+Add Spanish Language. (Ecuador)
+
+v2.6.8
+修复在system32目录下运行会报错的问题。
+Fix the problem that running in the system32 directory will be reported incorrectly.
+
+v2.6.7
+语言设置改为保存到注册表，不会再生成settings.bin文件。
++获取系统信息改为窗体显示后，提高软件打开的速度。
+The language setting save to the registry, The settings.bin file no longer be generated .
+[HKEY_CURRENT_USER\Software\W10DigitalLicense]
+"LangSetting"="zh_cn"
+
+v2.6.6
+添加法语，韩语。
+Add French, Korean.
+
+v2.6.5
+更新代码，激活时异步执行(async)，不会卡界面了。
+Execute activation events asynchronously, Fix UI thread not responding promptly.
+
+
+
+
+
+
+
+
+
+
+
