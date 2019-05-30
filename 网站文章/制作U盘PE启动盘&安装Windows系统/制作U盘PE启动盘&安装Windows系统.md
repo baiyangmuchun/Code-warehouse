@@ -1,5 +1,3 @@
-## 制作U盘PE启动盘 & 安装Windows系统
-
 好吧，最近在公司经常要找我装电脑系统...
 
 不得不写个教程总结一下
@@ -17,37 +15,7 @@
 参考：[**无垠PE组合工具箱纯净无广告的PE启动盘**](https://ipydev.com/article/23/)
 
 - 下载Windows10系统
-
-提供几个我现在用的Windows系统
-
-```powershell
-Windows 10 专业版（零售版） ：
-文件版本：64位的Windows 10 专业版
-文件名称：cn_windows_10_multi-edition_version_1709_updated_sept_2017_x64_dvd_100090804.iso
-SHA-1值：9306895149F9328CDB77FF28368F83EE984BDC30
-文件大小：4.42GB
-发布时间：2017-10-18
-下载地址：ed2k://|file|cn_windows_10_multi-edition_version_1709_updated_sept_2017_x64_dvd_100090804.iso
-|4740610048|37051C54894776826823DAEBDD03F1DC|/
-
-
-Windows10 x64 Version 1803 简体中文零售（家庭版、家庭单语言版、教育版、专业版）
-文件名：cn_windows_10_consumer_edition_version_1803_updated_sep_2018_x64_dvd_a3fcbed0.iso
-SHA1：6a1ea61d8bea5837a0b6be0fdcbba7ebd88712aa
-文件大小：4.93GB
-发布时间：2018-09-19
-磁力链接：ed2k://|file|cn_windows_10_consumer_edition_version_1803_updated_sep_2018_x64_dvd_a3fcbed0.iso
-
-
-版本名称：Windows 10  x64 教育版、企业版、专业版、专业教育版、专业工作站版（推荐）
-文件名称: cn_windows_10_business_editions_version_1903_x64_dvd_e001dd2c.iso
-SHA-1: bc6176bee6130446421aca236e7944ee88c92fe8
-文件大小：4.48GB
-发布日期：2019-04-19
-下载地址：ed2k://|file|cn_windows_10_business_editions_version_1903_x64_dvd_e001dd2c.iso
-
-下载说明：此地址为ed2k协议需要使用迅雷才能下载此镜像文件 
-```
+  （自行到网上下载）
 
 ## 制作PE启动盘
 
@@ -79,19 +47,21 @@ SHA-1: bc6176bee6130446421aca236e7944ee88c92fe8
 
 ## 安装系统
 
-进入PE之后有很多方法安装系统，也可以分区。
+可以进入PE后重新分区
+进入PE之后有很多方法安装系统，也可以分区。这个PE已经自带了分区软件。
 
 这里介绍一个比较简单的方法吧。
 
 直接将系统用硬盘拉到电脑里，然后直接打开点击 `setup.exe`安装，按照说明操作即可
 
+另一个方法：Windows 系统安装部署工具 WinNTSetup
 
+<img src="https://i.loli.net/2019/05/30/5cefa2b222a3466782.png" alt="WinNTSetup.png" title="WinNTSetup.png"  height="50%" width="50%"/>
 
----
+------
 
 有其他问题下方留言
 
 
 
 推荐阅读：[**修改cmd命令行中的用户名**](https://ipydev.com/article/9/)
-
