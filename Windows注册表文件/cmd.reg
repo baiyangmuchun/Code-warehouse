@@ -1,22 +1,21 @@
 Windows Registry Editor Version 5.00
- 
- 
+
 [HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\background\shell\cmd Here]
 @="在此处打开命令行"
 "Icon"="cmd.exe"
- 
- 
+
 [HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\background\shell\cmd Here\command]
 @="\"C:\\Windows\\System32\\cmd.exe\""
- 
- 
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shell\cmdPrompt]
+@="在此处打开命令行"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shell\cmdPrompt\command]
 @="\"C:\\Windows\\System32\\cmd.exe\" \"cd %1\""
- 
- 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\shell\cmd Here] 
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\shell\cmd Here]
 @="在此处打开命令行"
 "Icon"="cmd.exe"
- 
- 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\shell\cmd Here\command] 
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\shell\cmd Here\command]
 @="\"C:\\Windows\\System32\\cmd.exe\""
