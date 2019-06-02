@@ -261,6 +261,8 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 我本地开发是使用压缩的本地文件，部署前，我使用了BootCDN文件进行了测试，发现jQuery会影响我的部分样式，所有我只使用了除 `jquery`外的CDN免费加速。（如果大家的项目是完全使用bootstrap开发的前端，自然是可以考虑使用这个免费的CDN加速服务的）
 
+主要修改`base.html `和 `reply`
+
 ```html
 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -800,6 +802,51 @@ sudo uwsgi --ini /home/ShibaInu/mysite/uwsgi.ini
 ```
 
 
+
+最好的设置：
+
+`uwsgi.ini`放在 `/root` 目录下（`nginx.conf`最好也是，不过一般不需要修改这个配置文件）
+
+```ini
+[uwsgi]
+#http= :8080
+socket =  :8080
+# Django-related settings
+# the base directory (full path)
+chdir           = /home/ShibaInu/mysite
+# Django's wsgi file
+module          = mysite.wsgi
+# the virtualenv (full path)
+home            = /home/ShibaInu/env/
+
+# process-related settings
+# master
+master          = true
+processes=4     #进程数量
+threads=2      #线程数量
+max-requests=1000
+# the socket (use the full path to be safe）
+#socket          = /root/mysite/mysite.sock
+# ... with appropriate permissions - may be needed
+#chmod-socket    = 664
+# clear environment on exit
+vacuum          = true
+# 日志文件
+daemonize = /root/uwsgi.log
+# pid文件，用于脚本启动、停止该进程
+pidfile = /root/uwsgi.pid    
+# 静态文件目录
+# static-map = /static=/home/ShibaInu/mysite/static
+```
+
+
+
+修改项目文件后，重启`uwsgi.ini`
+
+```bash
+sudo uwsgi --ini uwsgi.ini
+sudo uwsgi --reload uwsgi.pid
+```
 
 
 
