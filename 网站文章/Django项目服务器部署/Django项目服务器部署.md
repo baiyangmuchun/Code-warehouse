@@ -323,6 +323,8 @@ pip install -r requirements.txt
 
 ## 测试Django项目
 
+注意这里必须使用管理员root 身份进行测试，普通用户可能会出现权限问题，例如无法post 数据到服务器
+
 ### 测试项目运行情况
 
 #### 迁移静态文件
@@ -868,7 +870,10 @@ pidfile = /root/uwsgi.pid
 修改项目文件后，重启`uwsgi.ini`
 
 ```bash
+# 启动 uwsgi
 sudo uwsgi --ini uwsgi.ini
+
+# 重启 uwsgi 重启即可
 sudo uwsgi --reload uwsgi.pid
 ```
 
