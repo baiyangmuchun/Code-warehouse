@@ -6,6 +6,8 @@
 
 这里选择的部署环境是：Unbatu16.04，Django2.2，Python3.5.2，MySQL5.7，nginx1.10.3，uwsgi-2.0.18
 
+下面的教程仅供参考！
+
 
 
 ## 准备工作
@@ -154,6 +156,8 @@ DATABASES = {
 ```
 
 
+
+### MySQL数据创建查看删除
 
 登录MySQL之后：
 
@@ -321,19 +325,23 @@ pip install -r requirements.txt
 
 ### 测试项目运行情况
 
-迁移静态文件
+#### 迁移静态文件
 
 ```python
 python manage.py migrate
 ```
 
-创建超级用户：需要输入用户名，邮箱，密码，确认密码
+#### 创建超级用户
+
+需要输入用户名，邮箱，密码，确认密码
 
 ```python
 python manage.py createsuperuser
 ```
 
-测试运行：这里0.0.0.0指的是默认本地IP即服务器IP，8000是运行端口，你可以设置为其他的，insecure指的需要加载静态文件，否则静态文件不会加载
+#### 测试运行
+
+这里0.0.0.0指的是默认本地IP即服务器IP，8000是运行端口，你可以设置为其他的，insecure指的需要加载静态文件，否则静态文件不会加载
 
 ```python
 python manage.py runserver 0.0.0.0:8000 --insecure
@@ -400,6 +408,14 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 大家也可能会出现其他问题，只需要根据错误信息找到相应的解决方法即可。
 
 一切测试都已经通过的话，就可以修改`DEBUG=False`了
+
+
+
+## 删除测试数据
+
+删掉数据库，新建一个即可，重新迁移一下数据库就可以了
+
+然后需要重新设置超级管理
 
 
 
@@ -650,7 +666,7 @@ $ certbot --version
 如果服务器上的 443 端口正在被占用，请先关闭对应的服务进程
 否则可能个导致 certbot 运行出错
 
-以命令交互方式开始制作证书
+以命令交互方式开始制作证书（首次运行会让你输一次邮箱）
 $ certbot certonly    --------> 开启命令
 
 root@localhost:~# certbot certonly
@@ -801,7 +817,13 @@ sudo kill -9 uwsgi_pid)number
 sudo uwsgi --ini /home/ShibaInu/mysite/uwsgi.ini
 ```
 
+上面这种方法是很粗鲁的，因为有可能造成程序错误，导致出现服务器`500`错误...
 
+经过查看文档和网上的资料，得到了一种简单优雅的方法，就是下面的方法。
+
+
+
+### 重新设置 uwsgi.ini
 
 最好的设置：
 
@@ -841,12 +863,18 @@ pidfile = /root/uwsgi.pid
 
 
 
+### 重启 uwsgi.ini
+
 修改项目文件后，重启`uwsgi.ini`
 
 ```bash
 sudo uwsgi --ini uwsgi.ini
 sudo uwsgi --reload uwsgi.pid
 ```
+
+
+
+这样子的话，我就可以每天实时修改一些自己想修改的内容了
 
 
 
