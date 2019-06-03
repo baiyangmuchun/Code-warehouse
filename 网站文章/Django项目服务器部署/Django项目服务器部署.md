@@ -865,13 +865,16 @@ pidfile = /root/uwsgi.pid
 
 
 
-### 重启 uwsgi.ini
+### 重启 启动 关闭 uwsgi.ini
 
 修改项目文件后，重启`uwsgi.ini`
 
 ```bash
 # 启动 uwsgi
 sudo uwsgi --ini uwsgi.ini
+
+# 关闭 uwsgi
+sudo uwsgi --stop uwsgi.pid
 
 # 重启 uwsgi 重启即可
 sudo uwsgi --reload uwsgi.pid
